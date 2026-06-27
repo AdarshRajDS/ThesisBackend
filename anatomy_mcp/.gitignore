@@ -1,0 +1,38 @@
+# Python/runtime
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+.env
+
+# Local chatbot environment
+mcp_lmstudio_chatbot/.env
+
+# Generated anatomy exports and caches
+exports/**
+!exports/.gitkeep
+!exports/glb/
+!exports/glb/.gitkeep
+!exports/preview/
+!exports/preview/.gitkeep
+!exports/annotations/
+!exports/annotations/.gitkeep
+!exports/packages/
+!exports/packages/.gitkeep
+!exports/cache/
+!exports/cache/.gitkeep
+!exports/scene_scan/
+!exports/scene_scan/.gitkeep
+
+# Generated logs
+logs/**
+!logs/.gitkeep
+
+# Local viewer screenshots/checks
+viewer/headless-check*.png
+
+# OS/editor noise
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/

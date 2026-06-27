@@ -1,0 +1,243 @@
+/* WhatsApp-inspired green theme overrides */
+
+:root {
+  --wa-green: #25d366;
+  --wa-green-dark: #128c7e;
+  --wa-green-deep: #075e54;
+  --wa-green-soft: #dcf8c6;
+  --wa-green-muted: #e7f8ef;
+}
+
+.app-header {
+  background: linear-gradient(
+    135deg,
+    rgba(7, 94, 84, 0.88) 0%,
+    rgba(18, 140, 126, 0.85) 100%
+  ) !important;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  padding: 0.5rem 1.5rem !important;
+  box-shadow: 0 2px 12px rgba(7, 94, 84, 0.25);
+}
+
+.header-btn:hover {
+  background: rgba(255, 255, 255, 0.22) !important;
+}
+
+.avatar-user {
+  background: linear-gradient(135deg, var(--wa-green) 0%, var(--wa-green-dark) 100%) !important;
+}
+
+.message-user .message-content {
+  background: var(--wa-green-muted) !important;
+}
+
+.upload-label:hover {
+  border-color: var(--wa-green-dark) !important;
+  background: var(--wa-green-muted) !important;
+}
+
+.quick-link:hover,
+.topic-item:hover {
+  background: var(--wa-green-muted) !important;
+  border-color: var(--wa-green) !important;
+}
+
+.topic-item.active {
+  background: #c8f0dc !important;
+  color: var(--wa-green-deep) !important;
+  font-weight: 600;
+}
+
+.topic-item.active .topic-dot {
+  background: var(--wa-green) !important;
+}
+
+.welcome-message {
+  background: linear-gradient(135deg, var(--wa-green-muted) 0%, #b8ebd4 100%) !important;
+  border-color: #9fd9b8 !important;
+}
+
+.welcome-message h2,
+.welcome-message p {
+  color: var(--wa-green-deep) !important;
+}
+
+.message-input:focus {
+  border-color: var(--wa-green-dark) !important;
+  box-shadow: 0 0 0 3px rgba(37, 211, 102, 0.2) !important;
+}
+
+.send-btn,
+.upload-submit-btn {
+  background: linear-gradient(135deg, var(--wa-green) 0%, var(--wa-green-dark) 100%) !important;
+  box-shadow: 0 4px 12px rgba(37, 211, 102, 0.35) !important;
+}
+
+.send-btn:hover:not(:disabled) {
+  box-shadow: 0 6px 16px rgba(37, 211, 102, 0.45) !important;
+}
+
+.attach-btn {
+  flex-shrink: 0;
+  padding: 0.75rem;
+  border: 2px solid #e5e7eb;
+  border-radius: 12px;
+  background: white;
+  color: var(--wa-green-deep);
+  cursor: pointer;
+  transition: all 0.2s;
+}
+
+.attach-btn:hover {
+  border-color: var(--wa-green);
+  background: var(--wa-green-muted);
+}
+
+.type-badge {
+  color: var(--wa-green-deep) !important;
+  background: var(--wa-green-muted) !important;
+}
+
+.confidence-badge {
+  color: var(--wa-green-dark) !important;
+}
+
+.pinned-3d-panel {
+  margin-bottom: 1.5rem;
+  border-radius: 16px;
+  overflow: hidden;
+  border: 2px solid #334155;
+}
+
+.pinned-3d-header {
+  display: flex;
+  align-items: baseline;
+  justify-content: space-between;
+  gap: 1rem;
+  padding: 0.75rem 1rem;
+  background: #0f172a;
+  color: #e2e8f0;
+}
+
+.pinned-3d-header h3 {
+  margin: 0;
+  font-size: 0.9375rem;
+  font-weight: 600;
+}
+
+.pinned-3d-meta {
+  font-size: 0.75rem;
+  color: #94a3b8;
+}
+
+.pinned-3d-loading {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
+  padding: 2rem;
+  background: #1e293b;
+  color: #cbd5e1;
+  font-size: 0.875rem;
+}
+
+.pinned-3d-error {
+  padding: 1rem;
+  background: #fef2f2;
+  color: #b91c1c;
+  font-size: 0.875rem;
+  margin: 0;
+}
+
+.suggestions-container {
+  background: linear-gradient(135deg, #f0fdf4 0%, #dcfce7 100%) !important;
+  border-color: #bbf7d0 !important;
+}
+
+.suggestions-header {
+  color: var(--wa-green-deep) !important;
+}
+
+.suggestion-card {
+  border-color: #bbf7d0 !important;
+}
+
+.suggestion-card:hover {
+  border-color: var(--wa-green) !important;
+  box-shadow: 0 8px 20px rgba(37, 211, 102, 0.2) !important;
+}
+
+.card-action {
+  background: linear-gradient(135deg, #dcf8c6 0%, #b8ebd4 100%) !important;
+  border-top: 1px solid #9fd9b8 !important;
+  color: var(--wa-green-deep) !important;
+  font-weight: 600;
+}
+
+.card-action:hover {
+  background: linear-gradient(135deg, #25d366 0%, #128c7e 100%) !important;
+  color: #fff !important;
+}
+
+.asset-badge {
+  background: rgba(37, 211, 102, 0.2) !important;
+  border-color: rgba(37, 211, 102, 0.35) !important;
+  color: #86efac !important;
+}
+
+.preset-btn:hover,
+.control-btn.active {
+  border-color: var(--wa-green) !important;
+}
+
+.control-btn.active {
+  background: rgba(37, 211, 102, 0.35) !important;
+}
+
+/* Override remaining blue accents from anatomy-chatbot.css */
+.app-header {
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.topic-item.active {
+  border-color: var(--wa-green) !important;
+}
+
+.msg-source-quote {
+  border-left-color: var(--wa-green-dark) !important;
+}
+
+.external-sources a {
+  color: var(--wa-green-deep) !important;
+}
+
+.upload-label:hover,
+.message-input:focus,
+.topic-item:hover {
+  border-color: var(--wa-green) !important;
+}
+
+.pinned-3d-empty {
+  padding: 1.25rem 1.5rem;
+  background: #1e293b;
+  color: #cbd5e1;
+  font-size: 0.875rem;
+  line-height: 1.55;
+}
+
+.pinned-3d-empty code {
+  background: rgba(255, 255, 255, 0.08);
+  padding: 0.1rem 0.35rem;
+  border-radius: 4px;
+  font-size: 0.8em;
+}
+
+.logo-text h1 {
+  font-size: 1.125rem !important;
+  line-height: 1.25 !important;
+}
+
+.tagline {
+  font-size: 0.75rem !important;
+  opacity: 0.9;
+}

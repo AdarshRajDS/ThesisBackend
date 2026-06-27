@@ -1,0 +1,73 @@
+# Run MinIO for local object storage: docker compose up -d minio
+# Console: http://localhost:9001 (minioadmin / minioadmin unless you set MINIO_ROOT_*)
+#
+# License (MinIO Enterprise/SUBNET): set MINIO_LICENSE_FILE in .env to your license file path,
+# then uncomment the license volume below so the container sees /minio.license.
+version: "3.9"
+
+services:
+  minio:
+    image: minio/minio:latest
+    container_name: thesis-minio
+    ports:
+      - "9000:9000" # S3 API
+      - "9001:9001" # Web console
+    environment:
+      MINIO_ROOT_USER: ${MINIO_ROOT_USER:-minioadmin}
+      MINIO_ROOT_PASSWORD: ${MINIO_ROOT_PASSWORD:-minioadmin}
+      # Optional: path or content for MinIO Enterprise/SUBNET (if using license file, prefer volume mount below)
+      # MINIO_LICENSE: ${MINIO_LICENSE_FILE:-}
+    command: server /data --console-address ":9001"
+    volumes:
+      - minio_data:/data
+      # Mount license file (uncomment and set MINIO_LICENSE_FILE in .env to e.g. ./minio.license)
+      # - ${MINIO_LICENSE_FILE:-./minio.license}:/minio.license:ro
+    healthcheck:
+      test: ["CMD", "mc", "ready", "local"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+    restart: unless-stopped
+
+  backend:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: thesis-backend
+    ports:
+      - "7860:7860"
+    environment:
+      # Supabase storage mode (preferred)
+      STORAGE_PROVIDER: supabase
+      MINIO_ENABLED: "false"
+      SUPABASE_URL: ${SUPABASE_URL}
+      SUPABASE_SERVICE_ROLE_KEY: ${SUPABASE_SERVICE_ROLE_KEY}
+      SUPABASE_BUCKET: ${SUPABASE_BUCKET:-anatomy-images}
+      BLENDER_SERVER_URL: http://blender:8000
+      ALLOWED_ORIGINS: http://localhost:3000
+    depends_on:
+      - blender
+    volumes:
+      - .:/code
+    restart: unless-stopped
+
+  blender:
+    build:
+      context: .
+      dockerfile: Dockerfile.blender
+    container_name: thesis-blender
+    ports:
+      - "8001:8000"
+    environment:
+      BLENDER_FAST_RENDER: ${BLENDER_FAST_RENDER:-true}
+      BLENDER_FORCE_WORKBENCH: ${BLENDER_FORCE_WORKBENCH:-true}
+      BLENDER_ENABLE_AUTOEXEC: ${BLENDER_ENABLE_AUTOEXEC:-false}
+      BLENDER_RENDER_TIMEOUT_SECONDS: ${BLENDER_RENDER_TIMEOUT_SECONDS:-900}
+      BLENDER_ASSETS_DIR: /code/assets
+    volumes:
+      - .:/code
+    shm_size: "2gb"
+    restart: unless-stopped
+
+volumes:
+  minio_data: {}

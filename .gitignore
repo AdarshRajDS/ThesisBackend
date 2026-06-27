@@ -1,0 +1,75 @@
+# Secrets and local env
+.env
+.env.local
+*.license
+minio.license
+
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+.Python
+*.egg-info/
+.eggs/
+dist/
+build/
+.pytest_cache/
+.mypy_cache/
+.ruff_cache/
+.coverage
+htmlcov/
+
+# Virtual environments (including accidental venv folder names)
+.venv/
+.venv311/
+venv/
+ENV/
+\#/
+3.10/
+if/
+install/
+needed/
+pyenv/
+via/
+
+# Node / frontend
+frontend/node_modules/
+frontend/.next/
+frontend/out/
+npm-debug.log*
+yarn-debug.log*
+yarn-error.log*
+
+# Data, outputs, uploads (generated at runtime)
+data/
+outputs/
+uploads/
+
+# OS / editor
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+.cursor/
+*.swp
+*.swo
+
+# Docker / local dev noise
+terminals/
+agent-transcripts/
+
+# Large optional local assets (keep repo clone-friendly)
+assets/**/*.blend
+assets/**/*.glb
+assets/z-anatomy/
+anatomy_mcp/exports/**
+!anatomy_mcp/exports/.gitkeep
+!anatomy_mcp/exports/glb/.gitkeep
+!anatomy_mcp/exports/preview/.gitkeep
+!anatomy_mcp/exports/annotations/.gitkeep
+!anatomy_mcp/exports/packages/.gitkeep
+!anatomy_mcp/exports/cache/.gitkeep
+!anatomy_mcp/exports/scene_scan/.gitkeep
+anatomy_mcp/logs/**
+!anatomy_mcp/logs/.gitkeep

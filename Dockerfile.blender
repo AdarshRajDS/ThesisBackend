@@ -1,0 +1,56 @@
+FROM ubuntu:22.04
+
+WORKDIR /code
+
+ENV PYTHONUNBUFFERED=1
+# Tell Mesa/EGL to use software rendering — no GPU needed in Docker
+ENV LIBGL_ALWAYS_SOFTWARE=1
+
+RUN apt-get update && apt-get install -y \
+    python3-pip \
+    wget \
+    bzip2 \
+    # OpenGL / EGL — required by EEVEE even in --background mode
+    libgl1-mesa-glx \
+    libgl1-mesa-dri \
+    libegl1 \
+    libegl-mesa0 \
+    # OSMesa — software rasterizer used by Cycles CPU rendering
+    libosmesa6 \
+    # X11 libs Blender links against even headlessly
+    libxi6 \
+    libxrender1 \
+    libxext6 \
+    libsm6 \
+    libxfixes3 \
+    libxkbcommon0 \
+    libxxf86vm1 \
+    && rm -rf /var/lib/apt/lists/*
+
+# Download and install Blender 4.0
+RUN wget -O blender.tar.xz https://download.blender.org/release/Blender4.0/blender-4.0.2-linux-x64.tar.xz \
+    && tar -xf blender.tar.xz \
+    && mv blender-4.0.2-linux-x64 /opt/blender \
+    && rm blender.tar.xz
+
+ENV PATH="/opt/blender:$PATH"
+
+# Install Pillow into Blender's own bundled Python (not system python3).
+# System pip packages are invisible to Blender's Python interpreter.
+RUN BLENDER_PYTHON=$(find /opt/blender -type f -name "python3*" | grep "/bin/python3" | head -1) \
+    && echo "Found Blender Python: $BLENDER_PYTHON" \
+    && "$BLENDER_PYTHON" -m ensurepip --upgrade \
+    && "$BLENDER_PYTHON" -m pip install --upgrade pip \
+    && "$BLENDER_PYTHON" -m pip install Pillow
+
+RUN python3 -m pip install --upgrade pip
+RUN python3 -m pip install \
+    fastapi \
+    uvicorn \
+    pydantic \
+    python-dotenv \
+    minio \
+    supabase
+
+EXPOSE 8000
+CMD ["python3", "-m", "uvicorn", "src.mcp.server:app", "--host", "0.0.0.0", "--port", "8000", "--log-level", "info"]

@@ -1,0 +1,40 @@
+[project]
+name = "multimodal-rag-thesis"
+version = "0.1.0"
+description = "Add your description here"
+readme = "README.md"
+requires-python = ">=3.10,<3.12"
+
+
+dependencies = [
+    "chromadb>=1.5.0",
+    "python-dotenv>=1.0.1",
+    "langchain>=0.2.0",
+    "langchain-chroma>=0.1.0",
+    "langchain-community>=0.2.0",
+    "langchain-huggingface>=0.0.3",
+    "pymupdf",
+    "pillow",
+    "matplotlib",
+    "streamlit",
+    "onnxruntime<1.17",
+    "opencv-python-headless==4.8.1.78",
+    "sentence-transformers==2.7.0",
+    "numpy<2",
+    "torch==2.2.2",
+    "langchain-groq>=1.1.2",
+    "fastapi>=0.129.0",
+    "uvicorn>=0.40.0",
+    "pydantic>=2.12.5",
+    "python-multipart>=0.0.22",
+    "minio>=7.2.20",
+    "supabase",
+]
+
+
+[build-system]
+requires = ["setuptools"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]

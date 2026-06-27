@@ -1,0 +1,38 @@
+.git
+.gitignore
+.DS_Store
+.env
+.venv
+venv
+3.10
+pyenv
+__pycache__
+*.pyc
+*.pyo
+*.pyd
+*.log
+
+# Local/editor artifacts
+.vscode
+.idea
+.cursor
+terminals
+agent-transcripts
+
+# Build/cache artifacts
+build
+dist
+*.egg-info
+.pytest_cache
+.mypy_cache
+.ruff_cache
+
+# Large/generated project folders not needed in image
+data/logs
+outputs
+examples
+tests
+needed
+install
+if
+via

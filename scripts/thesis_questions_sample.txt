@@ -1,0 +1,27 @@
+# One question per line. Lines starting with # are ignored.
+
+What is the difference between the upper motor neuron and the lower motor neuron?
+Where is the cell body of the upper motor neuron located, and where does it synapse?
+What is gray matter versus white matter in the CNS?
+Define the neuromuscular junction and what happens there.
+What is the role of the cerebellum in motor control?
+Describe the pathway from cerebral cortex to skeletal muscle for voluntary movement (high level).
+What structures make up the brainstem?
+What is a synapse?
+Quote or summarize what the text says about upper motor neuron and cerebral cortex.
+According to the document, what happens after the brain integrates sensory and cognitive information before a motor response?
+List the two cells that compose the motor pathway as named in the chapter.
+What is the recommended first-line drug for hypertension in adults per NICE 2024?
+What is the capital of France?
+Explain CRISPR gene editing in detail.
+Tell me everything about the brain.
+What is the nervous system?
+How does memory work?
+Describe the illustration of the motor pathway on the page where it appears in your book.
+What does the diagram of the nervous system show about gray and white matter?
+wat is broinstem
+Upper motor neuron — short definition.
+What is neuroplasticity in one or two sentences, as used in your sources?
+What is the function of the blood–brain barrier?
+What is the difference between CNS and PNS?
+What did the paper "Attention Is All You Need" prove about transformers?
