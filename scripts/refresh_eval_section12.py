@@ -13,6 +13,10 @@ REPO = Path(__file__).resolve().parents[1]
 def main() -> None:
     script = REPO / "scripts" / "build_eval_section12.py"
     subprocess.check_call([sys.executable, str(script)])
+    subprocess.check_call(
+        [sys.executable, str(REPO / "scripts" / "build_thesis_dashboard.py")],
+        cwd=REPO,
+    )
 
 
 if __name__ == "__main__":

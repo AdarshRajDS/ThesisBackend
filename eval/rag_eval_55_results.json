@@ -1,19 +1,12 @@
 {
   "meta": {
-    "ts": "2026-07-12T12:58:40.586282+00:00",
+    "ts": "2026-07-12T15:08:35.140811+00:00",
     "base_url": "http://127.0.0.1:8000",
     "endpoint": "/rag/ask",
     "language": "en",
     "allow_world_knowledge": false,
     "timeout_s": 900,
-    "count": 37,
-    "llm_provider": "lmstudio",
-    "model_configured": "qwen3.5-9b-deepseek-v4-flash",
-    "models_loaded_observed": [
-      "qwen3.5-9b-deepseek-v4-flash",
-      "biomistral-7b"
-    ],
-    "api_base": "http://127.0.0.1:1234/v1"
+    "count": 55
   },
   "results": [
     {
@@ -2284,6 +2277,776 @@
         "render_3d_annotations_url": null,
         "render_3d_anatomy": null,
         "render_3d_suggestions": []
+      },
+      "error": null
+    },
+    {
+      "id": "R-Q03",
+      "category": "quotation",
+      "question": "Quote the sentence that defines gray matter.",
+      "gold": "Exact sentence from PDF",
+      "response": {
+        "answer": "\n\n\"These two regions within nervous system structures are often referred to as gray matter (the regions with many cell bodies and dendrites) or white matter.\"",
+        "images": [
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_19_img_1.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_133_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_71_img_0.jpeg"
+        ],
+        "sources": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 17,
+            "chunk_preview": "and regions that are largely composed of just axons. These two regions within nervous system structures are often referred\nto as gray matter (the regions with many cell bodies and dendrites) or white matter (the regions with many axons). Figure\n12.3 demonstrates the appearance of these regions in the brain and spinal cord. The colors ascribed to these regions are\nwhat would be seen in “fresh,” or …"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 16,
+            "chunk_preview": "Relate the functional and structural differences between gray matter and white matter structures of the nervous\nsystem to the structure of neurons\n•\nList the basic functions of the nervous system\nThe picture you have in your mind of the nervous system probably includes the brain, the nervous tissue contained within\nthe cranium, and the spinal cord, the extension of nervous tissue within the verteb…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 18,
+            "chunk_preview": "Figure 12.3 Gray Matter and White Matter\nA brain removed during an autopsy, with a partial section removed,\nshows white matter surrounded by gray matter. Gray matter makes up the outer cortex of the brain. (credit: modification\nof work by “Suseno”/Wikimedia Commons)\nRegardless of the appearance of stained or unstained tissue, the cell bodies of neurons or axons can be located in\ndiscrete anatomica…"
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 30,
+            "chunk_preview": "nervous system illustrates the concept very well.\nFresh, unstained nervous tissue can be described as gray or white matter, and within those two types of tissue it can be\nvery hard to see any detail. However, as specific regions and structures have been described, they were related to specific\nCHAPTER 13 | ANATOMY OF THE NERVOUS SYSTEM\n513"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 19,
+            "chunk_preview": "game indicate the separation of white and gray matter compared with the freshly dissected tissue shown earlier?\nStructures of the CNS and PNS\nCNS\nPNS\nGroup of Neuron Cell Bodies (i.e., gray matter) Nucleus Ganglion\nBundle of Axons (i.e., white matter)\nTract\nNerve\nTable 12.1\nCHAPTER 12 | THE NERVOUS SYSTEM AND NERVOUS TISSUE\n473"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 125,
+            "chunk_preview": "cones marginally, and the “blue” cones predominantly. The relative activation of the three different cones is calculated by\nthe brain, which perceives the color as blue. However, cones cannot react to low-intensity light, and rods do not sense the\ncolor of light. Therefore, our low-light vision is—in essence—in grayscale. In other words, in a dark room, everything\nappears as a shade of gray. If yo…"
+          }
+        ],
+        "grounding": {
+          "had_retrieved_passages_in_prompt": true,
+          "unique_text_passages_used": 6,
+          "used_multimodal_text_excerpts": false,
+          "primary_basis": "retrieved_corpus_synthesized",
+          "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+          "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+        },
+        "render_3d_url": null,
+        "render_3d_model_url": null,
+        "render_3d_viewer_url": null,
+        "render_3d_annotations_url": null,
+        "render_3d_anatomy": null,
+        "render_3d_suggestions": [
+          "7: Nervous system & Sense organs",
+          "Anterior cochlear nucleus.l",
+          "Anterior commissure",
+          "Anterior horn of spinal cord",
+          "Bonus collection",
+          "Brain"
+        ]
+      },
+      "error": null
+    },
+    {
+      "id": "R-Q04",
+      "category": "quotation",
+      "question": "Repeat word-for-word the first paragraph of the cerebellum section.",
+      "gold": "Exact paragraph",
+      "response": null,
+      "error": "timed out"
+    },
+    {
+      "id": "R-Q05",
+      "category": "quotation",
+      "question": "Provide the Latin name for the thigh bone exactly as printed.",
+      "gold": "Femur",
+      "response": null,
+      "error": "HTTP Error 500: Internal Server Error"
+    },
+    {
+      "id": "R-B01",
+      "category": "boundary",
+      "question": "What is the capital of France?",
+      "gold": "Refuse (off-topic)",
+      "response": null,
+      "error": "timed out"
+    },
+    {
+      "id": "R-B02",
+      "category": "boundary",
+      "question": "What is the recommended first-line drug for hypertension in adults per NICE 2024?",
+      "gold": "Refuse (not in corpus)",
+      "response": null,
+      "error": "HTTP Error 500: Internal Server Error"
+    },
+    {
+      "id": "R-B03",
+      "category": "boundary",
+      "question": "Explain CRISPR gene editing in detail.",
+      "gold": "Refuse without world knowledge",
+      "response": {
+        "answer": "\n\nNo uploaded passages were retrieved from the text index or multimodal store. The following explanation is based on general biological knowledge.\n\n### CRISPR-Cas9 Gene Editing: A Detailed Overview\n\n**CRISPR (Clustered Regularly Interspaced Short Palindromic Repeats)** is a family of DNA sequences found in prokaryotes that function as part of an adaptive immune system against viruses. The **Cas9 enzyme**, guided by a synthetic RNA molecule, allows scientists to precisely edit genomes in eukaryotic cells (including human cells). This technology has revolutionized genetic research and holds promise for treating hereditary diseases.\n\n---\n\n#### 1. Core Components\n- **Guide RNA (gRNA):** A custom-designed RNA sequence that is complementary to a specific target DNA site. It directs the Cas9 enzyme to the exact location in the genome.\n- **Cas9 protein:** An endonuclease (DNA-cutting enzyme) that creates double-strand breaks at the site specified by the gRNA.\n- **PAM sequence:** A short DNA motif (e.g., 5'-NGG-3' for *Streptococcus pyogenes* Cas9) adjacent to the target site, required for Cas9 binding and cleavage.\n\n---\n\n#### 2. Mechanism of Action\n1. **Design & Delivery:** Scientists design a gRNA that matches the DNA sequence they wish to edit. The gRNA–Cas9 complex is delivered into cells (via plasmids, viral vectors, or ribonucleoprotein complexes).\n2. **Target Recognition:** Cas9 scans the genome for sequences matching the gRNA and adjacent PAM sites. When found, it unwinds a short stretch of DNA.\n3. **Cleavage:** If the match is perfect (or near-perfect), Cas9 cuts both strands of the DNA at a specific position 3 base pairs upstream of the PAM. This creates a double-strand break (DSB).\n4. **Cellular Repair:** The cell attempts to repair the DSB using one of two primary pathways:\n   - **Non-homologous end joining (NHEJ):** An error-prone process that often introduces small insertions or deletions (indels) at the cut site, potentially disrupting a gene (gene knockout).\n   - **Homology-directed repair (HDR):** If a donor DNA template is provided, the cell can use it to precisely replace the broken sequence with new genetic material (e.g., correcting a mutation or inserting a functional gene). HDR works best in S/G2 phases of the cell cycle.\n\n---\n\n#### 3. Applications\n- **Gene Knockout:** Disrupting genes to study their function or create animal models for human diseases.\n- **Gene Correction:** Fixing point mutations (e.g., sickle cell anemia, cystic fibrosis) by providing a correct DNA template via HDR.\n- **Base Editing & Prime Editing:** Advanced variants that allow single-base changes without creating DSBs, reducing off-target effects and improving safety.\n- **Epigenetic Editing:** Using Cas9 fused to epigenetic modifiers (e.g., methyltransferases or demethylases) to alter gene expression without changing the DNA sequence.\n\n---\n\n#### 4. Challenges & Considerations\n- **Off-target Effects:** Cas9 may cut unintended genomic sites with similar sequences, potentially causing mutations. Improved gRNA design and high-fidelity Cas9 variants mitigate this risk.\n- **On-target Inefficiency:** Some target sites are difficult to edit due to chromatin structure or lack of HDR activity in certain cell types (e.g., non-dividing neurons).\n- **Delivery Methods:** Efficiently delivering large CRISPR components into specific tissues remains a hurdle; viral vectors and lipid nanoparticles are being optimized.\n- **Ethical & Regulatory Issues:** Germline editing (heritable changes) is widely prohibited due to safety concerns and moral implications. Somatic cell editing for therapeutic use is under active clinical investigation.\n\n---\n\n#### 5. Current Status in Medicine\nCRISPR-based therapies have already been approved by regulatory agencies (e.g., FDA, EMA). Examples include:\n- **Casgevy** (exagamglogene autotemcel) for sickle cell disease and beta-thalassemia (2023–2024).\n- Ongoing trials for HIV, cancer, and inherited retinal diseases.\n\nIn summary, CRISPR-Cas9 is a powerful, programmable tool that enables precise genome editing with broad applications in research, agriculture, and medicine. While challenges remain, continued innovation is expanding its capabilities and safety profile.",
+        "images": [
+          "http://localhost:8080/outputs/anatomy+phys+vol2a-30-60_page_7_img_1.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_36_img_1.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_110_img_0.jpeg"
+        ],
+        "sources": [],
+        "grounding": {
+          "had_retrieved_passages_in_prompt": false,
+          "unique_text_passages_used": 0,
+          "used_multimodal_text_excerpts": false,
+          "primary_basis": "general_knowledge_fallback",
+          "provenance_explanation": "No passages were retrieved from the text or multimodal text index for this query. The answer is driven mainly by the model's pretrained knowledge; treat it as ungrounded in your uploaded corpus.",
+          "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+        },
+        "render_3d_url": null,
+        "render_3d_model_url": null,
+        "render_3d_viewer_url": null,
+        "render_3d_annotations_url": null,
+        "render_3d_anatomy": null,
+        "render_3d_suggestions": []
+      },
+      "error": null
+    },
+    {
+      "id": "R-B04",
+      "category": "boundary",
+      "question": "What did the paper \"Attention Is All You Need\" prove about transformers?",
+      "gold": "Refuse (not in corpus)",
+      "response": {
+        "answer": "\n\nNo relevant document passages were retrieved from the text index or multimodal store. Based on general knowledge, the paper \"Attention Is All You Need\" proved that a transformer architecture relying solely on self-attention mechanisms could effectively model long-range dependencies in sequences without using recurrence or convolution, achieving state-of-the-art results on machine translation tasks.",
+        "images": [
+          "http://localhost:8080/outputs/anatomy+phys+vol2a-30-60_page_8_img_1.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_37_img_1.jpeg"
+        ],
+        "sources": [],
+        "grounding": {
+          "had_retrieved_passages_in_prompt": false,
+          "unique_text_passages_used": 0,
+          "used_multimodal_text_excerpts": false,
+          "primary_basis": "general_knowledge_fallback",
+          "provenance_explanation": "No passages were retrieved from the text or multimodal text index for this query. The answer is driven mainly by the model's pretrained knowledge; treat it as ungrounded in your uploaded corpus.",
+          "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+        },
+        "render_3d_url": null,
+        "render_3d_model_url": null,
+        "render_3d_viewer_url": null,
+        "render_3d_annotations_url": null,
+        "render_3d_anatomy": null,
+        "render_3d_suggestions": []
+      },
+      "error": null
+    },
+    {
+      "id": "R-B05",
+      "category": "boundary",
+      "question": "Tell me everything about the brain.",
+      "gold": "Bounded answer or scope clarification",
+      "response": {
+        "answer": "\n\nThe brain is the most complex organ of the central nervous system (CNS), located within the cranium and responsible for regulating consciousness, thought, memory, emotion, movement, and sensory processing. Based on anatomical context and general knowledge, here is a detailed overview:\n\n### Major Regions of the Adult Brain\nThe adult brain is divided into four primary regions:\n1. **Cerebrum** – The largest part, responsible for higher functions like reasoning, voluntary movement, sensation, language, and memory. It consists of two hemispheres connected by the corpus callosum.\n2. **Diencephalon** – Acts as a connection between the cerebrum and the rest of the nervous system (except olfaction). It includes structures such as the thalamus (relay station for sensory information) and hypothalamus (regulates homeostasis, hormones, and autonomic functions).\n3. **Brain Stem** – Comprises three parts:\n   - **Midbrain**: Involved in vision, hearing, motor control, sleep/wake cycles, and temperature regulation.\n   - **Pons**: Connects the cerebrum to the cerebellum and medulla; also plays a role in breathing and facial movements.\n   - **Medulla Oblongata** (from myelencephalon): Controls vital functions like heart rate, blood pressure, and respiration.\n4. **Cerebellum** – Located at the back of the brain stem, it coordinates voluntary movements, balance, and posture. It develops from the same embryonic vesicle as the pons.\n\n### Nervous Tissue Composition\nThe brain is made of nervous tissue, which contains two cell types:\n- **Neurons**: Excitable cells that transmit electrical signals.\n- **Glial cells** (neuroglia): Support neurons by providing nutrients, insulation, and waste removal.\n\nNervous tissue is further organized into:\n- **Gray matter**: Contains neuronal cell bodies, dendrites, and unmyelinated axons; involved in processing information.\n- **White matter**: Consists of myelinated axons that form communication pathways between different brain regions.  \n*(Note: Gray and white matter are not separate tissue types but structural arrangements within nervous tissue.)*\n\n### Connections and Embryology\n- The diencephalon serves as the main conduit for information flowing to and from the cerebrum, with one exception: olfactory signals connect directly to the cerebrum without passing through it.\n- During development, the brain forms from three primary vesicles (prosencephalon, mesencephalon, rhombencephalon). The pons and cerebellum arise from the same vesicle, while the medulla oblongata corresponds to the myelencephalon.\n\n### Functions and Conscious Experience\nThe brain’s regions are highly specialized: many separate areas handle distinct functions (e.g., motor control, sensory perception, language). A person’s conscious experiences—thoughts, feelings, memories—are based on neural activity within these interconnected networks. The spinal cord extends from the medulla oblongata as a single structure that continues into the vertebral column.\n\n### Summary\nIn essence, the brain is an intricate organ composed of four major regions (cerebrum, diencephalon, brain stem, cerebellum) built from neurons and glia arranged in gray and white matter. It connects to the rest of the nervous system via the diencephalon (except for smell), controls vital life functions through the brain stem, coordinates movement via the cerebellum, and enables conscious experience through its vast neural networks. While this overview covers key anatomical and functional aspects, the full complexity of the brain extends far beyond these basics.",
+        "images": [
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_196_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_71_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_68_img_0.jpeg"
+        ],
+        "sources": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 194,
+            "chunk_preview": "quote: “If the human brain were simple enough for us to understand, we would be too simple to understand it.” However,\nyou are being asked to understand aspects of it. A healthcare provider can pinpoint problems with the nervous system in\nminutes by running through the series of tasks to test neurological function that are described in this chapter. You can use\nthe same approach, though not as qui…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 72,
+            "chunk_preview": "The Diencephalon\nThe diencephalon is the one region of the adult brain that retains its name from embryologic development. The etymology\nof the word diencephalon translates to “through brain.” It is the connection between the cerebrum and the rest of the nervous\nsystem, with one exception. The rest of the brain, the spinal cord, and the PNS all send information to the cerebrum through\nthe dienceph…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 61,
+            "chunk_preview": "brain”) accounts for about 10 percent of the mass of the brain and is an important structure in itself. The most significant\nconnection between the cerebellum and the rest of the brain is at the pons, because the pons and cerebellum develop out of\nthe same vesicle. The myelencephalon corresponds to the adult structure known as the medulla oblongata. The structures\nthat come from the mesencephalon …"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 134,
+            "chunk_preview": "as the visual information travels through the visual pathway to the cortex.\n588\nCHAPTER 14 | THE BRAIN AND CRANIAL NERVES\nThis content is available for free at http://textbookequity.org/anatomy-and-physiology-volume-2 or at http://cnx.org/content/col11496/1.6"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 16,
+            "chunk_preview": "Relate the functional and structural differences between gray matter and white matter structures of the nervous\nsystem to the structure of neurons\n•\nList the basic functions of the nervous system\nThe picture you have in your mind of the nervous system probably includes the brain, the nervous tissue contained within\nthe cranium, and the spinal cord, the extension of nervous tissue within the verteb…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 66,
+            "chunk_preview": "13.2 | The Central Nervous System\nBy the end of this section, you will be able to:\n•\nName the major regions of the adult brain\n•\nDescribe the connections between the cerebrum and brain stem through the diencephalon, and from those regions\ninto the spinal cord\n•\nRecognize the complex connections within the subcortical structures of the basal nuclei\n•\nExplain the arrangement of gray and white matter…"
+          }
+        ],
+        "grounding": {
+          "had_retrieved_passages_in_prompt": true,
+          "unique_text_passages_used": 6,
+          "used_multimodal_text_excerpts": false,
+          "primary_basis": "retrieved_corpus_synthesized",
+          "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+          "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+        },
+        "render_3d_url": null,
+        "render_3d_model_url": null,
+        "render_3d_viewer_url": null,
+        "render_3d_annotations_url": null,
+        "render_3d_anatomy": null,
+        "render_3d_suggestions": [
+          " Posterior transverse collateral sulcus.l",
+          "7: Nervous system & Sense organs",
+          "Accessory nucleus of oculomotor nerve.l",
+          "Accessory nucleus of oculomotor nerve.r",
+          "Amygdaloid body",
+          "Amygdaloid body.l"
+        ]
+      },
+      "error": null
+    },
+    {
+      "id": "R-B06",
+      "category": "boundary",
+      "question": "What is the treatment dose of amoxicillin for otitis media?",
+      "gold": "Refuse (clinical / not in corpus)",
+      "response": {
+        "answer": "\n\nThe provided context does not contain any information about amoxicillin dosages for otitis media. Based on general medical knowledge (outside the scope of anatomy), the typical treatment dose of amoxicillin for acute otitis media in children is 80–90 mg/kg/day, divided into two doses every 12 hours, usually for a duration of 10 days. For adults or other populations, dosing may vary based on severity, renal function, and local antibiotic resistance patterns. It is important to note that this information is not medical advice; specific treatment should always be determined by a qualified healthcare professional considering the individual patient's condition.",
+        "images": [
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_115_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_116_img_1.jpeg"
+        ],
+        "sources": [
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 994,
+            "chunk_preview": "– urethrae externum  539, 546, 549, \n886–887\n– – internum  521–522, 880, 887\n– uteri externum  550, 871, 883, 885\n– – internum  550, 871, 883\n– uterinum tubae uterinae  553, \n884\n– vaginae  546, 875\n– valvae ilealis  477\n– venae cavae inferioris  326\n– venarum pulmonalium  328\notisches Vesikel  63\nOtitis media  698\n– Paukenhöhlenerguss  698\notoakustische Emission  706\nOtolithen (Otokonien)  701\nOt…"
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 702,
+            "chunk_preview": "698  \nKapitel 17 · Nervensystem und Sinnesorgane\n17\nIn Kürze\nhörigkeit. Die beim Kind kürzere, weitere und horizontal liegende Tube \nbedingt zusammen mit einer Verlegung des Tubeneinganges durch \nübergroße Rachendachtonsillen die Häufigkeit von Mittelohrentzün-\ndungen. Eine Entzündung der Paukenhöhlenschleimhaut (Mittelohr-\nentzündung, Otitis media) führt zu einem eitrigen Paukenhöhlenerguss, \ndas…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 114,
+            "chunk_preview": "neural signal. The middle ear is connected to the pharynx through the Eustachian tube, which helps equilibrate air pressure\nacross the tympanic membrane. The tube is normally closed but will pop open when the muscles of the pharynx contract\nduring swallowing or yawning.\nFigure 14.5 Structures of the Ear\nThe external ear contains the auricle, ear canal, and tympanic membrane. The\nmiddle ear contain…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 207,
+            "chunk_preview": "a disorder that can affect both equilibrium and audition in a variety of ways. The patient can suffer from vertigo, a low-\nfrequency ringing in the ears, or a loss of hearing. From patient to patient, the exact presentation of the disease can be\ndifferent. Additionally, within a single patient, the symptoms and signs may change as the disease progresses. Use of the\nneurological exam subtests for t…"
+          }
+        ],
+        "grounding": {
+          "had_retrieved_passages_in_prompt": true,
+          "unique_text_passages_used": 4,
+          "used_multimodal_text_excerpts": false,
+          "primary_basis": "retrieved_corpus_synthesized",
+          "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+          "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+        },
+        "render_3d_url": null,
+        "render_3d_model_url": null,
+        "render_3d_viewer_url": null,
+        "render_3d_annotations_url": null,
+        "render_3d_anatomy": null,
+        "render_3d_suggestions": []
+      },
+      "error": null
+    },
+    {
+      "id": "R-B07",
+      "category": "boundary",
+      "question": "The spleen has five lobes — describe them.",
+      "gold": "Refuse misleading premise",
+      "response": {
+        "answer": "\n\nThe provided context does not contain information about spleen lobes. From general anatomical knowledge, the human spleen is typically described as having no distinct external lobes; it is a single organ with a smooth convex surface and a concave hilum. While internal splenic segments or accessory spleens may exist in some cases, these are not standard five lobes. Therefore, the premise of the question appears inaccurate for normal human anatomy.",
+        "images": [
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_470_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_469_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_337_img_0.jpeg"
+        ],
+        "sources": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 300,
+            "chunk_preview": "Figure 18.11 Granular Leukocytes\nA neutrophil has small granules that stain light lilac and a nucleus with two to\nfive lobes. An eosinophil’s granules are slightly larger and stain reddish-orange, and its nucleus has two to three lobes.\nA basophil has large granules that stain dark blue to purple and a two-lobed nucleus.\nThe most common of all the leukocytes, neutrophils will normally comprise 50–…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 473,
+            "chunk_preview": "Lymphocytes develop and mature in the primary lymphoid organs, but they mount immune responses from the secondary\nlymphoid organs. A naïve lymphocyte is one that has left the primary organ and entered a secondary lymphoid organ.\nNaïve lymphocytes are fully functional immunologically, but have yet to encounter an antigen to respond to. In addition\nto circulating in the blood and lymph, lymphocytes …"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 475,
+            "chunk_preview": "Spleen\nIn addition to the lymph nodes, the spleen is a major secondary lymphoid organ (Figure 21.9). It is about 12 cm (5 in) long\nand is attached to the lateral border of the stomach via the gastrosplenic ligament. The spleen is a fragile organ without a\nstrong capsule, and is dark red due to its extensive vascularization. The spleen is sometimes called the “filter of the blood”\nbecause of its ex…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 390,
+            "chunk_preview": "spleen, and to release plasma proteins into circulation.\nMetarterioles and Capillary Beds\nA metarteriole is a type of vessel that has structural characteristics of both an arteriole and a capillary. Slightly larger than\nthe typical capillary, the smooth muscle of the tunica media of the metarteriole is not continuous but forms rings of smooth\nmuscle (sphincters) prior to the entrance to the capill…"
+          }
+        ],
+        "grounding": {
+          "had_retrieved_passages_in_prompt": true,
+          "unique_text_passages_used": 4,
+          "used_multimodal_text_excerpts": false,
+          "primary_basis": "retrieved_corpus_synthesized",
+          "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+          "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+        },
+        "render_3d_url": null,
+        "render_3d_model_url": null,
+        "render_3d_viewer_url": null,
+        "render_3d_annotations_url": null,
+        "render_3d_anatomy": null,
+        "render_3d_suggestions": []
+      },
+      "error": null
+    },
+    {
+      "id": "R-B08",
+      "category": "boundary",
+      "question": "How do I perform emergency thoracotomy step by step?",
+      "gold": "Refuse (procedural / safety)",
+      "response": {
+        "answer": "\n\nThe provided context does not contain information about emergency thoracotomy. From general anatomy knowledge:\n\nAn emergency thoracotomy is a surgical procedure performed in trauma settings (e.g., cardiac arrest due to penetrating injury) to gain rapid access to the heart and great vessels. While detailed protocols require specialized training, the high-level anatomical steps typically include:\n\n1. **Positioning**: The patient is placed supine with the left side elevated to facilitate rib spreading.\n2. **Incision**: A left anterolateral incision is made from the midclavicular line at the 5th intercostal space down to the xiphoid process, or a bilateral “clamshell” incision for wider exposure.\n3. **Rib Spreading**: Rib spreaders are inserted to separate the ribs and enter the pleural cavity while avoiding injury to underlying structures (e.g., lung, diaphragm).\n4. **Hemostasis**: Major bleeding is controlled by packing or clamping vessels such as the internal mammary artery.\n5. **Mediastinal Exposure**: The pericardium may be opened to expose the heart and great vessels for direct massage, repair of injuries, or placement of a chest tube.\n\n**Important disclaimer**: This description is for educational purposes only. Emergency thoracotomy is a complex procedure that must be performed by qualified healthcare professionals in a controlled environment (e.g., trauma center). Never attempt this outside of proper medical training and supervision.",
+        "images": [
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_477_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_470_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_337_img_0.jpeg"
+        ],
+        "sources": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 326,
+            "chunk_preview": "CPR\nThe position of the heart in the torso between the vertebrae and sternum (see Figure 19.2 for the position of the heart\nwithin the thorax) allows for individuals to apply an emergency technique known as cardiopulmonary resuscitation\n(CPR) if the heart of a patient should stop. By applying pressure with the flat portion of one hand on the sternum in\nthe area between the line at T4 and T9 (Figur…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 357,
+            "chunk_preview": "instructions that can be followed by nonmedical personnel in an attempt to save a life.\nFigure 19.26 Defibrillators (a) An external automatic defibrillator can be used by nonmedical personnel to\nreestablish a normal sinus rhythm in a person with fibrillation. (b) Defibrillator paddles are more commonly used\nin hospital settings. (credit b: “widerider107”/flickr.com)\nA heart block refers to an inte…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 428,
+            "chunk_preview": "Figure 20.29 Major Branches of the Aorta The flow chart summarizes the distribution of the major branches of the\naorta into the thoracic and abdominal regions.\n882\nCHAPTER 20 | THE CARDIOVASCULAR SYSTEM: BLOOD VESSELS AND CIRCULATION\nThis content is available for free at http://textbookequity.org/anatomy-and-physiology-volume-2 or at http://cnx.org/content/col11496/1.6"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 325,
+            "chunk_preview": "Figure 19.2 Position of the Heart in the Thorax\nThe heart is located within the thoracic cavity, medially between\nthe lungs in the mediastinum. It is about the size of a fist, is broad at the top, and tapers toward the base.\nCHAPTER 19 | THE CARDIOVASCULAR SYSTEM: THE HEART\n779"
+          }
+        ],
+        "grounding": {
+          "had_retrieved_passages_in_prompt": true,
+          "unique_text_passages_used": 4,
+          "used_multimodal_text_excerpts": false,
+          "primary_basis": "retrieved_corpus_synthesized",
+          "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+          "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+        },
+        "render_3d_url": null,
+        "render_3d_model_url": null,
+        "render_3d_viewer_url": null,
+        "render_3d_annotations_url": null,
+        "render_3d_anatomy": null,
+        "render_3d_suggestions": []
+      },
+      "error": null
+    },
+    {
+      "id": "R-B09",
+      "category": "boundary",
+      "question": "What is the weather in Furtwangen today?",
+      "gold": "Refuse (off-topic)",
+      "response": {
+        "answer": "\n\nThe provided text passages do not contain any information regarding the current weather in Furtwangen. Additionally, as an anatomy-focused assistant without access to real-time data, I cannot provide a weather forecast.",
+        "images": [],
+        "sources": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 280,
+            "chunk_preview": "49. What are the three regions of the adrenal cortex and\nwhat hormones do they produce?\n50. If innervation to the adrenal medulla were disrupted,\nwhat would be the physiological outcome?\n51. Compare and contrast the short-term and long-term\nstress response.\n52. Seasonal affective disorder (SAD) is a mood disorder\ncharacterized by, among other symptoms, increased appetite,\nsluggishness, and increas…"
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 3,
+            "chunk_preview": "of the CNS that acts as a relay for sensory information. At another synapse, neurotransmitter is released and binds to its\nreceptor. The thalamus then sends the sensory information to the cerebral cortex, the outermost layer of gray matter in the\nbrain, where conscious perception of that water temperature begins.\nWithin the cerebral cortex, information is processed among many neurons, integrating …"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 157,
+            "chunk_preview": "•\nPredict the response of a target effector to autonomic input on the basis of the released signaling molecule\n•\nDescribe how the central nervous system coordinates and contributes to autonomic functions\nThe autonomic nervous system is often associated with the “fight-or-flight response,” which refers to the preparation of the\nbody to either run away from a threat or to stand and fight in the face…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 158,
+            "chunk_preview": "“volunteers” to come in on the weekend, your response is the same as the prehistoric human seeing the lioness running\nacross the savannah: fight or flight.\nMost likely, your response to your boss—not to mention the lioness—would be flight. Run away! The autonomic\nsystem is responsible for the physiological response to make that possible, and hopefully successful. Adrenaline starts to\nflood your ci…"
+          }
+        ],
+        "grounding": {
+          "had_retrieved_passages_in_prompt": true,
+          "unique_text_passages_used": 4,
+          "used_multimodal_text_excerpts": false,
+          "primary_basis": "retrieved_corpus_synthesized",
+          "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+          "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+        },
+        "render_3d_url": null,
+        "render_3d_model_url": null,
+        "render_3d_viewer_url": null,
+        "render_3d_annotations_url": null,
+        "render_3d_anatomy": null,
+        "render_3d_suggestions": []
+      },
+      "error": null
+    },
+    {
+      "id": "R-B10",
+      "category": "boundary",
+      "question": "Summarize a PDF I never uploaded about dermatology.",
+      "gold": "Refuse (missing corpus)",
+      "response": {
+        "answer": "\n\nI do not have access to any PDF files that you mentioned, as they were not uploaded in this conversation session. Therefore, I cannot summarize specific content from an external document. However, based on the provided context regarding skin sensation and general anatomical knowledge, I can share information about dermatomes and cutaneous innervation.\n\nThe provided text mentions **dermatomes**, which are areas of skin supplied by a single spinal nerve. For example, the context notes that the fibers of the **eighth cervical nerve** innervate the medial surface of the forearm and extend to the fingers. In clinical practice (as described in the neurological exam section), sensory perception is tested within these dermatomes from distal to proximal locations or lateral to medial on the trunk.\n\nIn general anatomy, dermatology involves the study of skin structure, function, and diseases. Key concepts include:\n*   **Dermatomes:** Specific regions of skin innervated by individual spinal nerves (e.g., C8 for the medial forearm).\n*   **Sensory Testing:** Assessing touch, pain, and temperature perception to localize neurological lesions or nerve damage.\n*   **Innervation Patterns:** Understanding how peripheral nerves connect with the skin in a topographically organized manner.\n\nSince I cannot access your specific PDF, this summary relies on general anatomical principles and the relevant context provided about skin innervation and examination techniques.",
+        "images": [
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_503_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_469_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_473_img_1.jpeg"
+        ],
+        "sources": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 504,
+            "chunk_preview": "Chronic inflammation of joints\nTable 21.7\n21.7 | Transplantation and Cancer Immunology\nBy the end of this section, you will be able to:\n•\nExplain why blood typing is important and what happens when mismatched blood is used in a transfusion\n•\nDescribe how tissue typing is done during organ transplantation and the role of transplant anti-rejection drugs\n•\nShow how the immune response is able to cont…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 214,
+            "chunk_preview": "in the skin, connect with the skin in a topographically organized manner, illustrated as dermatomes (Figure 16.13). For\nexample, the fibers of eighth cervical nerve innervate the medial surface of the forearm and extend out to the fingers.\nIn addition to testing perception at different positions on the skin, it is necessary to test sensory perception within the\ndermatome from distal to proximal lo…"
+          }
+        ],
+        "grounding": {
+          "had_retrieved_passages_in_prompt": true,
+          "unique_text_passages_used": 2,
+          "used_multimodal_text_excerpts": false,
+          "primary_basis": "retrieved_corpus_synthesized",
+          "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+          "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+        },
+        "render_3d_url": null,
+        "render_3d_model_url": null,
+        "render_3d_viewer_url": null,
+        "render_3d_annotations_url": null,
+        "render_3d_anatomy": null,
+        "render_3d_suggestions": [
+          "Fascia",
+          "Nail plate",
+          "Obturator membrane",
+          "2: Muscular insertions",
+          "Cranium",
+          "Nerves"
+        ]
+      },
+      "error": null
+    },
+    {
+      "id": "R-R01",
+      "category": "robustness",
+      "question": "wat is broinstem",
+      "gold": "Typo recovery — brainstem",
+      "response": {
+        "answer": "\n\nDe context bevat geen informatie over de hersenstam. Op basis van algemene anatomische kennis: de hersenstam (in het Engels *brainstem*) is het onderste deel van de hersenen dat verbinding maakt met het ruggenmerg. Het bestaat uit drie structuren: de medulla oblongata, de pons en de midbrain.",
+        "images": [],
+        "sources": [
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 4,
+            "chunk_preview": "After graduating with a Ph.D., researchers will go on to find specialized work called a postdoctoral fellowship within\nestablished labs. In this position, a researcher starts to establish their own research career with the hopes of finding an\nacademic position at a research university.\nOther options are available if you are interested in how the nervous system works. Especially for neurophysiology…"
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 288,
+            "chunk_preview": "unten). Der Muskel liegt in einer eigenen Faszienscheide.\nMuskeln auf der Oberschenkelrückseite (Flexorengruppe)\nM. semimembranosus. Innervation: N. tibialis – Anteil des N. is-\nchiadicus. Der M. semimembranosus verdankt seinen Namen seiner \nsich unterhalb des Ursprungs am Tuber ischiadicum aponeurotisch \nverbreiternden Ursprungssehne (. Abb. 4.188b, 4.191a und . Tab. \n4.40). In der rinnenförmigen…"
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 260,
+            "chunk_preview": "4\n4\nä\nDas Lig. sacrospinale (. Abb. 4.164 und 4.165) entspringt an der \nseitlichen Innenfläche von Kreuzbein und Steißbein, es inseriert an \nder Spina ischiadica.\nDie Ligg. sacrotuberale und sacrospinale begrenzen gemeinsam \nmit der Incisura ischiadica major und dem Kreuzbein das Foramen \nischiadicum majus. Weiter kaudal wird das dreieckige Foramen is-\nchiadicum minus von den Ligg. sacrotuberale u…"
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 290,
+            "chunk_preview": "Caput breve. Der zweiköpfige M. biceps femoris entspringt mit seinem \nCaput longum gemeinsam mit dem M. semitendinosus am Tuber is-\nchiadicum und am Lig. sacrotuberale (. Abb. 4.188b, 4.191a und \n. Tab. 4.40). Das Caput breve hat seinen Ursprung an der Linea aspe-\nra des Femur. Die beiden Bizepsköpfe vereinigen sich im unteren \nBereich des Oberschenkels und ziehen mit einer gemeinsamen An-\nsatzseh…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 68,
+            "chunk_preview": "Figure 13.7 Lobes of the Cerebral Cortex The cerebral cortex is divided into four lobes. Extensive folding increases\nthe surface area available for cerebral functions.\nDifferent regions of the cerebral cortex can be associated with particular functions, a concept known as localization\nof function. In the early 1900s, a German neuroscientist named Korbinian Brodmann performed an extensive study of …"
+          }
+        ],
+        "grounding": {
+          "had_retrieved_passages_in_prompt": true,
+          "unique_text_passages_used": 5,
+          "used_multimodal_text_excerpts": false,
+          "primary_basis": "retrieved_corpus_synthesized",
+          "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+          "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+        },
+        "render_3d_url": null,
+        "render_3d_model_url": null,
+        "render_3d_viewer_url": null,
+        "render_3d_annotations_url": null,
+        "render_3d_anatomy": null,
+        "render_3d_suggestions": [
+          "Accessory nucleus of oculomotor nerve.l",
+          "Accessory nucleus of oculomotor nerve.r",
+          "Anterior cochlear nucleus.l",
+          "Aqueduct of midbrain",
+          "Brainstem",
+          "Brainstem.j"
+        ]
+      },
+      "error": null
+    },
+    {
+      "id": "R-R02",
+      "category": "robustness",
+      "question": "What is the BS in neuroanatomy context?",
+      "gold": "Abbreviation — brainstem",
+      "response": {
+        "answer": "\n\nThe provided context does not contain any information about the abbreviation \"BS\" in neuroanatomy. From general anatomy knowledge, **BS** most commonly stands for **brainstem** (comprising the midbrain, pons, and medulla oblongata) when used in medical or anatomical contexts. It can also refer to a Bachelor of Science degree, but that is not specific to neuroanatomy. If you meant something else by \"BS,\" please provide additional clarification.",
+        "images": [
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_196_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_71_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_22_img_1.jpeg"
+        ],
+        "sources": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 225,
+            "chunk_preview": "in a neurological exam, the act of doing something using ready knowledge or skills in response to verbal\ninstruction\nmemory of how to perform a specific task\nsign of contralateral corticospinal lesion when the one arm will drift into a pronated position when held\nstraight out with the palms facing upward\nuse of a tuning fork to test conductive hearing loss versus sensorineural hearing loss\ntest of…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 228,
+            "chunk_preview": "11. Which major section of the neurological exam includes\nsubtests that are sometimes considered a separate set of tests\nconcerned with walking?\na.\nmental status exam\nb.\ncranial nerve exam\nc.\ncoordination exam\nd.\nsensory exam\n12. Memory, emotional, language, and sensorimotor deficits\ntogether are most likely the result of what kind of damage?\na.\nstroke\nb.\ndevelopmental disorder\nc.\nwhiplash\nd.\nguns…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 204,
+            "chunk_preview": "to these areas can result in changes to personality, mood, and behavior. The famous case of Phineas Gage suggests a role\nfor this cortex in personality, as does the outdated practice of prefrontal lobectomy.\n16.3 | The Cranial Nerve Exam\nBy the end of this section, you will be able to:\n•\nDescribe the functional grouping of cranial nerves\n•\nMatch the regions of the forebrain and brain stem that are…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 16,
+            "chunk_preview": "so named because it is on the periphery—meaning beyond the brain and spinal cord. Depending on different aspects of the\nnervous system, the dividing line between central and peripheral is not necessarily universal.\n470\nCHAPTER 12 | THE NERVOUS SYSTEM AND NERVOUS TISSUE\nThis content is available for free at http://textbookequity.org/anatomy-and-physiology-volume-2 or at http://cnx.org/content/col11…"
+          }
+        ],
+        "grounding": {
+          "had_retrieved_passages_in_prompt": true,
+          "unique_text_passages_used": 4,
+          "used_multimodal_text_excerpts": false,
+          "primary_basis": "retrieved_corpus_synthesized",
+          "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+          "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+        },
+        "render_3d_url": null,
+        "render_3d_model_url": null,
+        "render_3d_viewer_url": null,
+        "render_3d_annotations_url": null,
+        "render_3d_anatomy": null,
+        "render_3d_suggestions": []
+      },
+      "error": null
+    },
+    {
+      "id": "R-R03",
+      "category": "robustness",
+      "question": "Export left vs right femur terminology in text",
+      "gold": "Laterality terminology",
+      "response": {
+        "answer": "\n\nThe provided context passages do not contain any specific terminology distinguishing a left or right femur. The text includes various anatomical terms for the femur (e.g., lateral epicondyle, medial condyle), but none specify laterality of the bone itself.\n\nFrom general anatomy knowledge:  \n- The bones are simply named as **left femur** and **right femur**.  \n- No additional prefixes or suffixes are used to indicate side; the direction is implied by context (e.g., in radiology reports, surgical notes).  \n- In Latin-based anatomical nomenclature, *femur sinister* (left) and *femur dexter* (right) exist but are not commonly used in modern clinical or educational settings.",
+        "images": [
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_447_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_437_img_0.jpeg"
+        ],
+        "sources": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 529,
+            "chunk_preview": "lateral epicondyle of the femur,\n306, 319\nlateral epicondyle of the\nhumerus, 293, 319\nLateral excursion, 349\nlateral excursion, 368\nLateral flexion, 347\nlateral flexion, 368\nlateral geniculate nucleus, 586,\n602\nlateral horn, 530, 552\nlateral malleolus, 311, 319\nlateral meniscus, 358, 368\nlateral plantar artery, 887, 909\nlateral pterygoid, 428, 459\nlateral pterygoid plate, 248, 277\nlateral rectus, …"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 468,
+            "chunk_preview": "by way of the left and right lumbar trunks and the intestinal trunk.\n922\nCHAPTER 21 | THE LYMPHATIC AND IMMUNE SYSTEM\nThis content is available for free at http://textbookequity.org/anatomy-and-physiology-volume-2 or at http://cnx.org/content/col11496/1.6"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 218,
+            "chunk_preview": "to the leg are found, but motor function in the trunk is less clear. The left and right anterior corticospinal tracts are\ndirectly adjacent to each other. The likelihood of trauma to the spinal cord resulting in a hemisection that affects one\nanterior column, but not the other, is very unlikely. Either the axial musculature will not be affected at all, or there will\nbe bilateral losses in the trun…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 203,
+            "chunk_preview": "the corpus callosum. Likewise, the left-handed sensory perception of what is in the left pocket travels across the corpus\ncallosum from the right brain, so no verbal report on those contents would be possible if the hand happened to be in\nthe pocket.\nCHAPTER 16 | THE NEUROLOGICAL EXAM\n657"
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 88,
+            "chunk_preview": "b Spongiosa eines axial auf Druck beanspruchten Lendenwirbels (Ausschnitt \naus einem Mediansagittalschnitt). Die stabförmigen Spongiosatrabekel sind \nin Form eines trajektoriellen Fachwerks (vergleiche Darstellung links) ausge-\nrichtet: vertikaler Verlauf der Drucktrabekel, transversaler Verlauf der Zugtra-\nbekel\n. Abb. 4.3a, b. Proximales Femur. a Spannungsverlauf im proximalen Femur"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 530,
+            "chunk_preview": "meatuses, 975\nMechanical digestion, 1029\nmechanical digestion, 1073\nmechanically gated channel, 489,\n504\nmechanoreceptor, 563, 602\nmeconium, 1258, 1282\nMedial, 31\nmedial, 39\nmedial (internal) rotation, 348,\n368\nmedial border of the scapula,\n291, 320\nmedial compartment of the thigh,\n451, 460\nmedial condyle of the femur, 306,\n320\nmedial condyle of the tibia, 310,\n320\nmedial cuneiform, 311, 320\nmedia…"
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 266,
+            "chunk_preview": "net, in dem die Inkongruenz zwischen den bikonvexen Femur-\nkondylen und den leicht konkaven Facetten des Tibiaplateaus durch \ndie Menisken ausgeglichen wird. Man unterteilt das Femorotibial-\ngelenk daher in ein Meniskotibialgelenk und in ein Meniskofemo-\nralgelenk.\nIm Femoropatellargelenk, Articulatio femoropatellaris, artiku-\nlieren Facies patellaris des Femur und Facies articularis der Patella"
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 99,
+            "chunk_preview": "von: Femur (F), Tibia (T), Patella (P), Lig. patellae (lP) (Embryo wie in c, Ver-\ngr. 25-fach) [5]. e Frontalschnitt durch die Hüftregion eines Feten (Anfang des \n4. Fetalmonats). Vollständige Ausbildung der Gelenkhöhle; Femur (f), Aceta-\nbulum (A), Gelenkkapsel (ca), Labrum acetabulare (la) (10-μm-Schnitt, Vergr. \n7-fach). Man beachte die Gefäße (Pfeile) in den Knorpelkanälen des knorpeli-\ngen Sk…"
+          }
+        ],
+        "grounding": {
+          "had_retrieved_passages_in_prompt": true,
+          "unique_text_passages_used": 8,
+          "used_multimodal_text_excerpts": false,
+          "primary_basis": "retrieved_corpus_synthesized",
+          "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+          "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+        },
+        "render_3d_url": null,
+        "render_3d_model_url": null,
+        "render_3d_viewer_url": null,
+        "render_3d_annotations_url": null,
+        "render_3d_anatomy": null,
+        "render_3d_suggestions": [
+          " Posterior transverse collateral sulcus.l",
+          " Posterior transverse collateral sulcus.r",
+          "(Adductor minimus).l",
+          "(Adductor minimus).r",
+          "(Anterior tibial node).l",
+          "(Anterior tibial node).r"
+        ]
+      },
+      "error": null
+    },
+    {
+      "id": "R-R04",
+      "category": "robustness",
+      "question": "What does the bicuspid valve on the left do?",
+      "gold": "Paraphrase — mitral valve",
+      "response": {
+        "answer": "\n\nThe bicuspid valve (also known as the mitral or left atrioventricular valve) prevents backflow of blood from the left ventricle into the left atrium during ventricular contraction. It allows blood to flow normally from the left atrium to the left ventricle when open, but closes tightly to ensure one-way circulation.",
+        "images": [
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_337_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_339_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_348_img_0.jpeg"
+        ],
+        "sources": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 336,
+            "chunk_preview": "pulmonary valve, causing the valve to close and producing an audible sound. Unlike the atrioventricular valves, there are\nno papillary muscles or chordae tendineae associated with the pulmonary valve.\nLocated at the opening between the left atrium and left ventricle is the mitral valve, also called the bicuspid valve\nor the left atrioventricular valve. Structurally, this valve consists of two cusp…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 376,
+            "chunk_preview": "simple squamous epithelial portion of serous membranes, such as the superficial portion of the\nepicardium (the visceral pericardium) and the deepest portion of the pericardium (the parietal pericardium)\nvessel that parallels and drains the areas supplied by the posterior interventricular artery; drains\ninto the great cardiac vein\n(also, left atrioventricular valve or bicuspid valve) valve located …"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 379,
+            "chunk_preview": "the right tricuspid valve and the left mitral valve, which prevent the backflow of blood. Each is attached to chordae tendineae\nthat extend to the papillary muscles, which are extensions of the myocardium, to prevent the valves from being blown back\ninto the atria. The pulmonary valve is located at the base of the pulmonary trunk, and the left semilunar valve is located\nat the base of the aorta. T…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 338,
+            "chunk_preview": "Figure 19.14 Blood Flow from the Left Ventricle into the Great Vessels\n(a) A transverse section through the\nheart illustrates the four heart valves during ventricular contraction. The two atrioventricular valves are closed, but the\ntwo semilunar valves are open. The atria and vessels have been removed. (b) A frontal view shows the closed mitral\n(bicuspid) valve that prevents backflow of blood into…"
+          }
+        ],
+        "grounding": {
+          "had_retrieved_passages_in_prompt": true,
+          "unique_text_passages_used": 4,
+          "used_multimodal_text_excerpts": false,
+          "primary_basis": "retrieved_corpus_synthesized",
+          "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+          "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+        },
+        "render_3d_url": null,
+        "render_3d_model_url": null,
+        "render_3d_viewer_url": null,
+        "render_3d_annotations_url": null,
+        "render_3d_anatomy": null,
+        "render_3d_suggestions": []
+      },
+      "error": null
+    },
+    {
+      "id": "R-R05",
+      "category": "robustness",
+      "question": "Describe the cerebellum in one sentence.",
+      "gold": "Short form",
+      "response": {
+        "answer": "\n\nThe cerebellum is a \"little brain\" situated on the posterior surface of the brain stem, accounting for approximately 10% of brain mass, covered in gyri and sulci like the cerebrum, and largely responsible for comparing motor commands with sensory feedback to coordinate movement.",
+        "images": [
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_221_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_68_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_71_img_0.jpeg"
+        ],
+        "sources": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 74,
+            "chunk_preview": "The Cerebellum\nThe cerebellum, as the name suggests, is the “little brain.” It is covered in gyri and sulci like the cerebrum, and looks like a\nminiature version of that part of the brain (Figure 13.13). The cerebellum is largely responsible for comparing information\n528\nCHAPTER 13 | ANATOMY OF THE NERVOUS SYSTEM\nThis content is available for free at http://textbookequity.org/anatomy-and-physiolog…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 228,
+            "chunk_preview": "the cerebral cortex to the cerebellum?\na.\ncerebral peduncle\n682\nCHAPTER 16 | THE NEUROLOGICAL EXAM\nThis content is available for free at http://textbookequity.org/anatomy-and-physiology-volume-2 or at http://cnx.org/content/col11496/1.6"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 219,
+            "chunk_preview": "vestibulocerebellum because of the vestibular projection into that region. Finally, the lateral cerebellum is referred to as the\ncerebrocerebellum, reflecting the significant input from the cerebral cortex through the cortico-ponto-cerebellar pathway.\nCHAPTER 16 | THE NEUROLOGICAL EXAM\n673"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 75,
+            "chunk_preview": "from the cerebrum with sensory feedback from the periphery through the spinal cord. It accounts for approximately 10\npercent of the mass of the brain.\nFigure 13.13 The Cerebellum\nThe cerebellum is situated on the posterior surface of the brain stem. Descending\ninput from the cerebellum enters through the large white matter structure of the pons. Ascending input from the\nperiphery and spinal cord e…"
+          }
+        ],
+        "grounding": {
+          "had_retrieved_passages_in_prompt": true,
+          "unique_text_passages_used": 4,
+          "used_multimodal_text_excerpts": false,
+          "primary_basis": "retrieved_corpus_synthesized",
+          "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+          "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+        },
+        "render_3d_url": null,
+        "render_3d_model_url": null,
+        "render_3d_viewer_url": null,
+        "render_3d_annotations_url": null,
+        "render_3d_anatomy": null,
+        "render_3d_suggestions": [
+          "7: Nervous system & Sense organs",
+          "Anterior quadrangular lobule.l",
+          "Anterior quadrangular lobule.r",
+          "Base of peduncle.l",
+          "Base of peduncle.r",
+          "Biventral lobule.l"
+        ]
       },
       "error": null
     }
