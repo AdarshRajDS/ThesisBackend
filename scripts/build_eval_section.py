@@ -119,19 +119,31 @@ def build_cloud_vs_local_table(cloud: list[dict], local: list[dict]) -> str:
     return "\n".join(lines)
 
 
+def _fmt_elapsed_ms(ms: float | None) -> str:
+    if ms is None:
+        return ""
+    s = ms / 1000
+    if s >= 60:
+        return f"{s / 60:.1f} min"
+    if s >= 10:
+        return f"{s:.0f} s"
+    return f"{s:.1f} s"
+
+
 def build_summary_table(rows: list[dict], id_prefix: str) -> str:
-    header = "| ID | Outcome | Sources | Images |\n| -- | ------- | ------- | ------ |\n"
+    header = "| ID | Outcome | Sources | Images | Request time |\n| -- | ------- | ------- | ------ | ------------ |\n"
     body = []
     for i, item in enumerate(rows, 1):
         qid = f"{id_prefix}{i:02d}"
         err = item.get("error")
         resp = item.get("response") or {}
+        lat = _fmt_elapsed_ms(item.get("elapsed_ms")) or "—"
         if err:
-            body.append(f"| {qid} | Error | — | — |")
+            body.append(f"| {qid} | Error | — | — | {lat} |")
         else:
             ans = resp.get("answer")
             body.append(
-                f"| {qid} | {_outcome(ans, None)} | {len(resp.get('sources') or [])} | {len(resp.get('images') or [])} |"
+                f"| {qid} | {_outcome(ans, None)} | {len(resp.get('sources') or [])} | {len(resp.get('images') or [])} | {lat} |"
             )
     return header + "\n".join(body)
 
@@ -150,6 +162,7 @@ def build_entry(item: dict, qid: str, category: str, gold: str) -> str:
         f"| **ID** | {qid} |",
         f"| **Category** | {category} |",
         f"| **Language** | German |",
+        f"| **Request time** | {_fmt_elapsed_ms(item.get('elapsed_ms')) or 'n/a'} |",
         "",
         "**Question:**  ",
         q,

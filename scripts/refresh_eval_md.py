@@ -55,7 +55,11 @@ def main() -> None:
         "--run-note", LOCAL_NOTE,
     )
     fix_mcp_subsections(REPO / "evaluationThesis.md")
-    print("Refreshed evaluationThesis.md §10 and §11")
+    subprocess.check_call(
+        [sys.executable, str(REPO / "scripts" / "build_professor_metrics_workbook.py")],
+        cwd=REPO,
+    )
+    print("Refreshed evaluationThesis.md §9.1, §10, and §11")
 
 
 if __name__ == "__main__":

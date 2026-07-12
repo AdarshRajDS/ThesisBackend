@@ -1,6 +1,7 @@
 """Batch-evaluate German anatomy questions against /rag/ask."""
 import json
 import sys
+import time
 import urllib.request
 
 QUESTIONS = [
@@ -35,11 +36,12 @@ def main() -> None:
     results = []
     for i, q in enumerate(QUESTIONS, 1):
         print(f"[{i}/{len(QUESTIONS)}] {q[:60]}...", flush=True)
+        started = time.perf_counter()
         try:
             data = ask(q)
-            results.append({"question": q, "response": data, "error": None})
+            results.append({"question": q, "response": data, "error": None, "elapsed_ms": round((time.perf_counter() - started) * 1000, 1)})
         except Exception as exc:
-            results.append({"question": q, "response": None, "error": str(exc)})
+            results.append({"question": q, "response": None, "error": str(exc), "elapsed_ms": round((time.perf_counter() - started) * 1000, 1)})
     out = sys.argv[1] if len(sys.argv) > 1 else "german_eval_results.json"
     with open(out, "w", encoding="utf-8") as f:
         json.dump(results, f, ensure_ascii=False, indent=2)

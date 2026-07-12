@@ -1,0 +1,712 @@
+{
+  "meta": {
+    "ts": "2026-07-12T10:23:30.702469+00:00",
+    "base_url": "http://127.0.0.1:8000",
+    "endpoint": "/rag/ask",
+    "language": "en",
+    "allow_world_knowledge": false,
+    "timeout_s": 900,
+    "count": 12
+  },
+  "results": [
+    {
+      "id": "R-F01",
+      "category": "factual",
+      "question": "What is the difference between the upper motor neuron and the lower motor neuron?",
+      "gold": "UMN in CNS; LMN in PNS/anterior horn; synapse at NMJ",
+      "response": {
+        "answer": "\n\nBased on the provided context passages, the upper motor neuron (UMN) and lower motor neuron (LMN) differ in their anatomical location, pathway, synaptic connections, and functional role within the skeletomotor system:\n\n- **Cell body location**:  \n  - UMN: Cell body is located in the primary motor cortex of the frontal lobe (precentral gyrus).  \n  - LMN: Cell body is located in the ventral horn of the spinal cord gray matter.\n\n- **Pathway and connections**:  \n  - UMN: Its axon travels from the cortex through the deep white matter, midbrain, pons, medulla (where most fibers decussate), and then through the spinal cord white matter to synapse on the dendrites of the LMN in the ventral horn.  \n  - LMN: Its axon extends directly from the ventral horn to the skeletal muscle at the neuromuscular junction.\n\n- **Synaptic relationship**:  \n  The UMN synapses onto the LMN; there is no direct connection between the UMN and the muscle without the LMN. Together they form a two‑neuron projection from the cortex to the muscle.\n\n- **Function**:  \n  - UMN: Provides descending cortical input that initiates motor commands (part of the corticospinal tract).  \n  - LMN: Provides direct innervation to muscles, causing contraction when activated.\n\nThese anatomical and functional differences are clinically relevant for distinguishing between upper and lower motor neuron disorders, as noted in the context regarding muscle tone, paralysis type, and specific signs like the Babinski sign.",
+        "images": [
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_196_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_22_img_1.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_169_img_0.jpeg"
+        ],
+        "sources": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 213,
+            "chunk_preview": "•\nDifferentiate between upper motor neuron and lower motor neuron diseases\n•\nDescribe the clinical indications of common reflexes\nConnections between the body and the CNS occur through the spinal cord. The cranial nerves connect the head and neck\ndirectly to the brain, but the spinal cord receives sensory input and sends motor commands out to the body through the spinal\nnerves. Whereas the brain d…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 226,
+            "chunk_preview": "connections to the cerebral cortex.\nMotor tests focus on the function of the muscles and the connections of the descending motor pathway. Muscle tone\nand strength are tested for upper and lower extremities. Input to the muscles comes from the descending cortical input of\nupper motor neurons and the direct innervation of lower motor neurons.\nReflexes can either be based on deep stimulation of tendo…"
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 24,
+            "chunk_preview": "cortex. Following integration of that information with other cognitive processes and sensory information, the brain sends a\ncommand back down to the spinal cord to initiate a motor response by controlling a skeletal muscle. The motor pathway is\ncomposed of two cells, the upper motor neuron and the lower motor neuron. The upper motor neuron has its cell body in the\ncerebral cortex and synapses on a…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 216,
+            "chunk_preview": "The skeletomotor system is largely based on the simple, two-cell projection from the precentral gyrus of the frontal lobe to\nthe skeletal muscles. The corticospinal tract represents the neurons that send output from the primary motor cortex. These\nfibers travel through the deep white matter of the cerebrum, then through the midbrain and pons, into the medulla where\nmost of them decussate, and fina…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 142,
+            "chunk_preview": "Figure 14.28 Corticospinal Tract\nThe major descending tract that controls skeletal muscle movements is the\ncorticospinal tract. It is composed of two neurons, the upper motor neuron and the lower motor neuron. The upper\nmotor neuron has its cell body in the primary motor cortex of the frontal lobe and synapses on the lower motor neuron,\nwhich is in the ventral horn of the spinal cord and projects …"
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 2,
+            "chunk_preview": "potential is caused by the release of a chemical signal from the axon terminals. (4) An action potential is initiated at the\ninitial segment of this neuron and travels up the sensory pathway to a region of the brain called the thalamus. Another\nsynapse passes the information along to the next neuron. (5) The sensory pathway ends when the signal reaches the\ncerebral cortex. (6) After integration wi…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 141,
+            "chunk_preview": "muscles that perform fine, agile movements, such as the muscles of the fingers and the lower face. The “power muscles”\nthat perform coarser movements, such as the buttock and back muscles, occupy much less space on the motor cortex.\nDescending Pathways\nThe motor output from the cortex descends into the brain stem and to the spinal cord to control the musculature through\nmotor neurons. Neurons loca…"
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 22,
+            "chunk_preview": "in the nervous system, a localized collection of neuron cell bodies that are functionally related; a “center” of\nneural function\nglial cell type in the CNS that provides the myelin insulation for axons in tracts\nanatomical division of the nervous system that is largely outside the cranial and\nvertebral cavities, namely all parts except the brain and spinal cord\ngraded potential in the postsynaptic…"
+          }
+        ],
+        "grounding": {
+          "had_retrieved_passages_in_prompt": true,
+          "unique_text_passages_used": 8,
+          "used_multimodal_text_excerpts": false,
+          "primary_basis": "retrieved_corpus_synthesized",
+          "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+          "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+        },
+        "render_3d_url": null,
+        "render_3d_model_url": null,
+        "render_3d_viewer_url": null,
+        "render_3d_annotations_url": null,
+        "render_3d_anatomy": null,
+        "render_3d_suggestions": []
+      },
+      "error": null
+    },
+    {
+      "id": "R-F02",
+      "category": "factual",
+      "question": "Where is the cell body of the upper motor neuron located, and where does it synapse?",
+      "gold": "Cortex/brainstem → interneuron/LMN",
+      "response": {
+        "answer": "\n\nThe cell body of the upper motor neuron is located in the **cerebral cortex**, specifically in the precentral gyrus of the frontal cortex. It synapses on a cell (specifically the dendrites) of the lower motor neuron within the **gray matter of the spinal cord**.",
+        "images": [
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_62_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_135_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a-30-60_page_7_img_0.jpeg"
+        ],
+        "sources": [
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 24,
+            "chunk_preview": "cortex. Following integration of that information with other cognitive processes and sensory information, the brain sends a\ncommand back down to the spinal cord to initiate a motor response by controlling a skeletal muscle. The motor pathway is\ncomposed of two cells, the upper motor neuron and the lower motor neuron. The upper motor neuron has its cell body in the\ncerebral cortex and synapses on a…"
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 22,
+            "chunk_preview": "in the nervous system, a localized collection of neuron cell bodies that are functionally related; a “center” of\nneural function\nglial cell type in the CNS that provides the myelin insulation for axons in tracts\nanatomical division of the nervous system that is largely outside the cranial and\nvertebral cavities, namely all parts except the brain and spinal cord\ngraded potential in the postsynaptic…"
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 2,
+            "chunk_preview": "potential is caused by the release of a chemical signal from the axon terminals. (4) An action potential is initiated at the\ninitial segment of this neuron and travels up the sensory pathway to a region of the brain called the thalamus. Another\nsynapse passes the information along to the next neuron. (5) The sensory pathway ends when the signal reaches the\ncerebral cortex. (6) After integration wi…"
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 15,
+            "chunk_preview": "Once in the synaptic cleft, the neurotransmitter diffuses the short distance to the postsynaptic membrane and can\ninteract with neurotransmitter receptors. Receptors are specific for the neurotransmitter, and the two fit together like a key\nand lock. One neurotransmitter binds to its receptor and will not bind to receptors for other neurotransmitters, making the\nbinding a specific chemical event (…"
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 23,
+            "chunk_preview": "separate presynaptic elements that add up to initiate an action potential\norgan of the central nervous system found within the vertebral cavity and connected with the periphery\nthrough spinal nerves; mediates reflex behaviors\nan event in the external or internal environment that registers as activity in a sensory neuron\nto add together, as in the cumulative change in postsynaptic potentials toward…"
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 25,
+            "chunk_preview": "are far more common. At a chemical synapse, neurotransmitter is released from the presynaptic element and diffuses across\nthe synaptic cleft. The neurotransmitter binds to a receptor protein and causes a change in the postsynaptic membrane (the\nPSP). The neurotransmitter must be inactivated or removed from the synaptic cleft so that the stimulus is limited in time.\nThe particular characteristics o…"
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 14,
+            "chunk_preview": "the next. If one cell is depolarized in an electrical synapse, the joined cell also depolarizes because the ions pass between\nthe cells. Chemical synapses involve the transmission of chemical information from one cell to the next. This section will\nconcentrate on the chemical type of synapse.\nAn example of a chemical synapse is the neuromuscular junction (NMJ) described in the chapter on muscle ti…"
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 608,
+            "chunk_preview": "Boutons können synaptische Verbindungen eingehen mit:\nDendriten: axodendritische Synapse\nAxonen: axoaxonale Synapse\nSomata: axosomatische Synapse\nSynaptische Verbindungen werden als konvergent bezeichnet, \nwenn ein Neuron von vielen anderen innerviert wird. Sie werden \nals divergent bezeichnet, wenn ein Neuron zahlreiche andere \nNeurone innerviert. Konvergenz und Divergenz sind wichtige \nPrinzipie…"
+          }
+        ],
+        "grounding": {
+          "had_retrieved_passages_in_prompt": true,
+          "unique_text_passages_used": 8,
+          "used_multimodal_text_excerpts": false,
+          "primary_basis": "retrieved_corpus_synthesized",
+          "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+          "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+        },
+        "render_3d_url": null,
+        "render_3d_model_url": null,
+        "render_3d_viewer_url": null,
+        "render_3d_annotations_url": null,
+        "render_3d_anatomy": null,
+        "render_3d_suggestions": []
+      },
+      "error": null
+    },
+    {
+      "id": "R-F03",
+      "category": "factual",
+      "question": "What is gray matter versus white matter in the CNS?",
+      "gold": "Cell bodies vs myelinated tracts",
+      "response": {
+        "answer": "\n\nIn the central nervous system (CNS), **gray matter** and **white matter** are distinguished by their composition and appearance in fresh, unstained tissue.  \n\n- **Gray matter** consists primarily of neuronal cell bodies (nuclei) along with dendrites, synapses, and glial cells. It appears darker because it lacks the lipid-rich myelin sheath that gives white matter its color. In the brain, gray matter forms the outer cortex; in the spinal cord, it is arranged into dorsal and ventral horns.  \n- **White matter** consists mainly of bundles of myelinated axons called tracts. The myelin contains lipids that appear white (like fat on raw meat), giving this tissue its characteristic color. In the brain, white matter lies beneath the gray cortex; in the spinal cord, it surrounds the gray horns as columns.  \n\nFunctionally, nuclei (collections of cell bodies) are located in gray matter, while tracts (bundles of axons) are found in white matter. The terms are most often applied to CNS structures that can be seen with the unaided eye, though microscopic staining is used for peripheral nervous tissue.",
+        "images": [
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_19_img_1.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_196_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_68_img_0.jpeg"
+        ],
+        "sources": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 19,
+            "chunk_preview": "game indicate the separation of white and gray matter compared with the freshly dissected tissue shown earlier?\nStructures of the CNS and PNS\nCNS\nPNS\nGroup of Neuron Cell Bodies (i.e., gray matter) Nucleus Ganglion\nBundle of Axons (i.e., white matter)\nTract\nNerve\nTable 12.1\nCHAPTER 12 | THE NERVOUS SYSTEM AND NERVOUS TISSUE\n473"
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 24,
+            "chunk_preview": "Nervous tissue can also be described as gray matter and white matter on the basis of its appearance in unstained tissue.\nThese descriptions are more often used in the CNS. Gray matter is where nuclei are found and white matter is where tracts\nare found. In the PNS, ganglia are basically gray matter and nerves are white matter.\nThe nervous system can also be divided on the basis of how it controls …"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 17,
+            "chunk_preview": "axons are insulated by a lipid-rich substance called myelin. Lipids can appear as white (“fatty”) material, much like the fat\non a raw piece of chicken or beef. Actually, gray matter may have that color ascribed to it because next to the white matter,\nit is just darker—hence, gray.\nThe distinction between gray matter and white matter is most often applied to central nervous tissue, which has large…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 18,
+            "chunk_preview": "Figure 12.3 Gray Matter and White Matter\nA brain removed during an autopsy, with a partial section removed,\nshows white matter surrounded by gray matter. Gray matter makes up the outer cortex of the brain. (credit: modification\nof work by “Suseno”/Wikimedia Commons)\nRegardless of the appearance of stained or unstained tissue, the cell bodies of neurons or axons can be located in\ndiscrete anatomica…"
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 30,
+            "chunk_preview": "nervous system illustrates the concept very well.\nFresh, unstained nervous tissue can be described as gray or white matter, and within those two types of tissue it can be\nvery hard to see any detail. However, as specific regions and structures have been described, they were related to specific\nCHAPTER 13 | ANATOMY OF THE NERVOUS SYSTEM\n513"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 16,
+            "chunk_preview": "Relate the functional and structural differences between gray matter and white matter structures of the nervous\nsystem to the structure of neurons\n•\nList the basic functions of the nervous system\nThe picture you have in your mind of the nervous system probably includes the brain, the nervous tissue contained within\nthe cranium, and the spinal cord, the extension of nervous tissue within the verteb…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 194,
+            "chunk_preview": "quote: “If the human brain were simple enough for us to understand, we would be too simple to understand it.” However,\nyou are being asked to understand aspects of it. A healthcare provider can pinpoint problems with the nervous system in\nminutes by running through the series of tasks to test neurological function that are described in this chapter. You can use\nthe same approach, though not as qui…"
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 694,
+            "chunk_preview": "!\n!\n. Abb. 17.74A–F. Visuelle, somatosensorische, motorische und präfrontale \nCortexareale und ihre Verbindungen. A Schematische Darstellung, die dor-\nsalen (Where-System) und ventralen (What-System) visuellen Ströme sind \nhervorgehoben. B (Seitenansicht) und C (Ansicht von okzipital) zeigen das \nAreal V1 in der funktionellen Magnetresonanztomographie (fMRT), D Areal V1 \nauf einem Horizontalschnit…"
+          }
+        ],
+        "grounding": {
+          "had_retrieved_passages_in_prompt": true,
+          "unique_text_passages_used": 8,
+          "used_multimodal_text_excerpts": false,
+          "primary_basis": "retrieved_corpus_synthesized",
+          "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+          "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+        },
+        "render_3d_url": null,
+        "render_3d_model_url": null,
+        "render_3d_viewer_url": null,
+        "render_3d_annotations_url": null,
+        "render_3d_anatomy": null,
+        "render_3d_suggestions": []
+      },
+      "error": null
+    },
+    {
+      "id": "R-F04",
+      "category": "factual",
+      "question": "Define the neuromuscular junction and what happens there.",
+      "gold": "Motor end plate, ACh release, muscle AP",
+      "response": {
+        "answer": "\n\nThe neuromuscular junction is a specialized synaptic structure where motor neuron axon terminals connect to the sarcolemma of skeletal muscle fibers. At this junction, multiple axon terminals from a single motor neuron synapse with the muscle fiber membrane. The synaptic end bulbs of these motor neurons secrete acetylcholine (ACh) into the synaptic cleft. ACh binds to ligand-gated ion channels on the sarcolemma, causing them to open and allowing an influx of cations. This depolarizes the muscle fiber membrane, generating a large local potential known as an end plate potential. The depolarization triggers a muscle action potential that propagates along the sarcolemma and ultimately leads to muscle contraction. Unlike most synapses in the nervous system where graded potentials must summate to reach threshold, each nerve impulse at the neuromuscular junction reliably produces a full muscle action potential and subsequent contraction with every signal received from the motor neuron.",
+        "images": [
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_22_img_1.jpeg",
+          "http://localhost:8080/outputs/anatomyphysvol2a-30-60_page_7_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_36_img_0.jpeg"
+        ],
+        "sources": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 188,
+            "chunk_preview": "the basis of whether it is released from a postganglionic sympathetic axon or from the adrenal gland. The synapses in the\nautonomic system are not always the typical type of connection first described in the neuromuscular junction. Instead of\nhaving synaptic end bulbs at the very end of an axonal fiber, they may have swellings—called varicosities—along the length\nof a fiber so that it makes a netw…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 165,
+            "chunk_preview": "above, would be called neuromodulators. The structure of postganglionic connections are not the typical synaptic end bulb\nthat is found at the neuromuscular junction, but rather are chains of swellings along the length of a postganglionic fiber\ncalled a varicosity (Figure 15.5).\nCHAPTER 15 | THE AUTONOMIC NERVOUS SYSTEM\n619"
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 3,
+            "chunk_preview": "down the spinal cord. At the level of the spinal cord at which this axon makes a synapse, a graded potential occurs in the\ncell membrane of a lower motor neuron. This second motor neuron is responsible for causing muscle fibers to contract.\nIn the manner described in the chapter on muscle tissue, an action potential travels along the motor neuron axon into the\nperiphery. The axon terminates on mus…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 144,
+            "chunk_preview": "Motor neuron axons connect to muscle fibers at a neuromuscular junction. This is a specialized synaptic structure at\nwhich multiple axon terminals synapse with the muscle fiber sarcolemma. The synaptic end bulbs of the motor neurons\nsecrete acetylcholine, which binds to receptors on the sarcolemma. The binding of acetylcholine opens ligand-gated ion\nchannels, increasing the movement of cations acr…"
+          }
+        ],
+        "grounding": {
+          "had_retrieved_passages_in_prompt": true,
+          "unique_text_passages_used": 4,
+          "used_multimodal_text_excerpts": false,
+          "primary_basis": "retrieved_corpus_synthesized",
+          "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+          "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+        },
+        "render_3d_url": null,
+        "render_3d_model_url": null,
+        "render_3d_viewer_url": null,
+        "render_3d_annotations_url": null,
+        "render_3d_anatomy": null,
+        "render_3d_suggestions": [
+          "4: Muscular system",
+          "7: Nervous system & Sense organs",
+          "Bonus collection",
+          "Brain",
+          "Central nervous system",
+          "Cerebrum"
+        ]
+      },
+      "error": null
+    },
+    {
+      "id": "R-F05",
+      "category": "factual",
+      "question": "What is the role of the cerebellum in motor control?",
+      "gold": "Coordination, error correction, proprioception",
+      "response": {
+        "answer": "\n\nBased on the provided context, the cerebellum plays several key roles in motor control:\n\n- It compares the intended movement command from the cerebrum with actual performance information received via sensory feedback (e.g., through the inferior cerebellar peduncles).  \n- Using this comparison, it adjusts descending motor signals to correct coordination and compensate for any mismatch between planned and executed movements.  \n- Through the spinocerebellum, it specifically controls posture and gait, relying heavily on input from the vestibular system.  \n- It is also involved in procedural memory—a form of motor memory that allows learning complex motor tasks like riding a bicycle.\n\nThese functions are supported by its connections: receiving copies of descending commands at the pons, integrating sensory feedback via the medulla, and sending corrected output through the midbrain to influence spinal cord activity.",
+        "images": [
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_221_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_68_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_196_img_0.jpeg"
+        ],
+        "sources": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 226,
+            "chunk_preview": "through the middle cerebellar peduncles. Ascending sensory feedback, entering through the inferior cerebellar peduncles,\nprovides information about motor performance. The cerebellar cortex compares the command to the actual performance and\ncan adjust the descending input to compensate for any mismatch. The output from deep cerebellar nuclei projects through\nthe superior cerebellar peduncles to ini…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 218,
+            "chunk_preview": "16.5 | The Coordination and Gait Exams\nBy the end of this section, you will be able to:\n•\nExplain the relationship between the location of the cerebellum and its function in movement\n•\nChart the major divisions of the cerebellum\n•\nList the major connections of the cerebellum\n•\nDescribe the relationship of the cerebellum to axial and appendicular musculature\n•\nExplain the prevalent causes of cerebe…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 102,
+            "chunk_preview": "The brain stem is composed of the midbrain, pons, and medulla. It controls the head and neck region of the body\nthrough the cranial nerves. There are control centers in the brain stem that regulate the cardiovascular and respiratory\nsystems.\nThe cerebellum is connected to the brain stem, primarily at the pons, where it receives a copy of the descending input\nfrom the cerebrum to the spinal cord. I…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 224,
+            "chunk_preview": "stretch reflex of the masseter muscle\nprinciple that circumscribed anatomical locations are responsible for specific functions in an\norgan system\nfiber pathway that connects structures involved in the control of eye and\nhead position, from the superior colliculus to the vestibular nuclei and cerebellum\nmajor section of the neurological exam that assesses cognitive functions of the cerebrum\nlarge, …"
+          }
+        ],
+        "grounding": {
+          "had_retrieved_passages_in_prompt": true,
+          "unique_text_passages_used": 4,
+          "used_multimodal_text_excerpts": false,
+          "primary_basis": "retrieved_corpus_synthesized",
+          "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+          "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+        },
+        "render_3d_url": null,
+        "render_3d_model_url": null,
+        "render_3d_viewer_url": null,
+        "render_3d_annotations_url": null,
+        "render_3d_anatomy": null,
+        "render_3d_suggestions": []
+      },
+      "error": null
+    },
+    {
+      "id": "R-F06",
+      "category": "factual",
+      "question": "What structures make up the brainstem?",
+      "gold": "Midbrain, pons, medulla",
+      "response": {
+        "answer": "\n\nThe brainstem consists of the midbrain, pons, and medulla oblongata. According to the provided context, these structures are collectively referred to as the brain stem, while the cerebellum is attached but considered a separate region.",
+        "images": [
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_71_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_115_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_62_img_0.jpeg"
+        ],
+        "sources": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 73,
+            "chunk_preview": "together define the walls of the third ventricle. The thalami are two elongated, ovoid structures on either side of the\nmidline that make contact in the middle. The hypothalamus is inferior and anterior to the thalamus, culminating in a\nsharp angle to which the pituitary gland is attached.\nBrain Stem\nThe midbrain and hindbrain (composed of the pons and the medulla) are collectively referred to as …"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 61,
+            "chunk_preview": "brain”) accounts for about 10 percent of the mass of the brain and is an important structure in itself. The most significant\nconnection between the cerebellum and the rest of the brain is at the pons, because the pons and cerebellum develop out of\nthe same vesicle. The myelencephalon corresponds to the adult structure known as the medulla oblongata. The structures\nthat come from the mesencephalon …"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 104,
+            "chunk_preview": "15. Which adult structure(s) arises from the diencephalon?\na.\nthalamus, hypothalamus, retina\nb.\nmidbrain, pons, medulla\nc.\npons and cerebellum\nd.\ncerebrum\n16.\nWhich\nnon-nervous\ntissue\ndevelops\nfrom\nthe\nneuroectoderm?\na.\nrespiratory mucosa\nb.\nvertebral bone\nc.\ndigestive lining\nd.\ncraniofacial bone\n17. Which structure is associated with the embryologic\ndevelopment of the peripheral nervous system?\na…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 66,
+            "chunk_preview": "the diencephalon, the brain stem, and the cerebellum. A person’s conscious experiences are based on neural activity in the\nbrain. The regulation of homeostasis is governed by a specialized region in the brain. The coordination of reflexes depends\non the integration of sensory and motor pathways in the spinal cord.\nThe Cerebrum\nThe iconic gray mantle of the human brain, which appears to make up mos…"
+          }
+        ],
+        "grounding": {
+          "had_retrieved_passages_in_prompt": true,
+          "unique_text_passages_used": 4,
+          "used_multimodal_text_excerpts": false,
+          "primary_basis": "retrieved_corpus_synthesized",
+          "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+          "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+        },
+        "render_3d_url": null,
+        "render_3d_model_url": null,
+        "render_3d_viewer_url": null,
+        "render_3d_annotations_url": null,
+        "render_3d_anatomy": null,
+        "render_3d_suggestions": []
+      },
+      "error": null
+    },
+    {
+      "id": "R-F07",
+      "category": "factual",
+      "question": "What is a synapse?",
+      "gold": "Presynaptic/postsynaptic, neurotransmitter",
+      "response": {
+        "answer": "\n\nA synapse is defined in the context as \"a connection between a neuron and its target cell (which is not necessarily a neuron).\" It typically involves structures such as a presynaptic element, synaptic cleft, neurotransmitters, receptor proteins, and postsynaptic element. The text also notes that synapses can be chemical or electrical, but the general definition applies to both types of connections between neurons and their target cells (which may include other neurons, muscle cells, or gland cells).",
+        "images": [
+          "http://localhost:8080/outputs/anatomy+phys+vol2a-30-60_page_7_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_36_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a-30-60_page_7_img_1.jpeg"
+        ],
+        "sources": [
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 15,
+            "chunk_preview": "Once in the synaptic cleft, the neurotransmitter diffuses the short distance to the postsynaptic membrane and can\ninteract with neurotransmitter receptors. Receptors are specific for the neurotransmitter, and the two fit together like a key\nand lock. One neurotransmitter binds to its receptor and will not bind to receptors for other neurotransmitters, making the\nbinding a specific chemical event (…"
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 14,
+            "chunk_preview": "the next. If one cell is depolarized in an electrical synapse, the joined cell also depolarizes because the ions pass between\nthe cells. Chemical synapses involve the transmission of chemical information from one cell to the next. This section will\nconcentrate on the chemical type of synapse.\nAn example of a chemical synapse is the neuromuscular junction (NMJ) described in the chapter on muscle ti…"
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 25,
+            "chunk_preview": "are far more common. At a chemical synapse, neurotransmitter is released from the presynaptic element and diffuses across\nthe synaptic cleft. The neurotransmitter binds to a receptor protein and causes a change in the postsynaptic membrane (the\nPSP). The neurotransmitter must be inactivated or removed from the synaptic cleft so that the stimulus is limited in time.\nThe particular characteristics o…"
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 608,
+            "chunk_preview": "Boutons können synaptische Verbindungen eingehen mit:\nDendriten: axodendritische Synapse\nAxonen: axoaxonale Synapse\nSomata: axosomatische Synapse\nSynaptische Verbindungen werden als konvergent bezeichnet, \nwenn ein Neuron von vielen anderen innerviert wird. Sie werden \nals divergent bezeichnet, wenn ein Neuron zahlreiche andere \nNeurone innerviert. Konvergenz und Divergenz sind wichtige \nPrinzipie…"
+          }
+        ],
+        "grounding": {
+          "had_retrieved_passages_in_prompt": true,
+          "unique_text_passages_used": 4,
+          "used_multimodal_text_excerpts": false,
+          "primary_basis": "retrieved_corpus_synthesized",
+          "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+          "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+        },
+        "render_3d_url": null,
+        "render_3d_model_url": null,
+        "render_3d_viewer_url": null,
+        "render_3d_annotations_url": null,
+        "render_3d_anatomy": null,
+        "render_3d_suggestions": []
+      },
+      "error": null
+    },
+    {
+      "id": "R-F08",
+      "category": "factual",
+      "question": "What is the function of the mitral valve?",
+      "gold": "Left AV valve; prevents backflow to LA",
+      "response": {
+        "answer": "\n\nThe mitral valve (also called the bicuspid or left atrioventricular valve) is located at the opening between the left atrium and left ventricle. Its primary function, as stated in the context, is to prevent the backflow of blood from the left ventricle into the left atrium during ventricular contraction. This ensures that blood flows only in one direction—from the left atrium into the left ventricle—maintaining efficient circulation through the systemic circuit.",
+        "images": [
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_337_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_348_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_339_img_0.jpeg"
+        ],
+        "sources": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 335,
+            "chunk_preview": "Left Ventricle\nRecall that, although both sides of the heart will pump the same amount of blood, the muscular layer is much thicker in the\nleft ventricle compared to the right (see Figure 19.8). Like the right ventricle, the left also has trabeculae carneae, but there\nis no moderator band. The mitral valve is connected to papillary muscles via chordae tendineae. There are two papillary\nmuscles on …"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 379,
+            "chunk_preview": "the right tricuspid valve and the left mitral valve, which prevent the backflow of blood. Each is attached to chordae tendineae\nthat extend to the papillary muscles, which are extensions of the myocardium, to prevent the valves from being blown back\ninto the atria. The pulmonary valve is located at the base of the pulmonary trunk, and the left semilunar valve is located\nat the base of the aorta. T…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 336,
+            "chunk_preview": "pulmonary valve, causing the valve to close and producing an audible sound. Unlike the atrioventricular valves, there are\nno papillary muscles or chordae tendineae associated with the pulmonary valve.\nLocated at the opening between the left atrium and left ventricle is the mitral valve, also called the bicuspid valve\nor the left atrioventricular valve. Structurally, this valve consists of two cusp…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 339,
+            "chunk_preview": "detected in approximately 2 percent of the population, and the pulmonary semilunar valve is the least frequently\ninvolved. When a valve malfunctions, the flow of blood to a region will often be disrupted. The resulting inadequate\nflow of blood to this region will be described in general terms as an insufficiency. The specific type of insufficiency\nis named for the valve involved: aortic insufficie…"
+          }
+        ],
+        "grounding": {
+          "had_retrieved_passages_in_prompt": true,
+          "unique_text_passages_used": 4,
+          "used_multimodal_text_excerpts": false,
+          "primary_basis": "retrieved_corpus_synthesized",
+          "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+          "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+        },
+        "render_3d_url": null,
+        "render_3d_model_url": null,
+        "render_3d_viewer_url": null,
+        "render_3d_annotations_url": null,
+        "render_3d_anatomy": null,
+        "render_3d_suggestions": []
+      },
+      "error": null
+    },
+    {
+      "id": "R-F09",
+      "category": "factual",
+      "question": "What is the difference between CNS and PNS?",
+      "gold": "Brain/spinal cord vs peripheral nerves",
+      "response": {
+        "answer": "\n\nBased on the provided context passages, the main differences between the central nervous system (CNS) and peripheral nervous system (PNS) are:\n\n- **Definition and location**: The CNS consists of the brain and spinal cord. The PNS is defined as everything else—neural structures outside the brain and spinal cord. Although some elements of the PNS can be found within cranial or vertebral cavities, they are still considered peripheral because they lie beyond the brain and spinal cord.\n- **Structural components**: In the CNS, gray matter contains nuclei and white matter contains tracts. In the PNS, ganglia (clusters of neuron cell bodies) represent gray matter, while nerves (bundles of axons) represent white matter. The PNS is composed of these groups of neurons and bundles of axons that extend throughout the body.\n- **Containment**: The CNS is more contained within specific cavities (cranial and vertebral), whereas the PNS is less contained and extends into various parts of the body, with some structures incorporated into other organs.\n\nThese distinctions are based on anatomical divisions as described in the text.",
+        "images": [
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_196_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_28_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_68_img_0.jpeg"
+        ],
+        "sources": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 21,
+            "chunk_preview": "the PNS, and is not dependent on the CNS. It is sometimes valid, however, to consider the enteric system to be a part of the\nautonomic system because the neural structures that make up the enteric system are a component of the autonomic output\nthat regulates digestion. There are some differences between the two, but for our purposes here there will be a good bit of\noverlap. See Figure 12.6 for exa…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 85,
+            "chunk_preview": "•\nDistinguish between somatic and autonomic structures, including the special peripheral structures of the enteric\nnervous system\n•\nName the twelve cranial nerves and explain the functions associated with each\n•\nDescribe the sensory and motor components of spinal nerves and the plexuses that they pass through\nThe PNS is not as contained as the CNS because it is defined as everything that is not th…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 16,
+            "chunk_preview": "system (CNS) is the brain and spinal cord, and the peripheral nervous system (PNS) is everything else (Figure 12.2).\nThe brain is contained within the cranial cavity of the skull, and the spinal cord is contained within the vertebral cavity\nof the vertebral column. It is a bit of an oversimplification to say that the CNS is what is inside these two cavities and\nthe peripheral nervous system is out…"
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 24,
+            "chunk_preview": "CHAPTER REVIEW\n12.1 Basic Structure and Function of the Nervous System\nThe nervous system can be separated into divisions on the basis of anatomy and physiology. The anatomical divisions are\nthe central and peripheral nervous systems. The CNS is the brain and spinal cord. The PNS is everything else. Functionally,\nthe nervous system can be divided into those regions that are responsible for sensati…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 18,
+            "chunk_preview": "about these terms, which is that they can both be used to refer to the same bundle of axons. When those axons are in the\nPNS, the term is nerve, but if they are CNS, the term is tract. The most obvious example of this is the axons that project\nfrom the retina into the brain. Those axons are called the optic nerve as they leave the eye, but when they are inside the\ncranium, they are referred to as …"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 53,
+            "chunk_preview": "Nervous tissue can also be described as gray matter and white matter on the basis of its appearance in unstained tissue.\nThese descriptions are more often used in the CNS. Gray matter is where nuclei are found and white matter is where tracts\nare found. In the PNS, ganglia are basically gray matter and nerves are white matter.\nThe nervous system can also be divided on the basis of how it controls …"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 102,
+            "chunk_preview": "The blood, now with the reabsorbed CSF, drains out of the cranium through the dural sinuses. The dura mater is the\ntough outer covering of the CNS, which is anchored to the inner surface of the cranial and vertebral cavities. It surrounds\nthe venous space known as the dural sinuses, which connect to the jugular veins, where blood drains from the head and\nneck.\n13.4 The Peripheral Nervous System\nTh…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 17,
+            "chunk_preview": "Figure 12.2 Central and Peripheral Nervous System\nThe structures of the PNS are referred to as ganglia and\nnerves, which can be seen as distinct structures. The equivalent structures in the CNS are not obvious from this overall\nperspective and are best examined in prepared tissue under the microscope.\nNervous tissue, present in both the CNS and PNS, contains two basic types of cells: neurons and g…"
+          }
+        ],
+        "grounding": {
+          "had_retrieved_passages_in_prompt": true,
+          "unique_text_passages_used": 8,
+          "used_multimodal_text_excerpts": false,
+          "primary_basis": "retrieved_corpus_synthesized",
+          "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+          "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+        },
+        "render_3d_url": null,
+        "render_3d_model_url": null,
+        "render_3d_viewer_url": null,
+        "render_3d_annotations_url": null,
+        "render_3d_anatomy": null,
+        "render_3d_suggestions": []
+      },
+      "error": null
+    },
+    {
+      "id": "R-F10",
+      "category": "factual",
+      "question": "What is the function of the blood–brain barrier?",
+      "gold": "Restricts plasma solutes to brain ISF",
+      "response": {
+        "answer": "\n\nThe blood–brain barrier functions as a protective physiological barrier for the central nervous system. Its primary role is to control which substances can cross from the circulating blood into the CNS, keeping out many toxins and pathogens while allowing essential nutrient molecules such as glucose and amino acids to pass through.",
+        "images": [
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_22_img_1.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_28_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a-30-60_page_6_img_0.jpeg"
+        ],
+        "sources": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 78,
+            "chunk_preview": "Explain the production of cerebrospinal fluid and its flow through the ventricles\n•\nExplain how a disruption in circulation would result in a stroke\nThe CNS is crucial to the operation of the body, and any compromise in the brain and spinal cord can lead to severe\ndifficulties. The CNS has a privileged blood supply, as suggested by the blood-brain barrier. The function of the tissue in\nthe CNS is …"
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 24,
+            "chunk_preview": "barrier. Oligodendrocytes are the myelinating glia in the CNS. Microglia act as phagocytes and play a role in immune\nsurveillance. Ependymal cells are responsible for filtering the blood to produce cerebrospinal fluid, which is a circulatory\nfluid that performs some of the functions of blood in the brain and spinal cord because of the BBB. In the PNS, satellite\ncells are supporting cells for the n…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 26,
+            "chunk_preview": "covering the CNS that is called the pia mater (Figure 12.11). Generally, they are supporting cells for the neurons in the\ncentral nervous system. Some ways in which they support neurons in the central nervous system are by maintaining the\nconcentration of chemicals in the extracellular space, removing excess signaling molecules, reacting to tissue damage,\nand contributing to the blood-brain barrie…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 102,
+            "chunk_preview": "The CNS has a privileged blood supply established by the blood-brain barrier. Establishing this barrier are anatomical\nstructures that help to protect and isolate the CNS. The arterial blood to the brain comes from the internal carotid and\nvertebral arteries, which both contribute to the unique circle of Willis that provides constant perfusion of the brain even\nif one of the blood vessels is block…"
+          }
+        ],
+        "grounding": {
+          "had_retrieved_passages_in_prompt": true,
+          "unique_text_passages_used": 4,
+          "used_multimodal_text_excerpts": false,
+          "primary_basis": "retrieved_corpus_synthesized",
+          "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+          "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+        },
+        "render_3d_url": null,
+        "render_3d_model_url": null,
+        "render_3d_viewer_url": null,
+        "render_3d_annotations_url": null,
+        "render_3d_anatomy": null,
+        "render_3d_suggestions": []
+      },
+      "error": null
+    },
+    {
+      "id": "R-F11",
+      "category": "factual",
+      "question": "Upper motor neuron — short definition.",
+      "gold": "CNS neuron controlling LMN",
+      "response": {
+        "answer": "\n\nAn upper motor neuron is a cell located in the cerebral cortex (specifically the precentral gyrus) whose axon extends down the spinal cord to synapse on lower motor neurons within the gray matter, transmitting motor commands from the brain.",
+        "images": [
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_196_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_22_img_1.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_62_img_0.jpeg"
+        ],
+        "sources": [
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 24,
+            "chunk_preview": "cortex. Following integration of that information with other cognitive processes and sensory information, the brain sends a\ncommand back down to the spinal cord to initiate a motor response by controlling a skeletal muscle. The motor pathway is\ncomposed of two cells, the upper motor neuron and the lower motor neuron. The upper motor neuron has its cell body in the\ncerebral cortex and synapses on a…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 213,
+            "chunk_preview": "•\nDifferentiate between upper motor neuron and lower motor neuron diseases\n•\nDescribe the clinical indications of common reflexes\nConnections between the body and the CNS occur through the spinal cord. The cranial nerves connect the head and neck\ndirectly to the brain, but the spinal cord receives sensory input and sends motor commands out to the body through the spinal\nnerves. Whereas the brain d…"
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 3,
+            "chunk_preview": "whether that is to turn the temperature up, turn the whole shower off and go back to bed, or step into the shower. To do any\nof these things, the cerebral cortex has to send a command out to your body to move muscles (Figure 12.16).\nFigure 12.16 The Motor Response\nOn the basis of the sensory input and the integration in the CNS, a motor\nresponse is formulated and executed.\nA region of the cortex i…"
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 2,
+            "chunk_preview": "potential is caused by the release of a chemical signal from the axon terminals. (4) An action potential is initiated at the\ninitial segment of this neuron and travels up the sensory pathway to a region of the brain called the thalamus. Another\nsynapse passes the information along to the next neuron. (5) The sensory pathway ends when the signal reaches the\ncerebral cortex. (6) After integration wi…"
+          }
+        ],
+        "grounding": {
+          "had_retrieved_passages_in_prompt": true,
+          "unique_text_passages_used": 4,
+          "used_multimodal_text_excerpts": false,
+          "primary_basis": "retrieved_corpus_synthesized",
+          "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+          "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+        },
+        "render_3d_url": null,
+        "render_3d_model_url": null,
+        "render_3d_viewer_url": null,
+        "render_3d_annotations_url": null,
+        "render_3d_anatomy": null,
+        "render_3d_suggestions": []
+      },
+      "error": null
+    },
+    {
+      "id": "R-F12",
+      "category": "factual",
+      "question": "What is neuroplasticity in one or two sentences, as used in your sources?",
+      "gold": "CNS adaptability / learning",
+      "response": {
+        "answer": "\n\nThe provided context passages do not contain any information about neuroplasticity. Based on general anatomy knowledge, neuroplasticity is the brain’s ability to reorganize its neural connections and functions in response to learning, experience, or injury.",
+        "images": [
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_196_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_71_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_69_img_0.jpeg"
+        ],
+        "sources": [
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 27,
+            "chunk_preview": "with inhibition exclusively?\na.\nGABA\nb.\nacetylcholine\nc.\nglutamate\nd.\nnorepinephrine\nCRITICAL THINKING QUESTIONS\n34. What responses are generated by the nervous system\nwhen you run on a treadmill? Include an example of each\ntype of tissue that is under nervous system control.\n35. When eating food, what anatomical and functional\ndivisions of the nervous system are involved in the\nperceptual experie…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 197,
+            "chunk_preview": "Infection, trauma, and congenital disorders can all lead to significant signs, as identified through the neurological exam.\nIt is important to differentiate between an acute event, such as stroke, and a chronic or global condition such as blunt force\ntrauma. Responses seen in the neurological exam can help. A loss of language function observed in all its aspects is more\nlikely a global event as op…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 200,
+            "chunk_preview": "and did not lose the ability to form new short-term memories—it was concluded that the function of the hippocampus, and\nadjacent structures in the medial temporal lobe, is to move (or consolidate) short-term memories (in the pre-frontal lobe) to\nlong-term memory (in the temporal lobe).\nThe prefrontal cortex can also be tested for the ability to organize information. In one subtest of the mental st…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 229,
+            "chunk_preview": "topographical map of sensory innervation. What does this\nmean?\n41. Why are upper motor neuron lesions characterized by\n“spastic paralysis”?\n42. Learning to ride a bike is a motor function dependent\non the cerebellum. Why are the different regions of the\ncerebellum involved in this complex motor learning?\n43. Alcohol intoxication can produce slurred speech. How is\nthis related to cerebellar functio…"
+          }
+        ],
+        "grounding": {
+          "had_retrieved_passages_in_prompt": true,
+          "unique_text_passages_used": 4,
+          "used_multimodal_text_excerpts": false,
+          "primary_basis": "retrieved_corpus_synthesized",
+          "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+          "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+        },
+        "render_3d_url": null,
+        "render_3d_model_url": null,
+        "render_3d_viewer_url": null,
+        "render_3d_annotations_url": null,
+        "render_3d_anatomy": null,
+        "render_3d_suggestions": []
+      },
+      "error": null
+    }
+  ]
+}

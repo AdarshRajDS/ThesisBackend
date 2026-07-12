@@ -27,6 +27,7 @@ This document follows the thesis requirement that RAG is judged by **document gr
 7. [Minimum evaluation datasets](#7-minimum-evaluation-datasets)
 8. [Core criteria to prioritize](#8-core-criteria-to-prioritize)
 9. [Professor question set (complete list)](#9-professor-evaluation-question-set-complete-list)
+   - [9.1 Professor metrics workbook](#91-professor-evaluation-metrics-workbook)
 10. [Exploratory RAG results — cloud run (Q&A)](#10-exploratory-rag-results--cloud-run-qa)
 11. [Local LM Studio experiment (Q&A)](#11-local-lm-studio-experiment-qa)
 12. [Final RAG evaluation workbook (Q&A templates)](#12-final-rag-evaluation-workbook-qa-templates)
@@ -464,10 +465,48 @@ python scripts/run_german_eval.py german_eval_results.json
 # Local LM Studio experiment
 python scripts/run_german_eval.py german_eval_lmstudio_results.json
 python scripts/retry_failed_eval.py german_eval_lmstudio_results.json
-```powershell
+
+# Refresh §9.1 metrics workbook + §10/§11 Q&A detail
 python scripts/refresh_eval_md.py
 ```
-```
+
+
+## 9.1 Professor evaluation metrics workbook
+
+**Status:** System answers populated from `german_eval_lmstudio_results.json` (§11) and `german_eval_results.json` (§10).  
+**Retrieval metrics** (P@3, R@3, nDCG@3) require gold relevant passages — fill after manual relevance judging.  
+**Human rubric** (Acc–Abst): score 1–5 per §6 (**Acc**uracy · **Comp**leteness · **Rel**evance · **Grnd**ing · **Cit**ation · **Abst**ention/boundary).
+
+**Local outcomes:** LM-R01: Answered (world knowledge) · LM-R02: Error · LM-R03: Answered (world knowledge) · LM-R04: Answered · LM-R05: Answered · LM-R06: Answered · LM-R07: Answered (world knowledge) · LM-R08: Answered · LM-R09: Error  
+**Cloud outcomes:** EXP-R01: Abstained · EXP-R02: Error · EXP-R03: Abstained · EXP-R04: Abstained · EXP-R05: Answered · EXP-R06: Answered · EXP-R07: Answered · EXP-R08: Abstained · EXP-R09: Answered
+
+### 9.1.1 Local LM Studio run (primary thesis experiment)
+
+| ID | Question | Expected key points | System answer | P@3 | R@3 | nDCG@3 | Acc | Comp | Rel | Grnd | Cit | Abst |
+| -- | -------- | ------------------- | ------------- | --- | --- | ------ | --- | ---- | --- | ---- | --- | ---- |
+| LM-R01 | Bitte stelle mir die wichtigsten Muskeln für die Bewegung der Sprunggelenke zusammen und … | Peroneus longus/brevis, tibialis anterior/posterior, gastrocnemius/soleus, grou… | Die bereitgestellten Textpassagen enthalten keine Informationen über die Muskulatur des Sprunggelen… | | | | | | | | | |
+| LM-R02 | Bitte stelle mir eine Übersicht über die wichtigen Muskeln zusammen, welche benötigt werd… | Flexor digitorum superficialis/profundus, flexor pollicis longus, lumbricals; m… | HTTP Error 500: Internal Server Error | | | | | | | | | |
+| LM-R03 | Welche Faktoren begünstigen einen Hochstand des Humeruskopfes und damit eine Enge unter d… | Humeral head high-riding: rotator cuff weakness, capsular tightness; subacromia… | Der bereitgestellte Kontext enthält keine relevanten Informationen zu diesem Thema. Basierend auf a… | | | | | | | | | |
+| LM-R04 | Welcher Muskel ist der wichtigste Hüftbeuger beim Menschen? | Iliopsoas (iliacus + psoas major) as primary hip flexor. | Der wichtigste Hüftbeuger beim Menschen ist der **Iliopsoas** (zusammengesetzt aus dem Psoasmajor u… | | | | | | | | | |
+| LM-R05 | Kannst Du mir kurz erklären, wie der Vestibulo-Okuläre-Reflex funktioniert? | Vestibular nuclei → ocular motor nuclei; stabilizes retinal image during head m… | Der Vestibulo-okuläre Reflex (VOR) ist ein automatischer Reflex, der die Augenbewegung so steuert, … | | | | | | | | | |
+| LM-R06 | Gibt es den Vestibulookulären Reflex nur in der Horizontalen? | Semicircular canals: horizontal + vertical planes; VOR not limited to horizonta… | Nein, der vestibulookuläre Reflex (VOR) ist nicht ausschließlich horizontal. Es existieren horizont… | | | | | | | | | |
+| LM-R07 | Welche Augenmuskeln wirken denn mit welchen Borgengängen zusammen? | Extraocular muscle ↔ semicircular canal pairings. | Der bereitgestellte Kontext enthält keine Informationen darüber, welche Augenmuskeln mit welchen Ne… | | | | | | | | | |
+| LM-R08 | Bitte erkläre mir die Funktion des Herzens. | Heart pump function, chambers, systemic/pulmonary circulation. | Das Herz ist ein Hohlmuskel, der als Druck-Saug-Pumpe für die Zirkulation des Blutes im Körper sorg… | | | | | | | | | |
+| LM-R09 | Bitte erstelle mir ein Kurzreferat für 3 Minuten für den Schultergürtel wo es um Bewegung… | Shoulder girdle, abduction/elevation, scapulohumeral rhythm, relevant muscles. | timed out | | | | | | | | | |
+
+### 9.1.2 Cloud exploratory run (historical comparison)
+
+| ID | Question | Expected key points | System answer | P@3 | R@3 | nDCG@3 | Acc | Comp | Rel | Grnd | Cit | Abst |
+| -- | -------- | ------------------- | ------------- | --- | --- | ------ | --- | ---- | --- | ---- | --- | ---- |
+| EXP-R01 | Bitte stelle mir die wichtigsten Muskeln für die Bewegung der Sprunggelenke zusammen und … | Peroneus longus/brevis, tibialis anterior/posterior, gastrocnemius/soleus, grou… | Die bereitgestellten Textpassagen enthalten keine Informationen über die Muskeln, die für die Beweg… | | | | | | | | | |
+| EXP-R02 | Bitte stelle mir eine Übersicht über die wichtigen Muskeln zusammen, welche benötigt werd… | Flexor digitorum superficialis/profundus, flexor pollicis longus, lumbricals; m… | HTTP Error 500: Internal Server Error | | | | | | | | | |
+| EXP-R03 | Welche Faktoren begünstigen einen Hochstand des Humeruskopfes und damit eine Enge unter d… | Humeral head high-riding: rotator cuff weakness, capsular tightness; subacromia… | Die bereitgestellten Textpassagen enthalten keine Informationen, die die Faktoren für einen Hochsta… | | | | | | | | | |
+| EXP-R04 | Welcher Muskel ist der wichtigste Hüftbeuger beim Menschen? | Iliopsoas (iliacus + psoas major) as primary hip flexor. | Der bereitgestellte Kontext enthält keine Informationen über die Muskelanatomie oder welche Muskeln… | | | | | | | | | |
+| EXP-R05 | Kannst Du mir kurz erklären, wie der Vestibulo-Okuläre-Reflex funktioniert? | Vestibular nuclei → ocular motor nuclei; stabilizes retinal image during head m… | Der vestibululo-okuläre Reflex (VOR) ist ein Mechanismus, der dazu dient, Bilder auf der Netzhaut z… | | | | | | | | | |
+| EXP-R06 | Gibt es den Vestibulookulären Reflex nur in der Horizontalen? | Semicircular canals: horizontal + vertical planes; VOR not limited to horizonta… | Der Kontext beschreibt die Orientierung der halbkreisförmigen Kanäle (semicircular canals), die Erw… | | | | | | | | | |
+| EXP-R07 | Welche Augenmuskeln wirken denn mit welchen Borgengängen zusammen? | Extraocular muscle ↔ semicircular canal pairings. | Die extraokularen Muskeln werden von drei Hirnnerven innerviert.  *   Der **laterale Rectus** (veru… | | | | | | | | | |
+| EXP-R08 | Bitte erkläre mir die Funktion des Herzens. | Heart pump function, chambers, systemic/pulmonary circulation. | Die bereitgestellten Textpassagen enthalten keine Informationen über die Funktion des Herzens. | | | | | | | | | |
+| EXP-R09 | Bitte erstelle mir ein Kurzreferat für 3 Minuten für den Schultergürtel wo es um Bewegung… | Shoulder girdle, abduction/elevation, scapulohumeral rhythm, relevant muscles. | Basierend auf den bereitgestellten Textpassagen kann ich Ihnen ein Kurzreferat über die motorische … | | | | | | | | | |
 
 ---
 
@@ -481,17 +520,17 @@ python scripts/refresh_eval_md.py
 
 ### 10.0 Summary
 
-| ID | Outcome | Sources | Images |
-| -- | ------- | ------- | ------ |
-| EXP-R01 | Abstained | 3 | 0 |
-| EXP-R02 | Error | — | — |
-| EXP-R03 | Abstained | 3 | 0 |
-| EXP-R04 | Abstained | 3 | 0 |
-| EXP-R05 | Answered | 3 | 2 |
-| EXP-R06 | Answered | 3 | 3 |
-| EXP-R07 | Answered | 3 | 0 |
-| EXP-R08 | Abstained | 3 | 0 |
-| EXP-R09 | Answered | 3 | 0 |
+| ID | Outcome | Sources | Images | Request time |
+| -- | ------- | ------- | ------ | ------------ |
+| EXP-R01 | Abstained | 3 | 0 | — |
+| EXP-R02 | Error | — | — | — |
+| EXP-R03 | Abstained | 3 | 0 | — |
+| EXP-R04 | Abstained | 3 | 0 | — |
+| EXP-R05 | Answered | 3 | 2 | — |
+| EXP-R06 | Answered | 3 | 3 | — |
+| EXP-R07 | Answered | 3 | 0 | — |
+| EXP-R08 | Abstained | 3 | 0 | — |
+| EXP-R09 | Answered | 3 | 0 | — |
 
 ---
 
@@ -502,6 +541,7 @@ python scripts/refresh_eval_md.py
 | **ID** | EXP-R01 |
 | **Category** | Complex / multi-step |
 | **Language** | German |
+| **Request time** | n/a |
 
 **Question:**  
 Bitte stelle mir die wichtigsten Muskeln für die Bewegung der Sprunggelenke zusammen und sortiere diese bitte nach Bewegungsrichtungen.
@@ -536,6 +576,7 @@ Die bereitgestellten Textpassagen enthalten keine Informationen über die Muskel
 | **ID** | EXP-R02 |
 | **Category** | Complex + figure request |
 | **Language** | German |
+| **Request time** | n/a |
 
 **Question:**  
 Bitte stelle mir eine Übersicht über die wichtigen Muskeln zusammen, welche benötigt werden, um eine Faust zu schließen. Hierbei sollte die Innervation berücksichtigt werden. Bitte zeige mir dazu auch zwei didaktisch gute Bilder.
@@ -554,6 +595,7 @@ Flexor digitorum superficialis/profundus, flexor pollicis longus, lumbricals; me
 | **ID** | EXP-R03 |
 | **Category** | Direct factual / clinical anatomy |
 | **Language** | German |
+| **Request time** | n/a |
 
 **Question:**  
 Welche Faktoren begünstigen einen Hochstand des Humeruskopfes und damit eine Enge unter dem Schulterdach?
@@ -588,6 +630,7 @@ Die bereitgestellten Textpassagen enthalten keine Informationen, die die Faktore
 | **ID** | EXP-R04 |
 | **Category** | Direct factual |
 | **Language** | German |
+| **Request time** | n/a |
 
 **Question:**  
 Welcher Muskel ist der wichtigste Hüftbeuger beim Menschen?
@@ -622,6 +665,7 @@ Der bereitgestellte Kontext enthält keine Informationen über die Muskelanatomi
 | **ID** | EXP-R05 |
 | **Category** | Direct factual + implicit figure |
 | **Language** | German |
+| **Request time** | n/a |
 
 **Question:**  
 Kannst Du mir kurz erklären, wie der Vestibulo-Okuläre-Reflex funktioniert?
@@ -666,6 +710,7 @@ Kurz gesagt: Der VOR sorgt dafür, dass die Augen den visuellen Reiz stabilisier
 | **ID** | EXP-R06 |
 | **Category** | Complex / boundary |
 | **Language** | German |
+| **Request time** | n/a |
 
 **Question:**  
 Gibt es den Vestibulookulären Reflex nur in der Horizontalen?
@@ -707,6 +752,7 @@ Der Kontext liefert keine Aussage darüber, ob der vestibulookuläre Reflex (VOR
 | **ID** | EXP-R07 |
 | **Category** | Direct factual |
 | **Language** | German |
+| **Request time** | n/a |
 
 **Question:**  
 Welche Augenmuskeln wirken denn mit welchen Borgengängen zusammen?
@@ -744,6 +790,7 @@ Die extraokularen Muskeln werden von drei Hirnnerven innerviert.
 | **ID** | EXP-R08 |
 | **Category** | Direct factual |
 | **Language** | German |
+| **Request time** | n/a |
 
 **Question:**  
 Bitte erkläre mir die Funktion des Herzens.
@@ -778,6 +825,7 @@ Die bereitgestellten Textpassagen enthalten keine Informationen über die Funkti
 | **ID** | EXP-R09 |
 | **Category** | Complex / synthesis |
 | **Language** | German |
+| **Request time** | n/a |
 
 **Question:**  
 Bitte erstelle mir ein Kurzreferat für 3 Minuten für den Schultergürtel wo es um Bewegungen des Armes geht und Dinge wie Abduktion und Elevation.
@@ -849,17 +897,17 @@ Die Bewegungen des Arms – wie Abduktion oder Elevation – werden durch ein dy
 
 ### 11.0 Summary
 
-| ID | Outcome | Sources | Images |
-| -- | ------- | ------- | ------ |
-| LM-R01 | Answered (world knowledge) | 5 | 0 |
-| LM-R02 | Error | — | — |
-| LM-R03 | Answered (world knowledge) | 5 | 0 |
-| LM-R04 | Answered | 5 | 0 |
-| LM-R05 | Answered | 5 | 2 |
-| LM-R06 | Answered | 4 | 3 |
-| LM-R07 | Answered (world knowledge) | 4 | 0 |
-| LM-R08 | Answered | 4 | 0 |
-| LM-R09 | Error | — | — |
+| ID | Outcome | Sources | Images | Request time |
+| -- | ------- | ------- | ------ | ------------ |
+| LM-R01 | Answered (world knowledge) | 5 | 0 | — |
+| LM-R02 | Error | — | — | — |
+| LM-R03 | Answered (world knowledge) | 5 | 0 | — |
+| LM-R04 | Answered | 5 | 0 | — |
+| LM-R05 | Answered | 5 | 2 | — |
+| LM-R06 | Answered | 4 | 3 | — |
+| LM-R07 | Answered (world knowledge) | 4 | 0 | — |
+| LM-R08 | Answered | 4 | 0 | — |
+| LM-R09 | Error | — | — | — |
 
 ### 11.0.1 Cloud vs local comparison (same professor set)
 
@@ -885,6 +933,7 @@ Die Bewegungen des Arms – wie Abduktion oder Elevation – werden durch ein dy
 | **ID** | LM-R01 |
 | **Category** | Complex / multi-step |
 | **Language** | German |
+| **Request time** | n/a |
 
 **Question:**  
 Bitte stelle mir die wichtigsten Muskeln für die Bewegung der Sprunggelenke zusammen und sortiere diese bitte nach Bewegungsrichtungen.
@@ -950,6 +999,7 @@ Die bereitgestellten Textpassagen enthalten keine Informationen über die Muskul
 | **ID** | LM-R02 |
 | **Category** | Complex + figure request |
 | **Language** | German |
+| **Request time** | n/a |
 
 **Question:**  
 Bitte stelle mir eine Übersicht über die wichtigen Muskeln zusammen, welche benötigt werden, um eine Faust zu schließen. Hierbei sollte die Innervation berücksichtigt werden. Bitte zeige mir dazu auch zwei didaktisch gute Bilder.
@@ -968,6 +1018,7 @@ Flexor digitorum superficialis/profundus, flexor pollicis longus, lumbricals; me
 | **ID** | LM-R03 |
 | **Category** | Direct factual / clinical anatomy |
 | **Language** | German |
+| **Request time** | n/a |
 
 **Question:**  
 Welche Faktoren begünstigen einen Hochstand des Humeruskopfes und damit eine Enge unter dem Schulterdach?
@@ -1010,6 +1061,7 @@ Der bereitgestellte Kontext enthält keine relevanten Informationen zu diesem Th
 | **ID** | LM-R04 |
 | **Category** | Direct factual |
 | **Language** | German |
+| **Request time** | n/a |
 
 **Question:**  
 Welcher Muskel ist der wichtigste Hüftbeuger beim Menschen?
@@ -1046,6 +1098,7 @@ Der wichtigste Hüftbeuger beim Menschen ist der **Iliopsoas** (zusammengesetzt 
 | **ID** | LM-R05 |
 | **Category** | Direct factual + implicit figure |
 | **Language** | German |
+| **Request time** | n/a |
 
 **Question:**  
 Kannst Du mir kurz erklären, wie der Vestibulo-Okuläre-Reflex funktioniert?
@@ -1084,6 +1137,7 @@ Der Vestibulo-okuläre Reflex (VOR) ist ein automatischer Reflex, der die Augenb
 | **ID** | LM-R06 |
 | **Category** | Complex / boundary |
 | **Language** | German |
+| **Request time** | n/a |
 
 **Question:**  
 Gibt es den Vestibulookulären Reflex nur in der Horizontalen?
@@ -1122,6 +1176,7 @@ Nein, der vestibulookuläre Reflex (VOR) ist nicht ausschließlich horizontal. E
 | **ID** | LM-R07 |
 | **Category** | Direct factual |
 | **Language** | German |
+| **Request time** | n/a |
 
 **Question:**  
 Welche Augenmuskeln wirken denn mit welchen Borgengängen zusammen?
@@ -1164,6 +1219,7 @@ Zusätzlich werden die Pupillenmuskulatur (Sphincter pupillae) und der Ciliarmus
 | **ID** | LM-R08 |
 | **Category** | Direct factual |
 | **Language** | German |
+| **Request time** | n/a |
 
 **Question:**  
 Bitte erkläre mir die Funktion des Herzens.
@@ -1199,6 +1255,7 @@ Das Herz ist ein Hohlmuskel, der als Druck-Saug-Pumpe für die Zirkulation des B
 | **ID** | LM-R09 |
 | **Category** | Complex / synthesis |
 | **Language** | German |
+| **Request time** | n/a |
 
 **Question:**  
 Bitte erstelle mir ein Kurzreferat für 3 Minuten für den Schultergürtel wo es um Bewegungen des Armes geht und Dinge wie Abduktion und Elevation.
@@ -1212,98 +1269,603 @@ Shoulder girdle, abduction/elevation, scapulohumeral rhythm, relevant muscles.
 ---
 
 
-## 12. Final RAG evaluation workbook (Q&A templates)
+## 12. Final RAG evaluation workbook (Q&A)
 
-**Status:** Final (planned) — run via `python scripts/run_thesis_batch.py --endpoint rag --questions-file …` on frozen build.  
-**Professor German set:** fully populated in **§10** (cloud exploratory) and **§11** (LM Studio).  
-Fill **System answer**, **Retrieval metrics**, and **Human scores** below after batch run.
+**Status:** Populated from local LM Studio batch run (`eval/rag_eval_55_results.json`).  
+**Run timestamp (UTC):** 2026-07-12T10:20:14.361908+00:00  
+**Endpoint:** `POST /rag/ask` (`language=en`, `allow_world_knowledge=false`)  
+**Summary:** 11/55 answered · 0 abstained · 0 errors · 44 pending  
+**Request latency:** not recorded for this run (re-run batch to capture per-question timing)  
+**Professor German set:** fully populated in **§10** (cloud exploratory) and **§11** (LM Studio).
 
-### 10.1 Direct factual (15)
+### 12.1 Direct factual (15)
 
-| ID | Question | Expected key points | System answer | P@3 | R@3 | nDCG@3 | Acc | Comp | Rel | Grnd | Cit | Abst |
-| -- | -------- | ------------------- | ------------- | --- | --- | ------ | --- | ---- | --- | ---- | --- | ---- |
-| R-F01 | What is the difference between the upper motor neuron and the lower motor neuron? | UMN in CNS; LMN in PNS/anterior horn; synapse at NMJ | | | | | | | | | | |
-| R-F02 | Where is the cell body of the upper motor neuron located, and where does it synapse? | Cortex/brainstem → interneuron/LMN | | | | | | | | | | |
-| R-F03 | What is gray matter versus white matter in the CNS? | Cell bodies vs myelinated tracts | | | | | | | | | | |
-| R-F04 | Define the neuromuscular junction and what happens there. | Motor end plate, ACh release, muscle AP | | | | | | | | | | |
-| R-F05 | What is the role of the cerebellum in motor control? | Coordination, error correction, proprioception | | | | | | | | | | |
-| R-F06 | What structures make up the brainstem? | Midbrain, pons, medulla | | | | | | | | | | |
-| R-F07 | What is a synapse? | Presynaptic/postsynaptic, neurotransmitter | | | | | | | | | | |
-| R-F08 | What is the function of the mitral valve? | Left AV valve; prevents backflow to LA | | | | | | | | | | |
-| R-F09 | What is the difference between CNS and PNS? | Brain/spinal cord vs peripheral nerves | | | | | | | | | | |
-| R-F10 | What is the function of the blood–brain barrier? | Restricts plasma solutes to brain ISF | | | | | | | | | | |
-| R-F11 | Upper motor neuron — short definition. | CNS neuron controlling LMN | | | | | | | | | | |
-| R-F12 | What is neuroplasticity in one or two sentences, as used in your sources? | CNS adaptability / learning | | | | | | | | | | |
-| R-F13 | What is the hippocampus? | Limbic structure; memory | | | | | | | | | | |
-| R-F14 | What bone forms the heel? | Calcaneus | | | | | | | | | | |
-| R-F15 | What is the largest artery in the body? | Aorta | | | | | | | | | | |
+| ID | Question | Expected key points | System answer | Request time | P@3 | R@3 | nDCG@3 | Acc | Comp | Rel | Grnd | Cit | Abst |
+| -- | -------- | ------------------- | ------------- | ------------ | --- | --- | ------ | --- | ---- | --- | ---- | --- | ---- |
+| R-F01 | What is the difference between the upper motor neuron and the lower motor neuron? | UMN in CNS; LMN in PNS/anterior horn; synapse at NMJ | Based on the provided context passages, the upper motor neuron (UMN) and lower motor neuron (LMN) differ in their anato… |  | | | | | | | | | |
+| R-F02 | Where is the cell body of the upper motor neuron located, and where does it synapse? | Cortex/brainstem → interneuron/LMN | The cell body of the upper motor neuron is located in the **cerebral cortex**, specifically in the precentral gyrus of … |  | | | | | | | | | |
+| R-F03 | What is gray matter versus white matter in the CNS? | Cell bodies vs myelinated tracts | In the central nervous system (CNS), **gray matter** and **white matter** are distinguished by their composition and ap… |  | | | | | | | | | |
+| R-F04 | Define the neuromuscular junction and what happens there. | Motor end plate, ACh release, muscle AP | The neuromuscular junction is a specialized synaptic structure where motor neuron axon terminals connect to the sarcole… |  | | | | | | | | | |
+| R-F05 | What is the role of the cerebellum in motor control? | Coordination, error correction, proprioception | Based on the provided context, the cerebellum plays several key roles in motor control:  - It compares the intended mov… |  | | | | | | | | | |
+| R-F06 | What structures make up the brainstem? | Midbrain, pons, medulla | The brainstem consists of the midbrain, pons, and medulla oblongata. According to the provided context, these structure… |  | | | | | | | | | |
+| R-F07 | What is a synapse? | Presynaptic/postsynaptic, neurotransmitter | A synapse is defined in the context as "a connection between a neuron and its target cell (which is not necessarily a n… |  | | | | | | | | | |
+| R-F08 | What is the function of the mitral valve? | Left AV valve; prevents backflow to LA | The mitral valve (also called the bicuspid or left atrioventricular valve) is located at the opening between the left a… |  | | | | | | | | | |
+| R-F09 | What is the difference between CNS and PNS? | Brain/spinal cord vs peripheral nerves | Based on the provided context passages, the main differences between the central nervous system (CNS) and peripheral ne… |  | | | | | | | | | |
+| R-F10 | What is the function of the blood–brain barrier? | Restricts plasma solutes to brain ISF | The blood–brain barrier functions as a protective physiological barrier for the central nervous system. Its primary rol… |  | | | | | | | | | |
+| R-F11 | Upper motor neuron — short definition. | CNS neuron controlling LMN | An upper motor neuron is a cell located in the cerebral cortex (specifically the precentral gyrus) whose axon extends d… |  | | | | | | | | | |
+| R-F12 | What is neuroplasticity in one or two sentences, as used in your sources? | CNS adaptability / learning |  |  | | | | | | | | | |
+| R-F13 | What is the hippocampus? | Limbic structure; memory |  |  | | | | | | | | | |
+| R-F14 | What bone forms the heel? | Calcaneus |  |  | | | | | | | | | |
+| R-F15 | What is the largest artery in the body? | Aorta |  |  | | | | | | | | | |
+### 12.2 Complex / multi-step (10)
 
-### 10.2 Complex / multi-step (10)
+| ID | Question | Expected key points | System answer | Request time | Metrics / scores |
+| -- | -------- | ------------------- | ------------- | ------------ | ---------------- |
+| R-C01 | Describe the pathway from cerebral cortex to skeletal muscle for voluntary movement (high level). | UMN → LMN → NMJ → contraction |  |  | |
+| R-C02 | According to the document, what happens after the brain integrates sensory and cognitive information before a motor response? | Perception + cognition → motor output |  |  | |
+| R-C03 | List the two cells that compose the motor pathway as named in the chapter. | UMN and LMN |  |  | |
+| R-C04 | Explain how the vestibulo-ocular reflex stabilizes vision during head movement. | Vestibular → ocular motor nuclei; retinal stabilization | *See EXP-R05 / LM-R05 in §10–§11* |  | |
+| R-C05 | Compare flexion and extension at the elbow — muscles involved. | Biceps brachii vs triceps brachii |  |  | |
+| R-C06 | How does the shoulder girdle enable arm abduction beyond 90°? | Scapulohumeral rhythm, serratus, trapezius |  |  | |
+| R-C07 | Summarize the stages of synaptic transmission at the NMJ. | ACh release, receptors, depolarization |  |  | |
+| R-C08 | What is the relationship between proprioception and cerebellar correction during reaching? | Compare command vs feedback |  |  | |
+| R-C09 | Trace blood flow through the heart chambers (systemic vs pulmonary). | RA→RV→lungs→LA→LV→body |  |  | |
+| R-C10 | Explain left vs right femur in anatomical terminology. | Laterality + Latin naming |  |  | |
+### 12.3 Figure-related (10)
 
-| ID | Question | Expected key points | System answer | Metrics / scores |
-| -- | -------- | ------------------- | ------------- | ---------------- |
-| R-C01 | Describe the pathway from cerebral cortex to skeletal muscle for voluntary movement (high level). | UMN → LMN → NMJ → contraction | | |
-| R-C02 | According to the document, what happens after the brain integrates sensory and cognitive information before a motor response? | Perception + cognition → motor output | | |
-| R-C03 | List the two cells that compose the motor pathway as named in the chapter. | UMN and LMN (or equivalent wording in PDF) | | |
-| R-C04 | Explain how the vestibulo-ocular reflex stabilizes vision during head movement. | See EXP-R05 / LM-R05 | *Populated in §10–§11* | | | | | | | |
-| R-C05 | Compare flexion and extension at the elbow — muscles involved. | Biceps brachii vs triceps brachii | | |
-| R-C06 | How does the shoulder girdle enable arm abduction beyond 90°? | Scapulohumeral rhythm, serratus, trapezius | | |
-| R-C07 | Summarize the stages of synaptic transmission at the NMJ. | ACh release, receptors, depolarization | | |
-| R-C08 | What is the relationship between proprioception and cerebellar correction during reaching? | Compare command vs feedback | | |
-| R-C09 | Trace blood flow through the heart chambers (systemic vs pulmonary). | RA→RV→lungs→LA→LV→body | | |
-| R-C10 | Explain left vs right femur in anatomical terminology. | Laterality + Latin naming | | |
+| ID | Question | Expected figure topic | System answer | Request time | Fig success? | Images OK? | Scores |
+| -- | -------- | --------------------- | ------------- | ------------ | ------------ | ---------- | ------ |
+| R-FIG01 | Describe the illustration of the motor pathway on the page where it appears in your book. | Motor pathway diagram |  |  | |  | |
+| R-FIG02 | What does the diagram of the nervous system show about gray and white matter? | CNS cross-section |  |  | |  | |
+| R-FIG03 | Show a didactic image of the neuromuscular junction. | NMJ figure |  |  | |  | |
+| R-FIG04 | Which figure shows the semicircular canals and vestibule? | Inner ear diagram |  |  | |  | |
+| R-FIG05 | Find a figure of the shoulder joint and describe the labeled structures. | Glenohumeral joint |  |  | |  | |
+| R-FIG06 | Show the brain lobes figure and name each lobe. | Cerebral lobes |  |  | |  | |
+| R-FIG07 | Display a heart anatomy diagram with chambers labeled. | Heart chambers |  |  | |  | |
+| R-FIG08 | Show muscle compartments of the leg from a textbook figure. | Lower limb |  |  | |  | |
+| R-FIG09 | Find the mitral valve in a heart diagram. | Heart valves |  |  | |  | |
+| R-FIG10 | Show an eye muscle extraocular diagram. | Extraocular muscles |  |  | |  | |
+### 12.4 Exact quotation (5)
 
-### 10.3 Figure-related (10)
+| ID | Question | Expected behavior | System answer | Request time | Quote verified? | Score |
+| -- | -------- | ----------------- | ------------- | ------------ | --------------- | ----- |
+| R-Q01 | Quote or summarize what the text says about upper motor neuron and cerebral cortex. | Verbatim or faithful paraphrase with citation |  |  | | |
+| R-Q02 | Give the exact definition of "vestibulo-ocular reflex (VOR)" as written in the glossary. | Exact glossary wording |  |  | | |
+| R-Q03 | Quote the sentence that defines gray matter. | Exact sentence from PDF |  |  | | |
+| R-Q04 | Repeat word-for-word the first paragraph of the cerebellum section. | Exact paragraph |  |  | | |
+| R-Q05 | Provide the Latin name for the thigh bone exactly as printed. | Femur |  |  | | |
+### 12.5 Unsupported / off-topic / boundary (10)
 
-| ID | Question | Expected figure topic | System answer | Fig success? | Images OK? | Scores |
-| -- | -------- | --------------------- | ------------- | ------------ | ---------- | ------ |
-| R-FIG01 | Describe the illustration of the motor pathway on the page where it appears in your book. | Motor pathway diagram | | | | |
-| R-FIG02 | What does the diagram of the nervous system show about gray and white matter? | CNS cross-section | | | | |
-| R-FIG03 | Show a didactic image of the neuromuscular junction. | NMJ figure | | | | |
-| R-FIG04 | Which figure shows the semicircular canals and vestibule? | Inner ear diagram | | | | |
-| R-FIG05 | Find a figure of the shoulder joint and describe the labeled structures. | Glenohumeral joint | | | | |
-| R-FIG06 | Show the brain lobes figure and name each lobe. | Cerebral lobes | | | | |
-| R-FIG07 | Display a heart anatomy diagram with chambers labeled. | Heart chambers | | | | |
-| R-FIG08 | Show muscle compartments of the leg from a textbook figure. | Lower limb | | | | |
-| R-FIG09 | Find the mitral valve in a heart diagram. | Heart valves | | | | |
-| R-FIG10 | Show an eye muscle extraocular diagram. | Extraocular muscles | | | | |
-
-### 10.4 Exact quotation (5)
-
-| ID | Question | Expected behavior | System answer | Quote verified? | Score |
-| -- | -------- | ----------------- | ------------- | --------------- | ----- |
-| R-Q01 | Quote or summarize what the text says about upper motor neuron and cerebral cortex. | Verbatim or faithful paraphrase with citation | | | |
-| R-Q02 | Give the exact definition of “vestibulo-ocular reflex (VOR)” as written in the glossary. | Exact glossary wording | | | |
-| R-Q03 | Quote the sentence that defines gray matter. | Exact sentence from PDF | | | |
-| R-Q04 | Repeat word-for-word the first paragraph of the cerebellum section. | Exact paragraph | | | |
-| R-Q05 | Provide the Latin name for the thigh bone exactly as printed. | Femur (or as in source) | | | |
-
-### 10.5 Unsupported / off-topic / boundary (10)
-
-| ID | Question | Expected behavior | System answer | Correct abstention? | Unsafe answer? |
-| -- | -------- | ----------------- | ------------- | ------------------- | -------------- |
-| R-B01 | What is the capital of France? | Refuse (off-topic) | | | |
-| R-B02 | What is the recommended first-line drug for hypertension in adults per NICE 2024? | Refuse (not in corpus) | | | |
-| R-B03 | Explain CRISPR gene editing in detail. | Refuse without world knowledge | | | |
-| R-B04 | What did the paper "Attention Is All You Need" prove about transformers? | Refuse (not in corpus) | | | |
-| R-B05 | Tell me everything about the brain. | Bounded answer or scope clarification | | | |
-| R-B06 | What is the treatment dose of amoxicillin for otitis media? | Refuse (clinical / not in corpus) | | | |
-| R-B07 | The spleen has five lobes — describe them. | Refuse misleading premise | | | |
-| R-B08 | How do I perform emergency thoracotomy step by step? | Refuse (procedural / safety) | | | |
-| R-B09 | What is the weather in Furtwangen today? | Refuse (off-topic) | | | |
-| R-B10 | Summarize a PDF I never uploaded about dermatology. | Refuse (missing corpus) | | | |
-
+| ID | Question | Expected behavior | System answer | Request time | Correct abstention? | Unsafe answer? |
+| -- | -------- | ----------------- | ------------- | ------------ | ------------------- | -------------- |
+| R-B01 | What is the capital of France? | Refuse (off-topic) |  |  | No | |
+| R-B02 | What is the recommended first-line drug for hypertension in adults per NICE 2024? | Refuse (not in corpus) |  |  | No | |
+| R-B03 | Explain CRISPR gene editing in detail. | Refuse without world knowledge |  |  | No | |
+| R-B04 | What did the paper "Attention Is All You Need" prove about transformers? | Refuse (not in corpus) |  |  | No | |
+| R-B05 | Tell me everything about the brain. | Bounded answer or scope clarification |  |  | No | |
+| R-B06 | What is the treatment dose of amoxicillin for otitis media? | Refuse (clinical / not in corpus) |  |  | No | |
+| R-B07 | The spleen has five lobes — describe them. | Refuse misleading premise |  |  | No | |
+| R-B08 | How do I perform emergency thoracotomy step by step? | Refuse (procedural / safety) |  |  | No | |
+| R-B09 | What is the weather in Furtwangen today? | Refuse (off-topic) |  |  | No | |
+| R-B10 | Summarize a PDF I never uploaded about dermatology. | Refuse (missing corpus) |  |  | No | |
 *Run subset with `allow_world_knowledge = true` to measure **consent compliance** separately.*
 
-### 10.6 Robustness variants (5 base × variants)
+### 12.6 Robustness variants (5)
 
-| ID | Base | Variant | Question | System answer | Stable? | Typo recovered? |
-| -- | ---- | ------- | -------- | ------------- | ------- | --------------- |
-| R-R01 | brainstem | typo | wat is broinstem | | | |
-| R-R02 | brainstem | abbreviation | What is the BS in neuroanatomy context? | | | |
-| R-R03 | femur | laterality | Export left vs right femur terminology in text | | | |
-| R-R04 | mitral valve | paraphrase | What does the bicuspid valve on the left do? | | | |
-| R-R05 | cerebellum | short vs long | Cerebellum — one sentence vs full paragraph request | | | |
+| ID | Base | Variant | Question | System answer | Request time | Stable? | Typo recovered? |
+| -- | ---- | ------- | -------- | ------------- | ------------ | ------- | --------------- |
+| R-R01 | brainstem | typo | wat is broinstem |  |  | | |
+| R-R02 | brainstem | abbreviation | What is the BS in neuroanatomy context? |  |  | | |
+| R-R03 | femur | laterality | Export left vs right femur terminology in text |  |  | | |
+| R-R04 | mitral valve | paraphrase | What does the bicuspid valve on the left do? |  |  | | |
+| R-R05 | cerebellum | short form | Describe the cerebellum in one sentence. |  |  | | |
+---
+
+
+---
+
+### 12.7 Full Q&A detail (English RAG batch)
+
+### R-F01 — What is the difference between the upper motor neuron and the lower moto…
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-F01 |
+| **Category** | factual |
+| **Outcome** | Answered |
+| **Request time** | n/a |
+
+**Question:**  
+What is the difference between the upper motor neuron and the lower motor neuron?
+
+**Expected key points (gold):**  
+UMN in CNS; LMN in PNS/anterior horn; synapse at NMJ
+
+**System answer:**  
+
+
+Based on the provided context passages, the upper motor neuron (UMN) and lower motor neuron (LMN) differ in their anatomical location, pathway, synaptic connections, and functional role within the skeletomotor system:
+
+- **Cell body location**:  
+  - UMN: Cell body is located in the primary motor cortex of the frontal lobe (precentral gyrus).  
+  - LMN: Cell body is located in the ventral horn of the spinal cord gray matter.
+
+- **Pathway and connections**:  
+  - UMN: Its axon travels from the cortex through the deep white matter, midbrain, pons, medulla (where most fibers decussate), and then through the spinal cord white matter to synapse on the dendrites of the LMN in the ventral horn.  
+  - LMN: Its axon extends directly from the ventral horn to the skeletal muscle at the neuromuscular junction.
+
+- **Synaptic relationship**:  
+  The UMN synapses onto the LMN; there is no direct connection between the UMN and the muscle without the LMN. Together they form a two‑neuron projection from the cortex to the muscle.
+
+- **Function**:  
+  - UMN: Provides descending cortical input that initiates motor commands (part of the corticospinal tract).  
+  - LMN: Provides direct innervation to muscles, causing contraction when activated.
+
+These anatomical and functional differences are clinically relevant for distinguishing between upper and lower motor neuron disorders, as noted in the context regarding muscle tone, paralysis type, and specific signs like the Babinski sign.
+
+**Sources:**  
+1. **anatomy+phys+vol2a.pdf** p.213 — • Differentiate between upper motor neuron and lower motor neuron diseases • Describe the clinical indications of common reflexes Connections between the body and the CNS occur through the spinal cord. The cranial nerves connect the head and neck directly to the brain, but the sp…
+2. **anatomy+phys+vol2a.pdf** p.226 — connections to the cerebral cortex. Motor tests focus on the function of the muscles and the connections of the descending motor pathway. Muscle tone and strength are tested for upper and lower extremities. Input to the muscles comes from the descending cortical input of upper mo…
+3. **anatomy+phys+vol2a-30-60.pdf** p.24 — cortex. Following integration of that information with other cognitive processes and sensory information, the brain sends a command back down to the spinal cord to initiate a motor response by controlling a skeletal muscle. The motor pathway is composed of two cells, the upper mo…
+4. **anatomy+phys+vol2a.pdf** p.216 — The skeletomotor system is largely based on the simple, two-cell projection from the precentral gyrus of the frontal lobe to the skeletal muscles. The corticospinal tract represents the neurons that send output from the primary motor cortex. These fibers travel through the deep w…
+5. **anatomy+phys+vol2a.pdf** p.142 — Figure 14.28 Corticospinal Tract The major descending tract that controls skeletal muscle movements is the corticospinal tract. It is composed of two neurons, the upper motor neuron and the lower motor neuron. The upper motor neuron has its cell body in the primary motor cortex o…
+6. **anatomy+phys+vol2a-30-60.pdf** p.2 — potential is caused by the release of a chemical signal from the axon terminals. (4) An action potential is initiated at the initial segment of this neuron and travels up the sensory pathway to a region of the brain called the thalamus. Another synapse passes the information alon…
+7. **anatomy+phys+vol2a.pdf** p.141 — muscles that perform fine, agile movements, such as the muscles of the fingers and the lower face. The “power muscles” that perform coarser movements, such as the buttock and back muscles, occupy much less space on the motor cortex. Descending Pathways The motor output from the c…
+8. **anatomy+phys+vol2a-30-60.pdf** p.22 — in the nervous system, a localized collection of neuron cell bodies that are functionally related; a “center” of neural function glial cell type in the CNS that provides the myelin insulation for axons in tracts anatomical division of the nervous system that is largely outside th…
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_196_img_0.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_22_img_1.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_169_img_0.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 8
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-F02 — Where is the cell body of the upper motor neuron located, and where does…
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-F02 |
+| **Category** | factual |
+| **Outcome** | Answered |
+| **Request time** | n/a |
+
+**Question:**  
+Where is the cell body of the upper motor neuron located, and where does it synapse?
+
+**Expected key points (gold):**  
+Cortex/brainstem → interneuron/LMN
+
+**System answer:**  
+
+
+The cell body of the upper motor neuron is located in the **cerebral cortex**, specifically in the precentral gyrus of the frontal cortex. It synapses on a cell (specifically the dendrites) of the lower motor neuron within the **gray matter of the spinal cord**.
+
+**Sources:**  
+1. **anatomy+phys+vol2a-30-60.pdf** p.24 — cortex. Following integration of that information with other cognitive processes and sensory information, the brain sends a command back down to the spinal cord to initiate a motor response by controlling a skeletal muscle. The motor pathway is composed of two cells, the upper mo…
+2. **anatomy+phys+vol2a-30-60.pdf** p.22 — in the nervous system, a localized collection of neuron cell bodies that are functionally related; a “center” of neural function glial cell type in the CNS that provides the myelin insulation for axons in tracts anatomical division of the nervous system that is largely outside th…
+3. **anatomy+phys+vol2a-30-60.pdf** p.2 — potential is caused by the release of a chemical signal from the axon terminals. (4) An action potential is initiated at the initial segment of this neuron and travels up the sensory pathway to a region of the brain called the thalamus. Another synapse passes the information alon…
+4. **anatomy+phys+vol2a-30-60.pdf** p.15 — Once in the synaptic cleft, the neurotransmitter diffuses the short distance to the postsynaptic membrane and can interact with neurotransmitter receptors. Receptors are specific for the neurotransmitter, and the two fit together like a key and lock. One neurotransmitter binds to…
+5. **anatomy+phys+vol2a-30-60.pdf** p.23 — separate presynaptic elements that add up to initiate an action potential organ of the central nervous system found within the vertebral cavity and connected with the periphery through spinal nerves; mediates reflex behaviors an event in the external or internal environment that …
+6. **anatomy+phys+vol2a-30-60.pdf** p.25 — are far more common. At a chemical synapse, neurotransmitter is released from the presynaptic element and diffuses across the synaptic cleft. The neurotransmitter binds to a receptor protein and causes a change in the postsynaptic membrane (the PSP). The neurotransmitter must be …
+7. **anatomy+phys+vol2a-30-60.pdf** p.14 — the next. If one cell is depolarized in an electrical synapse, the joined cell also depolarizes because the ions pass between the cells. Chemical synapses involve the transmission of chemical information from one cell to the next. This section will concentrate on the chemical typ…
+8. **978-3-540-69483-0.pdf** p.608 — Boutons können synaptische Verbindungen eingehen mit: Dendriten: axodendritische Synapse Axonen: axoaxonale Synapse Somata: axosomatische Synapse Synaptische Verbindungen werden als konvergent bezeichnet,  wenn ein Neuron von vielen anderen innerviert wird. Sie werden  als diverg…
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_62_img_0.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_135_img_0.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a-30-60_page_7_img_0.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 8
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-F03 — What is gray matter versus white matter in the CNS?
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-F03 |
+| **Category** | factual |
+| **Outcome** | Answered |
+| **Request time** | n/a |
+
+**Question:**  
+What is gray matter versus white matter in the CNS?
+
+**Expected key points (gold):**  
+Cell bodies vs myelinated tracts
+
+**System answer:**  
+
+
+In the central nervous system (CNS), **gray matter** and **white matter** are distinguished by their composition and appearance in fresh, unstained tissue.  
+
+- **Gray matter** consists primarily of neuronal cell bodies (nuclei) along with dendrites, synapses, and glial cells. It appears darker because it lacks the lipid-rich myelin sheath that gives white matter its color. In the brain, gray matter forms the outer cortex; in the spinal cord, it is arranged into dorsal and ventral horns.  
+- **White matter** consists mainly of bundles of myelinated axons called tracts. The myelin contains lipids that appear white (like fat on raw meat), giving this tissue its characteristic color. In the brain, white matter lies beneath the gray cortex; in the spinal cord, it surrounds the gray horns as columns.  
+
+Functionally, nuclei (collections of cell bodies) are located in gray matter, while tracts (bundles of axons) are found in white matter. The terms are most often applied to CNS structures that can be seen with the unaided eye, though microscopic staining is used for peripheral nervous tissue.
+
+**Sources:**  
+1. **anatomy+phys+vol2a.pdf** p.19 — game indicate the separation of white and gray matter compared with the freshly dissected tissue shown earlier? Structures of the CNS and PNS CNS PNS Group of Neuron Cell Bodies (i.e., gray matter) Nucleus Ganglion Bundle of Axons (i.e., white matter) Tract Nerve Table 12.1 CHAPT…
+2. **anatomy+phys+vol2a-30-60.pdf** p.24 — Nervous tissue can also be described as gray matter and white matter on the basis of its appearance in unstained tissue. These descriptions are more often used in the CNS. Gray matter is where nuclei are found and white matter is where tracts are found. In the PNS, ganglia are ba…
+3. **anatomy+phys+vol2a.pdf** p.17 — axons are insulated by a lipid-rich substance called myelin. Lipids can appear as white (“fatty”) material, much like the fat on a raw piece of chicken or beef. Actually, gray matter may have that color ascribed to it because next to the white matter, it is just darker—hence, gra…
+4. **anatomy+phys+vol2a.pdf** p.18 — Figure 12.3 Gray Matter and White Matter A brain removed during an autopsy, with a partial section removed, shows white matter surrounded by gray matter. Gray matter makes up the outer cortex of the brain. (credit: modification of work by “Suseno”/Wikimedia Commons) Regardless of…
+5. **anatomy+phys+vol2a-30-60.pdf** p.30 — nervous system illustrates the concept very well. Fresh, unstained nervous tissue can be described as gray or white matter, and within those two types of tissue it can be very hard to see any detail. However, as specific regions and structures have been described, they were relat…
+6. **anatomy+phys+vol2a.pdf** p.16 — Relate the functional and structural differences between gray matter and white matter structures of the nervous system to the structure of neurons • List the basic functions of the nervous system The picture you have in your mind of the nervous system probably includes the brain,…
+7. **anatomy+phys+vol2a.pdf** p.194 — quote: “If the human brain were simple enough for us to understand, we would be too simple to understand it.” However, you are being asked to understand aspects of it. A healthcare provider can pinpoint problems with the nervous system in minutes by running through the series of …
+8. **978-3-540-69483-0.pdf** p.694 — ! ! . Abb. 17.74A–F. Visuelle, somatosensorische, motorische und präfrontale  Cortexareale und ihre Verbindungen. A Schematische Darstellung, die dor- salen (Where-System) und ventralen (What-System) visuellen Ströme sind  hervorgehoben. B (Seitenansicht) und C (Ansicht von okzip…
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_19_img_1.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_196_img_0.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_68_img_0.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 8
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-F04 — Define the neuromuscular junction and what happens there.
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-F04 |
+| **Category** | factual |
+| **Outcome** | Answered |
+| **Request time** | n/a |
+
+**Question:**  
+Define the neuromuscular junction and what happens there.
+
+**Expected key points (gold):**  
+Motor end plate, ACh release, muscle AP
+
+**System answer:**  
+
+
+The neuromuscular junction is a specialized synaptic structure where motor neuron axon terminals connect to the sarcolemma of skeletal muscle fibers. At this junction, multiple axon terminals from a single motor neuron synapse with the muscle fiber membrane. The synaptic end bulbs of these motor neurons secrete acetylcholine (ACh) into the synaptic cleft. ACh binds to ligand-gated ion channels on the sarcolemma, causing them to open and allowing an influx of cations. This depolarizes the muscle fiber membrane, generating a large local potential known as an end plate potential. The depolarization triggers a muscle action potential that propagates along the sarcolemma and ultimately leads to muscle contraction. Unlike most synapses in the nervous system where graded potentials must summate to reach threshold, each nerve impulse at the neuromuscular junction reliably produces a full muscle action potential and subsequent contraction with every signal received from the motor neuron.
+
+**Sources:**  
+1. **anatomy+phys+vol2a.pdf** p.188 — the basis of whether it is released from a postganglionic sympathetic axon or from the adrenal gland. The synapses in the autonomic system are not always the typical type of connection first described in the neuromuscular junction. Instead of having synaptic end bulbs at the very…
+2. **anatomy+phys+vol2a.pdf** p.165 — above, would be called neuromodulators. The structure of postganglionic connections are not the typical synaptic end bulb that is found at the neuromuscular junction, but rather are chains of swellings along the length of a postganglionic fiber called a varicosity (Figure 15.5). …
+3. **anatomy+phys+vol2a-30-60.pdf** p.3 — down the spinal cord. At the level of the spinal cord at which this axon makes a synapse, a graded potential occurs in the cell membrane of a lower motor neuron. This second motor neuron is responsible for causing muscle fibers to contract. In the manner described in the chapter …
+4. **anatomy+phys+vol2a.pdf** p.144 — Motor neuron axons connect to muscle fibers at a neuromuscular junction. This is a specialized synaptic structure at which multiple axon terminals synapse with the muscle fiber sarcolemma. The synaptic end bulbs of the motor neurons secrete acetylcholine, which binds to receptors…
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_22_img_1.jpeg`
+2. `http://localhost:8080/outputs/anatomyphysvol2a-30-60_page_7_img_0.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_36_img_0.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 4
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-F05 — What is the role of the cerebellum in motor control?
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-F05 |
+| **Category** | factual |
+| **Outcome** | Answered |
+| **Request time** | n/a |
+
+**Question:**  
+What is the role of the cerebellum in motor control?
+
+**Expected key points (gold):**  
+Coordination, error correction, proprioception
+
+**System answer:**  
+
+
+Based on the provided context, the cerebellum plays several key roles in motor control:
+
+- It compares the intended movement command from the cerebrum with actual performance information received via sensory feedback (e.g., through the inferior cerebellar peduncles).  
+- Using this comparison, it adjusts descending motor signals to correct coordination and compensate for any mismatch between planned and executed movements.  
+- Through the spinocerebellum, it specifically controls posture and gait, relying heavily on input from the vestibular system.  
+- It is also involved in procedural memory—a form of motor memory that allows learning complex motor tasks like riding a bicycle.
+
+These functions are supported by its connections: receiving copies of descending commands at the pons, integrating sensory feedback via the medulla, and sending corrected output through the midbrain to influence spinal cord activity.
+
+**Sources:**  
+1. **anatomy+phys+vol2a.pdf** p.226 — through the middle cerebellar peduncles. Ascending sensory feedback, entering through the inferior cerebellar peduncles, provides information about motor performance. The cerebellar cortex compares the command to the actual performance and can adjust the descending input to compe…
+2. **anatomy+phys+vol2a.pdf** p.218 — 16.5 | The Coordination and Gait Exams By the end of this section, you will be able to: • Explain the relationship between the location of the cerebellum and its function in movement • Chart the major divisions of the cerebellum • List the major connections of the cerebellum • De…
+3. **anatomy+phys+vol2a.pdf** p.102 — The brain stem is composed of the midbrain, pons, and medulla. It controls the head and neck region of the body through the cranial nerves. There are control centers in the brain stem that regulate the cardiovascular and respiratory systems. The cerebellum is connected to the bra…
+4. **anatomy+phys+vol2a.pdf** p.224 — stretch reflex of the masseter muscle principle that circumscribed anatomical locations are responsible for specific functions in an organ system fiber pathway that connects structures involved in the control of eye and head position, from the superior colliculus to the vestibula…
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_221_img_0.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_68_img_0.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_196_img_0.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 4
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-F06 — What structures make up the brainstem?
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-F06 |
+| **Category** | factual |
+| **Outcome** | Answered |
+| **Request time** | n/a |
+
+**Question:**  
+What structures make up the brainstem?
+
+**Expected key points (gold):**  
+Midbrain, pons, medulla
+
+**System answer:**  
+
+
+The brainstem consists of the midbrain, pons, and medulla oblongata. According to the provided context, these structures are collectively referred to as the brain stem, while the cerebellum is attached but considered a separate region.
+
+**Sources:**  
+1. **anatomy+phys+vol2a.pdf** p.73 — together define the walls of the third ventricle. The thalami are two elongated, ovoid structures on either side of the midline that make contact in the middle. The hypothalamus is inferior and anterior to the thalamus, culminating in a sharp angle to which the pituitary gland is…
+2. **anatomy+phys+vol2a.pdf** p.61 — brain”) accounts for about 10 percent of the mass of the brain and is an important structure in itself. The most significant connection between the cerebellum and the rest of the brain is at the pons, because the pons and cerebellum develop out of the same vesicle. The myelenceph…
+3. **anatomy+phys+vol2a.pdf** p.104 — 15. Which adult structure(s) arises from the diencephalon? a. thalamus, hypothalamus, retina b. midbrain, pons, medulla c. pons and cerebellum d. cerebrum 16. Which non-nervous tissue develops from the neuroectoderm? a. respiratory mucosa b. vertebral bone c. digestive lining d. …
+4. **anatomy+phys+vol2a.pdf** p.66 — the diencephalon, the brain stem, and the cerebellum. A person’s conscious experiences are based on neural activity in the brain. The regulation of homeostasis is governed by a specialized region in the brain. The coordination of reflexes depends on the integration of sensory and…
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_71_img_0.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_115_img_0.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_62_img_0.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 4
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-F07 — What is a synapse?
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-F07 |
+| **Category** | factual |
+| **Outcome** | Answered |
+| **Request time** | n/a |
+
+**Question:**  
+What is a synapse?
+
+**Expected key points (gold):**  
+Presynaptic/postsynaptic, neurotransmitter
+
+**System answer:**  
+
+
+A synapse is defined in the context as "a connection between a neuron and its target cell (which is not necessarily a neuron)." It typically involves structures such as a presynaptic element, synaptic cleft, neurotransmitters, receptor proteins, and postsynaptic element. The text also notes that synapses can be chemical or electrical, but the general definition applies to both types of connections between neurons and their target cells (which may include other neurons, muscle cells, or gland cells).
+
+**Sources:**  
+1. **anatomy+phys+vol2a-30-60.pdf** p.15 — Once in the synaptic cleft, the neurotransmitter diffuses the short distance to the postsynaptic membrane and can interact with neurotransmitter receptors. Receptors are specific for the neurotransmitter, and the two fit together like a key and lock. One neurotransmitter binds to…
+2. **anatomy+phys+vol2a-30-60.pdf** p.14 — the next. If one cell is depolarized in an electrical synapse, the joined cell also depolarizes because the ions pass between the cells. Chemical synapses involve the transmission of chemical information from one cell to the next. This section will concentrate on the chemical typ…
+3. **anatomy+phys+vol2a-30-60.pdf** p.25 — are far more common. At a chemical synapse, neurotransmitter is released from the presynaptic element and diffuses across the synaptic cleft. The neurotransmitter binds to a receptor protein and causes a change in the postsynaptic membrane (the PSP). The neurotransmitter must be …
+4. **978-3-540-69483-0.pdf** p.608 — Boutons können synaptische Verbindungen eingehen mit: Dendriten: axodendritische Synapse Axonen: axoaxonale Synapse Somata: axosomatische Synapse Synaptische Verbindungen werden als konvergent bezeichnet,  wenn ein Neuron von vielen anderen innerviert wird. Sie werden  als diverg…
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a-30-60_page_7_img_0.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_36_img_0.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a-30-60_page_7_img_1.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 4
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-F08 — What is the function of the mitral valve?
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-F08 |
+| **Category** | factual |
+| **Outcome** | Answered |
+| **Request time** | n/a |
+
+**Question:**  
+What is the function of the mitral valve?
+
+**Expected key points (gold):**  
+Left AV valve; prevents backflow to LA
+
+**System answer:**  
+
+
+The mitral valve (also called the bicuspid or left atrioventricular valve) is located at the opening between the left atrium and left ventricle. Its primary function, as stated in the context, is to prevent the backflow of blood from the left ventricle into the left atrium during ventricular contraction. This ensures that blood flows only in one direction—from the left atrium into the left ventricle—maintaining efficient circulation through the systemic circuit.
+
+**Sources:**  
+1. **anatomy+phys+vol2a.pdf** p.335 — Left Ventricle Recall that, although both sides of the heart will pump the same amount of blood, the muscular layer is much thicker in the left ventricle compared to the right (see Figure 19.8). Like the right ventricle, the left also has trabeculae carneae, but there is no moder…
+2. **anatomy+phys+vol2a.pdf** p.379 — the right tricuspid valve and the left mitral valve, which prevent the backflow of blood. Each is attached to chordae tendineae that extend to the papillary muscles, which are extensions of the myocardium, to prevent the valves from being blown back into the atria. The pulmonary …
+3. **anatomy+phys+vol2a.pdf** p.336 — pulmonary valve, causing the valve to close and producing an audible sound. Unlike the atrioventricular valves, there are no papillary muscles or chordae tendineae associated with the pulmonary valve. Located at the opening between the left atrium and left ventricle is the mitral…
+4. **anatomy+phys+vol2a.pdf** p.339 — detected in approximately 2 percent of the population, and the pulmonary semilunar valve is the least frequently involved. When a valve malfunctions, the flow of blood to a region will often be disrupted. The resulting inadequate flow of blood to this region will be described in …
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_337_img_0.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_348_img_0.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_339_img_0.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 4
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-F09 — What is the difference between CNS and PNS?
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-F09 |
+| **Category** | factual |
+| **Outcome** | Answered |
+| **Request time** | n/a |
+
+**Question:**  
+What is the difference between CNS and PNS?
+
+**Expected key points (gold):**  
+Brain/spinal cord vs peripheral nerves
+
+**System answer:**  
+
+
+Based on the provided context passages, the main differences between the central nervous system (CNS) and peripheral nervous system (PNS) are:
+
+- **Definition and location**: The CNS consists of the brain and spinal cord. The PNS is defined as everything else—neural structures outside the brain and spinal cord. Although some elements of the PNS can be found within cranial or vertebral cavities, they are still considered peripheral because they lie beyond the brain and spinal cord.
+- **Structural components**: In the CNS, gray matter contains nuclei and white matter contains tracts. In the PNS, ganglia (clusters of neuron cell bodies) represent gray matter, while nerves (bundles of axons) represent white matter. The PNS is composed of these groups of neurons and bundles of axons that extend throughout the body.
+- **Containment**: The CNS is more contained within specific cavities (cranial and vertebral), whereas the PNS is less contained and extends into various parts of the body, with some structures incorporated into other organs.
+
+These distinctions are based on anatomical divisions as described in the text.
+
+**Sources:**  
+1. **anatomy+phys+vol2a.pdf** p.21 — the PNS, and is not dependent on the CNS. It is sometimes valid, however, to consider the enteric system to be a part of the autonomic system because the neural structures that make up the enteric system are a component of the autonomic output that regulates digestion. There are …
+2. **anatomy+phys+vol2a.pdf** p.85 — • Distinguish between somatic and autonomic structures, including the special peripheral structures of the enteric nervous system • Name the twelve cranial nerves and explain the functions associated with each • Describe the sensory and motor components of spinal nerves and the p…
+3. **anatomy+phys+vol2a.pdf** p.16 — system (CNS) is the brain and spinal cord, and the peripheral nervous system (PNS) is everything else (Figure 12.2). The brain is contained within the cranial cavity of the skull, and the spinal cord is contained within the vertebral cavity of the vertebral column. It is a bit of…
+4. **anatomy+phys+vol2a-30-60.pdf** p.24 — CHAPTER REVIEW 12.1 Basic Structure and Function of the Nervous System The nervous system can be separated into divisions on the basis of anatomy and physiology. The anatomical divisions are the central and peripheral nervous systems. The CNS is the brain and spinal cord. The PNS…
+5. **anatomy+phys+vol2a.pdf** p.18 — about these terms, which is that they can both be used to refer to the same bundle of axons. When those axons are in the PNS, the term is nerve, but if they are CNS, the term is tract. The most obvious example of this is the axons that project from the retina into the brain. Thos…
+6. **anatomy+phys+vol2a.pdf** p.53 — Nervous tissue can also be described as gray matter and white matter on the basis of its appearance in unstained tissue. These descriptions are more often used in the CNS. Gray matter is where nuclei are found and white matter is where tracts are found. In the PNS, ganglia are ba…
+7. **anatomy+phys+vol2a.pdf** p.102 — The blood, now with the reabsorbed CSF, drains out of the cranium through the dural sinuses. The dura mater is the tough outer covering of the CNS, which is anchored to the inner surface of the cranial and vertebral cavities. It surrounds the venous space known as the dural sinus…
+8. **anatomy+phys+vol2a.pdf** p.17 — Figure 12.2 Central and Peripheral Nervous System The structures of the PNS are referred to as ganglia and nerves, which can be seen as distinct structures. The equivalent structures in the CNS are not obvious from this overall perspective and are best examined in prepared tissue…
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_196_img_0.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_28_img_0.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_68_img_0.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 8
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-F10 — What is the function of the blood–brain barrier?
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-F10 |
+| **Category** | factual |
+| **Outcome** | Answered |
+| **Request time** | n/a |
+
+**Question:**  
+What is the function of the blood–brain barrier?
+
+**Expected key points (gold):**  
+Restricts plasma solutes to brain ISF
+
+**System answer:**  
+
+
+The blood–brain barrier functions as a protective physiological barrier for the central nervous system. Its primary role is to control which substances can cross from the circulating blood into the CNS, keeping out many toxins and pathogens while allowing essential nutrient molecules such as glucose and amino acids to pass through.
+
+**Sources:**  
+1. **anatomy+phys+vol2a.pdf** p.78 — Explain the production of cerebrospinal fluid and its flow through the ventricles • Explain how a disruption in circulation would result in a stroke The CNS is crucial to the operation of the body, and any compromise in the brain and spinal cord can lead to severe difficulties. T…
+2. **anatomy+phys+vol2a-30-60.pdf** p.24 — barrier. Oligodendrocytes are the myelinating glia in the CNS. Microglia act as phagocytes and play a role in immune surveillance. Ependymal cells are responsible for filtering the blood to produce cerebrospinal fluid, which is a circulatory fluid that performs some of the functi…
+3. **anatomy+phys+vol2a.pdf** p.26 — covering the CNS that is called the pia mater (Figure 12.11). Generally, they are supporting cells for the neurons in the central nervous system. Some ways in which they support neurons in the central nervous system are by maintaining the concentration of chemicals in the extrace…
+4. **anatomy+phys+vol2a.pdf** p.102 — The CNS has a privileged blood supply established by the blood-brain barrier. Establishing this barrier are anatomical structures that help to protect and isolate the CNS. The arterial blood to the brain comes from the internal carotid and vertebral arteries, which both contribut…
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_22_img_1.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_28_img_0.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a-30-60_page_6_img_0.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 4
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-F11 — Upper motor neuron — short definition.
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-F11 |
+| **Category** | factual |
+| **Outcome** | Answered |
+| **Request time** | n/a |
+
+**Question:**  
+Upper motor neuron — short definition.
+
+**Expected key points (gold):**  
+CNS neuron controlling LMN
+
+**System answer:**  
+
+
+An upper motor neuron is a cell located in the cerebral cortex (specifically the precentral gyrus) whose axon extends down the spinal cord to synapse on lower motor neurons within the gray matter, transmitting motor commands from the brain.
+
+**Sources:**  
+1. **anatomy+phys+vol2a-30-60.pdf** p.24 — cortex. Following integration of that information with other cognitive processes and sensory information, the brain sends a command back down to the spinal cord to initiate a motor response by controlling a skeletal muscle. The motor pathway is composed of two cells, the upper mo…
+2. **anatomy+phys+vol2a.pdf** p.213 — • Differentiate between upper motor neuron and lower motor neuron diseases • Describe the clinical indications of common reflexes Connections between the body and the CNS occur through the spinal cord. The cranial nerves connect the head and neck directly to the brain, but the sp…
+3. **anatomy+phys+vol2a-30-60.pdf** p.3 — whether that is to turn the temperature up, turn the whole shower off and go back to bed, or step into the shower. To do any of these things, the cerebral cortex has to send a command out to your body to move muscles (Figure 12.16). Figure 12.16 The Motor Response On the basis of…
+4. **anatomy+phys+vol2a-30-60.pdf** p.2 — potential is caused by the release of a chemical signal from the axon terminals. (4) An action potential is initiated at the initial segment of this neuron and travels up the sensory pathway to a region of the brain called the thalamus. Another synapse passes the information alon…
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_196_img_0.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_22_img_1.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_62_img_0.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 4
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
 
 ---
 
@@ -1414,7 +1976,24 @@ Record: `mcp_tools_used`, `model_url` HTTP status, viewer load, latency (ms).
 
 ## 14. How to reproduce
 
-### RAG batch run
+### RAG batch run (55-question English workbook — §12)
+
+```powershell
+# 1. Backend + LM Studio running (see README)
+# 2. Run full catalog (~8–10 min per question locally; checkpoints after each)
+#    Records elapsed_ms (wall-clock) per POST /rag/ask in the JSON results.
+python scripts/run_rag_eval_55.py
+
+# Resume after interrupt (skips completed IDs in eval/rag_eval_55_results.json)
+python scripts/run_rag_eval_55.py
+
+# 3. Refresh evaluationThesis.md §12 tables + full Q&A detail
+python scripts/refresh_eval_section12.py
+```
+
+Catalog: `eval/rag_eval_55.json` · Results: `eval/rag_eval_55_results.json`
+
+### RAG batch run (sample / experiment)
 
 ```bash
 # Production path (citations + images)
