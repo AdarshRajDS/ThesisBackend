@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
@@ -78,7 +79,7 @@ def _latency_summary_line(stats: dict[str, float | int]) -> str:
     )
 
 
-def _build_timing_table(rows: list[dict]) -> str:
+def _build_timing_table(rows: list[dict], model_short: str) -> str:
     measured = [r for r in rows if r.get("elapsed_ms") is not None]
     if not measured:
         return ""
@@ -87,14 +88,14 @@ def _build_timing_table(rows: list[dict]) -> str:
         "",
         "Wall-clock time for one `POST /rag/ask` call (retrieval + local LM Studio generation).",
         "",
-        "| ID | Category | Outcome | Request time |",
-        "| -- | -------- | ------- | ------------ |",
+        "| ID | Category | Outcome | Model | Request time |",
+        "| -- | -------- | ------- | ----- | ------------ |",
     ]
     for r in measured:
         resp = r.get("response") or {}
         outcome = _outcome(resp.get("answer") if resp else None, r.get("error"))
         lines.append(
-            f"| {r['id']} | {r.get('category', '')} | {outcome} | {_fmt_elapsed_ms(r['elapsed_ms'])} |"
+            f"| {r['id']} | {r.get('category', '')} | {outcome} | {model_short} | {_fmt_elapsed_ms(r['elapsed_ms'])} |"
         )
     lines.extend(["", "---", ""])
     return "\n".join(lines)
@@ -162,7 +163,7 @@ def _format_grounding(g: dict | None) -> str:
     return "\n".join(f"- **{k}:** {v}" for k, v in g.items())
 
 
-def _detail_block(row: dict) -> str:
+def _detail_block(row: dict, model_short: str = "") -> str:
     qid = row["id"]
     resp = row.get("response") or {}
     err = row.get("error")
@@ -177,6 +178,7 @@ def _detail_block(row: dict) -> str:
         f"| **ID** | {qid} |",
         f"| **Category** | {row.get('category', '')} |",
         f"| **Outcome** | {outcome} |",
+        f"| **Model** | {model_short or 'n/a'} |",
         f"| **Request time** | {_fmt_elapsed_ms(row.get('elapsed_ms')) or 'n/a'} |",
         "",
         "**Question:**  ",
@@ -230,7 +232,14 @@ def _update_table_row(line: str, by_id: dict[str, dict], answer_col: int) -> str
     return "| " + " | ".join(parts) + " |"
 
 
-def build_section12(catalog: list[dict], results: list[dict], meta: dict) -> str:
+def build_section12(catalog: list[dict], results: list[dict], meta: dict, model_cfg: dict) -> str:
+    import sys
+
+    sys.path.insert(0, str(REPO / "scripts"))
+    from eval_run_metadata import format_model_header, format_model_short
+
+    model_block = format_model_header(model_cfg)
+    model_short = format_model_short(model_cfg)
     by_id = {r["id"]: r for r in results}
     merged: list[dict] = []
     for item in catalog:
@@ -269,13 +278,17 @@ def build_section12(catalog: list[dict], results: list[dict], meta: dict) -> str
 {_latency_summary_line(latency)}  
 **Professor German set:** fully populated in **§10** (cloud exploratory) and **§11** (LM Studio).
 
+{model_block}
+
 """
-    timing_table = _build_timing_table([r for r in merged if r.get("response") or r.get("error")])
+    timing_table = _build_timing_table(
+        [r for r in merged if r.get("response") or r.get("error")], model_short
+    )
 
-    factual_header = """### 12.1 Direct factual (15)
+    factual_header = f"""### 12.1 Direct factual (15)
 
-| ID | Question | Expected key points | System answer | Request time | P@3 | R@3 | nDCG@3 | Acc | Comp | Rel | Grnd | Cit | Abst |
-| -- | -------- | ------------------- | ------------- | ------------ | --- | --- | ------ | --- | ---- | --- | ---- | --- | ---- |
+| ID | Question | Expected key points | System answer | Model | Request time | P@3 | R@3 | nDCG@3 | Acc | Comp | Rel | Grnd | Cit | Abst |
+| -- | -------- | ------------------- | ------------- | ----- | ------------ | --- | --- | ------ | --- | ---- | --- | ---- | --- | ---- |
 """
 
     factual_rows = []
@@ -285,14 +298,14 @@ def build_section12(catalog: list[dict], results: list[dict], meta: dict) -> str
             ans = _cell(r.get("error") or resp.get("answer"))
             lat = _fmt_elapsed_ms(r.get("elapsed_ms"))
             factual_rows.append(
-                f"| {r['id']} | {r['question']} | {r.get('gold', '')} | {ans} | {lat} | | | | | | | | | |"
+                f"| {r['id']} | {r['question']} | {r.get('gold', '')} | {ans} | {model_short} | {lat} | | | | | | | | | |"
             )
 
     complex_header = """
 ### 12.2 Complex / multi-step (10)
 
-| ID | Question | Expected key points | System answer | Request time | Metrics / scores |
-| -- | -------- | ------------------- | ------------- | ------------ | ---------------- |
+| ID | Question | Expected key points | System answer | Model | Request time | Metrics / scores |
+| -- | -------- | ------------------- | ------------- | ----- | ------------ | ---------------- |
 """
     complex_rows = []
     for r in merged:
@@ -303,14 +316,14 @@ def build_section12(catalog: list[dict], results: list[dict], meta: dict) -> str
             if r["id"] == "R-C04" and not ans:
                 ans = "*See EXP-R05 / LM-R05 in §10–§11*"
             complex_rows.append(
-                f"| {r['id']} | {r['question']} | {gold} | {ans} | {_fmt_elapsed_ms(r.get('elapsed_ms'))} | |"
+                f"| {r['id']} | {r['question']} | {gold} | {ans} | {model_short} | {_fmt_elapsed_ms(r.get('elapsed_ms'))} | |"
             )
 
     figure_header = """
 ### 12.3 Figure-related (10)
 
-| ID | Question | Expected figure topic | System answer | Request time | Fig success? | Images OK? | Scores |
-| -- | -------- | --------------------- | ------------- | ------------ | ------------ | ---------- | ------ |
+| ID | Question | Expected figure topic | System answer | Model | Request time | Fig success? | Images OK? | Scores |
+| -- | -------- | --------------------- | ------------- | ----- | ------------ | ------------ | ---------- | ------ |
 """
     figure_rows = []
     for r in merged:
@@ -320,14 +333,14 @@ def build_section12(catalog: list[dict], results: list[dict], meta: dict) -> str
             imgs = (resp.get("images") or []) if resp else []
             fig_ok = "Yes" if imgs else ("No" if resp and not r.get("error") else "")
             figure_rows.append(
-                f"| {r['id']} | {r['question']} | {r.get('gold', '')} | {ans} | {_fmt_elapsed_ms(r.get('elapsed_ms'))} | | {fig_ok} | |"
+                f"| {r['id']} | {r['question']} | {r.get('gold', '')} | {ans} | {model_short} | {_fmt_elapsed_ms(r.get('elapsed_ms'))} | | {fig_ok} | |"
             )
 
     quote_header = """
 ### 12.4 Exact quotation (5)
 
-| ID | Question | Expected behavior | System answer | Request time | Quote verified? | Score |
-| -- | -------- | ----------------- | ------------- | ------------ | --------------- | ----- |
+| ID | Question | Expected behavior | System answer | Model | Request time | Quote verified? | Score |
+| -- | -------- | ----------------- | ------------- | ----- | ------------ | --------------- | ----- |
 """
     quote_rows = []
     for r in merged:
@@ -335,14 +348,14 @@ def build_section12(catalog: list[dict], results: list[dict], meta: dict) -> str
             resp = r.get("response") or {}
             ans = _cell(r.get("error") or resp.get("answer"))
             quote_rows.append(
-                f"| {r['id']} | {r['question']} | {r.get('gold', '')} | {ans} | {_fmt_elapsed_ms(r.get('elapsed_ms'))} | | |"
+                f"| {r['id']} | {r['question']} | {r.get('gold', '')} | {ans} | {model_short} | {_fmt_elapsed_ms(r.get('elapsed_ms'))} | | |"
             )
 
     boundary_header = """
 ### 12.5 Unsupported / off-topic / boundary (10)
 
-| ID | Question | Expected behavior | System answer | Request time | Correct abstention? | Unsafe answer? |
-| -- | -------- | ----------------- | ------------- | ------------ | ------------------- | -------------- |
+| ID | Question | Expected behavior | System answer | Model | Request time | Correct abstention? | Unsafe answer? |
+| -- | -------- | ----------------- | ------------- | ----- | ------------ | ------------------- | -------------- |
 """
     boundary_rows = []
     for r in merged:
@@ -352,7 +365,7 @@ def build_section12(catalog: list[dict], results: list[dict], meta: dict) -> str
             outcome = _outcome(resp.get("answer") if resp else None, r.get("error"))
             abst_ok = "Yes" if outcome == "Abstained" else ("No" if outcome.startswith("Answered") else "")
             boundary_rows.append(
-                f"| {r['id']} | {r['question']} | {r.get('gold', '')} | {ans} | {_fmt_elapsed_ms(r.get('elapsed_ms'))} | {abst_ok} | |"
+                f"| {r['id']} | {r['question']} | {r.get('gold', '')} | {ans} | {model_short} | {_fmt_elapsed_ms(r.get('elapsed_ms'))} | {abst_ok} | |"
             )
 
     robust_header = """
@@ -360,8 +373,8 @@ def build_section12(catalog: list[dict], results: list[dict], meta: dict) -> str
 
 ### 12.6 Robustness variants (5)
 
-| ID | Base | Variant | Question | System answer | Request time | Stable? | Typo recovered? |
-| -- | ---- | ------- | -------- | ------------- | ------------ | ------- | --------------- |
+| ID | Base | Variant | Question | System answer | Model | Request time | Stable? | Typo recovered? |
+| -- | ---- | ------- | -------- | ------------- | ----- | ------------ | ------- | --------------- |
 """
     robust_meta = {
         "R-R01": ("brainstem", "typo"),
@@ -377,7 +390,7 @@ def build_section12(catalog: list[dict], results: list[dict], meta: dict) -> str
             ans = _cell(r.get("error") or resp.get("answer"))
             base, variant = robust_meta.get(r["id"], ("", ""))
             robust_rows.append(
-                f"| {r['id']} | {base} | {variant} | {r['question']} | {ans} | {_fmt_elapsed_ms(r.get('elapsed_ms'))} | | |"
+                f"| {r['id']} | {base} | {variant} | {r['question']} | {ans} | {model_short} | {_fmt_elapsed_ms(r.get('elapsed_ms'))} | | |"
             )
 
     details_header = """
@@ -386,7 +399,9 @@ def build_section12(catalog: list[dict], results: list[dict], meta: dict) -> str
 ### 12.7 Full Q&A detail (English RAG batch)
 
 """
-    details = "".join(_detail_block(r) for r in merged if r.get("response") or r.get("error"))
+    details = "".join(
+        _detail_block(r, model_short) for r in merged if r.get("response") or r.get("error")
+    )
 
     return (
         header
@@ -425,13 +440,18 @@ def main() -> None:
         results = []
         meta = {}
 
+    sys.path.insert(0, str(REPO / "scripts"))
+    from eval_run_metadata import resolve_model_block
+
+    model_cfg = resolve_model_block("english_rag_55", meta)
+
     md_text = args.md.read_text(encoding="utf-8")
     start = md_text.find(SECTION12_START)
     end = md_text.find(SECTION13_START)
     if start < 0 or end < 0:
         raise SystemExit("Could not find §12 or §13 markers in evaluationThesis.md")
 
-    new_section = build_section12(catalog, results, meta)
+    new_section = build_section12(catalog, results, meta, model_cfg)
     updated = md_text[:start] + new_section + "\n\n" + md_text[end:]
     args.md.write_text(updated, encoding="utf-8")
     print(f"Updated §12 in {args.md} ({len(results)}/{len(catalog)} results merged)")

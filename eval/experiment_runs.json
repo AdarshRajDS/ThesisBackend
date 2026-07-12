@@ -1,0 +1,53 @@
+{
+  "cloud_professor_de": {
+    "label": "Cloud exploratory (professor German set)",
+    "section": "10",
+    "id_prefix": "EXP-R",
+    "json_file": "german_eval_results.json",
+    "run_date": "June 2026",
+    "llm_provider": "groq",
+    "model_configured": "(not logged at run time)",
+    "model_note": "Historical Groq cloud exploratory run (June 2026). Exact Groq model id was not stored in german_eval_results.json — add from your run notes if available.",
+    "api_base": "https://api.groq.com/openai/v1",
+    "endpoint": "POST /rag/ask",
+    "language": "de"
+  },
+  "local_professor_de": {
+    "label": "Local LM Studio (professor German set)",
+    "section": "11",
+    "id_prefix": "LM-R",
+    "json_file": "german_eval_lmstudio_results.json",
+    "run_date": "12 July 2026",
+    "llm_provider": "lmstudio",
+    "model_configured": "google/gemma-4-e2b",
+    "model_previous": null,
+    "models_loaded_observed": [
+      "qwen3.5-9b-deepseek-v4-flash",
+      "biomistral-7b",
+      "google/gemma-4-e2b"
+    ],
+    "model_note": "Professor German batch (german_eval_lmstudio_results.json) was run with Gemma in LM Studio. Current local default (11–12 Jul 2026) is DeepSeek Flash — see english_rag_55.",
+    "api_base": "http://127.0.0.1:1234/v1",
+    "endpoint": "POST /rag/ask",
+    "language": "de"
+  },
+  "english_rag_55": {
+    "label": "English RAG workbook (55 questions)",
+    "section": "12",
+    "id_prefix": "R-",
+    "json_file": "eval/rag_eval_55_results.json",
+    "run_date": "11–12 July 2026 (in progress)",
+    "llm_provider": "lmstudio",
+    "model_configured": "qwen3.5-9b-deepseek-v4-flash",
+    "model_previous": "google/gemma-4-e2b",
+    "models_loaded_observed": [
+      "qwen3.5-9b-deepseek-v4-flash",
+      "biomistral-7b"
+    ],
+    "model_note": "Active model in LM Studio since 11–12 Jul 2026: qwen3.5-9b-deepseek-v4-flash (DeepSeek Flash). Earlier exploratory runs used google/gemma-4-e2b.",
+    "api_base": "http://127.0.0.1:1234/v1",
+    "endpoint": "POST /rag/ask",
+    "language": "en",
+    "allow_world_knowledge": false
+  }
+}

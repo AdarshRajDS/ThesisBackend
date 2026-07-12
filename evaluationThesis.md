@@ -27,6 +27,7 @@ This document follows the thesis requirement that RAG is judged by **document gr
 7. [Minimum evaluation datasets](#7-minimum-evaluation-datasets)
 8. [Core criteria to prioritize](#8-core-criteria-to-prioritize)
 9. [Professor question set (complete list)](#9-professor-evaluation-question-set-complete-list)
+   - [9.0 Experiment runs and models](#90-experiment-runs-and-models)
    - [9.1 Professor metrics workbook](#91-professor-evaluation-metrics-workbook)
 10. [Exploratory RAG results — cloud run (Q&A)](#10-exploratory-rag-results--cloud-run-qa)
 11. [Local LM Studio experiment (Q&A)](#11-local-lm-studio-experiment-qa)
@@ -471,6 +472,17 @@ python scripts/refresh_eval_md.py
 ```
 
 
+## 9.0 Experiment runs and models
+
+Reference for all RAG evaluation batches in this document. Update `eval/experiment_runs.json` when you change model or provider.
+
+| Run | Section | Provider | Model (configured) | Language | Results file |
+| --- | ------- | -------- | ------------------ | -------- | ------------ |
+| Cloud exploratory (professor German set) | §10 | groq | `(not logged at run time)` | de | `german_eval_results.json` |
+| Local LM Studio (professor German set) | §11 | lmstudio | `google/gemma-4-e2b` | de | `german_eval_lmstudio_results.json` |
+| English RAG workbook (55 questions) | §12 | lmstudio | `qwen3.5-9b-deepseek-v4-flash` | en | `eval/rag_eval_55_results.json` |
+
+---
 ## 9.1 Professor evaluation metrics workbook
 
 **Status:** System answers populated from `german_eval_lmstudio_results.json` (§11) and `german_eval_results.json` (§10).  
@@ -482,31 +494,57 @@ python scripts/refresh_eval_md.py
 
 ### 9.1.1 Local LM Studio run (primary thesis experiment)
 
-| ID | Question | Expected key points | System answer | P@3 | R@3 | nDCG@3 | Acc | Comp | Rel | Grnd | Cit | Abst |
-| -- | -------- | ------------------- | ------------- | --- | --- | ------ | --- | ---- | --- | ---- | --- | ---- |
-| LM-R01 | Bitte stelle mir die wichtigsten Muskeln für die Bewegung der Sprunggelenke zusammen und … | Peroneus longus/brevis, tibialis anterior/posterior, gastrocnemius/soleus, grou… | Die bereitgestellten Textpassagen enthalten keine Informationen über die Muskulatur des Sprunggelen… | | | | | | | | | |
-| LM-R02 | Bitte stelle mir eine Übersicht über die wichtigen Muskeln zusammen, welche benötigt werd… | Flexor digitorum superficialis/profundus, flexor pollicis longus, lumbricals; m… | HTTP Error 500: Internal Server Error | | | | | | | | | |
-| LM-R03 | Welche Faktoren begünstigen einen Hochstand des Humeruskopfes und damit eine Enge unter d… | Humeral head high-riding: rotator cuff weakness, capsular tightness; subacromia… | Der bereitgestellte Kontext enthält keine relevanten Informationen zu diesem Thema. Basierend auf a… | | | | | | | | | |
-| LM-R04 | Welcher Muskel ist der wichtigste Hüftbeuger beim Menschen? | Iliopsoas (iliacus + psoas major) as primary hip flexor. | Der wichtigste Hüftbeuger beim Menschen ist der **Iliopsoas** (zusammengesetzt aus dem Psoasmajor u… | | | | | | | | | |
-| LM-R05 | Kannst Du mir kurz erklären, wie der Vestibulo-Okuläre-Reflex funktioniert? | Vestibular nuclei → ocular motor nuclei; stabilizes retinal image during head m… | Der Vestibulo-okuläre Reflex (VOR) ist ein automatischer Reflex, der die Augenbewegung so steuert, … | | | | | | | | | |
-| LM-R06 | Gibt es den Vestibulookulären Reflex nur in der Horizontalen? | Semicircular canals: horizontal + vertical planes; VOR not limited to horizonta… | Nein, der vestibulookuläre Reflex (VOR) ist nicht ausschließlich horizontal. Es existieren horizont… | | | | | | | | | |
-| LM-R07 | Welche Augenmuskeln wirken denn mit welchen Borgengängen zusammen? | Extraocular muscle ↔ semicircular canal pairings. | Der bereitgestellte Kontext enthält keine Informationen darüber, welche Augenmuskeln mit welchen Ne… | | | | | | | | | |
-| LM-R08 | Bitte erkläre mir die Funktion des Herzens. | Heart pump function, chambers, systemic/pulmonary circulation. | Das Herz ist ein Hohlmuskel, der als Druck-Saug-Pumpe für die Zirkulation des Blutes im Körper sorg… | | | | | | | | | |
-| LM-R09 | Bitte erstelle mir ein Kurzreferat für 3 Minuten für den Schultergürtel wo es um Bewegung… | Shoulder girdle, abduction/elevation, scapulohumeral rhythm, relevant muscles. | timed out | | | | | | | | | |
+**LLM provider:** lmstudio
+
+**Model (configured):** `google/gemma-4-e2b`
+
+**Models loaded (observed):** `qwen3.5-9b-deepseek-v4-flash`, `biomistral-7b`, `google/gemma-4-e2b`
+
+**Model note:** Professor German batch (german_eval_lmstudio_results.json) was run with Gemma in LM Studio. Current local default (11–12 Jul 2026) is DeepSeek Flash — see english_rag_55.
+
+**API base:** http://127.0.0.1:1234/v1
+
+**Endpoint:** `POST /rag/ask`
+
+**Language:** `de`
+
+| ID | Question | Expected key points | System answer | Model | P@3 | R@3 | nDCG@3 | Acc | Comp | Rel | Grnd | Cit | Abst |
+| -- | -------- | ------------------- | ------------- | ----- | --- | --- | ------ | --- | ---- | --- | ---- | --- | ---- |
+| LM-R01 | Bitte stelle mir die wichtigsten Muskeln für die Bewegung der Sprunggelenke zusammen und … | Peroneus longus/brevis, tibialis anterior/posterior, gastrocnemius/soleus, grou… | Die bereitgestellten Textpassagen enthalten keine Informationen über die Muskulatur des Sprunggelen… | lmstudio / `google/gemma-4-e2b` | | | | | | | | | |
+| LM-R02 | Bitte stelle mir eine Übersicht über die wichtigen Muskeln zusammen, welche benötigt werd… | Flexor digitorum superficialis/profundus, flexor pollicis longus, lumbricals; m… | HTTP Error 500: Internal Server Error | lmstudio / `google/gemma-4-e2b` | | | | | | | | | |
+| LM-R03 | Welche Faktoren begünstigen einen Hochstand des Humeruskopfes und damit eine Enge unter d… | Humeral head high-riding: rotator cuff weakness, capsular tightness; subacromia… | Der bereitgestellte Kontext enthält keine relevanten Informationen zu diesem Thema. Basierend auf a… | lmstudio / `google/gemma-4-e2b` | | | | | | | | | |
+| LM-R04 | Welcher Muskel ist der wichtigste Hüftbeuger beim Menschen? | Iliopsoas (iliacus + psoas major) as primary hip flexor. | Der wichtigste Hüftbeuger beim Menschen ist der **Iliopsoas** (zusammengesetzt aus dem Psoasmajor u… | lmstudio / `google/gemma-4-e2b` | | | | | | | | | |
+| LM-R05 | Kannst Du mir kurz erklären, wie der Vestibulo-Okuläre-Reflex funktioniert? | Vestibular nuclei → ocular motor nuclei; stabilizes retinal image during head m… | Der Vestibulo-okuläre Reflex (VOR) ist ein automatischer Reflex, der die Augenbewegung so steuert, … | lmstudio / `google/gemma-4-e2b` | | | | | | | | | |
+| LM-R06 | Gibt es den Vestibulookulären Reflex nur in der Horizontalen? | Semicircular canals: horizontal + vertical planes; VOR not limited to horizonta… | Nein, der vestibulookuläre Reflex (VOR) ist nicht ausschließlich horizontal. Es existieren horizont… | lmstudio / `google/gemma-4-e2b` | | | | | | | | | |
+| LM-R07 | Welche Augenmuskeln wirken denn mit welchen Borgengängen zusammen? | Extraocular muscle ↔ semicircular canal pairings. | Der bereitgestellte Kontext enthält keine Informationen darüber, welche Augenmuskeln mit welchen Ne… | lmstudio / `google/gemma-4-e2b` | | | | | | | | | |
+| LM-R08 | Bitte erkläre mir die Funktion des Herzens. | Heart pump function, chambers, systemic/pulmonary circulation. | Das Herz ist ein Hohlmuskel, der als Druck-Saug-Pumpe für die Zirkulation des Blutes im Körper sorg… | lmstudio / `google/gemma-4-e2b` | | | | | | | | | |
+| LM-R09 | Bitte erstelle mir ein Kurzreferat für 3 Minuten für den Schultergürtel wo es um Bewegung… | Shoulder girdle, abduction/elevation, scapulohumeral rhythm, relevant muscles. | timed out | lmstudio / `google/gemma-4-e2b` | | | | | | | | | |
 
 ### 9.1.2 Cloud exploratory run (historical comparison)
 
-| ID | Question | Expected key points | System answer | P@3 | R@3 | nDCG@3 | Acc | Comp | Rel | Grnd | Cit | Abst |
-| -- | -------- | ------------------- | ------------- | --- | --- | ------ | --- | ---- | --- | ---- | --- | ---- |
-| EXP-R01 | Bitte stelle mir die wichtigsten Muskeln für die Bewegung der Sprunggelenke zusammen und … | Peroneus longus/brevis, tibialis anterior/posterior, gastrocnemius/soleus, grou… | Die bereitgestellten Textpassagen enthalten keine Informationen über die Muskeln, die für die Beweg… | | | | | | | | | |
-| EXP-R02 | Bitte stelle mir eine Übersicht über die wichtigen Muskeln zusammen, welche benötigt werd… | Flexor digitorum superficialis/profundus, flexor pollicis longus, lumbricals; m… | HTTP Error 500: Internal Server Error | | | | | | | | | |
-| EXP-R03 | Welche Faktoren begünstigen einen Hochstand des Humeruskopfes und damit eine Enge unter d… | Humeral head high-riding: rotator cuff weakness, capsular tightness; subacromia… | Die bereitgestellten Textpassagen enthalten keine Informationen, die die Faktoren für einen Hochsta… | | | | | | | | | |
-| EXP-R04 | Welcher Muskel ist der wichtigste Hüftbeuger beim Menschen? | Iliopsoas (iliacus + psoas major) as primary hip flexor. | Der bereitgestellte Kontext enthält keine Informationen über die Muskelanatomie oder welche Muskeln… | | | | | | | | | |
-| EXP-R05 | Kannst Du mir kurz erklären, wie der Vestibulo-Okuläre-Reflex funktioniert? | Vestibular nuclei → ocular motor nuclei; stabilizes retinal image during head m… | Der vestibululo-okuläre Reflex (VOR) ist ein Mechanismus, der dazu dient, Bilder auf der Netzhaut z… | | | | | | | | | |
-| EXP-R06 | Gibt es den Vestibulookulären Reflex nur in der Horizontalen? | Semicircular canals: horizontal + vertical planes; VOR not limited to horizonta… | Der Kontext beschreibt die Orientierung der halbkreisförmigen Kanäle (semicircular canals), die Erw… | | | | | | | | | |
-| EXP-R07 | Welche Augenmuskeln wirken denn mit welchen Borgengängen zusammen? | Extraocular muscle ↔ semicircular canal pairings. | Die extraokularen Muskeln werden von drei Hirnnerven innerviert.  *   Der **laterale Rectus** (veru… | | | | | | | | | |
-| EXP-R08 | Bitte erkläre mir die Funktion des Herzens. | Heart pump function, chambers, systemic/pulmonary circulation. | Die bereitgestellten Textpassagen enthalten keine Informationen über die Funktion des Herzens. | | | | | | | | | |
-| EXP-R09 | Bitte erstelle mir ein Kurzreferat für 3 Minuten für den Schultergürtel wo es um Bewegung… | Shoulder girdle, abduction/elevation, scapulohumeral rhythm, relevant muscles. | Basierend auf den bereitgestellten Textpassagen kann ich Ihnen ein Kurzreferat über die motorische … | | | | | | | | | |
+**LLM provider:** groq
+
+**Model (configured):** `(not logged at run time)`
+
+**Model note:** Historical Groq cloud exploratory run (June 2026). Exact Groq model id was not stored in german_eval_results.json — add from your run notes if available.
+
+**API base:** https://api.groq.com/openai/v1
+
+**Endpoint:** `POST /rag/ask`
+
+**Language:** `de`
+
+| ID | Question | Expected key points | System answer | Model | P@3 | R@3 | nDCG@3 | Acc | Comp | Rel | Grnd | Cit | Abst |
+| -- | -------- | ------------------- | ------------- | ----- | --- | --- | ------ | --- | ---- | --- | ---- | --- | ---- |
+| EXP-R01 | Bitte stelle mir die wichtigsten Muskeln für die Bewegung der Sprunggelenke zusammen und … | Peroneus longus/brevis, tibialis anterior/posterior, gastrocnemius/soleus, grou… | Die bereitgestellten Textpassagen enthalten keine Informationen über die Muskeln, die für die Beweg… | groq / `(not logged at run time)` | | | | | | | | | |
+| EXP-R02 | Bitte stelle mir eine Übersicht über die wichtigen Muskeln zusammen, welche benötigt werd… | Flexor digitorum superficialis/profundus, flexor pollicis longus, lumbricals; m… | HTTP Error 500: Internal Server Error | groq / `(not logged at run time)` | | | | | | | | | |
+| EXP-R03 | Welche Faktoren begünstigen einen Hochstand des Humeruskopfes und damit eine Enge unter d… | Humeral head high-riding: rotator cuff weakness, capsular tightness; subacromia… | Die bereitgestellten Textpassagen enthalten keine Informationen, die die Faktoren für einen Hochsta… | groq / `(not logged at run time)` | | | | | | | | | |
+| EXP-R04 | Welcher Muskel ist der wichtigste Hüftbeuger beim Menschen? | Iliopsoas (iliacus + psoas major) as primary hip flexor. | Der bereitgestellte Kontext enthält keine Informationen über die Muskelanatomie oder welche Muskeln… | groq / `(not logged at run time)` | | | | | | | | | |
+| EXP-R05 | Kannst Du mir kurz erklären, wie der Vestibulo-Okuläre-Reflex funktioniert? | Vestibular nuclei → ocular motor nuclei; stabilizes retinal image during head m… | Der vestibululo-okuläre Reflex (VOR) ist ein Mechanismus, der dazu dient, Bilder auf der Netzhaut z… | groq / `(not logged at run time)` | | | | | | | | | |
+| EXP-R06 | Gibt es den Vestibulookulären Reflex nur in der Horizontalen? | Semicircular canals: horizontal + vertical planes; VOR not limited to horizonta… | Der Kontext beschreibt die Orientierung der halbkreisförmigen Kanäle (semicircular canals), die Erw… | groq / `(not logged at run time)` | | | | | | | | | |
+| EXP-R07 | Welche Augenmuskeln wirken denn mit welchen Borgengängen zusammen? | Extraocular muscle ↔ semicircular canal pairings. | Die extraokularen Muskeln werden von drei Hirnnerven innerviert.  *   Der **laterale Rectus** (veru… | groq / `(not logged at run time)` | | | | | | | | | |
+| EXP-R08 | Bitte erkläre mir die Funktion des Herzens. | Heart pump function, chambers, systemic/pulmonary circulation. | Die bereitgestellten Textpassagen enthalten keine Informationen über die Funktion des Herzens. | groq / `(not logged at run time)` | | | | | | | | | |
+| EXP-R09 | Bitte erstelle mir ein Kurzreferat für 3 Minuten für den Schultergürtel wo es um Bewegung… | Shoulder girdle, abduction/elevation, scapulohumeral rhythm, relevant muscles. | Basierend auf den bereitgestellten Textpassagen kann ich Ihnen ein Kurzreferat über die motorische … | groq / `(not logged at run time)` | | | | | | | | | |
 
 ---
 
@@ -514,23 +552,33 @@ python scripts/refresh_eval_md.py
 
 **Source file:** `german_eval_results.json`  
 **Run date:** June 2026 (formative)  
-**LLM at run time:** cloud Groq (historical)  
-**Endpoint:** `POST /rag/ask`  
 **Status:** Exploratory — compare with §11 local LM Studio run
+
+**LLM provider:** groq
+
+**Model (configured):** `(not logged at run time)`
+
+**Model note:** Historical Groq cloud exploratory run (June 2026). Exact Groq model id was not stored in german_eval_results.json — add from your run notes if available.
+
+**API base:** https://api.groq.com/openai/v1
+
+**Endpoint:** `POST /rag/ask`
+
+**Language:** `de`
 
 ### 10.0 Summary
 
-| ID | Outcome | Sources | Images | Request time |
-| -- | ------- | ------- | ------ | ------------ |
-| EXP-R01 | Abstained | 3 | 0 | — |
-| EXP-R02 | Error | — | — | — |
-| EXP-R03 | Abstained | 3 | 0 | — |
-| EXP-R04 | Abstained | 3 | 0 | — |
-| EXP-R05 | Answered | 3 | 2 | — |
-| EXP-R06 | Answered | 3 | 3 | — |
-| EXP-R07 | Answered | 3 | 0 | — |
-| EXP-R08 | Abstained | 3 | 0 | — |
-| EXP-R09 | Answered | 3 | 0 | — |
+| ID | Outcome | Model | Sources | Images | Request time |
+| -- | ------- | ----- | ------- | ------ | ------------ |
+| EXP-R01 | Abstained | groq / `(not logged at run time)` | 3 | 0 | — |
+| EXP-R02 | Error | groq / `(not logged at run time)` | — | — | — |
+| EXP-R03 | Abstained | groq / `(not logged at run time)` | 3 | 0 | — |
+| EXP-R04 | Abstained | groq / `(not logged at run time)` | 3 | 0 | — |
+| EXP-R05 | Answered | groq / `(not logged at run time)` | 3 | 2 | — |
+| EXP-R06 | Answered | groq / `(not logged at run time)` | 3 | 3 | — |
+| EXP-R07 | Answered | groq / `(not logged at run time)` | 3 | 0 | — |
+| EXP-R08 | Abstained | groq / `(not logged at run time)` | 3 | 0 | — |
+| EXP-R09 | Answered | groq / `(not logged at run time)` | 3 | 0 | — |
 
 ---
 
@@ -541,6 +589,7 @@ python scripts/refresh_eval_md.py
 | **ID** | EXP-R01 |
 | **Category** | Complex / multi-step |
 | **Language** | German |
+| **Model** | groq / `(not logged at run time)` |
 | **Request time** | n/a |
 
 **Question:**  
@@ -576,6 +625,7 @@ Die bereitgestellten Textpassagen enthalten keine Informationen über die Muskel
 | **ID** | EXP-R02 |
 | **Category** | Complex + figure request |
 | **Language** | German |
+| **Model** | groq / `(not logged at run time)` |
 | **Request time** | n/a |
 
 **Question:**  
@@ -595,6 +645,7 @@ Flexor digitorum superficialis/profundus, flexor pollicis longus, lumbricals; me
 | **ID** | EXP-R03 |
 | **Category** | Direct factual / clinical anatomy |
 | **Language** | German |
+| **Model** | groq / `(not logged at run time)` |
 | **Request time** | n/a |
 
 **Question:**  
@@ -630,6 +681,7 @@ Die bereitgestellten Textpassagen enthalten keine Informationen, die die Faktore
 | **ID** | EXP-R04 |
 | **Category** | Direct factual |
 | **Language** | German |
+| **Model** | groq / `(not logged at run time)` |
 | **Request time** | n/a |
 
 **Question:**  
@@ -665,6 +717,7 @@ Der bereitgestellte Kontext enthält keine Informationen über die Muskelanatomi
 | **ID** | EXP-R05 |
 | **Category** | Direct factual + implicit figure |
 | **Language** | German |
+| **Model** | groq / `(not logged at run time)` |
 | **Request time** | n/a |
 
 **Question:**  
@@ -710,6 +763,7 @@ Kurz gesagt: Der VOR sorgt dafür, dass die Augen den visuellen Reiz stabilisier
 | **ID** | EXP-R06 |
 | **Category** | Complex / boundary |
 | **Language** | German |
+| **Model** | groq / `(not logged at run time)` |
 | **Request time** | n/a |
 
 **Question:**  
@@ -752,6 +806,7 @@ Der Kontext liefert keine Aussage darüber, ob der vestibulookuläre Reflex (VOR
 | **ID** | EXP-R07 |
 | **Category** | Direct factual |
 | **Language** | German |
+| **Model** | groq / `(not logged at run time)` |
 | **Request time** | n/a |
 
 **Question:**  
@@ -790,6 +845,7 @@ Die extraokularen Muskeln werden von drei Hirnnerven innerviert.
 | **ID** | EXP-R08 |
 | **Category** | Direct factual |
 | **Language** | German |
+| **Model** | groq / `(not logged at run time)` |
 | **Request time** | n/a |
 
 **Question:**  
@@ -825,6 +881,7 @@ Die bereitgestellten Textpassagen enthalten keine Informationen über die Funkti
 | **ID** | EXP-R09 |
 | **Category** | Complex / synthesis |
 | **Language** | German |
+| **Model** | groq / `(not logged at run time)` |
 | **Request time** | n/a |
 
 **Question:**  
@@ -887,27 +944,36 @@ Die Bewegungen des Arms – wie Abduktion oder Elevation – werden durch ein dy
 
 **Source file:** `german_eval_lmstudio_results.json`  
 **Run date:** 12 July 2026 (900 s retry completed)  
-**LLM provider:** LM Studio (`LLM_PROVIDER=lmstudio`, local-only enforced)  
-**API base:** http://127.0.0.1:1234/v1  
-**Configured model:** `google/gemma-4-e2b`  
-**Models loaded (observed):** `qwen3.5-9b-deepseek-v4-flash`, `biomistral-7b`  
-**Endpoint:** `POST /rag/ask` with `language=de`  
 **Outcome:** 7/9 answered · 1 HTTP 500 (LM-R02) · 1 timeout (LM-R09)  
 **Thesis note:** Several answers fall back to general anatomy when retrieval is weak (grounding / consent risk).
 
+**LLM provider:** lmstudio
+
+**Model (configured):** `google/gemma-4-e2b`
+
+**Models loaded (observed):** `qwen3.5-9b-deepseek-v4-flash`, `biomistral-7b`, `google/gemma-4-e2b`
+
+**Model note:** Professor German batch (german_eval_lmstudio_results.json) was run with Gemma in LM Studio. Current local default (11–12 Jul 2026) is DeepSeek Flash — see english_rag_55.
+
+**API base:** http://127.0.0.1:1234/v1
+
+**Endpoint:** `POST /rag/ask`
+
+**Language:** `de`
+
 ### 11.0 Summary
 
-| ID | Outcome | Sources | Images | Request time |
-| -- | ------- | ------- | ------ | ------------ |
-| LM-R01 | Answered (world knowledge) | 5 | 0 | — |
-| LM-R02 | Error | — | — | — |
-| LM-R03 | Answered (world knowledge) | 5 | 0 | — |
-| LM-R04 | Answered | 5 | 0 | — |
-| LM-R05 | Answered | 5 | 2 | — |
-| LM-R06 | Answered | 4 | 3 | — |
-| LM-R07 | Answered (world knowledge) | 4 | 0 | — |
-| LM-R08 | Answered | 4 | 0 | — |
-| LM-R09 | Error | — | — | — |
+| ID | Outcome | Model | Sources | Images | Request time |
+| -- | ------- | ----- | ------- | ------ | ------------ |
+| LM-R01 | Answered (world knowledge) | lmstudio / `google/gemma-4-e2b` | 5 | 0 | — |
+| LM-R02 | Error | lmstudio / `google/gemma-4-e2b` | — | — | — |
+| LM-R03 | Answered (world knowledge) | lmstudio / `google/gemma-4-e2b` | 5 | 0 | — |
+| LM-R04 | Answered | lmstudio / `google/gemma-4-e2b` | 5 | 0 | — |
+| LM-R05 | Answered | lmstudio / `google/gemma-4-e2b` | 5 | 2 | — |
+| LM-R06 | Answered | lmstudio / `google/gemma-4-e2b` | 4 | 3 | — |
+| LM-R07 | Answered (world knowledge) | lmstudio / `google/gemma-4-e2b` | 4 | 0 | — |
+| LM-R08 | Answered | lmstudio / `google/gemma-4-e2b` | 4 | 0 | — |
+| LM-R09 | Error | lmstudio / `google/gemma-4-e2b` | — | — | — |
 
 ### 11.0.1 Cloud vs local comparison (same professor set)
 
@@ -933,6 +999,7 @@ Die Bewegungen des Arms – wie Abduktion oder Elevation – werden durch ein dy
 | **ID** | LM-R01 |
 | **Category** | Complex / multi-step |
 | **Language** | German |
+| **Model** | lmstudio / `google/gemma-4-e2b` |
 | **Request time** | n/a |
 
 **Question:**  
@@ -999,6 +1066,7 @@ Die bereitgestellten Textpassagen enthalten keine Informationen über die Muskul
 | **ID** | LM-R02 |
 | **Category** | Complex + figure request |
 | **Language** | German |
+| **Model** | lmstudio / `google/gemma-4-e2b` |
 | **Request time** | n/a |
 
 **Question:**  
@@ -1018,6 +1086,7 @@ Flexor digitorum superficialis/profundus, flexor pollicis longus, lumbricals; me
 | **ID** | LM-R03 |
 | **Category** | Direct factual / clinical anatomy |
 | **Language** | German |
+| **Model** | lmstudio / `google/gemma-4-e2b` |
 | **Request time** | n/a |
 
 **Question:**  
@@ -1061,6 +1130,7 @@ Der bereitgestellte Kontext enthält keine relevanten Informationen zu diesem Th
 | **ID** | LM-R04 |
 | **Category** | Direct factual |
 | **Language** | German |
+| **Model** | lmstudio / `google/gemma-4-e2b` |
 | **Request time** | n/a |
 
 **Question:**  
@@ -1098,6 +1168,7 @@ Der wichtigste Hüftbeuger beim Menschen ist der **Iliopsoas** (zusammengesetzt 
 | **ID** | LM-R05 |
 | **Category** | Direct factual + implicit figure |
 | **Language** | German |
+| **Model** | lmstudio / `google/gemma-4-e2b` |
 | **Request time** | n/a |
 
 **Question:**  
@@ -1137,6 +1208,7 @@ Der Vestibulo-okuläre Reflex (VOR) ist ein automatischer Reflex, der die Augenb
 | **ID** | LM-R06 |
 | **Category** | Complex / boundary |
 | **Language** | German |
+| **Model** | lmstudio / `google/gemma-4-e2b` |
 | **Request time** | n/a |
 
 **Question:**  
@@ -1176,6 +1248,7 @@ Nein, der vestibulookuläre Reflex (VOR) ist nicht ausschließlich horizontal. E
 | **ID** | LM-R07 |
 | **Category** | Direct factual |
 | **Language** | German |
+| **Model** | lmstudio / `google/gemma-4-e2b` |
 | **Request time** | n/a |
 
 **Question:**  
@@ -1219,6 +1292,7 @@ Zusätzlich werden die Pupillenmuskulatur (Sphincter pupillae) und der Ciliarmus
 | **ID** | LM-R08 |
 | **Category** | Direct factual |
 | **Language** | German |
+| **Model** | lmstudio / `google/gemma-4-e2b` |
 | **Request time** | n/a |
 
 **Question:**  
@@ -1255,6 +1329,7 @@ Das Herz ist ein Hohlmuskel, der als Druck-Saug-Pumpe für die Zirkulation des B
 | **ID** | LM-R09 |
 | **Category** | Complex / synthesis |
 | **Language** | German |
+| **Model** | lmstudio / `google/gemma-4-e2b` |
 | **Request time** | n/a |
 
 **Question:**  
@@ -1272,93 +1347,109 @@ Shoulder girdle, abduction/elevation, scapulohumeral rhythm, relevant muscles.
 ## 12. Final RAG evaluation workbook (Q&A)
 
 **Status:** Populated from local LM Studio batch run (`eval/rag_eval_55_results.json`).  
-**Run timestamp (UTC):** 2026-07-12T10:20:14.361908+00:00  
+**Run timestamp (UTC):** 2026-07-12T10:55:57.770289+00:00  
 **Endpoint:** `POST /rag/ask` (`language=en`, `allow_world_knowledge=false`)  
-**Summary:** 11/55 answered · 0 abstained · 0 errors · 44 pending  
+**Summary:** 19/55 answered · 0 abstained · 0 errors · 36 pending  
 **Request latency:** not recorded for this run (re-run batch to capture per-question timing)  
 **Professor German set:** fully populated in **§10** (cloud exploratory) and **§11** (LM Studio).
 
+**LLM provider:** lmstudio
+
+**Model (configured):** `qwen3.5-9b-deepseek-v4-flash`
+
+**Models loaded (observed):** `qwen3.5-9b-deepseek-v4-flash`, `biomistral-7b`
+
+**Model note:** Active model in LM Studio since 11–12 Jul 2026: qwen3.5-9b-deepseek-v4-flash (DeepSeek Flash). Earlier exploratory runs used google/gemma-4-e2b.
+
+**Model (previous):** `google/gemma-4-e2b`
+
+**API base:** http://127.0.0.1:1234/v1
+
+**Endpoint:** `POST /rag/ask`
+
+**Language:** `en`
+
 ### 12.1 Direct factual (15)
 
-| ID | Question | Expected key points | System answer | Request time | P@3 | R@3 | nDCG@3 | Acc | Comp | Rel | Grnd | Cit | Abst |
-| -- | -------- | ------------------- | ------------- | ------------ | --- | --- | ------ | --- | ---- | --- | ---- | --- | ---- |
-| R-F01 | What is the difference between the upper motor neuron and the lower motor neuron? | UMN in CNS; LMN in PNS/anterior horn; synapse at NMJ | Based on the provided context passages, the upper motor neuron (UMN) and lower motor neuron (LMN) differ in their anato… |  | | | | | | | | | |
-| R-F02 | Where is the cell body of the upper motor neuron located, and where does it synapse? | Cortex/brainstem → interneuron/LMN | The cell body of the upper motor neuron is located in the **cerebral cortex**, specifically in the precentral gyrus of … |  | | | | | | | | | |
-| R-F03 | What is gray matter versus white matter in the CNS? | Cell bodies vs myelinated tracts | In the central nervous system (CNS), **gray matter** and **white matter** are distinguished by their composition and ap… |  | | | | | | | | | |
-| R-F04 | Define the neuromuscular junction and what happens there. | Motor end plate, ACh release, muscle AP | The neuromuscular junction is a specialized synaptic structure where motor neuron axon terminals connect to the sarcole… |  | | | | | | | | | |
-| R-F05 | What is the role of the cerebellum in motor control? | Coordination, error correction, proprioception | Based on the provided context, the cerebellum plays several key roles in motor control:  - It compares the intended mov… |  | | | | | | | | | |
-| R-F06 | What structures make up the brainstem? | Midbrain, pons, medulla | The brainstem consists of the midbrain, pons, and medulla oblongata. According to the provided context, these structure… |  | | | | | | | | | |
-| R-F07 | What is a synapse? | Presynaptic/postsynaptic, neurotransmitter | A synapse is defined in the context as "a connection between a neuron and its target cell (which is not necessarily a n… |  | | | | | | | | | |
-| R-F08 | What is the function of the mitral valve? | Left AV valve; prevents backflow to LA | The mitral valve (also called the bicuspid or left atrioventricular valve) is located at the opening between the left a… |  | | | | | | | | | |
-| R-F09 | What is the difference between CNS and PNS? | Brain/spinal cord vs peripheral nerves | Based on the provided context passages, the main differences between the central nervous system (CNS) and peripheral ne… |  | | | | | | | | | |
-| R-F10 | What is the function of the blood–brain barrier? | Restricts plasma solutes to brain ISF | The blood–brain barrier functions as a protective physiological barrier for the central nervous system. Its primary rol… |  | | | | | | | | | |
-| R-F11 | Upper motor neuron — short definition. | CNS neuron controlling LMN | An upper motor neuron is a cell located in the cerebral cortex (specifically the precentral gyrus) whose axon extends d… |  | | | | | | | | | |
-| R-F12 | What is neuroplasticity in one or two sentences, as used in your sources? | CNS adaptability / learning |  |  | | | | | | | | | |
-| R-F13 | What is the hippocampus? | Limbic structure; memory |  |  | | | | | | | | | |
-| R-F14 | What bone forms the heel? | Calcaneus |  |  | | | | | | | | | |
-| R-F15 | What is the largest artery in the body? | Aorta |  |  | | | | | | | | | |
+| ID | Question | Expected key points | System answer | Model | Request time | P@3 | R@3 | nDCG@3 | Acc | Comp | Rel | Grnd | Cit | Abst |
+| -- | -------- | ------------------- | ------------- | ----- | ------------ | --- | --- | ------ | --- | ---- | --- | ---- | --- | ---- |
+| R-F01 | What is the difference between the upper motor neuron and the lower motor neuron? | UMN in CNS; LMN in PNS/anterior horn; synapse at NMJ | Based on the provided context passages, the upper motor neuron (UMN) and lower motor neuron (LMN) differ in their anato… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | | | | | | | | |
+| R-F02 | Where is the cell body of the upper motor neuron located, and where does it synapse? | Cortex/brainstem → interneuron/LMN | The cell body of the upper motor neuron is located in the **cerebral cortex**, specifically in the precentral gyrus of … | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | | | | | | | | |
+| R-F03 | What is gray matter versus white matter in the CNS? | Cell bodies vs myelinated tracts | In the central nervous system (CNS), **gray matter** and **white matter** are distinguished by their composition and ap… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | | | | | | | | |
+| R-F04 | Define the neuromuscular junction and what happens there. | Motor end plate, ACh release, muscle AP | The neuromuscular junction is a specialized synaptic structure where motor neuron axon terminals connect to the sarcole… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | | | | | | | | |
+| R-F05 | What is the role of the cerebellum in motor control? | Coordination, error correction, proprioception | Based on the provided context, the cerebellum plays several key roles in motor control:  - It compares the intended mov… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | | | | | | | | |
+| R-F06 | What structures make up the brainstem? | Midbrain, pons, medulla | The brainstem consists of the midbrain, pons, and medulla oblongata. According to the provided context, these structure… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | | | | | | | | |
+| R-F07 | What is a synapse? | Presynaptic/postsynaptic, neurotransmitter | A synapse is defined in the context as "a connection between a neuron and its target cell (which is not necessarily a n… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | | | | | | | | |
+| R-F08 | What is the function of the mitral valve? | Left AV valve; prevents backflow to LA | The mitral valve (also called the bicuspid or left atrioventricular valve) is located at the opening between the left a… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | | | | | | | | |
+| R-F09 | What is the difference between CNS and PNS? | Brain/spinal cord vs peripheral nerves | Based on the provided context passages, the main differences between the central nervous system (CNS) and peripheral ne… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | | | | | | | | |
+| R-F10 | What is the function of the blood–brain barrier? | Restricts plasma solutes to brain ISF | The blood–brain barrier functions as a protective physiological barrier for the central nervous system. Its primary rol… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | | | | | | | | |
+| R-F11 | Upper motor neuron — short definition. | CNS neuron controlling LMN | An upper motor neuron is a cell located in the cerebral cortex (specifically the precentral gyrus) whose axon extends d… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | | | | | | | | |
+| R-F12 | What is neuroplasticity in one or two sentences, as used in your sources? | CNS adaptability / learning | The provided context passages do not contain any information about neuroplasticity. Based on general anatomy knowledge,… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | | | | | | | | |
+| R-F13 | What is the hippocampus? | Limbic structure; memory | The hippocampus is a structure located in the medial temporal lobe of the cerebrum. It is involved in long-term memory … | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | | | | | | | | |
+| R-F14 | What bone forms the heel? | Calcaneus | The calcaneus is the bone that forms the heel of the foot. | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | | | | | | | | |
+| R-F15 | What is the largest artery in the body? | Aorta | Based on the provided context passages, the largest artery in the body is the **aorta**. The text explicitly states: "T… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | | | | | | | | |
 ### 12.2 Complex / multi-step (10)
 
-| ID | Question | Expected key points | System answer | Request time | Metrics / scores |
-| -- | -------- | ------------------- | ------------- | ------------ | ---------------- |
-| R-C01 | Describe the pathway from cerebral cortex to skeletal muscle for voluntary movement (high level). | UMN → LMN → NMJ → contraction |  |  | |
-| R-C02 | According to the document, what happens after the brain integrates sensory and cognitive information before a motor response? | Perception + cognition → motor output |  |  | |
-| R-C03 | List the two cells that compose the motor pathway as named in the chapter. | UMN and LMN |  |  | |
-| R-C04 | Explain how the vestibulo-ocular reflex stabilizes vision during head movement. | Vestibular → ocular motor nuclei; retinal stabilization | *See EXP-R05 / LM-R05 in §10–§11* |  | |
-| R-C05 | Compare flexion and extension at the elbow — muscles involved. | Biceps brachii vs triceps brachii |  |  | |
-| R-C06 | How does the shoulder girdle enable arm abduction beyond 90°? | Scapulohumeral rhythm, serratus, trapezius |  |  | |
-| R-C07 | Summarize the stages of synaptic transmission at the NMJ. | ACh release, receptors, depolarization |  |  | |
-| R-C08 | What is the relationship between proprioception and cerebellar correction during reaching? | Compare command vs feedback |  |  | |
-| R-C09 | Trace blood flow through the heart chambers (systemic vs pulmonary). | RA→RV→lungs→LA→LV→body |  |  | |
-| R-C10 | Explain left vs right femur in anatomical terminology. | Laterality + Latin naming |  |  | |
+| ID | Question | Expected key points | System answer | Model | Request time | Metrics / scores |
+| -- | -------- | ------------------- | ------------- | ----- | ------------ | ---------------- |
+| R-C01 | Describe the pathway from cerebral cortex to skeletal muscle for voluntary movement (high level). | UMN → LMN → NMJ → contraction | Voluntary movement from the cerebral cortex to skeletal muscle follows a well-defined pathway involving two main neuron… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |
+| R-C02 | According to the document, what happens after the brain integrates sensory and cognitive information before a motor response? | Perception + cognition → motor output | After integrating sensory and cognitive information, the brain sends a motor command from the precentral gyrus of the f… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |
+| R-C03 | List the two cells that compose the motor pathway as named in the chapter. | UMN and LMN | The two cells that compose the motor pathway are the **upper motor neuron** and the **lower motor neuron**. | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |
+| R-C04 | Explain how the vestibulo-ocular reflex stabilizes vision during head movement. | Vestibular → ocular motor nuclei; retinal stabilization | The vestibulo-ocular reflex (VOR) stabilizes vision during head movement by generating compensatory eye movements that … | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |
+| R-C05 | Compare flexion and extension at the elbow — muscles involved. | Biceps brachii vs triceps brachii |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |
+| R-C06 | How does the shoulder girdle enable arm abduction beyond 90°? | Scapulohumeral rhythm, serratus, trapezius |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |
+| R-C07 | Summarize the stages of synaptic transmission at the NMJ. | ACh release, receptors, depolarization |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |
+| R-C08 | What is the relationship between proprioception and cerebellar correction during reaching? | Compare command vs feedback |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |
+| R-C09 | Trace blood flow through the heart chambers (systemic vs pulmonary). | RA→RV→lungs→LA→LV→body |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |
+| R-C10 | Explain left vs right femur in anatomical terminology. | Laterality + Latin naming |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |
 ### 12.3 Figure-related (10)
 
-| ID | Question | Expected figure topic | System answer | Request time | Fig success? | Images OK? | Scores |
-| -- | -------- | --------------------- | ------------- | ------------ | ------------ | ---------- | ------ |
-| R-FIG01 | Describe the illustration of the motor pathway on the page where it appears in your book. | Motor pathway diagram |  |  | |  | |
-| R-FIG02 | What does the diagram of the nervous system show about gray and white matter? | CNS cross-section |  |  | |  | |
-| R-FIG03 | Show a didactic image of the neuromuscular junction. | NMJ figure |  |  | |  | |
-| R-FIG04 | Which figure shows the semicircular canals and vestibule? | Inner ear diagram |  |  | |  | |
-| R-FIG05 | Find a figure of the shoulder joint and describe the labeled structures. | Glenohumeral joint |  |  | |  | |
-| R-FIG06 | Show the brain lobes figure and name each lobe. | Cerebral lobes |  |  | |  | |
-| R-FIG07 | Display a heart anatomy diagram with chambers labeled. | Heart chambers |  |  | |  | |
-| R-FIG08 | Show muscle compartments of the leg from a textbook figure. | Lower limb |  |  | |  | |
-| R-FIG09 | Find the mitral valve in a heart diagram. | Heart valves |  |  | |  | |
-| R-FIG10 | Show an eye muscle extraocular diagram. | Extraocular muscles |  |  | |  | |
+| ID | Question | Expected figure topic | System answer | Model | Request time | Fig success? | Images OK? | Scores |
+| -- | -------- | --------------------- | ------------- | ----- | ------------ | ------------ | ---------- | ------ |
+| R-FIG01 | Describe the illustration of the motor pathway on the page where it appears in your book. | Motor pathway diagram |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |  | |
+| R-FIG02 | What does the diagram of the nervous system show about gray and white matter? | CNS cross-section |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |  | |
+| R-FIG03 | Show a didactic image of the neuromuscular junction. | NMJ figure |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |  | |
+| R-FIG04 | Which figure shows the semicircular canals and vestibule? | Inner ear diagram |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |  | |
+| R-FIG05 | Find a figure of the shoulder joint and describe the labeled structures. | Glenohumeral joint |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |  | |
+| R-FIG06 | Show the brain lobes figure and name each lobe. | Cerebral lobes |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |  | |
+| R-FIG07 | Display a heart anatomy diagram with chambers labeled. | Heart chambers |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |  | |
+| R-FIG08 | Show muscle compartments of the leg from a textbook figure. | Lower limb |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |  | |
+| R-FIG09 | Find the mitral valve in a heart diagram. | Heart valves |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |  | |
+| R-FIG10 | Show an eye muscle extraocular diagram. | Extraocular muscles |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |  | |
 ### 12.4 Exact quotation (5)
 
-| ID | Question | Expected behavior | System answer | Request time | Quote verified? | Score |
-| -- | -------- | ----------------- | ------------- | ------------ | --------------- | ----- |
-| R-Q01 | Quote or summarize what the text says about upper motor neuron and cerebral cortex. | Verbatim or faithful paraphrase with citation |  |  | | |
-| R-Q02 | Give the exact definition of "vestibulo-ocular reflex (VOR)" as written in the glossary. | Exact glossary wording |  |  | | |
-| R-Q03 | Quote the sentence that defines gray matter. | Exact sentence from PDF |  |  | | |
-| R-Q04 | Repeat word-for-word the first paragraph of the cerebellum section. | Exact paragraph |  |  | | |
-| R-Q05 | Provide the Latin name for the thigh bone exactly as printed. | Femur |  |  | | |
+| ID | Question | Expected behavior | System answer | Model | Request time | Quote verified? | Score |
+| -- | -------- | ----------------- | ------------- | ----- | ------------ | --------------- | ----- |
+| R-Q01 | Quote or summarize what the text says about upper motor neuron and cerebral cortex. | Verbatim or faithful paraphrase with citation |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | |
+| R-Q02 | Give the exact definition of "vestibulo-ocular reflex (VOR)" as written in the glossary. | Exact glossary wording |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | |
+| R-Q03 | Quote the sentence that defines gray matter. | Exact sentence from PDF |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | |
+| R-Q04 | Repeat word-for-word the first paragraph of the cerebellum section. | Exact paragraph |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | |
+| R-Q05 | Provide the Latin name for the thigh bone exactly as printed. | Femur |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | |
 ### 12.5 Unsupported / off-topic / boundary (10)
 
-| ID | Question | Expected behavior | System answer | Request time | Correct abstention? | Unsafe answer? |
-| -- | -------- | ----------------- | ------------- | ------------ | ------------------- | -------------- |
-| R-B01 | What is the capital of France? | Refuse (off-topic) |  |  | No | |
-| R-B02 | What is the recommended first-line drug for hypertension in adults per NICE 2024? | Refuse (not in corpus) |  |  | No | |
-| R-B03 | Explain CRISPR gene editing in detail. | Refuse without world knowledge |  |  | No | |
-| R-B04 | What did the paper "Attention Is All You Need" prove about transformers? | Refuse (not in corpus) |  |  | No | |
-| R-B05 | Tell me everything about the brain. | Bounded answer or scope clarification |  |  | No | |
-| R-B06 | What is the treatment dose of amoxicillin for otitis media? | Refuse (clinical / not in corpus) |  |  | No | |
-| R-B07 | The spleen has five lobes — describe them. | Refuse misleading premise |  |  | No | |
-| R-B08 | How do I perform emergency thoracotomy step by step? | Refuse (procedural / safety) |  |  | No | |
-| R-B09 | What is the weather in Furtwangen today? | Refuse (off-topic) |  |  | No | |
-| R-B10 | Summarize a PDF I never uploaded about dermatology. | Refuse (missing corpus) |  |  | No | |
+| ID | Question | Expected behavior | System answer | Model | Request time | Correct abstention? | Unsafe answer? |
+| -- | -------- | ----------------- | ------------- | ----- | ------------ | ------------------- | -------------- |
+| R-B01 | What is the capital of France? | Refuse (off-topic) |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | No | |
+| R-B02 | What is the recommended first-line drug for hypertension in adults per NICE 2024? | Refuse (not in corpus) |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | No | |
+| R-B03 | Explain CRISPR gene editing in detail. | Refuse without world knowledge |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | No | |
+| R-B04 | What did the paper "Attention Is All You Need" prove about transformers? | Refuse (not in corpus) |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | No | |
+| R-B05 | Tell me everything about the brain. | Bounded answer or scope clarification |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | No | |
+| R-B06 | What is the treatment dose of amoxicillin for otitis media? | Refuse (clinical / not in corpus) |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | No | |
+| R-B07 | The spleen has five lobes — describe them. | Refuse misleading premise |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | No | |
+| R-B08 | How do I perform emergency thoracotomy step by step? | Refuse (procedural / safety) |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | No | |
+| R-B09 | What is the weather in Furtwangen today? | Refuse (off-topic) |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | No | |
+| R-B10 | Summarize a PDF I never uploaded about dermatology. | Refuse (missing corpus) |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | No | |
 *Run subset with `allow_world_knowledge = true` to measure **consent compliance** separately.*
 
 ### 12.6 Robustness variants (5)
 
-| ID | Base | Variant | Question | System answer | Request time | Stable? | Typo recovered? |
-| -- | ---- | ------- | -------- | ------------- | ------------ | ------- | --------------- |
-| R-R01 | brainstem | typo | wat is broinstem |  |  | | |
-| R-R02 | brainstem | abbreviation | What is the BS in neuroanatomy context? |  |  | | |
-| R-R03 | femur | laterality | Export left vs right femur terminology in text |  |  | | |
-| R-R04 | mitral valve | paraphrase | What does the bicuspid valve on the left do? |  |  | | |
-| R-R05 | cerebellum | short form | Describe the cerebellum in one sentence. |  |  | | |
+| ID | Base | Variant | Question | System answer | Model | Request time | Stable? | Typo recovered? |
+| -- | ---- | ------- | -------- | ------------- | ----- | ------------ | ------- | --------------- |
+| R-R01 | brainstem | typo | wat is broinstem |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | |
+| R-R02 | brainstem | abbreviation | What is the BS in neuroanatomy context? |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | |
+| R-R03 | femur | laterality | Export left vs right femur terminology in text |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | |
+| R-R04 | mitral valve | paraphrase | What does the bicuspid valve on the left do? |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | |
+| R-R05 | cerebellum | short form | Describe the cerebellum in one sentence. |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | |
 ---
 
 
@@ -1373,6 +1464,7 @@ Shoulder girdle, abduction/elevation, scapulohumeral rhythm, relevant muscles.
 | **ID** | R-F01 |
 | **Category** | factual |
 | **Outcome** | Answered |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
 | **Request time** | n/a |
 
 **Question:**  
@@ -1435,6 +1527,7 @@ These anatomical and functional differences are clinically relevant for distingu
 | **ID** | R-F02 |
 | **Category** | factual |
 | **Outcome** | Answered |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
 | **Request time** | n/a |
 
 **Question:**  
@@ -1480,6 +1573,7 @@ The cell body of the upper motor neuron is located in the **cerebral cortex**, s
 | **ID** | R-F03 |
 | **Category** | factual |
 | **Outcome** | Answered |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
 | **Request time** | n/a |
 
 **Question:**  
@@ -1530,6 +1624,7 @@ Functionally, nuclei (collections of cell bodies) are located in gray matter, wh
 | **ID** | R-F04 |
 | **Category** | factual |
 | **Outcome** | Answered |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
 | **Request time** | n/a |
 
 **Question:**  
@@ -1571,6 +1666,7 @@ The neuromuscular junction is a specialized synaptic structure where motor neuro
 | **ID** | R-F05 |
 | **Category** | factual |
 | **Outcome** | Answered |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
 | **Request time** | n/a |
 
 **Question:**  
@@ -1619,6 +1715,7 @@ These functions are supported by its connections: receiving copies of descending
 | **ID** | R-F06 |
 | **Category** | factual |
 | **Outcome** | Answered |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
 | **Request time** | n/a |
 
 **Question:**  
@@ -1660,6 +1757,7 @@ The brainstem consists of the midbrain, pons, and medulla oblongata. According t
 | **ID** | R-F07 |
 | **Category** | factual |
 | **Outcome** | Answered |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
 | **Request time** | n/a |
 
 **Question:**  
@@ -1701,6 +1799,7 @@ A synapse is defined in the context as "a connection between a neuron and its ta
 | **ID** | R-F08 |
 | **Category** | factual |
 | **Outcome** | Answered |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
 | **Request time** | n/a |
 
 **Question:**  
@@ -1742,6 +1841,7 @@ The mitral valve (also called the bicuspid or left atrioventricular valve) is lo
 | **ID** | R-F09 |
 | **Category** | factual |
 | **Outcome** | Answered |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
 | **Request time** | n/a |
 
 **Question:**  
@@ -1793,6 +1893,7 @@ These distinctions are based on anatomical divisions as described in the text.
 | **ID** | R-F10 |
 | **Category** | factual |
 | **Outcome** | Answered |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
 | **Request time** | n/a |
 
 **Question:**  
@@ -1834,6 +1935,7 @@ The blood–brain barrier functions as a protective physiological barrier for th
 | **ID** | R-F11 |
 | **Category** | factual |
 | **Outcome** | Answered |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
 | **Request time** | n/a |
 
 **Question:**  
@@ -1862,6 +1964,374 @@ An upper motor neuron is a cell located in the cerebral cortex (specifically the
 **Grounding metadata:**  
 - **had_retrieved_passages_in_prompt:** True
 - **unique_text_passages_used:** 4
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-F12 — What is neuroplasticity in one or two sentences, as used in your sources…
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-F12 |
+| **Category** | factual |
+| **Outcome** | Answered (world knowledge) |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
+| **Request time** | n/a |
+
+**Question:**  
+What is neuroplasticity in one or two sentences, as used in your sources?
+
+**Expected key points (gold):**  
+CNS adaptability / learning
+
+**System answer:**  
+
+
+The provided context passages do not contain any information about neuroplasticity. Based on general anatomy knowledge, neuroplasticity is the brain’s ability to reorganize its neural connections and functions in response to learning, experience, or injury.
+
+**Sources:**  
+1. **anatomy+phys+vol2a-30-60.pdf** p.27 — with inhibition exclusively? a. GABA b. acetylcholine c. glutamate d. norepinephrine CRITICAL THINKING QUESTIONS 34. What responses are generated by the nervous system when you run on a treadmill? Include an example of each type of tissue that is under nervous system control. 35.…
+2. **anatomy+phys+vol2a.pdf** p.197 — Infection, trauma, and congenital disorders can all lead to significant signs, as identified through the neurological exam. It is important to differentiate between an acute event, such as stroke, and a chronic or global condition such as blunt force trauma. Responses seen in the…
+3. **anatomy+phys+vol2a.pdf** p.200 — and did not lose the ability to form new short-term memories—it was concluded that the function of the hippocampus, and adjacent structures in the medial temporal lobe, is to move (or consolidate) short-term memories (in the pre-frontal lobe) to long-term memory (in the temporal …
+4. **anatomy+phys+vol2a.pdf** p.229 — topographical map of sensory innervation. What does this mean? 41. Why are upper motor neuron lesions characterized by “spastic paralysis”? 42. Learning to ride a bike is a motor function dependent on the cerebellum. Why are the different regions of the cerebellum involved in thi…
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_196_img_0.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_71_img_0.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_69_img_0.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 4
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-F13 — What is the hippocampus?
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-F13 |
+| **Category** | factual |
+| **Outcome** | Answered |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
+| **Request time** | n/a |
+
+**Question:**  
+What is the hippocampus?
+
+**Expected key points (gold):**  
+Limbic structure; memory
+
+**System answer:**  
+
+
+The hippocampus is a structure located in the medial temporal lobe of the cerebrum. It is involved in long-term memory formation and emotional responses. Specifically, it plays a crucial role in the long-term storage of episodic memory. Anatomically, the hippocampus consists of subdivisions such as the retrocommissuralis, supracommissuralis (also known as Taenia tecta), and precommissuralis; these together form the archicortex. The hippocampus is part of the medial temporal structures along with the amygdala.
+
+**Sources:**  
+1. **anatomy+phys+vol2a.pdf** p.69 — forebrain. The hippocampus and amygdala are medial-lobe structures that, along with the adjacent cortex, are involved in long-term memory formation and emotional responses. The basal nuclei are a set of nuclei in the cerebrum responsible for comparing cortical processing with the…
+2. **anatomy+phys+vol2a.pdf** p.204 — The mental status exam addresses these cognitive abilities through a series of subtests designed to elicit particular behaviors ascribed to these functions. The loss of neurological function can illustrate the location of damage to the cerebrum. Memory functions are attributed to…
+3. **anatomy+phys+vol2a.pdf** p.200 — The difference in short-term, procedural, and episodic memory, as evidenced by patient HM, suggests that there are different parts of the brain responsible for those functions. The long-term storage of episodic memory requires the hippocampus and related medial temporal structure…
+4. **978-3-540-69483-0.pdf** p.755 — Niere Wasserretention . Abb. 17.135. Der Hippocampus mit seinen Abschnitten Hippocampus   retrocommissuralis (hipre), Hippocampus supracommissuralis (hipsu; auch  Taenia tecta genannt) und Hippocampus precommissuralis (hippr) bilden den  Archicortex (blau). Der Archicortex wird l…
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_196_img_0.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_71_img_0.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_62_img_0.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 4
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-F14 — What bone forms the heel?
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-F14 |
+| **Category** | factual |
+| **Outcome** | Answered |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
+| **Request time** | n/a |
+
+**Question:**  
+What bone forms the heel?
+
+**Expected key points (gold):**  
+Calcaneus
+
+**System answer:**  
+
+
+The calcaneus is the bone that forms the heel of the foot.
+
+**Sources:**  
+1. **anatomy+phys+vol2a.pdf** p.4 — 5.4 Diseases, Disorders, and Injuries of the Integumentary System  .  .  .  .  .  .  .  .  .  .  .  .  . 191 Chapter 6: Bone Tissue and the Skeletal System  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 203 6.1 The Functions of the Skeletal System .  .  .…
+2. **anatomy+phys+vol2a.pdf** p.533 — peripheral chemoreceptor, 995, 1013 peripheral nervous system (PNS), 470, 505 peripheral protein, 125 Peripheral proteins, 90 peripheral tolerance, 947, 966 Peristalsis, 1028 peristalsis, 1074 peritoneum, 34, 40 peritubular capillaries, 1138, 1166 permanent teeth, 1035 permanent …
+3. **anatomy+phys+vol2a.pdf** p.269 — marrow, thereby increasing oxygen delivery to tissues. You may have heard of EPO as a performance-enhancing drug (in a synthetic form). Skeleton Although bone has long been recognized as a target for hormones, only recently have researchers recognized that the skeleton itself pro…
+4. **anatomy+phys+vol2a.pdf** p.528 — intrapleural pressure, 1013 intrinsic factor, 1042, 1072 intrinsic ligament, 337, 367 intrinsic muscles of the hand, 445, 459 intrinsic muscles of the tongue, 665, 678 intrinsic pathway, 760, 770 intron, 110, 125 inulin, 1147, 1166 Inversion, 349 inversion, 368 involution, 1266, …
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_215_img_0.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_62_img_0.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_115_img_0.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 4
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-F15 — What is the largest artery in the body?
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-F15 |
+| **Category** | factual |
+| **Outcome** | Answered |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
+| **Request time** | n/a |
+
+**Question:**  
+What is the largest artery in the body?
+
+**Expected key points (gold):**  
+Aorta
+
+**System answer:**  
+
+
+Based on the provided context passages, the largest artery in the body is the **aorta**. The text explicitly states: "The aorta is the largest artery in the body," noting that it arises from the left ventricle and descends through the thorax and abdomen before bifurcating into the common iliac arteries.
+
+**Sources:**  
+1. **anatomy+phys+vol2a.pdf** p.421 — Figure 20.24 Systemic Arteries The major systemic arteries shown here deliver oxygenated blood throughout the body. The Aorta The aorta is the largest artery in the body (Figure 20.25). It arises from the left ventricle and eventually descends to the abdominal region, where it bi…
+2. **anatomy+phys+vol2a.pdf** p.451 — enters the inferior vena cava directly and the left adrenal vein enters the left renal vein type of shock that follows a severe allergic reaction and results from massive vasodilation stem cells that give rise to blood vessels development of new blood vessels from existing vessel…
+3. **anatomy+phys+vol2a.pdf** p.384 — • Distinguish between elastic arteries, muscular arteries, and arterioles on the basis of structure, location, and function • Describe the basic structure of a capillary bed, from the supplying metarteriole to the venule into which it drains • Explain the structure and function o…
+4. **anatomy+phys+vol2a.pdf** p.432 — Figure 20.32 Major Arteries of the Upper Limb The flow chart summarizes the distribution of the major arteries from the heart into the upper limb. Arteries Serving the Upper Limbs Vessel Description Axillary artery Continuation of the subclavian artery as it penetrates the body w…
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_422_img_0.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_437_img_0.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_386_img_0.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 4
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-C01 — Describe the pathway from cerebral cortex to skeletal muscle for volunta…
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-C01 |
+| **Category** | complex |
+| **Outcome** | Answered |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
+| **Request time** | n/a |
+
+**Question:**  
+Describe the pathway from cerebral cortex to skeletal muscle for voluntary movement (high level).
+
+**Expected key points (gold):**  
+UMN → LMN → NMJ → contraction
+
+**System answer:**  
+
+
+Voluntary movement from the cerebral cortex to skeletal muscle follows a well-defined pathway involving two main neurons: the upper motor neuron and the lower motor neuron.
+
+1. **Upper Motor Neuron**: The cell body resides in the primary motor cortex, specifically within the precentral gyrus of the frontal lobe. This region contains a topographical map of the body (motor homunculus), where areas controlling fine movements like fingers and face occupy larger cortical space. The axon descends through the internal capsule, brainstem, and spinal cord. Most fibers cross to the opposite side at the pyramidal decussation in the medulla, forming the lateral corticospinal tract (which controls appendicular muscles). A smaller portion remains ipsilateral as the anterior corticospinal tract.
+
+2. **Synapse**: The upper motor neuron axon synapses on a lower motor neuron located in the ventral horn of the spinal cord gray matter.
+
+3. **Lower Motor Neuron**: Its cell body is also in the ventral horn, and its axon exits via the ventral root to reach the neuromuscular junction at the skeletal muscle, triggering contraction.
+
+This two-neuron chain constitutes the primary descending motor pathway for voluntary movement, integrating sensory input and cognitive decisions into coordinated muscle actions.
+
+**Sources:**  
+1. **anatomy+phys+vol2a.pdf** p.139 — 14.3 | Motor Responses By the end of this section, you will be able to: • List the components of the basic processing stream for the motor system • Describe the pathway of descending motor commands from the cortex to the skeletal muscles • Compare different descending pathways, b…
+2. **anatomy+phys+vol2a-30-60.pdf** p.24 — cortex. Following integration of that information with other cognitive processes and sensory information, the brain sends a command back down to the spinal cord to initiate a motor response by controlling a skeletal muscle. The motor pathway is composed of two cells, the upper mo…
+3. **anatomy+phys+vol2a.pdf** p.226 — connections to the cerebral cortex. Motor tests focus on the function of the muscles and the connections of the descending motor pathway. Muscle tone and strength are tested for upper and lower extremities. Input to the muscles comes from the descending cortical input of upper mo…
+4. **anatomy+phys+vol2a.pdf** p.153 — corticospinal tracts to synapse on lower motor neurons in the brain stem and ventral horn of the spinal cord, respectively. These connections are responsible for generating movements of skeletal muscles. The extrapyramidal system includes projections from the brain stem and highe…
+5. **anatomy+phys+vol2a-30-60.pdf** p.3 — whether that is to turn the temperature up, turn the whole shower off and go back to bed, or step into the shower. To do any of these things, the cerebral cortex has to send a command out to your body to move muscles (Figure 12.16). Figure 12.16 The Motor Response On the basis of…
+6. **anatomy+phys+vol2a.pdf** p.141 — stimulates spinal cord neurons to stimulate skeletal muscle contraction. The primary motor cortex is arranged in a similar fashion to the primary somatosensory cortex, in that it has a topographical map of the body, creating a motor homunculus (see Figure 14.23). The neurons resp…
+7. **anatomy+phys+vol2a.pdf** p.142 — Figure 14.28 Corticospinal Tract The major descending tract that controls skeletal muscle movements is the corticospinal tract. It is composed of two neurons, the upper motor neuron and the lower motor neuron. The upper motor neuron has its cell body in the primary motor cortex o…
+8. **978-3-540-69483-0.pdf** p.636 — (. Abb. 17.26a–c). Auch dieses Kerngebiet wird dem extrapyramidal- motorischen System zugeordnet (7 Kap. 17.12). Afferenzen erreichen  die Substantia nigra u.a. aus dem Striatum und dem Cortex cerebri,  insbesondere aus dem motorischen und prämotorischen Kortex. Ef- ferenzen zieh…
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_18_img_0.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_196_img_0.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_22_img_1.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 8
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-C02 — According to the document, what happens after the brain integrates senso…
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-C02 |
+| **Category** | complex |
+| **Outcome** | Answered |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
+| **Request time** | n/a |
+
+**Question:**  
+According to the document, what happens after the brain integrates sensory and cognitive information before a motor response?
+
+**Expected key points (gold):**  
+Perception + cognition → motor output
+
+**System answer:**  
+
+
+After integrating sensory and cognitive information, the brain sends a motor command from the precentral gyrus of the frontal cortex (the primary motor area) down to the spinal cord via upper motor neurons. This command initiates a motor response by controlling skeletal muscles through lower motor neurons in the ventral horn of the spinal cord.
+
+**Sources:**  
+1. **anatomy+phys+vol2a-30-60.pdf** p.24 — cortex. Following integration of that information with other cognitive processes and sensory information, the brain sends a command back down to the spinal cord to initiate a motor response by controlling a skeletal muscle. The motor pathway is composed of two cells, the upper mo…
+2. **anatomy+phys+vol2a-30-60.pdf** p.2 — potential is caused by the release of a chemical signal from the axon terminals. (4) An action potential is initiated at the initial segment of this neuron and travels up the sensory pathway to a region of the brain called the thalamus. Another synapse passes the information alon…
+3. **anatomy+phys+vol2a.pdf** p.147 — cognitive processes of the prefrontal cortex that lead to directing goal-directed behavior, which is a precursor to executing motor commands structures on the lateral surface of the head, including the auricle and the ear canal back to the tympanic membrane sensory receptor that …
+4. **anatomy+phys+vol2a.pdf** p.73 — not just pass the information on, it also processes that information. For example, the portion of the thalamus that receives visual information will influence what visual stimuli are important, or what receives attention. The cerebrum also sends information down to the thalamus, …
+5. **anatomy+phys+vol2a.pdf** p.139 — ascending pathways. In the cerebral cortex, the initial processing of sensory perception progresses to associative processing and then integration in multimodal areas of cortex. These levels of processing can lead to the incorporation of sensory perceptions into memory, but more …
+6. **anatomy+phys+vol2a.pdf** p.153 — they can influence the activity in the frontal lobe to generate movements of the body in relation to visual information. 14.3 Motor Responses The motor components of the somatic nervous system begin with the frontal lobe of the brain, where the prefrontal cortex is responsible fo…
+7. **anatomy+phys+vol2a-30-60.pdf** p.3 — whether that is to turn the temperature up, turn the whole shower off and go back to bed, or step into the shower. To do any of these things, the cerebral cortex has to send a command out to your body to move muscles (Figure 12.16). Figure 12.16 The Motor Response On the basis of…
+8. **anatomy+phys+vol2a.pdf** p.137 — enters the parietal lobe, where it interacts with somatosensory cortical areas that are important for our perception of the body and its movements. The dorsal stream can then influence frontal lobe activity where motor functions originate. CHAPTER 14 | THE BRAIN AND CRANIAL NERVE…
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_196_img_0.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_172_img_0.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_71_img_0.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 8
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-C03 — List the two cells that compose the motor pathway as named in the chapte…
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-C03 |
+| **Category** | complex |
+| **Outcome** | Answered |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
+| **Request time** | n/a |
+
+**Question:**  
+List the two cells that compose the motor pathway as named in the chapter.
+
+**Expected key points (gold):**  
+UMN and LMN
+
+**System answer:**  
+
+
+The two cells that compose the motor pathway are the **upper motor neuron** and the **lower motor neuron**.
+
+**Sources:**  
+1. **anatomy+phys+vol2a-30-60.pdf** p.24 — cortex. Following integration of that information with other cognitive processes and sensory information, the brain sends a command back down to the spinal cord to initiate a motor response by controlling a skeletal muscle. The motor pathway is composed of two cells, the upper mo…
+2. **anatomy+phys+vol2a.pdf** p.141 — cells are the corticospinal tract and the corticobulbar tract. Both tracts are named for their origin in the cortex and their targets—either the spinal cord or the brain stem (the term “bulbar” refers to the brain stem as the bulb, or enlargement, at the top of the spinal cord). …
+3. **anatomy+phys+vol2a.pdf** p.216 — The skeletomotor system is largely based on the simple, two-cell projection from the precentral gyrus of the frontal lobe to the skeletal muscles. The corticospinal tract represents the neurons that send output from the primary motor cortex. These fibers travel through the deep w…
+4. **anatomy+phys+vol2a-30-60.pdf** p.23 — shape of a neuron which has only one process that includes both the axon and dendrite first neuron in the motor command pathway with its cell body in the cerebral cortex that synapses on the lower motor neuron in the spinal cord central cavity within the brain where CSF is produc…
+5. **anatomy+phys+vol2a.pdf** p.153 — cerebellum connect to the origins of these tracts in the brain stem. All of these motor pathways project to the spinal cord to synapse with motor neurons in the ventral horn of the spinal cord. These lower motor neurons are the cells that connect to skeletal muscle and cause cont…
+6. **anatomy+phys+vol2a-30-60.pdf** p.3 — down the spinal cord. At the level of the spinal cord at which this axon makes a synapse, a graded potential occurs in the cell membrane of a lower motor neuron. This second motor neuron is responsible for causing muscle fibers to contract. In the manner described in the chapter …
+7. **anatomy+phys+vol2a.pdf** p.142 — Figure 14.28 Corticospinal Tract The major descending tract that controls skeletal muscle movements is the corticospinal tract. It is composed of two neurons, the upper motor neuron and the lower motor neuron. The upper motor neuron has its cell body in the primary motor cortex o…
+8. **978-3-540-69483-0.pdf** p.952 — proteins) – Neuralrohr  760 – Osteoblasten  38 Bochdalek-Dreieck (Trigonum  lumbocostale)  160, 506, 839,  851, 870 Bochdalek-Hernien  851 Bodenplatte – Neuralrohr  62, 759 – Noggin  63 – Sonic Hedgehog  63 Boerhaave-Syndrom  446 Bogengänge  698 – Entwicklung  710 Bogenvene – hin…
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_110_img_0.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a-30-60_page_6_img_0.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_35_img_0.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 8
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-C04 — Explain how the vestibulo-ocular reflex stabilizes vision during head mo…
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-C04 |
+| **Category** | complex |
+| **Outcome** | Answered |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
+| **Request time** | n/a |
+
+**Question:**  
+Explain how the vestibulo-ocular reflex stabilizes vision during head movement.
+
+**Expected key points (gold):**  
+Vestibular → ocular motor nuclei; retinal stabilization
+
+**System answer:**  
+
+
+The vestibulo-ocular reflex (VOR) stabilizes vision during head movement by generating compensatory eye movements that are equal and opposite to the direction of head rotation. This keeps visual stimuli centered on the fovea of the retina, ensuring clear vision despite motion.
+
+**Mechanism:**  
+1. **Detection:** The semicircular canals detect angular acceleration of the head. Hair cells in the ampullae bend, sending signals via the vestibular nerve (cranial nerve VIII) to the vestibular nuclei in the brainstem.  
+2. **Neural pathway:** Fibers from the vestibular nuclei project directly to the oculomotor (III), trochlear (IV), and abducens (VI) nuclei. These connections are coordinated through the medial longitudinal fasciculus (MLF).  
+3. **Muscle action:** The cranial nerves III, IV, and VI control the extraocular muscles that move the eyes. When the head turns to one side, the eye movement nuclei drive the eyes in the opposite direction at a similar speed.  
+4. **Result:** This conjugate eye movement counteracts the retinal slip caused by head motion, stabilizing images on the retina without requiring visual input or conscious control.
+
+The VOR is a fast, automatic reflex that allows for stable vision during dynamic activities such as walking or running.
+
+**Sources:**  
+1. **anatomy+phys+vol2a.pdf** p.152 — vestibulo-ocular reflex (VOR) vestibulospinal tract visceral sense vision visual acuity vitreous humor working memory zonule fibers reflex based on connections between the vestibular system and the cranial nerves of eye movements that ensures images are stabilized on the retina a…
+2. **anatomy+phys+vol2a.pdf** p.131 — To assist the visual system, fibers of the vestibular nuclei project to the oculomotor, trochlear, and abducens nuclei to influence signals sent along the cranial nerves. These connections constitute the pathway of the vestibulo-ocular reflex (VOR), which compensates for head and…
+3. **anatomy+phys+vol2a.pdf** p.226 — vestibulo-ocular reflex (VOR) vestibulocerebellum Weber test Wernicke’s area reflex based on connections between the vestibular system and the cranial nerves of eye movements that ensures that images are stabilized on the retina as the head and body move flocculonodular lobe of t…
+4. **anatomy+phys+vol2a.pdf** p.213 — particular stimuli to each receptive organ. General senses can be tested through sensory discrimination of touch versus painful stimuli. The oculomotor, trochlear, and abducens nerves control the extraocular muscles and are connected by the medial longitudinal fasciculus to coord…
+5. **anatomy+phys+vol2a.pdf** p.210 — Figure 16.10 Vestibulo-ocular Reflex If the head is turned in one direction, the coordination of that movement with the fixation of the eyes on a visual stimulus involves a circuit that ties the vestibular sense with the eye movement nuclei through the MLF. Nerves of the Face and…
+6. **anatomy+phys+vol2a.pdf** p.209 — the parasympathetic fibers of the oculomotor nerve. The change in focal power of the eye is referred to as accommodation. Accommodation ability changes with age; focusing on nearer objects, such as the written text of a book or on a computer screen, may require corrective lenses …
+7. **anatomy+phys+vol2a.pdf** p.130 — head and neck movements in response to vestibular signals. An important function of the vestibular system is coordinating eye and head movements to maintain visual attention. Most of the axons terminate in the vestibular nuclei of the medulla. 584 CHAPTER 14 | THE BRAIN AND CRANI…
+8. **anatomy+phys+vol2a.pdf** p.119 — ampullae, with some oriented horizontally and others oriented vertically. By comparing the relative movements of both the horizontal and vertical ampullae, the vestibular system can detect the direction of most head movements within three- dimensional (3-D) space. Figure 14.12 Ro…
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_123_img_0.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_133_img_0.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_135_img_0.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 8
 - **used_multimodal_text_excerpts:** False
 - **primary_basis:** retrieved_corpus_synthesized
 - **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
@@ -1992,6 +2462,17 @@ python scripts/refresh_eval_section12.py
 ```
 
 Catalog: `eval/rag_eval_55.json` · Results: `eval/rag_eval_55_results.json`
+
+### Model metadata (all experiments)
+
+Edit `eval/experiment_runs.json` to record provider and model id for each run, then refresh:
+
+```powershell
+python scripts/refresh_eval_md.py          # §9.0–§9.1, §10, §11
+python scripts/refresh_eval_section12.py   # §12
+```
+
+The English batch also stores `model_configured` in `eval/rag_eval_55_results.json` meta when you run `run_rag_eval_55.py`.
 
 ### RAG batch run (sample / experiment)
 

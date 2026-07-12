@@ -60,8 +60,12 @@ def load_existing(path: Path) -> tuple[list[dict], dict[str, dict]]:
 
 
 def save_checkpoint(output_path: Path, results: list[dict]) -> None:
-    out_obj = {
-        "meta": {
+    sys.path.insert(0, str(REPO / "scripts"))
+    from eval_run_metadata import merge_run_meta
+
+    meta = merge_run_meta(
+        "english_rag_55",
+        {
             "ts": datetime.now(timezone.utc).isoformat(),
             "base_url": "http://127.0.0.1:8000",
             "endpoint": "/rag/ask",
@@ -70,8 +74,8 @@ def save_checkpoint(output_path: Path, results: list[dict]) -> None:
             "timeout_s": DEFAULT_TIMEOUT,
             "count": len(results),
         },
-        "results": results,
-    }
+    )
+    out_obj = {"meta": meta, "results": results}
     output_path.write_text(json.dumps(out_obj, ensure_ascii=False, indent=2), encoding="utf-8")
 
 

@@ -1,12 +1,12 @@
 {
   "meta": {
-    "ts": "2026-07-12T10:23:30.702469+00:00",
+    "ts": "2026-07-12T10:55:57.770289+00:00",
     "base_url": "http://127.0.0.1:8000",
     "endpoint": "/rag/ask",
     "language": "en",
     "allow_world_knowledge": false,
     "timeout_s": 900,
-    "count": 12
+    "count": 19
   },
   "results": [
     {
@@ -705,6 +705,457 @@
         "render_3d_annotations_url": null,
         "render_3d_anatomy": null,
         "render_3d_suggestions": []
+      },
+      "error": null
+    },
+    {
+      "id": "R-F13",
+      "category": "factual",
+      "question": "What is the hippocampus?",
+      "gold": "Limbic structure; memory",
+      "response": {
+        "answer": "\n\nThe hippocampus is a structure located in the medial temporal lobe of the cerebrum. It is involved in long-term memory formation and emotional responses. Specifically, it plays a crucial role in the long-term storage of episodic memory. Anatomically, the hippocampus consists of subdivisions such as the retrocommissuralis, supracommissuralis (also known as Taenia tecta), and precommissuralis; these together form the archicortex. The hippocampus is part of the medial temporal structures along with the amygdala.",
+        "images": [
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_196_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_71_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_62_img_0.jpeg"
+        ],
+        "sources": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 69,
+            "chunk_preview": "forebrain. The hippocampus and amygdala are medial-lobe structures that, along with the adjacent cortex, are involved\nin long-term memory formation and emotional responses. The basal nuclei are a set of nuclei in the cerebrum responsible\nfor comparing cortical processing with the general state of activity in the nervous system to influence the likelihood of\nmovement taking place. For example, whil…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 204,
+            "chunk_preview": "The mental status exam addresses these cognitive abilities through a series of subtests designed to elicit particular\nbehaviors ascribed to these functions. The loss of neurological function can illustrate the location of damage to the\ncerebrum. Memory functions are attributed to the temporal lobe, particularly the medial temporal lobe structures known as\nthe hippocampus and amygdala, along with t…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 200,
+            "chunk_preview": "The difference in short-term, procedural, and episodic memory, as evidenced by patient HM, suggests that there\nare different parts of the brain responsible for those functions. The long-term storage of episodic memory requires the\nhippocampus and related medial temporal structures, and the location of those memories is in the multimodal integration\nareas of the cerebral cortex. However, short-term…"
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 755,
+            "chunk_preview": "Niere\nWasserretention\n. Abb. 17.135. Der Hippocampus mit seinen Abschnitten Hippocampus \n retrocommissuralis (hipre), Hippocampus supracommissuralis (hipsu; auch \nTaenia tecta genannt) und Hippocampus precommissuralis (hippr) bilden den \nArchicortex (blau). Der Archicortex wird lateral vom Periarchicortex (rot) be-\ngrenzt, der aus den Areae entorhinalis (28), perirhinalis (35), ectorhinalis (36),"
+          }
+        ],
+        "grounding": {
+          "had_retrieved_passages_in_prompt": true,
+          "unique_text_passages_used": 4,
+          "used_multimodal_text_excerpts": false,
+          "primary_basis": "retrieved_corpus_synthesized",
+          "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+          "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+        },
+        "render_3d_url": null,
+        "render_3d_model_url": null,
+        "render_3d_viewer_url": null,
+        "render_3d_annotations_url": null,
+        "render_3d_anatomy": null,
+        "render_3d_suggestions": []
+      },
+      "error": null
+    },
+    {
+      "id": "R-F14",
+      "category": "factual",
+      "question": "What bone forms the heel?",
+      "gold": "Calcaneus",
+      "response": {
+        "answer": "\n\nThe calcaneus is the bone that forms the heel of the foot.",
+        "images": [
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_215_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_62_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_115_img_0.jpeg"
+        ],
+        "sources": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 4,
+            "chunk_preview": "5.4 Diseases, Disorders, and Injuries of the Integumentary System  .  .  .  .  .  .  .  .  .  .  .  .  . 191\nChapter 6: Bone Tissue and the Skeletal System  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 203\n6.1 The Functions of the Skeletal System .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 204\n6.2 Bone Classification  .  .  .  .  .  .  …"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 533,
+            "chunk_preview": "peripheral chemoreceptor, 995,\n1013\nperipheral nervous system\n(PNS), 470, 505\nperipheral protein, 125\nPeripheral proteins, 90\nperipheral tolerance, 947, 966\nPeristalsis, 1028\nperistalsis, 1074\nperitoneum, 34, 40\nperitubular capillaries, 1138, 1166\npermanent teeth, 1035\npermanent tooth, 1074\nperoxisome, 101, 125\nperpendicular plate of the\nethmoid bone, 243, 279\npetrosal sinus, 893, 910\npetrous ridg…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 269,
+            "chunk_preview": "marrow, thereby increasing oxygen delivery to tissues. You may have heard of EPO as a performance-enhancing drug (in a\nsynthetic form).\nSkeleton\nAlthough bone has long been recognized as a target for hormones, only recently have researchers recognized that the\nskeleton itself produces at least two hormones. Fibroblast growth factor 23 (FGF23) is produced by bone cells in response\nCHAPTER 17 | THE …"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 528,
+            "chunk_preview": "intrapleural pressure, 1013\nintrinsic factor, 1042, 1072\nintrinsic ligament, 337, 367\nintrinsic muscles of the hand,\n445, 459\nintrinsic muscles of the tongue,\n665, 678\nintrinsic pathway, 760, 770\nintron, 110, 125\ninulin, 1147, 1166\nInversion, 349\ninversion, 368\ninvolution, 1266, 1282\nion, 53, 81\nionic bond, 54, 81\nionotropic receptor, 488, 504\nipsilateral, 581, 602\niris, 576, 602\nirregular bone, 2…"
+          }
+        ],
+        "grounding": {
+          "had_retrieved_passages_in_prompt": true,
+          "unique_text_passages_used": 4,
+          "used_multimodal_text_excerpts": false,
+          "primary_basis": "retrieved_corpus_synthesized",
+          "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+          "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+        },
+        "render_3d_url": null,
+        "render_3d_model_url": null,
+        "render_3d_viewer_url": null,
+        "render_3d_annotations_url": null,
+        "render_3d_anatomy": null,
+        "render_3d_suggestions": []
+      },
+      "error": null
+    },
+    {
+      "id": "R-F15",
+      "category": "factual",
+      "question": "What is the largest artery in the body?",
+      "gold": "Aorta",
+      "response": {
+        "answer": "\n\nBased on the provided context passages, the largest artery in the body is the **aorta**. The text explicitly states: \"The aorta is the largest artery in the body,\" noting that it arises from the left ventricle and descends through the thorax and abdomen before bifurcating into the common iliac arteries.",
+        "images": [
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_422_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_437_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_386_img_0.jpeg"
+        ],
+        "sources": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 421,
+            "chunk_preview": "Figure 20.24 Systemic Arteries\nThe major systemic arteries shown here deliver oxygenated blood throughout the\nbody.\nThe Aorta\nThe aorta is the largest artery in the body (Figure 20.25). It arises from the left ventricle and eventually descends to\nthe abdominal region, where it bifurcates at the level of the fourth lumbar vertebra into the two common iliac arteries.\nThe aorta consists of the ascend…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 451,
+            "chunk_preview": "enters the inferior vena cava directly and the left adrenal vein enters the left renal vein\ntype of shock that follows a severe allergic reaction and results from massive vasodilation\nstem cells that give rise to blood vessels\ndevelopment of new blood vessels from existing vessels\narises from the internal carotid artery; supplies the frontal lobe of the cerebrum\nanastomosis of the right and left i…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 384,
+            "chunk_preview": "•\nDistinguish between elastic arteries, muscular arteries, and arterioles on the basis of structure, location, and function\n•\nDescribe the basic structure of a capillary bed, from the supplying metarteriole to the venule into which it drains\n•\nExplain the structure and function of venous valves in the large veins of the extremities\nBlood is carried through the body via blood vessels. An artery is …"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 432,
+            "chunk_preview": "Figure 20.32 Major Arteries of the Upper Limb\nThe flow chart summarizes the distribution of the major arteries\nfrom the heart into the upper limb.\nArteries Serving the Upper Limbs\nVessel\nDescription\nAxillary artery\nContinuation of the subclavian artery as it penetrates the body wall and enters the axillary\nregion; supplies blood to the region near the head of the humerus (humeral circumflex\narteri…"
+          }
+        ],
+        "grounding": {
+          "had_retrieved_passages_in_prompt": true,
+          "unique_text_passages_used": 4,
+          "used_multimodal_text_excerpts": false,
+          "primary_basis": "retrieved_corpus_synthesized",
+          "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+          "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+        },
+        "render_3d_url": null,
+        "render_3d_model_url": null,
+        "render_3d_viewer_url": null,
+        "render_3d_annotations_url": null,
+        "render_3d_anatomy": null,
+        "render_3d_suggestions": []
+      },
+      "error": null
+    },
+    {
+      "id": "R-C01",
+      "category": "complex",
+      "question": "Describe the pathway from cerebral cortex to skeletal muscle for voluntary movement (high level).",
+      "gold": "UMN → LMN → NMJ → contraction",
+      "response": {
+        "answer": "\n\nVoluntary movement from the cerebral cortex to skeletal muscle follows a well-defined pathway involving two main neurons: the upper motor neuron and the lower motor neuron.\n\n1. **Upper Motor Neuron**: The cell body resides in the primary motor cortex, specifically within the precentral gyrus of the frontal lobe. This region contains a topographical map of the body (motor homunculus), where areas controlling fine movements like fingers and face occupy larger cortical space. The axon descends through the internal capsule, brainstem, and spinal cord. Most fibers cross to the opposite side at the pyramidal decussation in the medulla, forming the lateral corticospinal tract (which controls appendicular muscles). A smaller portion remains ipsilateral as the anterior corticospinal tract.\n\n2. **Synapse**: The upper motor neuron axon synapses on a lower motor neuron located in the ventral horn of the spinal cord gray matter.\n\n3. **Lower Motor Neuron**: Its cell body is also in the ventral horn, and its axon exits via the ventral root to reach the neuromuscular junction at the skeletal muscle, triggering contraction.\n\nThis two-neuron chain constitutes the primary descending motor pathway for voluntary movement, integrating sensory input and cognitive decisions into coordinated muscle actions.",
+        "images": [
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_18_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_196_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_22_img_1.jpeg"
+        ],
+        "sources": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 139,
+            "chunk_preview": "14.3 | Motor Responses\nBy the end of this section, you will be able to:\n•\nList the components of the basic processing stream for the motor system\n•\nDescribe the pathway of descending motor commands from the cortex to the skeletal muscles\n•\nCompare different descending pathways, both by structure and function\n•\nExplain the initiation of movement from the neurological connections\n•\nDescribe several …"
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 24,
+            "chunk_preview": "cortex. Following integration of that information with other cognitive processes and sensory information, the brain sends a\ncommand back down to the spinal cord to initiate a motor response by controlling a skeletal muscle. The motor pathway is\ncomposed of two cells, the upper motor neuron and the lower motor neuron. The upper motor neuron has its cell body in the\ncerebral cortex and synapses on a…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 226,
+            "chunk_preview": "connections to the cerebral cortex.\nMotor tests focus on the function of the muscles and the connections of the descending motor pathway. Muscle tone\nand strength are tested for upper and lower extremities. Input to the muscles comes from the descending cortical input of\nupper motor neurons and the direct innervation of lower motor neurons.\nReflexes can either be based on deep stimulation of tendo…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 153,
+            "chunk_preview": "corticospinal tracts to synapse on lower motor neurons in the brain stem and ventral horn of the spinal cord, respectively.\nThese connections are responsible for generating movements of skeletal muscles.\nThe extrapyramidal system includes projections from the brain stem and higher centers that influence movement,\nmostly to maintain balance and posture, as well as to maintain muscle tone. The super…"
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 3,
+            "chunk_preview": "whether that is to turn the temperature up, turn the whole shower off and go back to bed, or step into the shower. To do any\nof these things, the cerebral cortex has to send a command out to your body to move muscles (Figure 12.16).\nFigure 12.16 The Motor Response\nOn the basis of the sensory input and the integration in the CNS, a motor\nresponse is formulated and executed.\nA region of the cortex i…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 141,
+            "chunk_preview": "stimulates spinal cord neurons to stimulate skeletal muscle contraction.\nThe primary motor cortex is arranged in a similar fashion to the primary somatosensory cortex, in that it has a\ntopographical map of the body, creating a motor homunculus (see Figure 14.23). The neurons responsible for musculature\nin the feet and lower legs are in the medial wall of the precentral gyrus, with the thighs, trun…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 142,
+            "chunk_preview": "Figure 14.28 Corticospinal Tract\nThe major descending tract that controls skeletal muscle movements is the\ncorticospinal tract. It is composed of two neurons, the upper motor neuron and the lower motor neuron. The upper\nmotor neuron has its cell body in the primary motor cortex of the frontal lobe and synapses on the lower motor neuron,\nwhich is in the ventral horn of the spinal cord and projects …"
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 636,
+            "chunk_preview": "(. Abb. 17.26a–c). Auch dieses Kerngebiet wird dem extrapyramidal-\nmotorischen System zugeordnet (7 Kap. 17.12). Afferenzen erreichen \ndie Substantia nigra u.a. aus dem Striatum und dem Cortex cerebri, \ninsbesondere aus dem motorischen und prämotorischen Kortex. Ef-\nferenzen ziehen aus der Pars compacta u.a. in das Striatum, die For-\nmatio reticularis, den Thalamus und die Amygdala. Dopamin wird"
+          }
+        ],
+        "grounding": {
+          "had_retrieved_passages_in_prompt": true,
+          "unique_text_passages_used": 8,
+          "used_multimodal_text_excerpts": false,
+          "primary_basis": "retrieved_corpus_synthesized",
+          "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+          "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+        },
+        "render_3d_url": null,
+        "render_3d_model_url": null,
+        "render_3d_viewer_url": null,
+        "render_3d_annotations_url": null,
+        "render_3d_anatomy": null,
+        "render_3d_suggestions": []
+      },
+      "error": null
+    },
+    {
+      "id": "R-C02",
+      "category": "complex",
+      "question": "According to the document, what happens after the brain integrates sensory and cognitive information before a motor response?",
+      "gold": "Perception + cognition → motor output",
+      "response": {
+        "answer": "\n\nAfter integrating sensory and cognitive information, the brain sends a motor command from the precentral gyrus of the frontal cortex (the primary motor area) down to the spinal cord via upper motor neurons. This command initiates a motor response by controlling skeletal muscles through lower motor neurons in the ventral horn of the spinal cord.",
+        "images": [
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_196_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_172_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_71_img_0.jpeg"
+        ],
+        "sources": [
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 24,
+            "chunk_preview": "cortex. Following integration of that information with other cognitive processes and sensory information, the brain sends a\ncommand back down to the spinal cord to initiate a motor response by controlling a skeletal muscle. The motor pathway is\ncomposed of two cells, the upper motor neuron and the lower motor neuron. The upper motor neuron has its cell body in the\ncerebral cortex and synapses on a…"
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 2,
+            "chunk_preview": "potential is caused by the release of a chemical signal from the axon terminals. (4) An action potential is initiated at the\ninitial segment of this neuron and travels up the sensory pathway to a region of the brain called the thalamus. Another\nsynapse passes the information along to the next neuron. (5) The sensory pathway ends when the signal reaches the\ncerebral cortex. (6) After integration wi…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 147,
+            "chunk_preview": "cognitive processes of the prefrontal cortex that lead to directing goal-directed behavior, which is\na precursor to executing motor commands\nstructures on the lateral surface of the head, including the auricle and the ear canal back to the tympanic\nmembrane\nsensory receptor that is positioned to interpret stimuli from the external environment, such as\nphotoreceptors in the eye or somatosensory rec…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 73,
+            "chunk_preview": "not just pass the information on, it also processes that information. For example, the portion of the thalamus that receives\nvisual information will influence what visual stimuli are important, or what receives attention.\nThe cerebrum also sends information down to the thalamus, which usually communicates motor commands. This\ninvolves interactions with the cerebellum and other nuclei in the brain …"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 139,
+            "chunk_preview": "ascending pathways. In the cerebral cortex, the initial processing of sensory perception progresses to associative processing\nand then integration in multimodal areas of cortex. These levels of processing can lead to the incorporation of sensory\nperceptions into memory, but more importantly, they lead to a response. The completion of cortical processing through the\nprimary, associative, and integr…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 153,
+            "chunk_preview": "they can influence the activity in the frontal lobe to generate movements of the body in relation to visual information.\n14.3 Motor Responses\nThe motor components of the somatic nervous system begin with the frontal lobe of the brain, where the prefrontal cortex\nis responsible for higher functions such as working memory. The integrative and associate functions of the prefrontal\nlobe feed into the …"
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 3,
+            "chunk_preview": "whether that is to turn the temperature up, turn the whole shower off and go back to bed, or step into the shower. To do any\nof these things, the cerebral cortex has to send a command out to your body to move muscles (Figure 12.16).\nFigure 12.16 The Motor Response\nOn the basis of the sensory input and the integration in the CNS, a motor\nresponse is formulated and executed.\nA region of the cortex i…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 137,
+            "chunk_preview": "enters the parietal lobe, where it interacts with somatosensory cortical areas that are important for our perception of the\nbody and its movements. The dorsal stream can then influence frontal lobe activity where motor functions originate.\nCHAPTER 14 | THE BRAIN AND CRANIAL NERVES\n591"
+          }
+        ],
+        "grounding": {
+          "had_retrieved_passages_in_prompt": true,
+          "unique_text_passages_used": 8,
+          "used_multimodal_text_excerpts": false,
+          "primary_basis": "retrieved_corpus_synthesized",
+          "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+          "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+        },
+        "render_3d_url": null,
+        "render_3d_model_url": null,
+        "render_3d_viewer_url": null,
+        "render_3d_annotations_url": null,
+        "render_3d_anatomy": null,
+        "render_3d_suggestions": []
+      },
+      "error": null
+    },
+    {
+      "id": "R-C03",
+      "category": "complex",
+      "question": "List the two cells that compose the motor pathway as named in the chapter.",
+      "gold": "UMN and LMN",
+      "response": {
+        "answer": "\n\nThe two cells that compose the motor pathway are the **upper motor neuron** and the **lower motor neuron**.",
+        "images": [
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_110_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a-30-60_page_6_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_35_img_0.jpeg"
+        ],
+        "sources": [
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 24,
+            "chunk_preview": "cortex. Following integration of that information with other cognitive processes and sensory information, the brain sends a\ncommand back down to the spinal cord to initiate a motor response by controlling a skeletal muscle. The motor pathway is\ncomposed of two cells, the upper motor neuron and the lower motor neuron. The upper motor neuron has its cell body in the\ncerebral cortex and synapses on a…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 141,
+            "chunk_preview": "cells are the corticospinal tract and the corticobulbar tract. Both tracts are named for their origin in the cortex and their\ntargets—either the spinal cord or the brain stem (the term “bulbar” refers to the brain stem as the bulb, or enlargement, at\nthe top of the spinal cord).\nThese two descending pathways are responsible for the conscious or voluntary movements of skeletal muscles. Any\nmotor co…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 216,
+            "chunk_preview": "The skeletomotor system is largely based on the simple, two-cell projection from the precentral gyrus of the frontal lobe to\nthe skeletal muscles. The corticospinal tract represents the neurons that send output from the primary motor cortex. These\nfibers travel through the deep white matter of the cerebrum, then through the midbrain and pons, into the medulla where\nmost of them decussate, and fina…"
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 23,
+            "chunk_preview": "shape of a neuron which has only one process that includes both the axon and dendrite\nfirst neuron in the motor command pathway with its cell body in the cerebral cortex that\nsynapses on the lower motor neuron in the spinal cord\ncentral cavity within the brain where CSF is produced and circulates\nion channel that opens because of a change in the charge distributed across the membrane\nwhere it is l…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 153,
+            "chunk_preview": "cerebellum connect to the origins of these tracts in the brain stem.\nAll of these motor pathways project to the spinal cord to synapse with motor neurons in the ventral horn of the spinal\ncord. These lower motor neurons are the cells that connect to skeletal muscle and cause contractions. These neurons project\nthrough the spinal nerves to connect to the muscles at neuromuscular junctions. One moto…"
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 3,
+            "chunk_preview": "down the spinal cord. At the level of the spinal cord at which this axon makes a synapse, a graded potential occurs in the\ncell membrane of a lower motor neuron. This second motor neuron is responsible for causing muscle fibers to contract.\nIn the manner described in the chapter on muscle tissue, an action potential travels along the motor neuron axon into the\nperiphery. The axon terminates on mus…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 142,
+            "chunk_preview": "Figure 14.28 Corticospinal Tract\nThe major descending tract that controls skeletal muscle movements is the\ncorticospinal tract. It is composed of two neurons, the upper motor neuron and the lower motor neuron. The upper\nmotor neuron has its cell body in the primary motor cortex of the frontal lobe and synapses on the lower motor neuron,\nwhich is in the ventral horn of the spinal cord and projects …"
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 952,
+            "chunk_preview": "proteins)\n– Neuralrohr  760\n– Osteoblasten  38\nBochdalek-Dreieck (Trigonum \nlumbocostale)  160, 506, 839, \n851, 870\nBochdalek-Hernien  851\nBodenplatte\n– Neuralrohr  62, 759\n– Noggin  63\n– Sonic Hedgehog  63\nBoerhaave-Syndrom  446\nBogengänge  698\n– Entwicklung  710\nBogenvene\n– hintere  297, 298\n– vordere  297\nBolustod  409, 441\nbone lining cells, Knochenmatrix  38\nbone morphogenetic proteins  \n7  B…"
+          }
+        ],
+        "grounding": {
+          "had_retrieved_passages_in_prompt": true,
+          "unique_text_passages_used": 8,
+          "used_multimodal_text_excerpts": false,
+          "primary_basis": "retrieved_corpus_synthesized",
+          "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+          "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+        },
+        "render_3d_url": null,
+        "render_3d_model_url": null,
+        "render_3d_viewer_url": null,
+        "render_3d_annotations_url": null,
+        "render_3d_anatomy": null,
+        "render_3d_suggestions": [
+          "1: Skeletal system",
+          "7: Nervous system & Sense organs",
+          "Anterior cells of ethmoid bone.l",
+          "Anterior cells of ethmoid bone.r",
+          "Bonus collection",
+          "Brain"
+        ]
+      },
+      "error": null
+    },
+    {
+      "id": "R-C04",
+      "category": "complex",
+      "question": "Explain how the vestibulo-ocular reflex stabilizes vision during head movement.",
+      "gold": "Vestibular → ocular motor nuclei; retinal stabilization",
+      "response": {
+        "answer": "\n\nThe vestibulo-ocular reflex (VOR) stabilizes vision during head movement by generating compensatory eye movements that are equal and opposite to the direction of head rotation. This keeps visual stimuli centered on the fovea of the retina, ensuring clear vision despite motion.\n\n**Mechanism:**  \n1. **Detection:** The semicircular canals detect angular acceleration of the head. Hair cells in the ampullae bend, sending signals via the vestibular nerve (cranial nerve VIII) to the vestibular nuclei in the brainstem.  \n2. **Neural pathway:** Fibers from the vestibular nuclei project directly to the oculomotor (III), trochlear (IV), and abducens (VI) nuclei. These connections are coordinated through the medial longitudinal fasciculus (MLF).  \n3. **Muscle action:** The cranial nerves III, IV, and VI control the extraocular muscles that move the eyes. When the head turns to one side, the eye movement nuclei drive the eyes in the opposite direction at a similar speed.  \n4. **Result:** This conjugate eye movement counteracts the retinal slip caused by head motion, stabilizing images on the retina without requiring visual input or conscious control.\n\nThe VOR is a fast, automatic reflex that allows for stable vision during dynamic activities such as walking or running.",
+        "images": [
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_123_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_133_img_0.jpeg",
+          "http://localhost:8080/outputs/anatomy+phys+vol2a_page_135_img_0.jpeg"
+        ],
+        "sources": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 152,
+            "chunk_preview": "vestibulo-ocular reflex (VOR)\nvestibulospinal tract\nvisceral sense\nvision\nvisual acuity\nvitreous humor\nworking memory\nzonule fibers\nreflex based on connections between the vestibular system and the cranial nerves of\neye movements that ensures images are stabilized on the retina as the head and body move\nextrapyramidal connections between the vestibular nuclei in the brain stem and spinal cord that…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 131,
+            "chunk_preview": "To assist the visual system, fibers of the vestibular nuclei project to the oculomotor, trochlear, and abducens nuclei to\ninfluence signals sent along the cranial nerves. These connections constitute the pathway of the vestibulo-ocular reflex\n(VOR), which compensates for head and body movement by stabilizing images on the retina (Figure 14.21). Finally, the\nvestibular nuclei project to the thalamu…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 226,
+            "chunk_preview": "vestibulo-ocular reflex (VOR)\nvestibulocerebellum\nWeber test\nWernicke’s area\nreflex based on connections between the vestibular system and the cranial nerves of\neye movements that ensures that images are stabilized on the retina as the head and body move\nflocculonodular lobe of the cerebellum named for the vestibular input from the eighth cranial\nnerve\nuse of a tuning fork to test the laterality o…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 213,
+            "chunk_preview": "particular stimuli to each receptive organ. General senses can be tested through sensory discrimination of touch versus\npainful stimuli.\nThe oculomotor, trochlear, and abducens nerves control the extraocular muscles and are connected by the medial\nlongitudinal fasciculus to coordinate gaze. Testing conjugate gaze is as simple as having the patient follow a visual target,\nlike a pen tip, through th…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 210,
+            "chunk_preview": "Figure 16.10 Vestibulo-ocular Reflex If the head is turned in one direction, the coordination of that movement with\nthe fixation of the eyes on a visual stimulus involves a circuit that ties the vestibular sense with the eye movement\nnuclei through the MLF.\nNerves of the Face and Oral Cavity\nAn iconic part of a doctor’s visit is the inspection of the oral cavity and pharynx, suggested by the direc…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 209,
+            "chunk_preview": "the parasympathetic fibers of the oculomotor nerve. The change in focal power of the eye is referred to as accommodation.\nAccommodation ability changes with age; focusing on nearer objects, such as the written text of a book or on a computer\nscreen, may require corrective lenses later in life. Coordination of the skeletal muscles for convergence and coordination of\nthe smooth muscles of the ciliar…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 130,
+            "chunk_preview": "head and neck movements in response to vestibular signals. An important function of the vestibular system is coordinating\neye and head movements to maintain visual attention. Most of the axons terminate in the vestibular nuclei of the medulla.\n584\nCHAPTER 14 | THE BRAIN AND CRANIAL NERVES\nThis content is available for free at http://textbookequity.org/anatomy-and-physiology-volume-2 or at http://c…"
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 119,
+            "chunk_preview": "ampullae, with some oriented horizontally and others oriented vertically. By comparing the relative movements of both\nthe horizontal and vertical ampullae, the vestibular system can detect the direction of most head movements within three-\ndimensional (3-D) space.\nFigure 14.12 Rotational Coding by Semicircular Canals\nRotational movement of the head is encoded by the hair\ncells in the base of the s…"
+          }
+        ],
+        "grounding": {
+          "had_retrieved_passages_in_prompt": true,
+          "unique_text_passages_used": 8,
+          "used_multimodal_text_excerpts": false,
+          "primary_basis": "retrieved_corpus_synthesized",
+          "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+          "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+        },
+        "render_3d_url": null,
+        "render_3d_model_url": null,
+        "render_3d_viewer_url": null,
+        "render_3d_annotations_url": null,
+        "render_3d_anatomy": null,
+        "render_3d_suggestions": [
+          " Posterior transverse collateral sulcus.l",
+          " Posterior transverse collateral sulcus.r",
+          "(External occipital crest).j",
+          "(Internal occipital crest).j",
+          "(Mandibular symphysis).j",
+          "(Middle clinoid process).j"
+        ]
       },
       "error": null
     }

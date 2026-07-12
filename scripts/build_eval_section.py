@@ -6,6 +6,7 @@ from __future__ import annotations
 import argparse
 import json
 import re
+import sys
 from pathlib import Path
 
 REPO = Path(__file__).resolve().parents[1]
@@ -130,8 +131,12 @@ def _fmt_elapsed_ms(ms: float | None) -> str:
     return f"{s:.1f} s"
 
 
-def build_summary_table(rows: list[dict], id_prefix: str) -> str:
-    header = "| ID | Outcome | Sources | Images | Request time |\n| -- | ------- | ------- | ------ | ------------ |\n"
+def build_summary_table(rows: list[dict], id_prefix: str, model: str = "") -> str:
+    model_cell = model or "—"
+    header = (
+        "| ID | Outcome | Model | Sources | Images | Request time |\n"
+        "| -- | ------- | ----- | ------- | ------ | ------------ |\n"
+    )
     body = []
     for i, item in enumerate(rows, 1):
         qid = f"{id_prefix}{i:02d}"
@@ -139,16 +144,17 @@ def build_summary_table(rows: list[dict], id_prefix: str) -> str:
         resp = item.get("response") or {}
         lat = _fmt_elapsed_ms(item.get("elapsed_ms")) or "—"
         if err:
-            body.append(f"| {qid} | Error | — | — | {lat} |")
+            body.append(f"| {qid} | Error | {model_cell} | — | — | {lat} |")
         else:
             ans = resp.get("answer")
             body.append(
-                f"| {qid} | {_outcome(ans, None)} | {len(resp.get('sources') or [])} | {len(resp.get('images') or [])} | {lat} |"
+                f"| {qid} | {_outcome(ans, None)} | {model_cell} | "
+                f"{len(resp.get('sources') or [])} | {len(resp.get('images') or [])} | {lat} |"
             )
     return header + "\n".join(body)
 
 
-def build_entry(item: dict, qid: str, category: str, gold: str) -> str:
+def build_entry(item: dict, qid: str, category: str, gold: str, model: str = "") -> str:
     q = item["question"]
     err = item.get("error")
     resp = item.get("response") or {}
@@ -162,6 +168,7 @@ def build_entry(item: dict, qid: str, category: str, gold: str) -> str:
         f"| **ID** | {qid} |",
         f"| **Category** | {category} |",
         f"| **Language** | German |",
+        f"| **Model** | {model or 'n/a'} |",
         f"| **Request time** | {_fmt_elapsed_ms(item.get('elapsed_ms')) or 'n/a'} |",
         "",
         "**Question:**  ",
@@ -222,8 +229,10 @@ def build_section_header(
     *,
     json_name: str,
     run_note: str,
+    model_block: str,
     id_prefix: str,
     rows: list[dict],
+    model_short: str,
     comparison_block: str = "",
 ) -> str:
     return f"""## {section_num}. {title}
@@ -231,9 +240,11 @@ def build_section_header(
 **Source file:** `{json_name}`  
 {run_note}
 
+{model_block}
+
 ### {section_num}.0 Summary
 
-{build_summary_table(rows, id_prefix)}
+{build_summary_table(rows, id_prefix, model_short)}
 
 {comparison_block}---
 
@@ -248,6 +259,7 @@ def main() -> None:
     ap.add_argument("--id-prefix", default="LM-R")
     ap.add_argument("--run-note", default="")
     ap.add_argument("--replace-section", help="Regex of section header to replace through next ## N+1")
+    ap.add_argument("--run-key", default="", help="Key in eval/experiment_runs.json for model metadata")
     ap.add_argument("--cloud-json", type=Path, default=REPO / "german_eval_results.json")
     ap.add_argument("--md", type=Path, default=REPO / "evaluationThesis.md")
     args = ap.parse_args()
@@ -257,6 +269,16 @@ def main() -> None:
         raise SystemExit(f"Expected {len(PROFESSOR_META)} questions, got {len(rows)}")
 
     run_note = args.run_note or f"**Endpoint:** `POST /rag/ask` · **Status:** populated from `{args.json.name}`"
+    model_block = ""
+    model_short = "—"
+    if args.run_key:
+        sys.path.insert(0, str(REPO / "scripts"))
+        from eval_run_metadata import format_model_header, format_model_short, resolve_model_block
+
+        cfg = resolve_model_block(args.run_key)
+        model_block = format_model_header(cfg)
+        model_short = format_model_short(cfg)
+
     comparison = ""
     if args.section_num == "11" and args.cloud_json.exists():
         cloud_rows = json.loads(args.cloud_json.read_text(encoding="utf-8"))
@@ -267,12 +289,14 @@ def main() -> None:
         args.section_title,
         json_name=args.json.name,
         run_note=run_note,
+        model_block=model_block,
         id_prefix=args.id_prefix,
         rows=rows,
+        model_short=model_short,
         comparison_block=comparison,
     )
     for i, (item, (cat, gold)) in enumerate(zip(rows, PROFESSOR_META), 1):
-        body += build_entry(item, f"{args.id_prefix}{i:02d}", cat, gold)
+        body += build_entry(item, f"{args.id_prefix}{i:02d}", cat, gold, model_short)
 
     md = args.md.read_text(encoding="utf-8")
 
