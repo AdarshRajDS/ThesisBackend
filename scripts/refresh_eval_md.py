@@ -10,16 +10,9 @@ from pathlib import Path
 REPO = Path(__file__).resolve().parents[1]
 
 CLOUD_NOTE = """**Run date:** June 2026 (formative)  
-**LLM at run time:** cloud Groq (historical)  
-**Endpoint:** `POST /rag/ask`  
 **Status:** Exploratory — compare with §11 local LM Studio run"""
 
 LOCAL_NOTE = """**Run date:** 12 July 2026 (900 s retry completed)  
-**LLM provider:** LM Studio (`LLM_PROVIDER=lmstudio`, local-only enforced)  
-**API base:** http://127.0.0.1:1234/v1  
-**Configured model:** `google/gemma-4-e2b`  
-**Models loaded (observed):** `qwen3.5-9b-deepseek-v4-flash`, `biomistral-7b`  
-**Endpoint:** `POST /rag/ask` with `language=de`  
 **Outcome:** 7/9 answered · 1 HTTP 500 (LM-R02) · 1 timeout (LM-R09)  
 **Thesis note:** Several answers fall back to general anatomy when retrieval is weak (grounding / consent risk)."""
 
@@ -45,6 +38,7 @@ def main() -> None:
         "--section-num", "10",
         "--section-title", "Exploratory RAG results — cloud run (Q&A)",
         "--id-prefix", "EXP-R",
+        "--run-key", "cloud_professor_de",
         "--run-note", CLOUD_NOTE,
     )
     run(
@@ -52,10 +46,15 @@ def main() -> None:
         "--section-num", "11",
         "--section-title", "Local LM Studio experiment (Q&A)",
         "--id-prefix", "LM-R",
+        "--run-key", "local_professor_de",
         "--run-note", LOCAL_NOTE,
     )
     fix_mcp_subsections(REPO / "evaluationThesis.md")
-    print("Refreshed evaluationThesis.md §10 and §11")
+    subprocess.check_call(
+        [sys.executable, str(REPO / "scripts" / "build_professor_metrics_workbook.py")],
+        cwd=REPO,
+    )
+    print("Refreshed evaluationThesis.md §9.0–§9.1, §10, and §11")
 
 
 if __name__ == "__main__":
