@@ -1,0 +1,10 @@
+{
+  "description": "Excluded from thesis metric aggregates (infrastructure failures, not model quality).",
+  "excluded_ids": ["R-Q04", "R-Q05", "R-B01", "R-B02"],
+  "reasons": {
+    "R-Q04": "timed out",
+    "R-Q05": "HTTP 500",
+    "R-B01": "timed out",
+    "R-B02": "HTTP 500"
+  }
+}

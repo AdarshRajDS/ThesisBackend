@@ -154,6 +154,19 @@ def build_summary_table(rows: list[dict], id_prefix: str, model: str = "") -> st
     return header + "\n".join(body)
 
 
+def _sanitize_answer(text: str) -> str:
+    """Prevent embedded markdown H2 headers from breaking evaluationThesis.md structure."""
+    if not text:
+        return text
+    lines = []
+    for line in text.splitlines():
+        if line.startswith("## "):
+            lines.append("#### " + line[3:])
+        else:
+            lines.append(line)
+    return "\n".join(lines)
+
+
 def build_entry(item: dict, qid: str, category: str, gold: str, model: str = "") -> str:
     q = item["question"]
     err = item.get("error")
@@ -184,7 +197,7 @@ def build_entry(item: dict, qid: str, category: str, gold: str, model: str = "")
     else:
         parts += [
             "**System answer:**  ",
-            (resp.get("answer") or "").strip() or "*Empty response*",
+            _sanitize_answer((resp.get("answer") or "").strip()) or "*Empty response*",
             "",
             "**Sources retrieved:**  ",
             _format_sources(resp.get("sources")),

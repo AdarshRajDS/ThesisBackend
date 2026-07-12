@@ -7,47 +7,48 @@
     "run_date": "June 2026",
     "llm_provider": "groq",
     "model_configured": "(not logged at run time)",
-    "model_note": "Historical Groq cloud exploratory run (June 2026). Exact Groq model id was not stored in german_eval_results.json — add from your run notes if available.",
+    "model_note": "Historical Groq cloud exploratory run — not used for final thesis metrics.",
     "api_base": "https://api.groq.com/openai/v1",
     "endpoint": "POST /rag/ask",
-    "language": "de"
+    "language": "de",
+    "thesis_primary": false
   },
   "local_professor_de": {
-    "label": "Local LM Studio (professor German set)",
+    "label": "Local LM Studio — professor German set (thesis primary)",
     "section": "11",
     "id_prefix": "LM-R",
     "json_file": "german_eval_lmstudio_results.json",
     "run_date": "12 July 2026",
     "llm_provider": "lmstudio",
-    "model_configured": "google/gemma-4-e2b",
-    "model_previous": null,
-    "models_loaded_observed": [
-      "qwen3.5-9b-deepseek-v4-flash",
-      "biomistral-7b",
-      "google/gemma-4-e2b"
-    ],
-    "model_note": "Professor German batch (german_eval_lmstudio_results.json) was run with Gemma in LM Studio. Current local default (11–12 Jul 2026) is DeepSeek Flash — see english_rag_55.",
+    "model_configured": "qwen3.5-9b-deepseek-v4-flash",
+    "model_display": "Qwen DeepSeek Flash (LM Studio)",
+    "model_previous": "google/gemma-4-e2b",
+    "models_loaded_observed": ["qwen3.5-9b-deepseek-v4-flash", "biomistral-7b"],
+    "model_note": "Thesis primary run on 12 Jul 2026 with qwen3.5-9b-deepseek-v4-flash. Earlier sessions used Gemma.",
     "api_base": "http://127.0.0.1:1234/v1",
     "endpoint": "POST /rag/ask",
-    "language": "de"
+    "language": "de",
+    "thesis_primary": true
   },
   "english_rag_55": {
-    "label": "English RAG workbook (55 questions)",
+    "label": "English RAG workbook (thesis primary)",
     "section": "12",
     "id_prefix": "R-",
     "json_file": "eval/rag_eval_55_results.json",
-    "run_date": "11–12 July 2026 (in progress)",
+    "run_date": "12 July 2026",
     "llm_provider": "lmstudio",
     "model_configured": "qwen3.5-9b-deepseek-v4-flash",
+    "model_display": "Qwen DeepSeek Flash (LM Studio)",
     "model_previous": "google/gemma-4-e2b",
-    "models_loaded_observed": [
-      "qwen3.5-9b-deepseek-v4-flash",
-      "biomistral-7b"
-    ],
-    "model_note": "Active model in LM Studio since 11–12 Jul 2026: qwen3.5-9b-deepseek-v4-flash (DeepSeek Flash). Earlier exploratory runs used google/gemma-4-e2b.",
+    "models_loaded_observed": ["qwen3.5-9b-deepseek-v4-flash", "biomistral-7b"],
+    "model_note": "Full 55-question batch completed 12 Jul 2026. Metrics use n=51 (four timeout/500 rows excluded).",
     "api_base": "http://127.0.0.1:1234/v1",
     "endpoint": "POST /rag/ask",
     "language": "en",
-    "allow_world_knowledge": false
+    "allow_world_knowledge": false,
+    "thesis_primary": true,
+    "scored_count": 51,
+    "administered_count": 55,
+    "excluded_ids_file": "eval/rag_eval_excluded.json"
   }
 }
