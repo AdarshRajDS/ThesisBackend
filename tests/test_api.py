@@ -83,7 +83,10 @@ def test_rag_ask(mock_ask_question):
         "grounding": None,
         "render_3d_url": None,
         "render_3d_model_url": None,
+        "render_3d_viewer_url": None,
+        "render_3d_annotations_url": None,
         "render_3d_anatomy": None,
+        "render_3d_suggestions": None,
     }
 
     response = client.post("/rag/ask", json={"question": "What is the brain?"})
@@ -96,7 +99,10 @@ def test_rag_ask(mock_ask_question):
         "grounding": None,
         "render_3d_url": None,
         "render_3d_model_url": None,
+        "render_3d_viewer_url": None,
+        "render_3d_annotations_url": None,
         "render_3d_anatomy": None,
+        "render_3d_suggestions": None,
     }
     mock_ask_question.assert_called_once_with("What is the brain?")
 

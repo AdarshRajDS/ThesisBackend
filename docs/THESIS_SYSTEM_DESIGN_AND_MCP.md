@@ -90,7 +90,7 @@ timeline
         v3 True MCP stdio + catalog fast path : Final production design
     section LLM
         v0 Single local model : LM Studio only
-        v1 Split providers : Groq for RAG speed, LM Studio as MCP tool host
+        v1 Local LM Studio only : RAG + MCP + thesis eval on :1234/v1
 ```
 
 ---
@@ -242,11 +242,11 @@ Image pipeline steps are observable via `GET /debug/storage` and upload response
 
 | Role | Initial | Final |
 |------|---------|-------|
-| RAG synthesis | LM Studio local | **Groq** (`llama-3.1-8b-instant`) for latency |
-| MCP tool host | N/A | **LM Studio** OpenAI-compatible API at `:1234/v1` |
-| Evidence grading / judge | Groq | Groq (thesis eval) |
+| RAG synthesis | LM Studio local | **LM Studio** OpenAI-compatible API at `:1234/v1` |
+| MCP tool host | N/A | **LM Studio** (same server and model config) |
+| Evidence grading / judge | LM Studio | LM Studio (thesis eval) |
 
-**Rationale for split:** RAG needs fast repeated calls; MCP tool loop needs a model with reliable **function calling** locally without cloud cost for Blender waits.
+**Rationale:** Local-first thesis deployment — no cloud LLM keys; one OpenAI-compatible endpoint for RAG synthesis, evidence grading, MCP tool loops, and blind judge experiments.
 
 ---
 
@@ -291,8 +291,7 @@ flowchart TB
     end
 
     subgraph External["External runtimes"]
-        Groq[Groq API — RAG LLM]
-        LMStudio[LM Studio — MCP host LLM]
+        LMStudio[LM Studio — all LLM calls]
         Blender[Blender 5.x headless]
     end
 
@@ -309,7 +308,7 @@ flowchart TB
 
     RAGRoute --> RAGSvc --> RAGEngine
     RAGEngine --> Chroma & BM25 & MMChroma
-    RAGEngine --> Groq
+    RAGEngine --> LMStudio
     UploadRoute --> Chroma & MMChroma & MinIO
     RAGEngine --> MinIO
     RAGSvc -->|optional| RenderWorker[Remote render worker]
@@ -644,7 +643,7 @@ sequenceDiagram
     participant API as POST /rag/ask
     participant RAG as MultimodalRAG
     participant IDX as Chroma + BM25 + Hybrid
-    participant LLM as Groq
+    participant LLM as LM Studio
 
     User->>UI: Question + optional PDF context
     UI->>API: { question, allow_world_knowledge, language }
@@ -671,7 +670,7 @@ sequenceDiagram
 | Figures | Ignored | CLIP multimodal index + storage URLs |
 | 3D source | Procedural script | Z-Anatomy catalog + Blender export |
 | 3D protocol | Direct Python / fake LLM text | MCP stdio + tool audit trail |
-| LLM | Single local | Groq (RAG) + LM Studio (MCP host) |
+| LLM | Single local | LM Studio only (RAG + MCP + eval) |
 | Storage | Local folder | MinIO / Supabase abstraction |
 | Evaluation | Mixed | Separated RAG vs MCP metrics |
 | Export correctness | Name in index | Geometry-proven catalog |

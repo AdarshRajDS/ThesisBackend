@@ -1,0 +1,347 @@
+[
+  {
+    "question": "Bitte stelle mir die wichtigsten Muskeln für die Bewegung der Sprunggelenke zusammen und sortiere diese bitte nach Bewegungsrichtungen.",
+    "response": {
+      "answer": "\n\nDie bereitgestellten Textpassagen enthalten keine Informationen über die Muskulatur des Sprunggelenks. Daher werde ich auf allgemeine anatomische Kenntnisse zurückgreifen, um die wichtigsten Muskeln für die Bewegung der Sprunggelenke zusammenzustellen und nach Bewegungsrichtungen zu sortieren.\n\n**Wichtige Muskeln des Sprunggelenks (Ankergelenk) nach Bewegungsrichtung:**\n\n1. **Dorsalflexion** (Zurückziehen des Fußes Richtung Schienbein):\n   - *Tibialis anterior* (Hauptmuskulatur)\n   - *Extensor hallucis longus*\n   - *Extensor digitorum longus*\n   - *Peroneus tertius* (oft als Teil der Extensoren betrachtet)\n\n2. **Plantarflektion** (Absenken des Fußes Richtung Boden):\n   - *Gastrocnemius* (Kniebeuger, wirkt auch am Sprunggelenk)\n   - *Soleus* (tieferer Wadenmuskel)\n   - *Plantaris* (kleiner Muskel mit Sehnenansatz)\n   - *Flexor hallucis longus*\n   - *Flexor digitorum longus*\n   - *Tibialis posterior*\n\n3. **Inversion** (Drehen des Fußes nach innen):\n   - *Tibialis anterior* (starker Invertor)\n   - *Tibialis posterior*\n   - *Flexor hallucis longus*\n   - *Extensor hallucis longus* (in geringerem Maße)\n\n4. **Eversion** (Drehen des Fußes nach außen):\n   - *Peroneus longus* (Fibularis longus)\n   - *Peroneus brevis* (Fibularis brevis)\n   - *Flexor hallucis longus* (in geringerem Maße)\n\n**Hinweis:** Viele dieser Muskeln haben mehrere Funktionen und wirken gleichzeitig auf verschiedene Gelenke. Die Hauptbewegungsmuskeln sind dabei die Tibialis anterior (Dorsalflexion, Inversion), Gastrocnemius/Soleus (Plantarflektion) sowie Peroneus longus/brevis (Eversion).",
+      "images": [],
+      "sources": [
+        {
+          "source": "978-3-540-69483-0.pdf",
+          "page": 105,
+          "chunk_preview": "wünschte Bewegung ausführen. Bei Bewegungen, die von meh-\nreren Muskeln ausgeführt werden, kann man nach der Effektivi-\ntät der Muskeln sog. Hauptbewegungsmuskeln und sog. Unter-\nstützungsmuskeln unterscheiden. \nAntagonisten: Als Antagonisten werden vielfach Muskeln be-\nzeichnet, die eine gegenläufige Bewegung ausführen. Danach \nsind z.B. die Strecker am Kniegelenk die Antagonisten der die"
+        },
+        {
+          "source": "978-3-540-69483-0.pdf",
+          "page": 497,
+          "chunk_preview": "Längsbalken des »H« setzen sich links aus der Fissura lig. teretis hepa-\ntis und der Fissura lig. venosi und rechts aus der Grube für die Gallen-\nblase und der Furche der unteren Hohlvene zusammen. Durch den \ntiefen, grubenförmig erweiterten Spalt der Leberpforte werden diese \nLängsbalken der Quere nach miteinander verbunden. Die beiden Fis-\nsuren markieren zusammen mit der ihnen in etwa gegenüber…"
+        },
+        {
+          "source": "978-3-540-69483-0.pdf",
+          "page": 905,
+          "chunk_preview": "(7 Kap. 4.4, . Abb. 4.143): \nThenarloge\nMittelhandloge (Mittelhandraum)\nHypothenarloge\nDie Muskeln des Thenar und des Hypothenar werden von einer kräf-\ntigen Faszie eingeschlossen, die in der Tiefe an den Handwurzel- und \nMittelhandknochen befestigt sind. Die auf diese Weise entstehenden \nosteofibrösen Logen für die Muskeln des Daumens und des Kleinfin-\ngers sind nach proximal abgeschlossen. In di…"
+        },
+        {
+          "source": "978-3-540-69483-0.pdf",
+          "page": 35,
+          "chunk_preview": "Manschette aus Doppeltubuli zusammenhalten, die Kraft für die Be-\nwegung der Zilien erzeugen (v.a. das Dynein) und die Bewegung in \ndie gewünschte Richtung dirigieren. Die Bewegung verbraucht ATP \nund bewirkt an der Oberfläche von Zellen mit Kinoziilien einen \nFlüssigkeitsstrom oder die Wanderung von Schleimfilmen, die v.a. \nBakterien oder Staubpartikel festhalten. Die Kinozilie ist im Apex der"
+        },
+        {
+          "source": "978-3-540-69483-0.pdf",
+          "page": 165,
+          "chunk_preview": "und Lendenwirbelsäule am ausgiebigsten möglich. Bei der Late-\nralflexion bildet die Wirbelsäule einen gleichmäßig gekrümmten \nBogen. Die Bauchwand wird auf der ipsilateralen Seite gestaucht, \nauf der kontralateralen Seite gedehnt. Die seitlichen Muskeln der \nBauchwand, die Zwischenwirbelscheiben, die Wirbelgelenke und \ndie Rippen begrenzen die Bewegung nach lateral.\nRotation: Das Ausmaß der Rotati…"
+        }
+      ],
+      "grounding": {
+        "had_retrieved_passages_in_prompt": true,
+        "unique_text_passages_used": 5,
+        "used_multimodal_text_excerpts": false,
+        "primary_basis": "retrieved_corpus_synthesized",
+        "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+        "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+      },
+      "render_3d_url": null,
+      "render_3d_model_url": null,
+      "render_3d_viewer_url": null,
+      "render_3d_annotations_url": null,
+      "render_3d_anatomy": null,
+      "render_3d_suggestions": []
+    },
+    "error": null
+  },
+  {
+    "question": "Bitte stelle mir eine Übersicht über die wichtigen Muskeln zusammen, welche benötigt werden, um eine Faust zu schließen. Hierbei sollte die Innervation berücksichtigt werden. Bitte zeige mir dazu auch zwei didaktisch gute Bilder.",
+    "response": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "question": "Welche Faktoren begünstigen einen Hochstand des Humeruskopfes und damit eine Enge unter dem Schulterdach?",
+    "response": {
+      "answer": "\n\nDer bereitgestellte Kontext enthält keine relevanten Informationen zu diesem Thema. Basierend auf allgemeinen anatomischen Kenntnissen begünstigen folgende Faktoren einen Hochstand des Humeruskopfes und eine Enge unter dem Schulterdach:\n\n- **Schwäche oder Dysfunktion der Rotatorenmanschette-Muskeln** (insbesondere Supraspinatus und Infraspinatus), die normalerweise den Humeruskopf bei Abduktion nach unten drücken.\n- **Verkürzung oder Spannung des Coracoacromialbandes** sowie eine eingeschränkte Bewegung im Acromioclaviculargelenk, was die nach unten gerichtete Migration des Humeruskopfes verhindert.\n- **Verformung des Akromions** (z. B. gehaktes oder spitzes Akromion), das den subakromialen Raum verengt.\n- **Verlust von subakromialem Raum** durch Knochenwucherungen (Osteophyten), eine verdickte Subakromialbursa oder chronische Entzündung.\n- **Schlechte Haltung**, die zu einer veränderten Skapular-Kinematik führt und den Humeruskopf nach oben schiebt.",
+      "images": [],
+      "sources": [
+        {
+          "source": "978-3-540-69483-0.pdf",
+          "page": 201,
+          "chunk_preview": "und den Ansatzsehnen der Muskeln der Rotatorenmanschette. Die \nbeiden Schleimbeutel sind meistens miteinander verschmolzen und \nbilden die Gelenkhöhle des subakromialen Nebengelenkes. In ihm \ngleitet bei Elevation des Armes über die Horizontale der von den \nSehnen der Rotatorenmanschette bedeckte Humeruskopf mit dem \nTuberculum majus unter das Schulterdach. \n4.69 Enpasssyndrome im Bereich der Schu…"
+        },
+        {
+          "source": "978-3-540-69483-0.pdf",
+          "page": 121,
+          "chunk_preview": "möglicht, dass die Gelenkgrube größer ist als der Gelenkkopf und sie \nwird außerdem durch die Einlagerung des Discus articularis begünstigt. \nDas Caput mandibulae wird während der Rotation durch Kaumuskeln \nund Lig. laterale im unteren Teil des Tuberculum articulare fixiert. \nDie Belastung und Beanspruchung des Kiefergelenkes unter-\nliegt großen individuellen Schwankungen. Die Belastung des Ge-"
+        },
+        {
+          "source": "978-3-540-69483-0.pdf",
+          "page": 348,
+          "chunk_preview": "ungewollte, systemische Gerinnungsförderung verhindert wird.\nTunica media \nDie Tunica media besteht aus flach spiralig angeordneten glatten \nMuskelzellen. Zwischen ihnen kommen neben Proteoglykanen Kol-\nlagenfasern in unterschiedlicher Menge vor, die den Muskelzellen \nparallel zugeordnet sind und einer Weitung des Gefäßes Widerstand \nleisten. Die elastischen Netze begünstigen eine gleichmäßige Aus…"
+        },
+        {
+          "source": "978-3-540-69483-0.pdf",
+          "page": 763,
+          "chunk_preview": "schen der Anlage des Rautenhirns und des Rückenmarks, Flexura \ncervicalis (Nackenbeuge), im Bereich der Pons, Flexura pontis (Brü-\nckenbeuge), und im Bereich des Mittelhirns, Flexura mesencephali \n(Scheitelbeuge).\nAus dem Ektoderm entsteht unter dem Einfluss von Faktoren aus \ndem Mesenchym das Neuroepithel, das sich über Neuralplatte \nund Neuralrinne zum Neuralrohr entwickelt. Zusammen mit"
+        },
+        {
+          "source": "978-3-540-69483-0.pdf",
+          "page": 579,
+          "chunk_preview": "Progesteron aus dem Ovar und der Plazenta. Die Plazentahormone \nhemmen die Milchbildung. Nach der Geburt schießt die Milch unter \ndem Einfluss von Prolactin (Syntheseleistung) und Oxytocin (Myo-\nepithelzellen werden zur Kontraktion veranlasst) ein. Neben diesen \nsystemischen Faktoren dürften auch lokale Faktoren eine Rolle \n spielen. Durch ständiges Absaugen der Milch wird ihre Sekretion"
+        }
+      ],
+      "grounding": {
+        "had_retrieved_passages_in_prompt": true,
+        "unique_text_passages_used": 5,
+        "used_multimodal_text_excerpts": false,
+        "primary_basis": "retrieved_corpus_synthesized",
+        "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+        "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+      },
+      "render_3d_url": null,
+      "render_3d_model_url": null,
+      "render_3d_viewer_url": null,
+      "render_3d_annotations_url": null,
+      "render_3d_anatomy": null,
+      "render_3d_suggestions": []
+    },
+    "error": null
+  },
+  {
+    "question": "Welcher Muskel ist der wichtigste Hüftbeuger beim Menschen?",
+    "response": {
+      "answer": "\n\nDer wichtigste Hüftbeuger beim Menschen ist der **Iliopsoas** (zusammengesetzt aus dem Psoasmajor und dem Iliacus). Er ist der stärkste und effektivste Beuger des Hüftgelenks.",
+      "images": [],
+      "sources": [
+        {
+          "source": "978-3-540-69483-0.pdf",
+          "page": 19,
+          "chunk_preview": "segmentalen Anlagen ist bei höheren Wirbeltieren, so auch beim \nMenschen, nur noch an wenigen Stellen vorhanden, z.B. Mm. inter-\ncostales, Mm. rotatores breves oder Mm. intertransversarii (7 Kap. 4.3, \n. Abb. 4.86, 4.87a). Der größte Teil der Muskelsegmente verschmilzt \nnach der Embryonalperiode zu großen (plurisegmentalen) Muskel-\nindividuen, z.B. Bauchwandmuskeln oder lange (autochthone) Rücken-"
+        },
+        {
+          "source": "978-3-540-69483-0.pdf",
+          "page": 746,
+          "chunk_preview": "Das olfaktorische System des Menschen ist im Vergleich zu dem an-\nderer Säugetiere deutlich weniger differenziert und gemessen an der \nHirngröße stark reduziert. Die Fähigkeit Gerüche wahrzunehmen \nund zu unterscheiden ist beim Menschen entsprechend geringer aus-\ngeprägt, Mikrosmatiker, als beim Hund oder der Ratte, die man des-\nhalb als Makrosmatiker bezeichnet. Dennoch können wir hunderte"
+        },
+        {
+          "source": "978-3-540-69483-0.pdf",
+          "page": 104,
+          "chunk_preview": "nenscheide und Anschnitt des Mesotendineum\n. Abb. 4.19. Muskelkraft und Fiederungswinkel. Beim sog. parallelfaseri-\ngen Muskel sind die absolute Verkürzungsstrecke (aV) und die Hubhöhe (H) \ngleich groß. Beim gefiederten Muskel vergrößert sich der Fiederungswinkel \nbei der Muskelkontraktion um den doppelten Betrag des Ausgangswertes. \nDie Hubhöhe ist daher größer als die absolute Verkürzungsstrecke…"
+        },
+        {
+          "source": "978-3-540-69483-0.pdf",
+          "page": 18,
+          "chunk_preview": "ist die ursprünglich dorsale Seite nach vorn ausgerichtet. Die Muskel-\ngruppe der Extensoren liegt demzufolge auf der Vorderseite und die \nMuskelgruppe der Flexoren auf der Rückseite der freien Extremität. \nIn Analogie zum quadrupeden Säuger sind auch beim Menschen an \nder freien unteren Extremität die Extensoren auf der Vorderseite (ur-\nsprüngliche dorsale Seite) und die Flexoren auf der Rückseit…"
+        },
+        {
+          "source": "978-3-540-69483-0.pdf",
+          "page": 93,
+          "chunk_preview": "die antagonistischen Drehmomente die gleiche Größe haben (Dreh-\nmomentsumme = Null).\nGelenke werden beim Menschen kraftschlüssig, d.h. durch äu-\nßere Kräfte geführt. Der Kraftschluss der Diarthrosen kommt durch \ndie Muskel- und Bandkräfte (der Zug der »Weichteile und der Luft-\ndruck spielen keine nennenswerte Rolle) sowie durch die Kraft \n(Schwerkraft) des Teilkörpergewichtes zustande. Die beiden …"
+        }
+      ],
+      "grounding": {
+        "had_retrieved_passages_in_prompt": true,
+        "unique_text_passages_used": 5,
+        "used_multimodal_text_excerpts": false,
+        "primary_basis": "retrieved_corpus_synthesized",
+        "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+        "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+      },
+      "render_3d_url": null,
+      "render_3d_model_url": null,
+      "render_3d_viewer_url": null,
+      "render_3d_annotations_url": null,
+      "render_3d_anatomy": null,
+      "render_3d_suggestions": []
+    },
+    "error": null
+  },
+  {
+    "question": "Kannst Du mir kurz erklären, wie der Vestibulo-Okuläre-Reflex funktioniert?",
+    "response": {
+      "answer": "\n\nDer Vestibulo-okuläre Reflex (VOR) ist ein automatischer Reflex, der die Augenbewegung so steuert, dass das Bild auf der Netzhaut stabil bleibt, wenn sich der Kopf bewegt. Die Halbkreiskanäle im Innenohr detektieren die Drehbeschleunigung des Kopfes und leiten Signale an die vestibulären Kerne im Hirnstamm weiter. Von dort aus projizieren Fasern direkt zu den Kernen der Augenmuskelnerven (N. oculomotorius, Trochlearis und Abducens), die dann die entsprechenden Augenmuskeln aktivieren. Die Augen bewegen sich in entgegengesetzter Richtung zur Kopfbewegung, sodass das Bild auf der Netzhaut fixiert bleibt.",
+      "images": [
+        "http://localhost:8080/outputs/anatomy+phys+vol2a_page_169_img_0.jpeg",
+        "http://localhost:8080/outputs/anatomy+phys+vol2a_page_167_img_1.jpeg"
+      ],
+      "sources": [
+        {
+          "source": "978-3-540-69483-0.pdf",
+          "page": 673,
+          "chunk_preview": "rung des Kammerwassers und in der Folge eine Steigerung des intra-\nokulären Druckes (grüner Star, Weitwinkel-Glaukom). \n \nBei kurz gebauten Bulbi kann sich die Iriswurzel vor die Fontana-\nRäume legen und den Zugang verlegen (Engwinkel-Glaukom). Der er-\nhöhte intraokuläre Druck (über 20 mmHg, Messung des Druckes durch \nTonometrie) schädigt oft erst nach Jahren seines Bestehens den Seh-"
+        },
+        {
+          "source": "anatomy+phys+vol2a.pdf",
+          "page": 226,
+          "chunk_preview": "vestibulo-ocular reflex (VOR)\nvestibulocerebellum\nWeber test\nWernicke’s area\nreflex based on connections between the vestibular system and the cranial nerves of\neye movements that ensures that images are stabilized on the retina as the head and body move\nflocculonodular lobe of the cerebellum named for the vestibular input from the eighth cranial\nnerve\nuse of a tuning fork to test the laterality o…"
+        },
+        {
+          "source": "anatomy+phys+vol2a.pdf",
+          "page": 152,
+          "chunk_preview": "vestibulo-ocular reflex (VOR)\nvestibulospinal tract\nvisceral sense\nvision\nvisual acuity\nvitreous humor\nworking memory\nzonule fibers\nreflex based on connections between the vestibular system and the cranial nerves of\neye movements that ensures images are stabilized on the retina as the head and body move\nextrapyramidal connections between the vestibular nuclei in the brain stem and spinal cord that…"
+        },
+        {
+          "source": "anatomy+phys+vol2a.pdf",
+          "page": 131,
+          "chunk_preview": "To assist the visual system, fibers of the vestibular nuclei project to the oculomotor, trochlear, and abducens nuclei to\ninfluence signals sent along the cranial nerves. These connections constitute the pathway of the vestibulo-ocular reflex\n(VOR), which compensates for head and body movement by stabilizing images on the retina (Figure 14.21). Finally, the\nvestibular nuclei project to the thalamu…"
+        },
+        {
+          "source": "978-3-540-69483-0.pdf",
+          "page": 764,
+          "chunk_preview": "bahn ab der 14. Woche identifizierbar und erreicht die Motoneurone \ndes Vorderhorns zwischen der 17. bis 29. Woche. Die Myelinisierung \ndieser Faserbahn ist jedoch erst zwischen dem ersten und zweiten \nLebensjahr weitgehend beendet.\n17.113 Babinski-Reflex\nBeim Neugeborenen ist der Babinski-Reflex noch nachweisbar, der \ndurch Bestreichen der lateralen Fußsohle ausgelöst werden kann. Dieser"
+        }
+      ],
+      "grounding": {
+        "had_retrieved_passages_in_prompt": true,
+        "unique_text_passages_used": 5,
+        "used_multimodal_text_excerpts": false,
+        "primary_basis": "retrieved_corpus_synthesized",
+        "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+        "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+      },
+      "render_3d_url": null,
+      "render_3d_model_url": null,
+      "render_3d_viewer_url": null,
+      "render_3d_annotations_url": null,
+      "render_3d_anatomy": null,
+      "render_3d_suggestions": []
+    },
+    "error": null
+  },
+  {
+    "question": "Gibt es den Vestibulookulären Reflex nur in der Horizontalen?",
+    "response": {
+      "answer": "\n\nNein, der vestibulookuläre Reflex (VOR) ist nicht ausschließlich horizontal. Es existieren horizontale, vertikale und torsionale Komponenten des VOR, die zusammenarbeiten, um das Bild auf der Netzhaut stabil zu halten, während sich der Kopf bewegt.",
+      "images": [
+        "http://localhost:8080/outputs/anatomy+phys+vol2a_page_22_img_1.jpeg",
+        "http://localhost:8080/outputs/anatomy+phys+vol2a-30-60_page_7_img_1.jpeg",
+        "http://localhost:8080/outputs/anatomy+phys+vol2a_page_36_img_1.jpeg"
+      ],
+      "sources": [
+        {
+          "source": "978-3-540-69483-0.pdf",
+          "page": 708,
+          "chunk_preview": "kerne; ihre Projektionen sind bilateral. Es werden in den Maculae und \nCristae ampullares die Dendritenkelche der Typ-I-Zellen, bei Typ-II-\nZellen die Sinneszellen direkt erreicht. Über die Funktion ist wenig \nbekannt.\n17.80 Klinische  Prüfung des vestibulären Systems\nIn klinischen Prüfungen des vestibulären Systems werden v.a. Augen-\nbewegungen (vestibulookulärer Reflex) und Veränderungen der Kör…"
+        },
+        {
+          "source": "978-3-540-69483-0.pdf",
+          "page": 340,
+          "chunk_preview": "breiten sich über die Vorhofmuskulatur aus. Dabei gibt es aufgrund \nregionaler Unterschiede in der Gewebearchitektur und der Geometrie \nder Vorhofwände und des Septums bevorzugte Leitungswege. \nAtrioventrikularknoten\nDer Atrioventrikularknoten (AV-Knoten), Nodus atrioventricularis, \nliegt im Bereich des rechten Vorhofs im Septum interatriale an der Vor-\nhofkammergrenze auf dem Trigonum fibrosum de…"
+        },
+        {
+          "source": "978-3-540-69483-0.pdf",
+          "page": 705,
+          "chunk_preview": "aufrecht stehenden Kopf, die Macula utriculi fast senkrecht dazu in \nder Ebene des horizontalen Bogenganges. \nAuf die Statokonienmembran mit ihrem relativ hohen spezi-\nfischen Gewicht wirkt die Schwerkraft (Linearbeschleunigung) \nund führt entsprechend der Kopfbewegung zu einer Verschie-\nbung der Gallerte gegenüber der Unterlage. Es resultiert eine \nScherung der Stereovilli und Kinozilien der Haar…"
+        },
+        {
+          "source": "anatomy+phys+vol2a.pdf",
+          "page": 226,
+          "chunk_preview": "vestibulo-ocular reflex (VOR)\nvestibulocerebellum\nWeber test\nWernicke’s area\nreflex based on connections between the vestibular system and the cranial nerves of\neye movements that ensures that images are stabilized on the retina as the head and body move\nflocculonodular lobe of the cerebellum named for the vestibular input from the eighth cranial\nnerve\nuse of a tuning fork to test the laterality o…"
+        }
+      ],
+      "grounding": {
+        "had_retrieved_passages_in_prompt": true,
+        "unique_text_passages_used": 4,
+        "used_multimodal_text_excerpts": false,
+        "primary_basis": "retrieved_corpus_synthesized",
+        "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+        "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+      },
+      "render_3d_url": null,
+      "render_3d_model_url": null,
+      "render_3d_viewer_url": null,
+      "render_3d_annotations_url": null,
+      "render_3d_anatomy": null,
+      "render_3d_suggestions": []
+    },
+    "error": null
+  },
+  {
+    "question": "Welche Augenmuskeln wirken denn mit welchen Borgengängen zusammen?",
+    "response": {
+      "answer": "\n\nDer bereitgestellte Kontext enthält keine Informationen darüber, welche Augenmuskeln mit welchen Nervengängen (oder „Borgengängen\") zusammenwirken. Aus allgemeinen anatomischen Kenntnissen ist bekannt:\n\nDie extraokularen Augenmuskeln werden durch folgende Nerven innerviert:\n- **N. oculomotorius (III)**: versorgt den oberen geraden Muskel, unteren geraden Muskel, inneren geraden Muskel und den obliquus superior.\n- **N. trochlearis (IV)**: innerviert den obliquus inferior.\n- **N. abducens (VI)**: innerviert den lateralen geraden Muskel.\n\nZusätzlich werden die Pupillenmuskulatur (Sphincter pupillae) und der Ciliarmuskel durch parasympathische Fasern des N. oculomotorius über das Ciliarganglion versorgt.",
+      "images": [],
+      "sources": [
+        {
+          "source": "978-3-540-69483-0.pdf",
+          "page": 686,
+          "chunk_preview": "um sich meist in einen R. medialis und R. lateralis zur Stirnhaut \naufzuteilen\nA. ethmoidalis posterior und A. ethmoidalis anterior: sie zweigen \nrechtwinklig von der A. ophthalmica ab und ziehen nach kurzem \nVerlauf in der Orbita durch die gleichnamigen Foramina\nAa. musculares: sie ziehen zu den äußeren Augenmuskeln, ihre \nÄste bilden zahlreiche Aa. ciliares anteriores, die zusammen mit"
+        },
+        {
+          "source": "978-3-540-69483-0.pdf",
+          "page": 403,
+          "chunk_preview": "fundibulum ethmoidale hängen u.a. mit der variablen Anheftung des \nProcessus uncinatus zusammen (7 Stirnhöhle). Die obere Nasenmu-\nschel, Concha nasi superior, variiert in Größe und Form. In den unter \nihr liegenden Meatus nasi superior  münden die hinteren Siebbeinzel-\nlen. Als Variante kommt eine Concha nasi suprema vor. Der Raum \noberhalb der Concha nasi superior im Bereich des Nasendaches am"
+        },
+        {
+          "source": "978-3-540-69483-0.pdf",
+          "page": 506,
+          "chunk_preview": "Innerhalb der Läppchen liegen dicht aneinandergepackt die von \nlockerem Bindegewebe umgrenzten beerenförmigen Drüsenend-\nstücke (Azini) zusammen mit ihren intralobulären Gangabschnitten, \nan denen sie endständig oder seitlich hängen. \nDie pyramidenförmigen Azinuszellen dienen als Modell \nfür protoeinsynthetisierende und –sezernierende Zellen (7 Kap. 8.6, \n. Abb. 8.11), in denen die Dynamik des Sek…"
+        },
+        {
+          "source": "978-3-540-69483-0.pdf",
+          "page": 696,
+          "chunk_preview": "Die verschiedenen visuellen Systeme (retino-genikulo-kortikales, re-\ntino-tektales, retino-prätektales, retino-hypothalamisches und akzes-\n!\n!\nsorisches optisches System) wirken bei der visuellen Wahrnehmung \nder Welt zusammen. Abschließend soll daher eine vereinfachte Über-\nsicht durch ein Blockdiagramm gegeben werden (. Abb. 17.75).\n17.8 Akustisches und vestibuläres System  \nmit Ohr\n \nA. Wree\n> …"
+        }
+      ],
+      "grounding": {
+        "had_retrieved_passages_in_prompt": true,
+        "unique_text_passages_used": 4,
+        "used_multimodal_text_excerpts": false,
+        "primary_basis": "retrieved_corpus_synthesized",
+        "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+        "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+      },
+      "render_3d_url": null,
+      "render_3d_model_url": null,
+      "render_3d_viewer_url": null,
+      "render_3d_annotations_url": null,
+      "render_3d_anatomy": null,
+      "render_3d_suggestions": []
+    },
+    "error": null
+  },
+  {
+    "question": "Bitte erkläre mir die Funktion des Herzens.",
+    "response": {
+      "answer": "\n\nDas Herz ist ein Hohlmuskel, der als Druck-Saug-Pumpe für die Zirkulation des Blutes im Körper sorgt (Kontext). Es pumpt sauerstoffreiches Blut zu den Organen und sauerstoffarmes Blut zur Lunge. Die Herznerven passen die Leistung des Herzens den Erfordernissen des Körpers an, was eine effektive Feineinstellung der Herzdynamik ermöglicht (Kontext). Zudem wird das Herz selbst von den Herzkranzgefäßen versorgt (Vasa privata), während die Binnenräume und großen Gefäßstämme für die Versorgung des gesamten Organismus dienen (Vasa publica) – ein Prinzip funktioneller Trennung der Organdurchblutung.",
+      "images": [],
+      "sources": [
+        {
+          "source": "978-3-540-69483-0.pdf",
+          "page": 343,
+          "chunk_preview": "eine effektive Feineinstellung der Herzdynamik möglich. \nSchmerzfasern des Herzens haben ihren Ursprung in Perikaryen \nder Rückenmarksegmente C3‒C4 und Th2‒Th7. Aus diesem Zusam-\nmenhang erklärt sich eine Projektion des Herzschmerzes auf die lin-\nke Schulter-Hals-Region und auf die ulnare Seite des linken Armes \n(Head-Zonen).\nHerznerven\nDie Herznerven passen die Leistung des Herzens den Erforderni…"
+        },
+        {
+          "source": "978-3-540-69483-0.pdf",
+          "page": 347,
+          "chunk_preview": "Am Herzen sowie in Lunge und Leber wird dieses Prinzip einer \nfunktionellen Trennung der Organdurchblutung deutlich. Zum Bei-\nspiel versorgen die Herzkranzgefäße das Herz selbst und sind somit \ndie Vasa privata des Herzens. Die Binnenräume des Herzens sowie \ndie in das Herz ein- und austretenden großen Gefäßstämme dienen \nder Versorgung des gesamten Organismus und sind somit Vasa pu-\nblica des Her…"
+        },
+        {
+          "source": "978-3-540-69483-0.pdf",
+          "page": 333,
+          "chunk_preview": "lungen bildet, die sich zu größeren Venen vereinen und schließlich in \nden Venenstämmen zusammenfließen, die in das Herz münden. \n6.2 \nHerz (Cor)\n> > Einführung\nDas Herz ist ein Hohlmuskel, der nach dem Prinzip einer Druck-Saug-\nPumpe für die Zirkulation des Blutes im Körper sorgt. Mit dieser Ob-\njektivierung des Herzens zu einem anatomisch zerlegbaren und mit \nphysiologischen Methoden in seiner F…"
+        },
+        {
+          "source": "978-3-540-69483-0.pdf",
+          "page": 340,
+          "chunk_preview": "Oberfläche des Herzens. Ihr Mesothel sitzt einer dünnen fibroelas-\ntischen Schicht auf, unter der sich das subepikardiale Fettgewebe \nbefindet, das mit dem interstitiellen Bindegwebe des Myokards in \nVerbindung steht. In dem lockeren, fettreichen Bindegewebe sind \ndie Gefäße und Nerven des Herzens eingelagert. Vor allem in den \nSulci des Herzens ist es reichlicher vorhanden und hilft, die Kontur \n…"
+        }
+      ],
+      "grounding": {
+        "had_retrieved_passages_in_prompt": true,
+        "unique_text_passages_used": 4,
+        "used_multimodal_text_excerpts": false,
+        "primary_basis": "retrieved_corpus_synthesized",
+        "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+        "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+      },
+      "render_3d_url": null,
+      "render_3d_model_url": null,
+      "render_3d_viewer_url": null,
+      "render_3d_annotations_url": null,
+      "render_3d_anatomy": null,
+      "render_3d_suggestions": []
+    },
+    "error": null
+  },
+  {
+    "question": "Bitte erstelle mir ein Kurzreferat für 3 Minuten für den Schultergürtel wo es um Bewegungen des Armes geht und Dinge wie Abduktion und Elevation.",
+    "response": null,
+    "error": "timed out"
+  }
+]

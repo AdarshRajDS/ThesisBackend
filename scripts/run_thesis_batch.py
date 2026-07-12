@@ -9,7 +9,7 @@ Examples:
   # Production RAG only
   python scripts/run_thesis_batch.py --endpoint rag --questions-file scripts/thesis_questions_sample.txt
 
-  # Limit parallel in-flight requests (Groq + local models are heavy)
+  # Limit parallel in-flight requests (local LM Studio is heavy)
   python scripts/run_thesis_batch.py --concurrency 3
 
 Default base URL: http://127.0.0.1:8000

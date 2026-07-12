@@ -9,6 +9,7 @@ from app.api.routes import anatomy_mcp, rag, rag_experiment, visualize, grading,
 
 from app.api.routes import images
 from app.api.routes import debug_storage
+from app.api.routes import debug_llm
 
 
 
@@ -55,6 +56,7 @@ app.include_router(grading.router)
 app.include_router(upload.router)
 app.include_router(images.router)
 app.include_router(debug_storage.router)
+app.include_router(debug_llm.router)
 app.include_router(blender.router)
 app.include_router(anatomy_mcp.router)
 

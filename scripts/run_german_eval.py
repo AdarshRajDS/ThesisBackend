@@ -16,17 +16,18 @@ QUESTIONS = [
 ]
 
 BASE = "http://127.0.0.1:8000/rag/ask"
+DEFAULT_TIMEOUT = int(__import__("os").getenv("RAG_EVAL_TIMEOUT", "900"))
 
 
-def ask(question: str) -> dict:
-    body = json.dumps({"question": question}).encode("utf-8")
+def ask(question: str, *, timeout: int = DEFAULT_TIMEOUT) -> dict:
+    body = json.dumps({"question": question, "language": "de"}).encode("utf-8")
     req = urllib.request.Request(
         BASE,
         data=body,
         headers={"Content-Type": "application/json"},
         method="POST",
     )
-    with urllib.request.urlopen(req, timeout=300) as resp:
+    with urllib.request.urlopen(req, timeout=timeout) as resp:
         return json.loads(resp.read().decode("utf-8"))
 
 

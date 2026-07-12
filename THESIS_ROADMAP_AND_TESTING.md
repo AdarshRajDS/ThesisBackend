@@ -6,7 +6,7 @@ This document aligns **professor feedback** with the **current ThesisBackend** i
 
 ## 1. Executive summary
 
-The backend is a **FastAPI** service that ingests PDFs, indexes **text** (sentence-transformers + Chroma) and **images** (CLIP + Chroma), optionally stores images in **Supabase or MinIO**, and answers questions via **Groq** with **0–3** linked images.
+The backend is a **FastAPI** service that ingests PDFs, indexes **text** (sentence-transformers + Chroma) and **images** (CLIP + Chroma), optionally stores images in **Supabase or MinIO**, and answers questions via **LM Studio** (local OpenAI-compatible API) with **0–3** linked images.
 
 **Thesis direction (local-first):**
 
@@ -43,7 +43,7 @@ flowchart TB
     Q[POST_rag_ask]
     MRet[MultimodalRetriever_CLIP]
     Ctx[context_from_text_docs]
-    LLM[Groq_LLM]
+    LLM[LM_Studio_LLM]
     Rerank[rerank_images]
     Q --> MRet
     MRet --> Ctx
@@ -68,7 +68,7 @@ flowchart LR
     TChroma[TextChroma]
     MChroma2[ImageChroma_plus_OCR_meta]
     Fuse[merge_rank_attribution]
-    LLM2[LLM_Groq_or_local]
+    LLM2[LLM_LM_Studio]
     Eval[faithfulness_eval]
     Q2 --> TChroma
     Q2 --> MChroma2
@@ -93,7 +93,7 @@ flowchart LR
 | 3 | **OCR on images** | Not in [image_extractor.py](src/ingestion/image_extractor.py). | OCR per crop → append to Chroma `documents`/metadata or separate text field for rerank. | Add deps (e.g. easyocr/tesseract); CPU-heavy — test on small PDF first. |
 | 4 | **Dynamic 0–3 images** | [multimodal_rag_chain.py](src/multimodal/multimodal_rag_chain.py): thresholds + max 3. | Tighten with OCR relevance + dedup by visual hash or embedding cluster. | Tune thresholds on a fixed question set. |
 | 5 | **Blender / 3D** | [app/api/routes/blender.py](app/api/routes/blender.py) exists. | Pre-made assets + MCP: render views, return GLB/preview URLs. | **Out of scope** for mandatory tests below. |
-| 6 | **Local LLM** | [llm_factory.py](src/llm/llm_factory.py): Groq. | Optional Ollama/LlamaCpp adapter behind same interface. | Needs RAM/VRAM tradeoffs; document model name + prompt parity. |
+| 6 | **Local LLM** | [llm_factory.py](src/llm/llm_factory.py): LM Studio only (Groq disabled). | Tune model in LM Studio; match `LLM_MODEL` in `.env`. | Needs RAM/VRAM; use `GET /debug/llm` to verify server. |
 | 7 | **Answer quality checker** | [grading](app/api/routes/grading.py) is annotation-focused. | Post-answer judge: faithfulness vs `context`, optional second LLM. | Store scores next to gold set in `eval/` or spreadsheet. |
 | 8 | **Overall** | Multimodal path works; text grounding weak without fusion. | **Fuse text retrieval into ask** + attribution + eval. | Follow implementation order in section 9. |
 
@@ -131,7 +131,7 @@ Run Condition A and B; export answers to CSV for the thesis appendix.
 
 | Layer | Command / action | What it proves |
 |-------|------------------|----------------|
-| **Unit / API mocks** | From repo root: `PYTHONPATH=. pytest tests/test_api.py -q` (use the project `.venv` where dependencies are installed) | Routes and schemas wired; **does not** prove Supabase, Chroma, or Groq. |
+| **Unit / API mocks** | From repo root: `PYTHONPATH=. pytest tests/test_api.py -q` (use the project `.venv` where dependencies are installed) | Routes and schemas wired; **does not** prove Supabase, Chroma, or LM Studio. |
 | **Integration (local)** | Steps in section 8 | Real PDF, real storage, real embeddings, real LLM key. |
 
 **Thesis recommendation:** Report both: automated smoke tests + one **documented manual integration run** (screenshots or logs).
@@ -144,7 +144,7 @@ Run Condition A and B; export answers to CSV for the thesis appendix.
 - **Virtualenv:** `python -m venv .venv && source .venv/bin/activate`
 - **Dependencies:** `pip install -r requirements.txt`
 - **Environment:** copy [.env.example](.env.example) → `.env`
-  - `GROQ_API_KEY` — required for `/rag/ask`
+  - `LLM_PROVIDER=lmstudio`, `LLM_API_BASE=http://127.0.0.1:1234/v1`, `LLM_MODEL=<your model>` — required for `/rag/ask`
   - `HF_HOME=data` — data and Chroma under `data/`
   - **Storage:** `STORAGE_PROVIDER=supabase` or `minio`; `SUPABASE_URL` must match **exact** project URL from Supabase dashboard (typos cause DNS errors).
   - `PUBLIC_BASE_URL=http://127.0.0.1:8000` (or your uvicorn port) if the frontend needs absolute `/outputs` URLs.

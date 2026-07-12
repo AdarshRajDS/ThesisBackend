@@ -5,7 +5,6 @@ uvicorn[standard]
 
 langchain
 langchain-community
-langchain-groq
 langchain-openai
 langchain-chroma
 langchain-huggingface
@@ -33,8 +32,6 @@ tqdm
 numpy==1.26.4
 pandas
 scikit-learn
-
-groq
 
 # Object storage (S3-compatible)
 minio

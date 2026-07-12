@@ -46,6 +46,7 @@ from app.services.anatomy_mcp_client import (
     structured_to_anatomy_export,
 )
 from src.config.settings import settings
+from src.llm.llm_factory import _assert_local_api_base, _warn_if_legacy_cloud_env
 
 _API_ORIGIN = (settings.public_api_base or "http://127.0.0.1:8000").rstrip("/")
 
@@ -498,9 +499,11 @@ async def run_lmstudio_mcp_agent(
         if fast_path is not None:
             return fast_path
 
+    _warn_if_legacy_cloud_env()
+    _assert_local_api_base(settings.llm_api_base)
     lm_client = AsyncOpenAI(
         base_url=settings.llm_api_base,
-        api_key=os.getenv("LLM_API_KEY", "lm-studio"),
+        api_key=settings.llm_api_key or "lm-studio",
     )
 
     user_content = latest

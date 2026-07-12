@@ -55,8 +55,14 @@ pip install minio
 
 Copy `.env.example` to `.env` and set at least:
 
-- `GROQ_API_KEY` for the LLM
+- **LM Studio (local LLM):** start a model in LM Studio → Developer → Local Server, then set:
+  - `LLM_PROVIDER=lmstudio`
+  - `LLM_API_BASE=http://127.0.0.1:1234/v1`
+  - `LLM_MODEL=<model id shown in LM Studio>`
+  - `LLM_ALLOW_ONLINE=false` (default — cloud LLMs are disabled)
 - MinIO defaults work for local Docker: `MINIO_ENDPOINT=localhost:9000`, `MINIO_ACCESS_KEY=minioadmin`, `MINIO_SECRET_KEY=minioadmin`
+
+Verify the LLM with `GET http://127.0.0.1:8000/debug/llm` (`lmstudio_reachable: true`).
 
 To disable MinIO and use local `/outputs` only, set `MINIO_ENABLED=false`.
 
