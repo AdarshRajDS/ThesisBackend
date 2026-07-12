@@ -14,6 +14,7 @@ MD = REPO / "evaluationThesis.md"
 DEFAULT_JSON = REPO / "eval" / "rag_eval_55_results.json"
 DEFAULT_CATALOG = REPO / "eval" / "rag_eval_55.json"
 EXCLUDED_FILE = REPO / "eval" / "rag_eval_excluded.json"
+RETRIEVAL_METRICS_JSON = REPO / "eval" / "retrieval_metrics.json"
 
 SECTION12_START = "## 12. Final RAG evaluation workbook"
 SECTION13_START = "## 13. MCP evaluation workbook"
@@ -235,6 +236,94 @@ def _category_metrics(rows: list[dict], kind: str) -> dict:
     }
 
 
+def load_retrieval_metrics() -> dict[str, dict]:
+    if not RETRIEVAL_METRICS_JSON.exists():
+        return {}
+    data = json.loads(RETRIEVAL_METRICS_JSON.read_text(encoding="utf-8"))
+    return {r["id"]: r for r in data.get("english_rag_55", {}).get("rows", [])}
+
+
+def _fmt_retrieval(m: dict | None, key: str) -> str:
+    if not m:
+        return ""
+    v = m.get(key)
+    if v is None:
+        return ""
+    return f"{v:.2f}"
+
+
+def _retrieval_triplet(metrics_by_id: dict[str, dict], qid: str) -> tuple[str, str, str]:
+    m = metrics_by_id.get(qid)
+    return (
+        _fmt_retrieval(m, "precision_at_k"),
+        _fmt_retrieval(m, "recall_at_k"),
+        _fmt_retrieval(m, "ndcg_at_k"),
+    )
+
+
+def _retrieval_full(metrics_by_id: dict[str, dict], qid: str) -> tuple[str, str, str, str, str]:
+    m = metrics_by_id.get(qid)
+    return (
+        _fmt_retrieval(m, "precision_at_k"),
+        _fmt_retrieval(m, "recall_at_k"),
+        _fmt_retrieval(m, "ndcg_at_k"),
+        _fmt_retrieval(m, "mrr"),
+        _fmt_retrieval(m, "source_overlap"),
+    )
+
+
+def _retrieval_compact(metrics_by_id: dict[str, dict], qid: str) -> str:
+    p3, r3, ndcg, mrr, ov = _retrieval_full(metrics_by_id, qid)
+    if not any((p3, r3, ndcg, mrr, ov)):
+        return ""
+    return f"P={p3} R={r3} nDCG={ndcg} MRR={mrr} ov={ov}"
+
+
+def _build_retrieval_summary(metrics_data: dict) -> str:
+    if not metrics_data:
+        return ""
+    eng = metrics_data.get("english_rag_55", {})
+    summary = eng.get("summary_non_boundary") or {}
+    all_scored = eng.get("summary_all_scored") or {}
+    method = metrics_data.get("method", "")
+    k = metrics_data.get("k", 3)
+
+    lines = [
+        f"### 12.0.2 Retrieval quality metrics (P@{k}, macro averages)",
+        "",
+        f"**Method:** {method}",
+        "",
+        "| Scope | n | P@3 | R@3 | nDCG@3 | MRR | Source overlap |",
+        "| ----- | - | --- | --- | ------ | --- | -------------- |",
+        (
+            f"| Non-boundary (thesis macro) | {summary.get('n', '—')} | "
+            f"{_fmt_retrieval(summary, 'precision_at_k')} | {_fmt_retrieval(summary, 'recall_at_k')} | "
+            f"{_fmt_retrieval(summary, 'ndcg_at_k')} | {_fmt_retrieval(summary, 'mrr')} | "
+            f"{_fmt_retrieval(summary, 'source_overlap')} |"
+        ),
+        (
+            f"| All scored (incl. boundary) | {all_scored.get('n', '—')} | "
+            f"{_fmt_retrieval(all_scored, 'precision_at_k')} | {_fmt_retrieval(all_scored, 'recall_at_k')} | "
+            f"{_fmt_retrieval(all_scored, 'ndcg_at_k')} | {_fmt_retrieval(all_scored, 'mrr')} | "
+            f"{_fmt_retrieval(all_scored, 'source_overlap')} |"
+        ),
+        "",
+        f"### 12.0.3 Per-question retrieval metrics (k={k})",
+        "",
+        "| ID | Category | P@3 | R@3 | nDCG@3 | MRR | Source overlap |",
+        "| -- | -------- | --- | --- | ------ | --- | -------------- |",
+    ]
+    for row in eng.get("rows", []):
+        lines.append(
+            f"| {row['id']} | {row.get('category', '')} | "
+            f"{_fmt_retrieval(row, 'precision_at_k')} | {_fmt_retrieval(row, 'recall_at_k')} | "
+            f"{_fmt_retrieval(row, 'ndcg_at_k')} | {_fmt_retrieval(row, 'mrr')} | "
+            f"{_fmt_retrieval(row, 'source_overlap')} |"
+        )
+    lines.extend(["", "---", ""])
+    return "\n".join(lines)
+
+
 def _build_at_a_glance(merged: list[dict], agg: dict, model_short: str) -> str:
     excluded_note = ", ".join(f"`{qid}` ({reason})" for qid, reason in sorted(EXCLUDED_IDS.items()))
     cats = [
@@ -288,7 +377,7 @@ def _build_at_a_glance(merged: list[dict], agg: dict, model_short: str) -> str:
 
 {chr(10).join(cat_lines)}
 {lat_line}
-*P@3, R@3, nDCG@3 and human rubric (Acc, Comp, Rel) require expert labeling — left blank below.*
+*Human rubric (Acc, Comp, Rel) still require expert labeling. P@3 / R@3 / nDCG@3 / MRR / source overlap are computed automatically — see §12.0.2.*
 
 ---
 
@@ -460,6 +549,10 @@ def build_section12(catalog: list[dict], results: list[dict], meta: dict, model_
             )
 
     agg = compute_aggregate_metrics(catalog, results)
+    metrics_data = {}
+    if RETRIEVAL_METRICS_JSON.exists():
+        metrics_data = json.loads(RETRIEVAL_METRICS_JSON.read_text(encoding="utf-8"))
+    metrics_by_id = load_retrieval_metrics()
     scored_count = agg["scored"]
     errors = agg["excluded"] + agg["errors_other"]
     abstained = agg["abstained"]
@@ -479,14 +572,15 @@ def build_section12(catalog: list[dict], results: list[dict], meta: dict, model_
 
 """
     at_a_glance = _build_at_a_glance(merged, agg, model_short)
+    retrieval_block = _build_retrieval_summary(metrics_data)
     timing_table = _build_timing_table(
         [r for r in merged if r.get("response") or r.get("error")], model_short
     )
 
     factual_header = f"""### 12.1 Direct factual (15)
 
-| ID | Scored? | Question | Expected key points | System answer | Model | Request time | P@3 | R@3 | nDCG@3 | Acc | Comp | Rel | Grnd | Cit | Abst |
-| -- | ------- | -------- | ------------------- | ------------- | ----- | ------------ | --- | --- | ------ | --- | ---- | --- | ---- | --- | ---- |
+| ID | Scored? | Question | Expected key points | System answer | Model | Request time | P@3 | R@3 | nDCG@3 | MRR | SrcOv | Acc | Comp | Rel | Grnd | Cit | Abst |
+| -- | ------- | -------- | ------------------- | ------------- | ----- | ------------ | --- | --- | ------ | --- | ----- | --- | ---- | --- | ---- | --- | ---- |
 """
 
     factual_rows = []
@@ -495,16 +589,17 @@ def build_section12(catalog: list[dict], results: list[dict], meta: dict, model_
             resp = r.get("response") or {}
             ans = _cell(r.get("error") or resp.get("answer"))
             grnd, cit, abst = _metric_cells(r)
+            p3, r3, ndcg, mrr, ov = _retrieval_full(metrics_by_id, r["id"])
             factual_rows.append(
                 f"| {r['id']} | {_scored_label(r)} | {r['question']} | {r.get('gold', '')} | {ans} | "
-                f"{model_short} | {_fmt_elapsed_ms(r.get('elapsed_ms'))} | | | | | | | {grnd} | {cit} | {abst} |"
+                f"{model_short} | {_fmt_elapsed_ms(r.get('elapsed_ms'))} | {p3} | {r3} | {ndcg} | {mrr} | {ov} | | | | {grnd} | {cit} | {abst} |"
             )
 
     complex_header = """
 ### 12.2 Complex / multi-step (10)
 
-| ID | Scored? | Question | Expected key points | System answer | Model | Request time | Grnd | Cit | Metrics / scores |
-| -- | ------- | -------- | ------------------- | ------------- | ----- | ------------ | ---- | --- | ---------------- |
+| ID | Scored? | Question | Expected key points | System answer | Model | Request time | P@3 | R@3 | nDCG@3 | MRR | SrcOv | Grnd | Cit |
+| -- | ------- | -------- | ------------------- | ------------- | ----- | ------------ | --- | --- | ------ | --- | ----- | ---- | --- |
 """
     complex_rows = []
     for r in merged:
@@ -512,19 +607,20 @@ def build_section12(catalog: list[dict], results: list[dict], meta: dict, model_
             resp = r.get("response") or {}
             ans = _cell(r.get("error") or resp.get("answer"))
             grnd, cit, _ = _metric_cells(r)
+            p3, r3, ndcg, mrr, ov = _retrieval_full(metrics_by_id, r["id"])
             gold = r.get("gold", "")
             if r["id"] == "R-C04" and not ans:
                 ans = "*See EXP-R05 / LM-R05 in §10–§11*"
             complex_rows.append(
                 f"| {r['id']} | {_scored_label(r)} | {r['question']} | {gold} | {ans} | {model_short} | "
-                f"{_fmt_elapsed_ms(r.get('elapsed_ms'))} | {grnd} | {cit} | |"
+                f"{_fmt_elapsed_ms(r.get('elapsed_ms'))} | {p3} | {r3} | {ndcg} | {mrr} | {ov} | {grnd} | {cit} |"
             )
 
     figure_header = """
 ### 12.3 Figure-related (10)
 
-| ID | Scored? | Question | Expected figure topic | System answer | Model | Request time | Fig success? | Images OK? | Scores |
-| -- | ------- | -------- | --------------------- | ------------- | ----- | ------------ | ------------ | ---------- | ------ |
+| ID | Scored? | Question | Expected figure topic | System answer | Model | Request time | P@3 | R@3 | nDCG@3 | MRR | SrcOv | Fig OK? | Images OK? |
+| -- | ------- | -------- | --------------------- | ------------- | ----- | ------------ | --- | --- | ------ | --- | ----- | ------- | ---------- |
 """
     figure_rows = []
     for r in merged:
@@ -534,16 +630,17 @@ def build_section12(catalog: list[dict], results: list[dict], meta: dict, model_
             imgs = (resp.get("images") or []) if resp else []
             fig_ok = "Yes" if imgs and _in_scored_set(r) else ("No" if resp and _in_scored_set(r) else "—")
             images_ok = fig_ok
+            p3, r3, ndcg, mrr, ov = _retrieval_full(metrics_by_id, r["id"])
             figure_rows.append(
                 f"| {r['id']} | {_scored_label(r)} | {r['question']} | {r.get('gold', '')} | {ans} | {model_short} | "
-                f"{_fmt_elapsed_ms(r.get('elapsed_ms'))} | {fig_ok} | {images_ok} | |"
+                f"{_fmt_elapsed_ms(r.get('elapsed_ms'))} | {p3} | {r3} | {ndcg} | {mrr} | {ov} | {fig_ok} | {images_ok} |"
             )
 
     quote_header = """
 ### 12.4 Exact quotation (5)
 
-| ID | Scored? | Question | Expected behavior | System answer | Model | Request time | Quote verified? | Grnd | Cit | Score |
-| -- | ------- | -------- | ----------------- | ------------- | ----- | ------------ | --------------- | ---- | --- | ----- |
+| ID | Scored? | Question | Expected behavior | System answer | Model | Request time | P@3 | R@3 | nDCG@3 | MRR | SrcOv | Quote OK? | Grnd | Cit |
+| -- | ------- | -------- | ----------------- | ------------- | ----- | ------------ | --- | --- | ------ | --- | ----- | --------- | ---- | --- |
 """
     quote_rows = []
     for r in merged:
@@ -551,29 +648,31 @@ def build_section12(catalog: list[dict], results: list[dict], meta: dict, model_
             resp = r.get("response") or {}
             ans = _cell(r.get("error") or resp.get("answer"))
             grnd, cit, _ = _metric_cells(r)
+            p3, r3, ndcg, mrr, ov = _retrieval_full(metrics_by_id, r["id"])
             quote_rows.append(
                 f"| {r['id']} | {_scored_label(r)} | {r['question']} | {r.get('gold', '')} | {ans} | {model_short} | "
-                f"{_fmt_elapsed_ms(r.get('elapsed_ms'))} | | {grnd} | {cit} | |"
+                f"{_fmt_elapsed_ms(r.get('elapsed_ms'))} | {p3} | {r3} | {ndcg} | {mrr} | {ov} | | {grnd} | {cit} |"
             )
 
     boundary_header = """
 ### 12.5 Unsupported / off-topic / boundary (10)
 
-| ID | Scored? | Question | Expected behavior | System answer | Model | Request time | Correct abstention? | Unsafe answer? |
-| -- | ------- | -------- | ----------------- | ------------- | ----- | ------------ | ------------------- | -------------- |
+| ID | Scored? | Question | Expected behavior | System answer | Model | Request time | P@3 | R@3 | nDCG@3 | MRR | SrcOv | Abst OK? | Unsafe? |
+| -- | ------- | -------- | ----------------- | ------------- | ----- | ------------ | --- | --- | ------ | --- | ----- | -------- | ------- |
 """
     boundary_rows = []
     for r in merged:
         if _prefix(r["id"], "boundary"):
             resp = r.get("response") or {}
             ans = _cell(r.get("error") or resp.get("answer"))
+            p3, r3, ndcg, mrr, ov = _retrieval_full(metrics_by_id, r["id"])
             if _in_scored_set(r):
                 abst_ok = "Yes" if _boundary_abstention_ok(r) else "No"
             else:
                 abst_ok = "—"
             boundary_rows.append(
                 f"| {r['id']} | {_scored_label(r)} | {r['question']} | {r.get('gold', '')} | {ans} | {model_short} | "
-                f"{_fmt_elapsed_ms(r.get('elapsed_ms'))} | {abst_ok} | |"
+                f"{_fmt_elapsed_ms(r.get('elapsed_ms'))} | {p3} | {r3} | {ndcg} | {mrr} | {ov} | {abst_ok} | |"
             )
 
     robust_header = """
@@ -581,8 +680,8 @@ def build_section12(catalog: list[dict], results: list[dict], meta: dict, model_
 
 ### 12.6 Robustness variants (5)
 
-| ID | Scored? | Base | Variant | Question | System answer | Model | Request time | Stable? | Typo recovered? |
-| -- | ------- | ---- | ------- | -------- | ------------- | ----- | ------------ | ------- | --------------- |
+| ID | Scored? | Base | Variant | Question | System answer | Model | Request time | P@3 | R@3 | nDCG@3 | MRR | SrcOv | Stable? | Typo OK? |
+| -- | ------- | ---- | ------- | -------- | ------------- | ----- | ------------ | --- | --- | ------ | --- | ----- | ------- | -------- |
 """
     robust_meta = {
         "R-R01": ("brainstem", "typo"),
@@ -597,9 +696,10 @@ def build_section12(catalog: list[dict], results: list[dict], meta: dict, model_
             resp = r.get("response") or {}
             ans = _cell(r.get("error") or resp.get("answer"))
             base, variant = robust_meta.get(r["id"], ("", ""))
+            p3, r3, ndcg, mrr, ov = _retrieval_full(metrics_by_id, r["id"])
             robust_rows.append(
                 f"| {r['id']} | {_scored_label(r)} | {base} | {variant} | {r['question']} | {ans} | {model_short} | "
-                f"{_fmt_elapsed_ms(r.get('elapsed_ms'))} | | |"
+                f"{_fmt_elapsed_ms(r.get('elapsed_ms'))} | {p3} | {r3} | {ndcg} | {mrr} | {ov} | | |"
             )
 
     details_header = """
@@ -615,6 +715,7 @@ def build_section12(catalog: list[dict], results: list[dict], meta: dict, model_
     return (
         header
         + at_a_glance
+        + retrieval_block
         + timing_table
         + factual_header
         + "\n".join(factual_rows)

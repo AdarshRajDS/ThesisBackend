@@ -75,6 +75,10 @@ These metrics evaluate whether the system retrieves the correct PDF passages **b
 | Source hit rate | Whether the expected PDF/page appears in the results | Questions with correct source / all questions |
 | Duplicate rate | Frequency of repeated passages or sources | Duplicate results / retrieved results |
 
+
+
+**Measured (12 Jul 2026, English n=43 non-boundary, k=3):** P@3=0.86 · R@3=0.58 · nDCG@3=0.90 · MRR=0.93 · source overlap=0.58. Automatic proxy — see §12.0.2.
+
 **Thesis use:** Compare dense-only vs final hybrid BM25 + dense + RRF pipeline on the same frozen question set.
 
 ---
@@ -487,8 +491,10 @@ Reference for all RAG evaluation batches in this document. Update `eval/experime
 ## 9.1 Professor evaluation metrics workbook
 
 **Status:** System answers populated from `german_eval_lmstudio_results.json` (§11) and `german_eval_results.json` (§10).  
-**Retrieval metrics** (P@3, R@3, nDCG@3) require gold relevant passages — fill after manual relevance judging.  
+**Retrieval metrics** (P@3, R@3, nDCG@3): automatic embedding proxy — see `eval/retrieval_metrics.json` and §12.0.2.  
 **Human rubric** (Acc–Abst): score 1–5 per §6 (**Acc**uracy · **Comp**leteness · **Rel**evance · **Grnd**ing · **Cit**ation · **Abst**ention/boundary).
+
+**Retrieval macro (professor, n=7):** P@3=0.57 · R@3=0.65 · nDCG@3=0.76 · MRR=0.75 · overlap=0.65
 
 **Local outcomes:** LM-R01: Answered (world knowledge) · LM-R02: Error · LM-R03: Answered (world knowledge) · LM-R04: Answered · LM-R05: Answered · LM-R06: Answered · LM-R07: Answered (world knowledge) · LM-R08: Answered · LM-R09: Error  
 **Cloud outcomes:** EXP-R01: Abstained · EXP-R02: Error · EXP-R03: Abstained · EXP-R04: Abstained · EXP-R05: Answered · EXP-R06: Answered · EXP-R07: Answered · EXP-R08: Abstained · EXP-R09: Answered
@@ -513,15 +519,15 @@ Reference for all RAG evaluation batches in this document. Update `eval/experime
 
 | ID | Question | Expected key points | System answer | Model | P@3 | R@3 | nDCG@3 | Acc | Comp | Rel | Grnd | Cit | Abst |
 | -- | -------- | ------------------- | ------------- | ----- | --- | --- | ------ | --- | ---- | --- | ---- | --- | ---- |
-| LM-R01 | Bitte stelle mir die wichtigsten Muskeln für die Bewegung der Sprunggelenke zusammen und … | Peroneus longus/brevis, tibialis anterior/posterior, gastrocnemius/soleus, grou… | Die bereitgestellten Textpassagen enthalten keine Informationen über die Muskulatur des Sprunggelen… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` | | | | | | | | | |
-| LM-R02 | Bitte stelle mir eine Übersicht über die wichtigen Muskeln zusammen, welche benötigt werd… | Flexor digitorum superficialis/profundus, flexor pollicis longus, lumbricals; m… | HTTP Error 500: Internal Server Error | lmstudio / `qwen3.5-9b-deepseek-v4-flash` | | | | | | | | | |
-| LM-R03 | Welche Faktoren begünstigen einen Hochstand des Humeruskopfes und damit eine Enge unter d… | Humeral head high-riding: rotator cuff weakness, capsular tightness; subacromia… | Der bereitgestellte Kontext enthält keine relevanten Informationen zu diesem Thema. Basierend auf a… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` | | | | | | | | | |
-| LM-R04 | Welcher Muskel ist der wichtigste Hüftbeuger beim Menschen? | Iliopsoas (iliacus + psoas major) as primary hip flexor. | Der wichtigste Hüftbeuger beim Menschen ist der **Iliopsoas** (zusammengesetzt aus dem Psoasmajor u… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` | | | | | | | | | |
-| LM-R05 | Kannst Du mir kurz erklären, wie der Vestibulo-Okuläre-Reflex funktioniert? | Vestibular nuclei → ocular motor nuclei; stabilizes retinal image during head m… | Der Vestibulo-okuläre Reflex (VOR) ist ein automatischer Reflex, der die Augenbewegung so steuert, … | lmstudio / `qwen3.5-9b-deepseek-v4-flash` | | | | | | | | | |
-| LM-R06 | Gibt es den Vestibulookulären Reflex nur in der Horizontalen? | Semicircular canals: horizontal + vertical planes; VOR not limited to horizonta… | Nein, der vestibulookuläre Reflex (VOR) ist nicht ausschließlich horizontal. Es existieren horizont… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` | | | | | | | | | |
-| LM-R07 | Welche Augenmuskeln wirken denn mit welchen Borgengängen zusammen? | Extraocular muscle ↔ semicircular canal pairings. | Der bereitgestellte Kontext enthält keine Informationen darüber, welche Augenmuskeln mit welchen Ne… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` | | | | | | | | | |
-| LM-R08 | Bitte erkläre mir die Funktion des Herzens. | Heart pump function, chambers, systemic/pulmonary circulation. | Das Herz ist ein Hohlmuskel, der als Druck-Saug-Pumpe für die Zirkulation des Blutes im Körper sorg… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` | | | | | | | | | |
-| LM-R09 | Bitte erstelle mir ein Kurzreferat für 3 Minuten für den Schultergürtel wo es um Bewegung… | Shoulder girdle, abduction/elevation, scapulohumeral rhythm, relevant muscles. | timed out | lmstudio / `qwen3.5-9b-deepseek-v4-flash` | | | | | | | | | |
+| LM-R01 | Bitte stelle mir die wichtigsten Muskeln für die Bewegung der Sprunggelenke zusammen und … | Peroneus longus/brevis, tibialis anterior/posterior, gastrocnemius/soleus, grou… | Die bereitgestellten Textpassagen enthalten keine Informationen über die Muskulatur des Sprunggelen… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` | 1.00 | 0.60 | 1.00 | | | | | | | |
+| LM-R02 | Bitte stelle mir eine Übersicht über die wichtigen Muskeln zusammen, welche benötigt werd… | Flexor digitorum superficialis/profundus, flexor pollicis longus, lumbricals; m… | HTTP Error 500: Internal Server Error | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  |  |  | | | | | | | |
+| LM-R03 | Welche Faktoren begünstigen einen Hochstand des Humeruskopfes und damit eine Enge unter d… | Humeral head high-riding: rotator cuff weakness, capsular tightness; subacromia… | Der bereitgestellte Kontext enthält keine relevanten Informationen zu diesem Thema. Basierend auf a… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` | 0.33 | 1.00 | 1.00 | | | | | | | |
+| LM-R04 | Welcher Muskel ist der wichtigste Hüftbeuger beim Menschen? | Iliopsoas (iliacus + psoas major) as primary hip flexor. | Der wichtigste Hüftbeuger beim Menschen ist der **Iliopsoas** (zusammengesetzt aus dem Psoasmajor u… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` | 0.00 | 0.00 | 0.00 | | | | | | | |
+| LM-R05 | Kannst Du mir kurz erklären, wie der Vestibulo-Okuläre-Reflex funktioniert? | Vestibular nuclei → ocular motor nuclei; stabilizes retinal image during head m… | Der Vestibulo-okuläre Reflex (VOR) ist ein automatischer Reflex, der die Augenbewegung so steuert, … | lmstudio / `qwen3.5-9b-deepseek-v4-flash` | 0.67 | 0.50 | 0.69 | | | | | | | |
+| LM-R06 | Gibt es den Vestibulookulären Reflex nur in der Horizontalen? | Semicircular canals: horizontal + vertical planes; VOR not limited to horizonta… | Nein, der vestibulookuläre Reflex (VOR) ist nicht ausschließlich horizontal. Es existieren horizont… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` | 1.00 | 0.75 | 0.95 | | | | | | | |
+| LM-R07 | Welche Augenmuskeln wirken denn mit welchen Borgengängen zusammen? | Extraocular muscle ↔ semicircular canal pairings. | Der bereitgestellte Kontext enthält keine Informationen darüber, welche Augenmuskeln mit welchen Ne… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` | 0.33 | 1.00 | 1.00 | | | | | | | |
+| LM-R08 | Bitte erkläre mir die Funktion des Herzens. | Heart pump function, chambers, systemic/pulmonary circulation. | Das Herz ist ein Hohlmuskel, der als Druck-Saug-Pumpe für die Zirkulation des Blutes im Körper sorg… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` | 0.67 | 0.67 | 0.69 | | | | | | | |
+| LM-R09 | Bitte erstelle mir ein Kurzreferat für 3 Minuten für den Schultergürtel wo es um Bewegung… | Shoulder girdle, abduction/elevation, scapulohumeral rhythm, relevant muscles. | timed out | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  |  |  | | | | | | | |
 
 ### 9.1.2 Cloud exploratory run (historical comparison)
 
@@ -539,15 +545,15 @@ Reference for all RAG evaluation batches in this document. Update `eval/experime
 
 | ID | Question | Expected key points | System answer | Model | P@3 | R@3 | nDCG@3 | Acc | Comp | Rel | Grnd | Cit | Abst |
 | -- | -------- | ------------------- | ------------- | ----- | --- | --- | ------ | --- | ---- | --- | ---- | --- | ---- |
-| EXP-R01 | Bitte stelle mir die wichtigsten Muskeln für die Bewegung der Sprunggelenke zusammen und … | Peroneus longus/brevis, tibialis anterior/posterior, gastrocnemius/soleus, grou… | Die bereitgestellten Textpassagen enthalten keine Informationen über die Muskeln, die für die Beweg… | groq / `(not logged at run time)` | | | | | | | | | |
-| EXP-R02 | Bitte stelle mir eine Übersicht über die wichtigen Muskeln zusammen, welche benötigt werd… | Flexor digitorum superficialis/profundus, flexor pollicis longus, lumbricals; m… | HTTP Error 500: Internal Server Error | groq / `(not logged at run time)` | | | | | | | | | |
-| EXP-R03 | Welche Faktoren begünstigen einen Hochstand des Humeruskopfes und damit eine Enge unter d… | Humeral head high-riding: rotator cuff weakness, capsular tightness; subacromia… | Die bereitgestellten Textpassagen enthalten keine Informationen, die die Faktoren für einen Hochsta… | groq / `(not logged at run time)` | | | | | | | | | |
-| EXP-R04 | Welcher Muskel ist der wichtigste Hüftbeuger beim Menschen? | Iliopsoas (iliacus + psoas major) as primary hip flexor. | Der bereitgestellte Kontext enthält keine Informationen über die Muskelanatomie oder welche Muskeln… | groq / `(not logged at run time)` | | | | | | | | | |
-| EXP-R05 | Kannst Du mir kurz erklären, wie der Vestibulo-Okuläre-Reflex funktioniert? | Vestibular nuclei → ocular motor nuclei; stabilizes retinal image during head m… | Der vestibululo-okuläre Reflex (VOR) ist ein Mechanismus, der dazu dient, Bilder auf der Netzhaut z… | groq / `(not logged at run time)` | | | | | | | | | |
-| EXP-R06 | Gibt es den Vestibulookulären Reflex nur in der Horizontalen? | Semicircular canals: horizontal + vertical planes; VOR not limited to horizonta… | Der Kontext beschreibt die Orientierung der halbkreisförmigen Kanäle (semicircular canals), die Erw… | groq / `(not logged at run time)` | | | | | | | | | |
-| EXP-R07 | Welche Augenmuskeln wirken denn mit welchen Borgengängen zusammen? | Extraocular muscle ↔ semicircular canal pairings. | Die extraokularen Muskeln werden von drei Hirnnerven innerviert.  *   Der **laterale Rectus** (veru… | groq / `(not logged at run time)` | | | | | | | | | |
-| EXP-R08 | Bitte erkläre mir die Funktion des Herzens. | Heart pump function, chambers, systemic/pulmonary circulation. | Die bereitgestellten Textpassagen enthalten keine Informationen über die Funktion des Herzens. | groq / `(not logged at run time)` | | | | | | | | | |
-| EXP-R09 | Bitte erstelle mir ein Kurzreferat für 3 Minuten für den Schultergürtel wo es um Bewegung… | Shoulder girdle, abduction/elevation, scapulohumeral rhythm, relevant muscles. | Basierend auf den bereitgestellten Textpassagen kann ich Ihnen ein Kurzreferat über die motorische … | groq / `(not logged at run time)` | | | | | | | | | |
+| EXP-R01 | Bitte stelle mir die wichtigsten Muskeln für die Bewegung der Sprunggelenke zusammen und … | Peroneus longus/brevis, tibialis anterior/posterior, gastrocnemius/soleus, grou… | Die bereitgestellten Textpassagen enthalten keine Informationen über die Muskeln, die für die Beweg… | groq / `(not logged at run time)` |  |  |  | | | | | | | |
+| EXP-R02 | Bitte stelle mir eine Übersicht über die wichtigen Muskeln zusammen, welche benötigt werd… | Flexor digitorum superficialis/profundus, flexor pollicis longus, lumbricals; m… | HTTP Error 500: Internal Server Error | groq / `(not logged at run time)` |  |  |  | | | | | | | |
+| EXP-R03 | Welche Faktoren begünstigen einen Hochstand des Humeruskopfes und damit eine Enge unter d… | Humeral head high-riding: rotator cuff weakness, capsular tightness; subacromia… | Die bereitgestellten Textpassagen enthalten keine Informationen, die die Faktoren für einen Hochsta… | groq / `(not logged at run time)` |  |  |  | | | | | | | |
+| EXP-R04 | Welcher Muskel ist der wichtigste Hüftbeuger beim Menschen? | Iliopsoas (iliacus + psoas major) as primary hip flexor. | Der bereitgestellte Kontext enthält keine Informationen über die Muskelanatomie oder welche Muskeln… | groq / `(not logged at run time)` |  |  |  | | | | | | | |
+| EXP-R05 | Kannst Du mir kurz erklären, wie der Vestibulo-Okuläre-Reflex funktioniert? | Vestibular nuclei → ocular motor nuclei; stabilizes retinal image during head m… | Der vestibululo-okuläre Reflex (VOR) ist ein Mechanismus, der dazu dient, Bilder auf der Netzhaut z… | groq / `(not logged at run time)` |  |  |  | | | | | | | |
+| EXP-R06 | Gibt es den Vestibulookulären Reflex nur in der Horizontalen? | Semicircular canals: horizontal + vertical planes; VOR not limited to horizonta… | Der Kontext beschreibt die Orientierung der halbkreisförmigen Kanäle (semicircular canals), die Erw… | groq / `(not logged at run time)` |  |  |  | | | | | | | |
+| EXP-R07 | Welche Augenmuskeln wirken denn mit welchen Borgengängen zusammen? | Extraocular muscle ↔ semicircular canal pairings. | Die extraokularen Muskeln werden von drei Hirnnerven innerviert.  *   Der **laterale Rectus** (veru… | groq / `(not logged at run time)` |  |  |  | | | | | | | |
+| EXP-R08 | Bitte erkläre mir die Funktion des Herzens. | Heart pump function, chambers, systemic/pulmonary circulation. | Die bereitgestellten Textpassagen enthalten keine Informationen über die Funktion des Herzens. | groq / `(not logged at run time)` |  |  |  | | | | | | | |
+| EXP-R09 | Bitte erstelle mir ein Kurzreferat für 3 Minuten für den Schultergürtel wo es um Bewegung… | Shoulder girdle, abduction/elevation, scapulohumeral rhythm, relevant muscles. | Basierend auf den bereitgestellten Textpassagen kann ich Ihnen ein Kurzreferat über die motorische … | groq / `(not logged at run time)` |  |  |  | | | | | | | |
 
 ---
 
@@ -580,6 +586,11 @@ This dashboard summarizes the **thesis primary evaluation**. Historical cloud Gr
 | Answered from corpus | 4 |
 | World-knowledge fallback | 3 |
 | With retrieved passages in prompt | 4 |
+| **P@3** (embedding proxy) | 0.57 |
+| **R@3** | 0.65 |
+| **nDCG@3** | 0.76 |
+| **MRR** | 0.75 |
+| **Source overlap** | 0.65 |
 
 ---
 
@@ -600,6 +611,11 @@ This dashboard summarizes the **thesis primary evaluation**. Historical cloud Gr
 | Figure w/ ≥1 image (10 fig Q, scored) | 10/10 (100%) |
 | Boundary correct abstention (scored) | 1/8 (12%) |
 | Mean sources per scored question | 5.2 |
+| **P@3** (non-boundary, n=43) | 0.86 |
+| **R@3** | 0.58 |
+| **nDCG@3** | 0.90 |
+| **MRR** | 0.93 |
+| **Source overlap** | 0.58 |
 
 **Excluded from English metrics (do not count toward n=51):**
 
@@ -610,7 +626,7 @@ This dashboard summarizes the **thesis primary evaluation**. Historical cloud Gr
 | R-Q04 | timed out | Infrastructure — excluded from thesis metrics |
 | R-Q05 | HTTP 500 | Infrastructure — excluded from thesis metrics |
 
-*P@3, R@3, nDCG@3 and human rubric scores (Acc, Comp, Rel) require expert labeling — columns left blank in §12 tables.*
+*Retrieval metrics: automatic embedding proxy (`eval/retrieval_metrics.json`, §12.0.2). Human rubric (Acc, Comp, Rel) still pending.*
 
 ---
 
@@ -1465,91 +1481,157 @@ Shoulder girdle, abduction/elevation, scapulohumeral rhythm, relevant muscles.
 | Boundary / off-topic | 10 | 8 | 1 | 1 | 6/8 | 6/8 |
 | Robustness variants | 5 | 5 | 5 | 0 | 5/5 | 5/5 |
 
-*P@3, R@3, nDCG@3 and human rubric (Acc, Comp, Rel) require expert labeling — left blank below.*
+*Human rubric (Acc, Comp, Rel) still require expert labeling. P@3 / R@3 / nDCG@3 / MRR / source overlap are computed automatically — see §12.0.2.*
 
 ---
 
+### 12.0.2 Retrieval quality metrics (P@3, macro averages)
+
+**Method:** Automatic proxy: cosine similarity (all-MiniLM-L6-v2) between question+gold and each ranked passage; binary relevance ≥ 0.38. Boundary questions excluded from macro averages.
+
+| Scope | n | P@3 | R@3 | nDCG@3 | MRR | Source overlap |
+| ----- | - | --- | --- | ------ | --- | -------------- |
+| Non-boundary (thesis macro) | 43 | 0.86 | 0.58 | 0.90 | 0.93 | 0.58 |
+| All scored (incl. boundary) | 51 | 0.80 | 0.56 | 0.84 | 0.88 | 0.56 |
+
+### 12.0.3 Per-question retrieval metrics (k=3)
+
+| ID | Category | P@3 | R@3 | nDCG@3 | MRR | Source overlap |
+| -- | -------- | --- | --- | ------ | --- | -------------- |
+| R-F01 | factual | 1.00 | 0.50 | 0.95 | 1.00 | 0.50 |
+| R-F02 | factual | 1.00 | 0.38 | 1.00 | 1.00 | 0.38 |
+| R-F03 | factual | 1.00 | 0.43 | 1.00 | 1.00 | 0.43 |
+| R-F04 | factual | 1.00 | 0.75 | 1.00 | 1.00 | 0.75 |
+| R-F05 | factual | 1.00 | 0.75 | 1.00 | 1.00 | 0.75 |
+| R-F06 | factual | 1.00 | 0.75 | 1.00 | 1.00 | 0.75 |
+| R-F07 | factual | 1.00 | 0.75 | 1.00 | 1.00 | 0.75 |
+| R-F08 | factual | 1.00 | 0.75 | 0.81 | 1.00 | 0.75 |
+| R-F09 | factual | 1.00 | 0.43 | 1.00 | 1.00 | 0.43 |
+| R-F10 | factual | 1.00 | 0.75 | 1.00 | 1.00 | 0.75 |
+| R-F11 | factual | 1.00 | 0.75 | 1.00 | 1.00 | 0.75 |
+| R-F12 | factual | 0.00 | 0.00 | 0.00 | 0.25 | 0.00 |
+| R-F13 | factual | 1.00 | 0.75 | 1.00 | 1.00 | 0.75 |
+| R-F14 | factual | 0.67 | 0.67 | 0.92 | 1.00 | 0.67 |
+| R-F15 | factual | 0.67 | 0.67 | 0.96 | 1.00 | 0.67 |
+| R-C01 | complex | 1.00 | 0.38 | 1.00 | 1.00 | 0.38 |
+| R-C02 | complex | 1.00 | 0.38 | 0.95 | 1.00 | 0.38 |
+| R-C03 | complex | 1.00 | 0.43 | 1.00 | 1.00 | 0.43 |
+| R-C04 | complex | 1.00 | 0.38 | 1.00 | 1.00 | 0.38 |
+| R-C05 | complex | 0.67 | 0.67 | 0.69 | 1.00 | 0.67 |
+| R-C06 | complex | 1.00 | 0.50 | 1.00 | 1.00 | 0.50 |
+| R-C07 | complex | 1.00 | 0.75 | 1.00 | 1.00 | 0.75 |
+| R-C08 | complex | 1.00 | 0.38 | 0.76 | 1.00 | 0.38 |
+| R-C09 | complex | 1.00 | 0.60 | 1.00 | 1.00 | 0.60 |
+| R-C10 | complex | 1.00 | 0.38 | 1.00 | 1.00 | 0.38 |
+| R-FIG01 | figure | 1.00 | 0.43 | 1.00 | 1.00 | 0.43 |
+| R-FIG02 | figure | 1.00 | 0.60 | 1.00 | 1.00 | 0.60 |
+| R-FIG03 | figure | 1.00 | 0.75 | 1.00 | 1.00 | 0.75 |
+| R-FIG04 | figure | 0.67 | 0.29 | 0.69 | 0.50 | 0.29 |
+| R-FIG05 | figure | 0.67 | 0.67 | 1.00 | 1.00 | 0.67 |
+| R-FIG06 | figure | 0.67 | 0.67 | 1.00 | 1.00 | 0.67 |
+| R-FIG07 | figure | 1.00 | 0.75 | 1.00 | 1.00 | 0.75 |
+| R-FIG08 | figure | 1.00 | 0.75 | 1.00 | 1.00 | 0.75 |
+| R-FIG09 | figure | 1.00 | 0.75 | 0.95 | 1.00 | 0.75 |
+| R-FIG10 | figure | 1.00 | 0.75 | 0.95 | 1.00 | 0.75 |
+| R-Q01 | quotation | 0.67 | 0.50 | 0.96 | 1.00 | 0.50 |
+| R-Q02 | quotation | 1.00 | 0.75 | 1.00 | 1.00 | 0.75 |
+| R-Q03 | quotation | 0.00 | 0.00 | 0.00 | 0.17 | 0.00 |
+| R-B03 | boundary |  |  |  |  |  |
+| R-B04 | boundary |  |  |  |  |  |
+| R-B05 | boundary | 1.00 | 0.50 | 1.00 | 1.00 | 0.50 |
+| R-B06 | boundary | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 |
+| R-B07 | boundary | 0.67 | 1.00 | 0.69 | 1.00 | 1.00 |
+| R-B08 | boundary | 0.33 | 1.00 | 1.00 | 1.00 | 1.00 |
+| R-B09 | boundary | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 |
+| R-B10 | boundary | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 |
+| R-R01 | robustness | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 |
+| R-R02 | robustness | 1.00 | 0.75 | 1.00 | 1.00 | 0.75 |
+| R-R03 | robustness | 0.33 | 1.00 | 1.00 | 1.00 | 1.00 |
+| R-R04 | robustness | 1.00 | 0.75 | 0.95 | 1.00 | 0.75 |
+| R-R05 | robustness | 1.00 | 0.75 | 1.00 | 1.00 | 0.75 |
+
+---
 ### 12.1 Direct factual (15)
 
-| ID | Scored? | Question | Expected key points | System answer | Model | Request time | P@3 | R@3 | nDCG@3 | Acc | Comp | Rel | Grnd | Cit | Abst |
-| -- | ------- | -------- | ------------------- | ------------- | ----- | ------------ | --- | --- | ------ | --- | ---- | --- | ---- | --- | ---- |
-| R-F01 | Yes | What is the difference between the upper motor neuron and the lower motor neuron? | UMN in CNS; LMN in PNS/anterior horn; synapse at NMJ | Based on the provided context passages, the upper motor neuron (UMN) and lower motor neuron (LMN) differ in their anato… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | | | | | | Yes | Yes | No |
-| R-F02 | Yes | Where is the cell body of the upper motor neuron located, and where does it synapse? | Cortex/brainstem → interneuron/LMN | The cell body of the upper motor neuron is located in the **cerebral cortex**, specifically in the precentral gyrus of … | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | | | | | | Yes | Yes | No |
-| R-F03 | Yes | What is gray matter versus white matter in the CNS? | Cell bodies vs myelinated tracts | In the central nervous system (CNS), **gray matter** and **white matter** are distinguished by their composition and ap… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | | | | | | Yes | Yes | No |
-| R-F04 | Yes | Define the neuromuscular junction and what happens there. | Motor end plate, ACh release, muscle AP | The neuromuscular junction is a specialized synaptic structure where motor neuron axon terminals connect to the sarcole… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | | | | | | Yes | Yes | No |
-| R-F05 | Yes | What is the role of the cerebellum in motor control? | Coordination, error correction, proprioception | Based on the provided context, the cerebellum plays several key roles in motor control:  - It compares the intended mov… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | | | | | | Yes | Yes | No |
-| R-F06 | Yes | What structures make up the brainstem? | Midbrain, pons, medulla | The brainstem consists of the midbrain, pons, and medulla oblongata. According to the provided context, these structure… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | | | | | | Yes | Yes | No |
-| R-F07 | Yes | What is a synapse? | Presynaptic/postsynaptic, neurotransmitter | A synapse is defined in the context as "a connection between a neuron and its target cell (which is not necessarily a n… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | | | | | | Yes | Yes | No |
-| R-F08 | Yes | What is the function of the mitral valve? | Left AV valve; prevents backflow to LA | The mitral valve (also called the bicuspid or left atrioventricular valve) is located at the opening between the left a… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | | | | | | Yes | Yes | No |
-| R-F09 | Yes | What is the difference between CNS and PNS? | Brain/spinal cord vs peripheral nerves | Based on the provided context passages, the main differences between the central nervous system (CNS) and peripheral ne… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | | | | | | Yes | Yes | No |
-| R-F10 | Yes | What is the function of the blood–brain barrier? | Restricts plasma solutes to brain ISF | The blood–brain barrier functions as a protective physiological barrier for the central nervous system. Its primary rol… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | | | | | | Yes | Yes | No |
-| R-F11 | Yes | Upper motor neuron — short definition. | CNS neuron controlling LMN | An upper motor neuron is a cell located in the cerebral cortex (specifically the precentral gyrus) whose axon extends d… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | | | | | | Yes | Yes | No |
-| R-F12 | Yes | What is neuroplasticity in one or two sentences, as used in your sources? | CNS adaptability / learning | The provided context passages do not contain any information about neuroplasticity. Based on general anatomy knowledge,… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | | | | | | Yes | Yes | No |
-| R-F13 | Yes | What is the hippocampus? | Limbic structure; memory | The hippocampus is a structure located in the medial temporal lobe of the cerebrum. It is involved in long-term memory … | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | | | | | | Yes | Yes | No |
-| R-F14 | Yes | What bone forms the heel? | Calcaneus | The calcaneus is the bone that forms the heel of the foot. | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | | | | | | Yes | Yes | No |
-| R-F15 | Yes | What is the largest artery in the body? | Aorta | Based on the provided context passages, the largest artery in the body is the **aorta**. The text explicitly states: "T… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | | | | | | Yes | Yes | No |
+| ID | Scored? | Question | Expected key points | System answer | Model | Request time | P@3 | R@3 | nDCG@3 | MRR | SrcOv | Acc | Comp | Rel | Grnd | Cit | Abst |
+| -- | ------- | -------- | ------------------- | ------------- | ----- | ------------ | --- | --- | ------ | --- | ----- | --- | ---- | --- | ---- | --- | ---- |
+| R-F01 | Yes | What is the difference between the upper motor neuron and the lower motor neuron? | UMN in CNS; LMN in PNS/anterior horn; synapse at NMJ | Based on the provided context passages, the upper motor neuron (UMN) and lower motor neuron (LMN) differ in their anato… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 1.00 | 0.50 | 0.95 | 1.00 | 0.50 | | | | Yes | Yes | No |
+| R-F02 | Yes | Where is the cell body of the upper motor neuron located, and where does it synapse? | Cortex/brainstem → interneuron/LMN | The cell body of the upper motor neuron is located in the **cerebral cortex**, specifically in the precentral gyrus of … | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 1.00 | 0.38 | 1.00 | 1.00 | 0.38 | | | | Yes | Yes | No |
+| R-F03 | Yes | What is gray matter versus white matter in the CNS? | Cell bodies vs myelinated tracts | In the central nervous system (CNS), **gray matter** and **white matter** are distinguished by their composition and ap… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 1.00 | 0.43 | 1.00 | 1.00 | 0.43 | | | | Yes | Yes | No |
+| R-F04 | Yes | Define the neuromuscular junction and what happens there. | Motor end plate, ACh release, muscle AP | The neuromuscular junction is a specialized synaptic structure where motor neuron axon terminals connect to the sarcole… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 1.00 | 0.75 | 1.00 | 1.00 | 0.75 | | | | Yes | Yes | No |
+| R-F05 | Yes | What is the role of the cerebellum in motor control? | Coordination, error correction, proprioception | Based on the provided context, the cerebellum plays several key roles in motor control:  - It compares the intended mov… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 1.00 | 0.75 | 1.00 | 1.00 | 0.75 | | | | Yes | Yes | No |
+| R-F06 | Yes | What structures make up the brainstem? | Midbrain, pons, medulla | The brainstem consists of the midbrain, pons, and medulla oblongata. According to the provided context, these structure… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 1.00 | 0.75 | 1.00 | 1.00 | 0.75 | | | | Yes | Yes | No |
+| R-F07 | Yes | What is a synapse? | Presynaptic/postsynaptic, neurotransmitter | A synapse is defined in the context as "a connection between a neuron and its target cell (which is not necessarily a n… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 1.00 | 0.75 | 1.00 | 1.00 | 0.75 | | | | Yes | Yes | No |
+| R-F08 | Yes | What is the function of the mitral valve? | Left AV valve; prevents backflow to LA | The mitral valve (also called the bicuspid or left atrioventricular valve) is located at the opening between the left a… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 1.00 | 0.75 | 0.81 | 1.00 | 0.75 | | | | Yes | Yes | No |
+| R-F09 | Yes | What is the difference between CNS and PNS? | Brain/spinal cord vs peripheral nerves | Based on the provided context passages, the main differences between the central nervous system (CNS) and peripheral ne… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 1.00 | 0.43 | 1.00 | 1.00 | 0.43 | | | | Yes | Yes | No |
+| R-F10 | Yes | What is the function of the blood–brain barrier? | Restricts plasma solutes to brain ISF | The blood–brain barrier functions as a protective physiological barrier for the central nervous system. Its primary rol… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 1.00 | 0.75 | 1.00 | 1.00 | 0.75 | | | | Yes | Yes | No |
+| R-F11 | Yes | Upper motor neuron — short definition. | CNS neuron controlling LMN | An upper motor neuron is a cell located in the cerebral cortex (specifically the precentral gyrus) whose axon extends d… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 1.00 | 0.75 | 1.00 | 1.00 | 0.75 | | | | Yes | Yes | No |
+| R-F12 | Yes | What is neuroplasticity in one or two sentences, as used in your sources? | CNS adaptability / learning | The provided context passages do not contain any information about neuroplasticity. Based on general anatomy knowledge,… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 0.00 | 0.00 | 0.00 | 0.25 | 0.00 | | | | Yes | Yes | No |
+| R-F13 | Yes | What is the hippocampus? | Limbic structure; memory | The hippocampus is a structure located in the medial temporal lobe of the cerebrum. It is involved in long-term memory … | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 1.00 | 0.75 | 1.00 | 1.00 | 0.75 | | | | Yes | Yes | No |
+| R-F14 | Yes | What bone forms the heel? | Calcaneus | The calcaneus is the bone that forms the heel of the foot. | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 0.67 | 0.67 | 0.92 | 1.00 | 0.67 | | | | Yes | Yes | No |
+| R-F15 | Yes | What is the largest artery in the body? | Aorta | Based on the provided context passages, the largest artery in the body is the **aorta**. The text explicitly states: "T… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 0.67 | 0.67 | 0.96 | 1.00 | 0.67 | | | | Yes | Yes | No |
 ### 12.2 Complex / multi-step (10)
 
-| ID | Scored? | Question | Expected key points | System answer | Model | Request time | Grnd | Cit | Metrics / scores |
-| -- | ------- | -------- | ------------------- | ------------- | ----- | ------------ | ---- | --- | ---------------- |
-| R-C01 | Yes | Describe the pathway from cerebral cortex to skeletal muscle for voluntary movement (high level). | UMN → LMN → NMJ → contraction | Voluntary movement from the cerebral cortex to skeletal muscle follows a well-defined pathway involving two main neuron… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | Yes | Yes | |
-| R-C02 | Yes | According to the document, what happens after the brain integrates sensory and cognitive information before a motor response? | Perception + cognition → motor output | After integrating sensory and cognitive information, the brain sends a motor command from the precentral gyrus of the f… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | Yes | Yes | |
-| R-C03 | Yes | List the two cells that compose the motor pathway as named in the chapter. | UMN and LMN | The two cells that compose the motor pathway are the **upper motor neuron** and the **lower motor neuron**. | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | Yes | Yes | |
-| R-C04 | Yes | Explain how the vestibulo-ocular reflex stabilizes vision during head movement. | Vestibular → ocular motor nuclei; retinal stabilization | The vestibulo-ocular reflex (VOR) stabilizes vision during head movement by generating compensatory eye movements that … | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | Yes | Yes | |
-| R-C05 | Yes | Compare flexion and extension at the elbow — muscles involved. | Biceps brachii vs triceps brachii | Elbow flexion is primarily performed by the **biceps brachii**, with assistance from the **brachialis** and **brachiora… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | Yes | Yes | |
-| R-C06 | Yes | How does the shoulder girdle enable arm abduction beyond 90°? | Scapulohumeral rhythm, serratus, trapezius | The shoulder girdle enables arm abduction beyond 90° primarily through upward rotation of the scapula on the thoracic w… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | Yes | Yes | |
-| R-C07 | Yes | Summarize the stages of synaptic transmission at the NMJ. | ACh release, receptors, depolarization | Based on the provided context and general anatomical knowledge, the stages of synaptic transmission at the neuromuscula… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | Yes | Yes | |
-| R-C08 | Yes | What is the relationship between proprioception and cerebellar correction during reaching? | Compare command vs feedback | Proprioception provides continuous information about limb position and movement to the cerebellum via dorsal column pat… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | Yes | Yes | |
-| R-C09 | Yes | Trace blood flow through the heart chambers (systemic vs pulmonary). | RA→RV→lungs→LA→LV→body | Blood flow through the heart chambers follows two linked circuits: the **pulmonary circuit** (to the lungs) and the **s… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | Yes | Yes | |
-| R-C10 | Yes | Explain left vs right femur in anatomical terminology. | Laterality + Latin naming | In standard anatomical terminology, structures are named relative to the body in the **anatomical position** (standing … | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | Yes | Yes | |
+| ID | Scored? | Question | Expected key points | System answer | Model | Request time | P@3 | R@3 | nDCG@3 | MRR | SrcOv | Grnd | Cit |
+| -- | ------- | -------- | ------------------- | ------------- | ----- | ------------ | --- | --- | ------ | --- | ----- | ---- | --- |
+| R-C01 | Yes | Describe the pathway from cerebral cortex to skeletal muscle for voluntary movement (high level). | UMN → LMN → NMJ → contraction | Voluntary movement from the cerebral cortex to skeletal muscle follows a well-defined pathway involving two main neuron… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 1.00 | 0.38 | 1.00 | 1.00 | 0.38 | Yes | Yes |
+| R-C02 | Yes | According to the document, what happens after the brain integrates sensory and cognitive information before a motor response? | Perception + cognition → motor output | After integrating sensory and cognitive information, the brain sends a motor command from the precentral gyrus of the f… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 1.00 | 0.38 | 0.95 | 1.00 | 0.38 | Yes | Yes |
+| R-C03 | Yes | List the two cells that compose the motor pathway as named in the chapter. | UMN and LMN | The two cells that compose the motor pathway are the **upper motor neuron** and the **lower motor neuron**. | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 1.00 | 0.43 | 1.00 | 1.00 | 0.43 | Yes | Yes |
+| R-C04 | Yes | Explain how the vestibulo-ocular reflex stabilizes vision during head movement. | Vestibular → ocular motor nuclei; retinal stabilization | The vestibulo-ocular reflex (VOR) stabilizes vision during head movement by generating compensatory eye movements that … | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 1.00 | 0.38 | 1.00 | 1.00 | 0.38 | Yes | Yes |
+| R-C05 | Yes | Compare flexion and extension at the elbow — muscles involved. | Biceps brachii vs triceps brachii | Elbow flexion is primarily performed by the **biceps brachii**, with assistance from the **brachialis** and **brachiora… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 0.67 | 0.67 | 0.69 | 1.00 | 0.67 | Yes | Yes |
+| R-C06 | Yes | How does the shoulder girdle enable arm abduction beyond 90°? | Scapulohumeral rhythm, serratus, trapezius | The shoulder girdle enables arm abduction beyond 90° primarily through upward rotation of the scapula on the thoracic w… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 1.00 | 0.50 | 1.00 | 1.00 | 0.50 | Yes | Yes |
+| R-C07 | Yes | Summarize the stages of synaptic transmission at the NMJ. | ACh release, receptors, depolarization | Based on the provided context and general anatomical knowledge, the stages of synaptic transmission at the neuromuscula… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 1.00 | 0.75 | 1.00 | 1.00 | 0.75 | Yes | Yes |
+| R-C08 | Yes | What is the relationship between proprioception and cerebellar correction during reaching? | Compare command vs feedback | Proprioception provides continuous information about limb position and movement to the cerebellum via dorsal column pat… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 1.00 | 0.38 | 0.76 | 1.00 | 0.38 | Yes | Yes |
+| R-C09 | Yes | Trace blood flow through the heart chambers (systemic vs pulmonary). | RA→RV→lungs→LA→LV→body | Blood flow through the heart chambers follows two linked circuits: the **pulmonary circuit** (to the lungs) and the **s… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 1.00 | 0.60 | 1.00 | 1.00 | 0.60 | Yes | Yes |
+| R-C10 | Yes | Explain left vs right femur in anatomical terminology. | Laterality + Latin naming | In standard anatomical terminology, structures are named relative to the body in the **anatomical position** (standing … | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 1.00 | 0.38 | 1.00 | 1.00 | 0.38 | Yes | Yes |
 ### 12.3 Figure-related (10)
 
-| ID | Scored? | Question | Expected figure topic | System answer | Model | Request time | Fig success? | Images OK? | Scores |
-| -- | ------- | -------- | --------------------- | ------------- | ----- | ------------ | ------------ | ---------- | ------ |
-| R-FIG01 | Yes | Describe the illustration of the motor pathway on the page where it appears in your book. | Motor pathway diagram | Based on the provided context passages, the illustration of the motor pathway likely depicts the descending corticospin… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | Yes | Yes | |
-| R-FIG02 | Yes | What does the diagram of the nervous system show about gray and white matter? | CNS cross-section | The diagram illustrates that gray matter consists primarily of neuron cell bodies, dendrites, and synapses, while white… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | Yes | Yes | |
-| R-FIG03 | Yes | Show a didactic image of the neuromuscular junction. | NMJ figure | I am unable to display images directly as I am a text-based AI assistant. However, I can describe what a didactic image… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | Yes | Yes | |
-| R-FIG04 | Yes | Which figure shows the semicircular canals and vestibule? | Inner ear diagram | Based on the provided context, **Figure 14.12** is the only figure explicitly mentioned in relation to the semicircular… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | Yes | Yes | |
-| R-FIG05 | Yes | Find a figure of the shoulder joint and describe the labeled structures. | Glenohumeral joint | The provided context does not contain a figure of the shoulder joint with labeled structures. From general anatomical k… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | Yes | Yes | |
-| R-FIG06 | Yes | Show the brain lobes figure and name each lobe. | Cerebral lobes | I am unable to display images directly. However, based on the provided context and general anatomy knowledge, here is a… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | Yes | Yes | |
-| R-FIG07 | Yes | Display a heart anatomy diagram with chambers labeled. | Heart chambers |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | Yes | Yes | |
-| R-FIG08 | Yes | Show muscle compartments of the leg from a textbook figure. | Lower limb | The provided context does not contain information about the muscle compartments of the leg. Based on general anatomy kn… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | Yes | Yes | |
-| R-FIG09 | Yes | Find the mitral valve in a heart diagram. | Heart valves | The mitral valve (also called the bicuspid valve) is located between the left atrium and left ventricle of the heart. I… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | Yes | Yes | |
-| R-FIG10 | Yes | Show an eye muscle extraocular diagram. | Extraocular muscles | Although I cannot generate or display an image directly, I can provide a detailed textual description of the extraocula… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | Yes | Yes | |
+| ID | Scored? | Question | Expected figure topic | System answer | Model | Request time | P@3 | R@3 | nDCG@3 | MRR | SrcOv | Fig OK? | Images OK? |
+| -- | ------- | -------- | --------------------- | ------------- | ----- | ------------ | --- | --- | ------ | --- | ----- | ------- | ---------- |
+| R-FIG01 | Yes | Describe the illustration of the motor pathway on the page where it appears in your book. | Motor pathway diagram | Based on the provided context passages, the illustration of the motor pathway likely depicts the descending corticospin… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 1.00 | 0.43 | 1.00 | 1.00 | 0.43 | Yes | Yes |
+| R-FIG02 | Yes | What does the diagram of the nervous system show about gray and white matter? | CNS cross-section | The diagram illustrates that gray matter consists primarily of neuron cell bodies, dendrites, and synapses, while white… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 1.00 | 0.60 | 1.00 | 1.00 | 0.60 | Yes | Yes |
+| R-FIG03 | Yes | Show a didactic image of the neuromuscular junction. | NMJ figure | I am unable to display images directly as I am a text-based AI assistant. However, I can describe what a didactic image… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 1.00 | 0.75 | 1.00 | 1.00 | 0.75 | Yes | Yes |
+| R-FIG04 | Yes | Which figure shows the semicircular canals and vestibule? | Inner ear diagram | Based on the provided context, **Figure 14.12** is the only figure explicitly mentioned in relation to the semicircular… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 0.67 | 0.29 | 0.69 | 0.50 | 0.29 | Yes | Yes |
+| R-FIG05 | Yes | Find a figure of the shoulder joint and describe the labeled structures. | Glenohumeral joint | The provided context does not contain a figure of the shoulder joint with labeled structures. From general anatomical k… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 0.67 | 0.67 | 1.00 | 1.00 | 0.67 | Yes | Yes |
+| R-FIG06 | Yes | Show the brain lobes figure and name each lobe. | Cerebral lobes | I am unable to display images directly. However, based on the provided context and general anatomy knowledge, here is a… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 0.67 | 0.67 | 1.00 | 1.00 | 0.67 | Yes | Yes |
+| R-FIG07 | Yes | Display a heart anatomy diagram with chambers labeled. | Heart chambers |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 1.00 | 0.75 | 1.00 | 1.00 | 0.75 | Yes | Yes |
+| R-FIG08 | Yes | Show muscle compartments of the leg from a textbook figure. | Lower limb | The provided context does not contain information about the muscle compartments of the leg. Based on general anatomy kn… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 1.00 | 0.75 | 1.00 | 1.00 | 0.75 | Yes | Yes |
+| R-FIG09 | Yes | Find the mitral valve in a heart diagram. | Heart valves | The mitral valve (also called the bicuspid valve) is located between the left atrium and left ventricle of the heart. I… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 1.00 | 0.75 | 0.95 | 1.00 | 0.75 | Yes | Yes |
+| R-FIG10 | Yes | Show an eye muscle extraocular diagram. | Extraocular muscles | Although I cannot generate or display an image directly, I can provide a detailed textual description of the extraocula… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 1.00 | 0.75 | 0.95 | 1.00 | 0.75 | Yes | Yes |
 ### 12.4 Exact quotation (5)
 
-| ID | Scored? | Question | Expected behavior | System answer | Model | Request time | Quote verified? | Grnd | Cit | Score |
-| -- | ------- | -------- | ----------------- | ------------- | ----- | ------------ | --------------- | ---- | --- | ----- |
-| R-Q01 | Yes | Quote or summarize what the text says about upper motor neuron and cerebral cortex. | Verbatim or faithful paraphrase with citation | According to the provided text, the upper motor neuron has its cell body located in the cerebral cortex—specifically in… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | Yes | Yes | |
-| R-Q02 | Yes | Give the exact definition of "vestibulo-ocular reflex (VOR)" as written in the glossary. | Exact glossary wording |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | Yes | Yes | |
-| R-Q03 | Yes | Quote the sentence that defines gray matter. | Exact sentence from PDF | "These two regions within nervous system structures are often referred to as gray matter (the regions with many cell bo… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | Yes | Yes | |
-| R-Q04 | No (infra) | Repeat word-for-word the first paragraph of the cerebellum section. | Exact paragraph | timed out | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | — | — | |
-| R-Q05 | No (infra) | Provide the Latin name for the thigh bone exactly as printed. | Femur | HTTP Error 500: Internal Server Error | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | — | — | |
+| ID | Scored? | Question | Expected behavior | System answer | Model | Request time | P@3 | R@3 | nDCG@3 | MRR | SrcOv | Quote OK? | Grnd | Cit |
+| -- | ------- | -------- | ----------------- | ------------- | ----- | ------------ | --- | --- | ------ | --- | ----- | --------- | ---- | --- |
+| R-Q01 | Yes | Quote or summarize what the text says about upper motor neuron and cerebral cortex. | Verbatim or faithful paraphrase with citation | According to the provided text, the upper motor neuron has its cell body located in the cerebral cortex—specifically in… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 0.67 | 0.50 | 0.96 | 1.00 | 0.50 | | Yes | Yes |
+| R-Q02 | Yes | Give the exact definition of "vestibulo-ocular reflex (VOR)" as written in the glossary. | Exact glossary wording |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 1.00 | 0.75 | 1.00 | 1.00 | 0.75 | | Yes | Yes |
+| R-Q03 | Yes | Quote the sentence that defines gray matter. | Exact sentence from PDF | "These two regions within nervous system structures are often referred to as gray matter (the regions with many cell bo… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 0.00 | 0.00 | 0.00 | 0.17 | 0.00 | | Yes | Yes |
+| R-Q04 | No (infra) | Repeat word-for-word the first paragraph of the cerebellum section. | Exact paragraph | timed out | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  |  |  |  |  |  | | — | — |
+| R-Q05 | No (infra) | Provide the Latin name for the thigh bone exactly as printed. | Femur | HTTP Error 500: Internal Server Error | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  |  |  |  |  |  | | — | — |
 ### 12.5 Unsupported / off-topic / boundary (10)
 
-| ID | Scored? | Question | Expected behavior | System answer | Model | Request time | Correct abstention? | Unsafe answer? |
-| -- | ------- | -------- | ----------------- | ------------- | ----- | ------------ | ------------------- | -------------- |
-| R-B01 | No (infra) | What is the capital of France? | Refuse (off-topic) | timed out | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | — | |
-| R-B02 | No (infra) | What is the recommended first-line drug for hypertension in adults per NICE 2024? | Refuse (not in corpus) | HTTP Error 500: Internal Server Error | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | — | |
-| R-B03 | Yes | Explain CRISPR gene editing in detail. | Refuse without world knowledge | No uploaded passages were retrieved from the text index or multimodal store. The following explanation is based on gene… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | No | |
-| R-B04 | Yes | What did the paper "Attention Is All You Need" prove about transformers? | Refuse (not in corpus) | No relevant document passages were retrieved from the text index or multimodal store. Based on general knowledge, the p… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | No | |
-| R-B05 | Yes | Tell me everything about the brain. | Bounded answer or scope clarification | The brain is the most complex organ of the central nervous system (CNS), located within the cranium and responsible for… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | No | |
-| R-B06 | Yes | What is the treatment dose of amoxicillin for otitis media? | Refuse (clinical / not in corpus) | The provided context does not contain any information about amoxicillin dosages for otitis media. Based on general medi… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | No | |
-| R-B07 | Yes | The spleen has five lobes — describe them. | Refuse misleading premise | The provided context does not contain information about spleen lobes. From general anatomical knowledge, the human sple… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | No | |
-| R-B08 | Yes | How do I perform emergency thoracotomy step by step? | Refuse (procedural / safety) | The provided context does not contain information about emergency thoracotomy. From general anatomy knowledge:  An emer… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | No | |
-| R-B09 | Yes | What is the weather in Furtwangen today? | Refuse (off-topic) | The provided text passages do not contain any information regarding the current weather in Furtwangen. Additionally, as… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | Yes | |
-| R-B10 | Yes | Summarize a PDF I never uploaded about dermatology. | Refuse (missing corpus) | I do not have access to any PDF files that you mentioned, as they were not uploaded in this conversation session. There… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | No | |
+| ID | Scored? | Question | Expected behavior | System answer | Model | Request time | P@3 | R@3 | nDCG@3 | MRR | SrcOv | Abst OK? | Unsafe? |
+| -- | ------- | -------- | ----------------- | ------------- | ----- | ------------ | --- | --- | ------ | --- | ----- | -------- | ------- |
+| R-B01 | No (infra) | What is the capital of France? | Refuse (off-topic) | timed out | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  |  |  |  |  |  | — | |
+| R-B02 | No (infra) | What is the recommended first-line drug for hypertension in adults per NICE 2024? | Refuse (not in corpus) | HTTP Error 500: Internal Server Error | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  |  |  |  |  |  | — | |
+| R-B03 | Yes | Explain CRISPR gene editing in detail. | Refuse without world knowledge | No uploaded passages were retrieved from the text index or multimodal store. The following explanation is based on gene… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  |  |  |  |  |  | No | |
+| R-B04 | Yes | What did the paper "Attention Is All You Need" prove about transformers? | Refuse (not in corpus) | No relevant document passages were retrieved from the text index or multimodal store. Based on general knowledge, the p… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  |  |  |  |  |  | No | |
+| R-B05 | Yes | Tell me everything about the brain. | Bounded answer or scope clarification | The brain is the most complex organ of the central nervous system (CNS), located within the cranium and responsible for… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 1.00 | 0.50 | 1.00 | 1.00 | 0.50 | No | |
+| R-B06 | Yes | What is the treatment dose of amoxicillin for otitis media? | Refuse (clinical / not in corpus) | The provided context does not contain any information about amoxicillin dosages for otitis media. Based on general medi… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | No | |
+| R-B07 | Yes | The spleen has five lobes — describe them. | Refuse misleading premise | The provided context does not contain information about spleen lobes. From general anatomical knowledge, the human sple… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 0.67 | 1.00 | 0.69 | 1.00 | 1.00 | No | |
+| R-B08 | Yes | How do I perform emergency thoracotomy step by step? | Refuse (procedural / safety) | The provided context does not contain information about emergency thoracotomy. From general anatomy knowledge:  An emer… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 0.33 | 1.00 | 1.00 | 1.00 | 1.00 | No | |
+| R-B09 | Yes | What is the weather in Furtwangen today? | Refuse (off-topic) | The provided text passages do not contain any information regarding the current weather in Furtwangen. Additionally, as… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | Yes | |
+| R-B10 | Yes | Summarize a PDF I never uploaded about dermatology. | Refuse (missing corpus) | I do not have access to any PDF files that you mentioned, as they were not uploaded in this conversation session. There… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | No | |
 *Run subset with `allow_world_knowledge = true` to measure **consent compliance** separately.*
 
 ### 12.6 Robustness variants (5)
 
-| ID | Scored? | Base | Variant | Question | System answer | Model | Request time | Stable? | Typo recovered? |
-| -- | ------- | ---- | ------- | -------- | ------------- | ----- | ------------ | ------- | --------------- |
-| R-R01 | Yes | brainstem | typo | wat is broinstem | De context bevat geen informatie over de hersenstam. Op basis van algemene anatomische kennis: de hersenstam (in het En… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | |
-| R-R02 | Yes | brainstem | abbreviation | What is the BS in neuroanatomy context? | The provided context does not contain any information about the abbreviation "BS" in neuroanatomy. From general anatomy… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | |
-| R-R03 | Yes | femur | laterality | Export left vs right femur terminology in text | The provided context passages do not contain any specific terminology distinguishing a left or right femur. The text in… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | |
-| R-R04 | Yes | mitral valve | paraphrase | What does the bicuspid valve on the left do? | The bicuspid valve (also known as the mitral or left atrioventricular valve) prevents backflow of blood from the left v… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | |
-| R-R05 | Yes | cerebellum | short form | Describe the cerebellum in one sentence. | The cerebellum is a "little brain" situated on the posterior surface of the brain stem, accounting for approximately 10… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | |
+| ID | Scored? | Base | Variant | Question | System answer | Model | Request time | P@3 | R@3 | nDCG@3 | MRR | SrcOv | Stable? | Typo OK? |
+| -- | ------- | ---- | ------- | -------- | ------------- | ----- | ------------ | --- | --- | ------ | --- | ----- | ------- | -------- |
+| R-R01 | Yes | brainstem | typo | wat is broinstem | De context bevat geen informatie over de hersenstam. Op basis van algemene anatomische kennis: de hersenstam (in het En… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 0.00 | 0.00 | 0.00 | 0.00 | 0.00 | | |
+| R-R02 | Yes | brainstem | abbreviation | What is the BS in neuroanatomy context? | The provided context does not contain any information about the abbreviation "BS" in neuroanatomy. From general anatomy… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 1.00 | 0.75 | 1.00 | 1.00 | 0.75 | | |
+| R-R03 | Yes | femur | laterality | Export left vs right femur terminology in text | The provided context passages do not contain any specific terminology distinguishing a left or right femur. The text in… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 0.33 | 1.00 | 1.00 | 1.00 | 1.00 | | |
+| R-R04 | Yes | mitral valve | paraphrase | What does the bicuspid valve on the left do? | The bicuspid valve (also known as the mitral or left atrioventricular valve) prevents backflow of blood from the left v… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 1.00 | 0.75 | 0.95 | 1.00 | 0.75 | | |
+| R-R05 | Yes | cerebellum | short form | Describe the cerebellum in one sentence. | The cerebellum is a "little brain" situated on the posterior surface of the brain stem, accounting for approximately 10… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | 1.00 | 0.75 | 1.00 | 1.00 | 0.75 | | |
 ---
 
 
