@@ -1347,9 +1347,9 @@ Shoulder girdle, abduction/elevation, scapulohumeral rhythm, relevant muscles.
 ## 12. Final RAG evaluation workbook (Q&A)
 
 **Status:** Populated from local LM Studio batch run (`eval/rag_eval_55_results.json`).  
-**Run timestamp (UTC):** 2026-07-12T10:55:57.770289+00:00  
+**Run timestamp (UTC):** 2026-07-12T12:58:40.586282+00:00  
 **Endpoint:** `POST /rag/ask` (`language=en`, `allow_world_knowledge=false`)  
-**Summary:** 19/55 answered · 0 abstained · 0 errors · 36 pending  
+**Summary:** 37/55 answered · 0 abstained · 0 errors · 18 pending  
 **Request latency:** not recorded for this run (re-run batch to capture per-question timing)  
 **Professor German set:** fully populated in **§10** (cloud exploratory) and **§11** (LM Studio).
 
@@ -1396,31 +1396,31 @@ Shoulder girdle, abduction/elevation, scapulohumeral rhythm, relevant muscles.
 | R-C02 | According to the document, what happens after the brain integrates sensory and cognitive information before a motor response? | Perception + cognition → motor output | After integrating sensory and cognitive information, the brain sends a motor command from the precentral gyrus of the f… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |
 | R-C03 | List the two cells that compose the motor pathway as named in the chapter. | UMN and LMN | The two cells that compose the motor pathway are the **upper motor neuron** and the **lower motor neuron**. | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |
 | R-C04 | Explain how the vestibulo-ocular reflex stabilizes vision during head movement. | Vestibular → ocular motor nuclei; retinal stabilization | The vestibulo-ocular reflex (VOR) stabilizes vision during head movement by generating compensatory eye movements that … | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |
-| R-C05 | Compare flexion and extension at the elbow — muscles involved. | Biceps brachii vs triceps brachii |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |
-| R-C06 | How does the shoulder girdle enable arm abduction beyond 90°? | Scapulohumeral rhythm, serratus, trapezius |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |
-| R-C07 | Summarize the stages of synaptic transmission at the NMJ. | ACh release, receptors, depolarization |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |
-| R-C08 | What is the relationship between proprioception and cerebellar correction during reaching? | Compare command vs feedback |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |
-| R-C09 | Trace blood flow through the heart chambers (systemic vs pulmonary). | RA→RV→lungs→LA→LV→body |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |
-| R-C10 | Explain left vs right femur in anatomical terminology. | Laterality + Latin naming |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |
+| R-C05 | Compare flexion and extension at the elbow — muscles involved. | Biceps brachii vs triceps brachii | Elbow flexion is primarily performed by the **biceps brachii**, with assistance from the **brachialis** and **brachiora… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |
+| R-C06 | How does the shoulder girdle enable arm abduction beyond 90°? | Scapulohumeral rhythm, serratus, trapezius | The shoulder girdle enables arm abduction beyond 90° primarily through upward rotation of the scapula on the thoracic w… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |
+| R-C07 | Summarize the stages of synaptic transmission at the NMJ. | ACh release, receptors, depolarization | Based on the provided context and general anatomical knowledge, the stages of synaptic transmission at the neuromuscula… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |
+| R-C08 | What is the relationship between proprioception and cerebellar correction during reaching? | Compare command vs feedback | Proprioception provides continuous information about limb position and movement to the cerebellum via dorsal column pat… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |
+| R-C09 | Trace blood flow through the heart chambers (systemic vs pulmonary). | RA→RV→lungs→LA→LV→body | Blood flow through the heart chambers follows two linked circuits: the **pulmonary circuit** (to the lungs) and the **s… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |
+| R-C10 | Explain left vs right femur in anatomical terminology. | Laterality + Latin naming | In standard anatomical terminology, structures are named relative to the body in the **anatomical position** (standing … | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |
 ### 12.3 Figure-related (10)
 
 | ID | Question | Expected figure topic | System answer | Model | Request time | Fig success? | Images OK? | Scores |
 | -- | -------- | --------------------- | ------------- | ----- | ------------ | ------------ | ---------- | ------ |
-| R-FIG01 | Describe the illustration of the motor pathway on the page where it appears in your book. | Motor pathway diagram |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |  | |
-| R-FIG02 | What does the diagram of the nervous system show about gray and white matter? | CNS cross-section |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |  | |
-| R-FIG03 | Show a didactic image of the neuromuscular junction. | NMJ figure |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |  | |
-| R-FIG04 | Which figure shows the semicircular canals and vestibule? | Inner ear diagram |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |  | |
-| R-FIG05 | Find a figure of the shoulder joint and describe the labeled structures. | Glenohumeral joint |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |  | |
-| R-FIG06 | Show the brain lobes figure and name each lobe. | Cerebral lobes |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |  | |
-| R-FIG07 | Display a heart anatomy diagram with chambers labeled. | Heart chambers |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |  | |
-| R-FIG08 | Show muscle compartments of the leg from a textbook figure. | Lower limb |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |  | |
-| R-FIG09 | Find the mitral valve in a heart diagram. | Heart valves |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |  | |
-| R-FIG10 | Show an eye muscle extraocular diagram. | Extraocular muscles |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | |  | |
+| R-FIG01 | Describe the illustration of the motor pathway on the page where it appears in your book. | Motor pathway diagram | Based on the provided context passages, the illustration of the motor pathway likely depicts the descending corticospin… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | Yes | |
+| R-FIG02 | What does the diagram of the nervous system show about gray and white matter? | CNS cross-section | The diagram illustrates that gray matter consists primarily of neuron cell bodies, dendrites, and synapses, while white… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | Yes | |
+| R-FIG03 | Show a didactic image of the neuromuscular junction. | NMJ figure | I am unable to display images directly as I am a text-based AI assistant. However, I can describe what a didactic image… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | Yes | |
+| R-FIG04 | Which figure shows the semicircular canals and vestibule? | Inner ear diagram | Based on the provided context, **Figure 14.12** is the only figure explicitly mentioned in relation to the semicircular… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | Yes | |
+| R-FIG05 | Find a figure of the shoulder joint and describe the labeled structures. | Glenohumeral joint | The provided context does not contain a figure of the shoulder joint with labeled structures. From general anatomical k… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | Yes | |
+| R-FIG06 | Show the brain lobes figure and name each lobe. | Cerebral lobes | I am unable to display images directly. However, based on the provided context and general anatomy knowledge, here is a… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | Yes | |
+| R-FIG07 | Display a heart anatomy diagram with chambers labeled. | Heart chambers |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | Yes | |
+| R-FIG08 | Show muscle compartments of the leg from a textbook figure. | Lower limb | The provided context does not contain information about the muscle compartments of the leg. Based on general anatomy kn… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | Yes | |
+| R-FIG09 | Find the mitral valve in a heart diagram. | Heart valves | The mitral valve (also called the bicuspid valve) is located between the left atrium and left ventricle of the heart. I… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | Yes | |
+| R-FIG10 | Show an eye muscle extraocular diagram. | Extraocular muscles | Although I cannot generate or display an image directly, I can provide a detailed textual description of the extraocula… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | Yes | |
 ### 12.4 Exact quotation (5)
 
 | ID | Question | Expected behavior | System answer | Model | Request time | Quote verified? | Score |
 | -- | -------- | ----------------- | ------------- | ----- | ------------ | --------------- | ----- |
-| R-Q01 | Quote or summarize what the text says about upper motor neuron and cerebral cortex. | Verbatim or faithful paraphrase with citation |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | |
+| R-Q01 | Quote or summarize what the text says about upper motor neuron and cerebral cortex. | Verbatim or faithful paraphrase with citation | According to the provided text, the upper motor neuron has its cell body located in the cerebral cortex—specifically in… | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | |
 | R-Q02 | Give the exact definition of "vestibulo-ocular reflex (VOR)" as written in the glossary. | Exact glossary wording |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | |
 | R-Q03 | Quote the sentence that defines gray matter. | Exact sentence from PDF |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | |
 | R-Q04 | Repeat word-for-word the first paragraph of the cerebellum section. | Exact paragraph |  | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |  | | |
@@ -2332,6 +2332,881 @@ The VOR is a fast, automatic reflex that allows for stable vision during dynamic
 **Grounding metadata:**  
 - **had_retrieved_passages_in_prompt:** True
 - **unique_text_passages_used:** 8
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-C05 — Compare flexion and extension at the elbow — muscles involved.
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-C05 |
+| **Category** | complex |
+| **Outcome** | Answered |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
+| **Request time** | n/a |
+
+**Question:**  
+Compare flexion and extension at the elbow — muscles involved.
+
+**Expected key points (gold):**  
+Biceps brachii vs triceps brachii
+
+**System answer:**  
+
+
+Elbow flexion is primarily performed by the **biceps brachii**, with assistance from the **brachialis** and **brachioradialis**. Elbow extension is primarily performed by the **triceps brachii**, assisted by the **anconeus**. These muscle groups act as antagonists to each other, allowing controlled movement of the forearm.
+
+**Sources:**  
+1. **anatomy+phys+vol2a.pdf** p.212 — Figure 16.11 Muscles Controlled by the Accessory Nerve The accessory nerve innervates the sternocleidomastoid and trapezius muscles, both of which attach to the head and to the trunk and shoulders. They can act as antagonists in head flexion and extension, and as synergists in la…
+2. **anatomy+phys+vol2a.pdf** p.108 — potential, which travels along the sensory fiber from the skin, through the dorsal spinal root to the spinal cord, and directly activates a ventral horn motor neuron. That neuron sends a signal along its axon to excite the biceps brachii, causing contraction of the muscle and fle…
+3. **anatomy+phys+vol2a.pdf** p.220 — position. The extension of the arms is an ongoing motor process, and the tap or push on the arms presents a change in the proprioceptive feedback. The cerebellum compares the cerebral motor command with the proprioceptive feedback and adjusts the descending input to correct. The …
+4. **anatomy+phys+vol2a.pdf** p.145 — tibialis anterior muscle. This causes dorsiflexion of the foot. An inhibitory interneuron, activated by a collateral branch of the nociceptor fiber, will inhibit the motor neurons of the gastrocnemius and soleus muscles to cancel plantar flexion. An important difference in this r…
+5. **anatomy+phys+vol2a.pdf** p.432 — arm in the region of the elbow; bifurcates into the radial and ulnar arteries at the coronoid fossa Radial artery Formed at the bifurcation of the brachial artery; parallels the radius; gives off smaller branches until it reaches the carpal region where it fuses with the ulnar ar…
+6. **anatomy+phys+vol2a.pdf** p.217 — The reflexes that are tested in the neurological exam are classified into two groups. A deep tendon reflex is commonly known as a stretch reflex, and is elicited by a strong tap to a tendon, such as in the knee-jerk reflex. A superficial reflex is elicited through gentle stimulat…
+7. **anatomy+phys+vol2a.pdf** p.430 — supplies blood to much of the brachial region and divides at the elbow into several smaller branches, including the deep brachial arteries, which provide blood to the posterior surface of the arm, and the ulnar collateral arteries, which supply blood to the region of the elbow. A…
+8. **anatomy+phys+vol2a.pdf** p.216 — to skeletal muscle and cause contraction. These two cells are termed the upper motor neuron (UMN) and the lower motor neuron (LMN). Voluntary movements require these two cells to be active. The motor exam tests the function of these neurons and the muscles they control. First, th…
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_213_img_0.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_169_img_0.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_447_img_0.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 8
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-C06 — How does the shoulder girdle enable arm abduction beyond 90°?
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-C06 |
+| **Category** | complex |
+| **Outcome** | Answered |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
+| **Request time** | n/a |
+
+**Question:**  
+How does the shoulder girdle enable arm abduction beyond 90°?
+
+**Expected key points (gold):**  
+Scapulohumeral rhythm, serratus, trapezius
+
+**System answer:**  
+
+
+The shoulder girdle enables arm abduction beyond 90° primarily through upward rotation of the scapula on the thoracic wall. While the glenohumeral joint allows abduction up to approximately 90°, further movement requires the scapula to rotate upward, bringing its glenoid cavity into a more superior position relative to the humerus. This rotation is facilitated by muscles such as the trapezius, which has lateral insertions on both the clavicle and scapula (as noted in the context) and receives motor input from spinal nerves. The trapezius elevates and rotates the scapula, working with other muscles like the serratus anterior to allow continued abduction beyond 90°.
+
+**Sources:**  
+1. **anatomy+phys+vol2a.pdf** p.211 — cervical spinal nerves. Along with the spinal accessory nerve, these nerves contribute to elevating the scapula and clavicle through the trapezius, which is tested by asking the patient to shrug both shoulders, and watching for asymmetry. For the sternocleidomastoid, those spinal…
+2. **anatomy+phys+vol2a.pdf** p.220 — position. The extension of the arms is an ongoing motor process, and the tap or push on the arms presents a change in the proprioceptive feedback. The cerebellum compares the cerebral motor command with the proprioceptive feedback and adjusts the descending input to correct. The …
+3. **anatomy+phys+vol2a.pdf** p.519 — angle of the rib, 272, 275 anion, 54, 80 ankle joint, 311, 316 annular ligament, 354, 366 anosmia, 567, 600 antagonist, 416, 456, 635, 639 Anterior, 31 anterior, 39 anterior (ventral) sacral foramen, 267, 275 anterior arch, 265, 275 anterior border of the tibia, 310, 316 anterior…
+4. **anatomy+phys+vol2a.pdf** p.108 — potential, which travels along the sensory fiber from the skin, through the dorsal spinal root to the spinal cord, and directly activates a ventral horn motor neuron. That neuron sends a signal along its axon to excite the biceps brachii, causing contraction of the muscle and fle…
+5. **anatomy+phys+vol2a.pdf** p.212 — Figure 16.11 Muscles Controlled by the Accessory Nerve The accessory nerve innervates the sternocleidomastoid and trapezius muscles, both of which attach to the head and to the trunk and shoulders. They can act as antagonists in head flexion and extension, and as synergists in la…
+6. **anatomy+phys+vol2a.pdf** p.430 — supplies blood to much of the brachial region and divides at the elbow into several smaller branches, including the deep brachial arteries, which provide blood to the posterior surface of the arm, and the ulnar collateral arteries, which supply blood to the region of the elbow. A…
+7. **anatomy+phys+vol2a.pdf** p.442 — leads to the brachial vein Brachial vein Deeper vein of the arm that forms from the radial and ulnar veins in the lower arm; leads to the axillary vein Median antebrachial vein Vein that parallels the ulnar vein but is more medial in location; intertwines with the palmar venous a…
+8. **anatomy+phys+vol2a.pdf** p.217 — The reflexes that are tested in the neurological exam are classified into two groups. A deep tendon reflex is commonly known as a stretch reflex, and is elicited by a strong tap to a tendon, such as in the knee-jerk reflex. A superficial reflex is elicited through gentle stimulat…
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_213_img_0.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_143_img_0.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_437_img_0.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 8
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-C07 — Summarize the stages of synaptic transmission at the NMJ.
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-C07 |
+| **Category** | complex |
+| **Outcome** | Answered (world knowledge) |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
+| **Request time** | n/a |
+
+**Question:**  
+Summarize the stages of synaptic transmission at the NMJ.
+
+**Expected key points (gold):**  
+ACh release, receptors, depolarization
+
+**System answer:**  
+
+
+Based on the provided context and general anatomical knowledge, the stages of synaptic transmission at the neuromuscular junction (NMJ) are as follows:
+
+1. **Arrival of an action potential** – An electrical signal reaches the motor neuron’s axon terminals (presynaptic element).  
+2. **Neurotransmitter release** – The depolarization triggers vesicle fusion with the presynaptic membrane, releasing acetylcholine into the synaptic cleft via exocytosis.  
+3. **Diffusion across the cleft** – Acetylcholine diffuses through the synaptic cleft (the space between cells).  
+4. **Receptor binding** – Acetylcholine binds to nicotinic acetylcholine receptors on the sarcolemma of the muscle cell (postsynaptic element).  
+5. **Ion channel opening and depolarization** – Binding opens ligand-gated ion channels, allowing cations to flow into the muscle fiber, causing rapid depolarization of the sarcolemma.  
+6. **Muscle contraction initiation** – This depolarization triggers an action potential in the muscle fiber, leading to muscle contraction with every nerve impulse received.  
+7. **Termination of signal** – Acetylcholine is removed from the synaptic cleft primarily by enzymatic degradation (acetylcholinesterase), ensuring the signal ends and the synapse resets for the next transmission.
+
+**Sources:**  
+1. **anatomy+phys+vol2a.pdf** p.43 — the next. If one cell is depolarized in an electrical synapse, the joined cell also depolarizes because the ions pass between the cells. Chemical synapses involve the transmission of chemical information from one cell to the next. This section will concentrate on the chemical typ…
+2. **anatomy+phys+vol2a-30-60.pdf** p.14 — • neurotransmitter (packaged in vesicles) • synaptic cleft • receptor proteins • postsynaptic element • neurotransmitter elimination or re-uptake For the NMJ, these characteristics are as follows: the presynaptic element is the motor neuron's axon terminals, the neurotransmitter …
+3. **anatomy+phys+vol2a-30-60.pdf** p.15 — cause vesicle fusion and neurotransmitter release. The neurotransmitter diffuses across the synaptic cleft to bind to its receptor. The neurotransmitter is cleared from the synapse either by enzymatic degradation, neuronal reuptake, or glial reuptake. Neurotransmitter Systems The…
+4. **anatomy+phys+vol2a.pdf** p.144 — Motor neuron axons connect to muscle fibers at a neuromuscular junction. This is a specialized synaptic structure at which multiple axon terminals synapse with the muscle fiber sarcolemma. The synaptic end bulbs of the motor neurons secrete acetylcholine, which binds to receptors…
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a-30-60_page_7_img_0.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_36_img_0.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a-30-60_page_7_img_1.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 4
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-C08 — What is the relationship between proprioception and cerebellar correctio…
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-C08 |
+| **Category** | complex |
+| **Outcome** | Answered |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
+| **Request time** | n/a |
+
+**Question:**  
+What is the relationship between proprioception and cerebellar correction during reaching?
+
+**Expected key points (gold):**  
+Compare command vs feedback
+
+**System answer:**  
+
+
+Proprioception provides continuous information about limb position and movement to the cerebellum via dorsal column pathways. The cerebellum compares this sensory feedback with the intended motor commands from the cerebrum. During reaching, any mismatch between the planned movement and actual performance (detected through proprioceptive input) triggers corrective signals from the cerebellum to the spinal cord, adjusting muscle activity to refine the movement. This comparison and correction mechanism is essential for coordinated voluntary movements like reaching.
+
+**Sources:**  
+1. **anatomy+phys+vol2a.pdf** p.218 — 16.5 | The Coordination and Gait Exams By the end of this section, you will be able to: • Explain the relationship between the location of the cerebellum and its function in movement • Chart the major divisions of the cerebellum • List the major connections of the cerebellum • De…
+2. **anatomy+phys+vol2a.pdf** p.221 — places the heel of one foot against the toe of the other foot and walks in a straight line in that manner. Walking only on the heels or only on the toes will test additional aspects of balance. Ataxia A movement disorder of the cerebellum is referred to as ataxia. It presents as …
+3. **anatomy+phys+vol2a.pdf** p.143 — in contributing to the motor system because it compares cerebral motor commands with proprioceptive feedback. The corticospinal fibers that project to the ventral horn of the spinal cord have branches that also synapse in the pons, which project to the cerebellum. Also, the propr…
+4. **anatomy+phys+vol2a.pdf** p.75 — and sensations of balance are sent to the cerebellum through the inferior olive and the cerebellum compares them. If walking is not coordinated, perhaps because the ground is uneven or a strong wind is blowing, then the cerebellum sends out a corrective command to compensate for …
+5. **anatomy+phys+vol2a.pdf** p.226 — through the middle cerebellar peduncles. Ascending sensory feedback, entering through the inferior cerebellar peduncles, provides information about motor performance. The cerebellar cortex compares the command to the actual performance and can adjust the descending input to compe…
+6. **anatomy+phys+vol2a.pdf** p.220 — cerebrum, as well as sensory input from somatic, visual, and vestibular senses, are important to cerebellar function. The subtests that address appendicular musculature, and therefore the lateral regions of the cerebellum, begin with a check for tremor. The patient extends their …
+7. **anatomy+phys+vol2a.pdf** p.224 — stretch reflex of the masseter muscle principle that circumscribed anatomical locations are responsible for specific functions in an organ system fiber pathway that connects structures involved in the control of eye and head position, from the superior colliculus to the vestibula…
+8. **anatomy+phys+vol2a.pdf** p.229 — b. superior cerebellar peduncle c. middle cerebellar peduncle d. inferior cerebellar peduncle 30. Which region of the cerebellum receives proprioceptive input from the spinal cord? a. vermis b. left hemisphere c. flocculonodular lobe d. right hemisphere 31. Which of the following…
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_68_img_0.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_84_img_0.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_169_img_0.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 8
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-C09 — Trace blood flow through the heart chambers (systemic vs pulmonary).
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-C09 |
+| **Category** | complex |
+| **Outcome** | Answered |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
+| **Request time** | n/a |
+
+**Question:**  
+Trace blood flow through the heart chambers (systemic vs pulmonary).
+
+**Expected key points (gold):**  
+RA→RV→lungs→LA→LV→body
+
+**System answer:**  
+
+
+Blood flow through the heart chambers follows two linked circuits: the **pulmonary circuit** (to the lungs) and the **systemic circuit** (to the body). Here is the path of blood through each chamber, starting from where it returns to the heart:
+
+1. **Right Atrium** – Receives deoxygenated blood from the systemic veins (e.g., superior and inferior vena cava). This blood has delivered oxygen to tissues and picked up carbon dioxide.  
+2. **Tricuspid Valve** – Allows blood to flow from the right atrium into the right ventricle; prevents backflow.  
+3. **Right Ventricle** – Contracts to pump deoxygenated blood into the pulmonary trunk, which leads toward the lungs (pulmonary circuit).  
+4. **Pulmonary Arteries** – Carry blood to the lungs for gas exchange (carbon dioxide is released, oxygen is picked up).  
+5. **Pulmonary Veins** – Return oxygen‑rich blood from the lungs directly to the left atrium.  
+6. **Left Atrium** – Receives this oxygenated blood and passes it through the mitral valve into the left ventricle.  
+7. **Mitral Valve** – Prevents backflow from the left ventricle to the left atrium.  
+8. **Left Ventricle** – The most muscular chamber; contracts to pump oxygenated blood into the aorta, which distributes it throughout the body (systemic circuit).  
+9. **Aorta and Systemic Arteries** – Deliver oxygen to all tissues; deoxygenated blood returns via systemic veins back to the right atrium, completing the cycle.
+
+The heart’s internal partitions (**septa**) separate the chambers so that oxygen‑poor and oxygen‑rich blood do not mix. The **atrioventricular valves** (tricuspid and mitral) ensure one‑way flow through each circuit.
+
+**Sources:**  
+1. **anatomy+phys+vol2a.pdf** p.417 — thoracic cavity, outside of the lungs, which interferes with venous return, pulmonary function, and delivery of oxygen to the tissues. 20.5 | Circulatory Pathways By the end of this section, you will be able to: • Identify the vessels through which blood travels within the pulmon…
+2. **anatomy+phys+vol2a.pdf** p.327 — chambers of the heart, propelling blood to the lungs or to the rest of the body. There are two distinct but linked circuits in the human circulation called the pulmonary and systemic circuits. Although both circuits transport blood and everything it carries, we can initially view…
+3. **anatomy+phys+vol2a.pdf** p.324 — • Identify the tissue layers of the heart • Relate the structure of the heart to its function as a pump • Compare systemic circulation to pulmonary circulation • Identify the veins and arteries of the coronary circulation system • Trace the pathway of oxygenated and deoxygenated …
+4. **anatomy+phys+vol2a.pdf** p.385 — Figure 20.2 Cardiovascular Circulation The pulmonary circuit moves blood from the right side of the heart to the lungs and back to the heart. The systemic circuit moves blood from the left side of the heart to the head and body and returns it to the right side of the heart to rep…
+5. **anatomy+phys+vol2a.pdf** p.379 — The right atrium receives systemic blood relatively low in oxygen and pumps it into the right ventricle, which pumps it into the pulmonary circuit. Exchange of oxygen and carbon dioxide occurs in the lungs, and blood high in oxygen returns to the left atrium, which pumps blood in…
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_421_img_0.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_348_img_0.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_329_img_0.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 5
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-C10 — Explain left vs right femur in anatomical terminology.
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-C10 |
+| **Category** | complex |
+| **Outcome** | Answered (world knowledge) |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
+| **Request time** | n/a |
+
+**Question:**  
+Explain left vs right femur in anatomical terminology.
+
+**Expected key points (gold):**  
+Laterality + Latin naming
+
+**System answer:**  
+
+
+In standard anatomical terminology, structures are named relative to the body in the **anatomical position** (standing upright, facing forward). The **left femur** refers to the thigh bone on the left side of the patient’s body, and the **right femur** refers to the one on the right side. This is always from the **patient’s perspective**, not the observer’s. When describing a specific bone or structure in medical records, imaging, or clinical discussions, laterality is explicitly stated using “left” or “right,” often abbreviated as L. and R. (e.g., left femoral artery). The provided context does not contradict this; it only lists terms like “lateral epicondyle of the femur” without specifying side, which is typical in general anatomical references.
+
+**Sources:**  
+1. **anatomy+phys+vol2a.pdf** p.529 — lateral epicondyle of the femur, 306, 319 lateral epicondyle of the humerus, 293, 319 Lateral excursion, 349 lateral excursion, 368 Lateral flexion, 347 lateral flexion, 368 lateral geniculate nucleus, 586, 602 lateral horn, 530, 552 lateral malleolus, 311, 319 lateral meniscus, …
+2. **anatomy+phys+vol2a.pdf** p.468 — by way of the left and right lumbar trunks and the intestinal trunk. 922 CHAPTER 21 | THE LYMPHATIC AND IMMUNE SYSTEM This content is available for free at http://textbookequity.org/anatomy-and-physiology-volume-2 or at http://cnx.org/content/col11496/1.6
+3. **anatomy+phys+vol2a.pdf** p.218 — to the leg are found, but motor function in the trunk is less clear. The left and right anterior corticospinal tracts are directly adjacent to each other. The likelihood of trauma to the spinal cord resulting in a hemisection that affects one anterior column, but not the other, i…
+4. **978-3-540-69483-0.pdf** p.88 — b Spongiosa eines axial auf Druck beanspruchten Lendenwirbels (Ausschnitt  aus einem Mediansagittalschnitt). Die stabförmigen Spongiosatrabekel sind  in Form eines trajektoriellen Fachwerks (vergleiche Darstellung links) ausge- richtet: vertikaler Verlauf der Drucktrabekel, trans…
+5. **anatomy+phys+vol2a.pdf** p.336 — frontal view. Although only the left side of the heart is illustrated, the process is virtually identical on the right. 790 CHAPTER 19 | THE CARDIOVASCULAR SYSTEM: THE HEART This content is available for free at http://textbookequity.org/anatomy-and-physiology-volume-2 or at http…
+6. **978-3-540-69483-0.pdf** p.99 — von: Femur (F), Tibia (T), Patella (P), Lig. patellae (lP) (Embryo wie in c, Ver- gr. 25-fach) [5]. e Frontalschnitt durch die Hüftregion eines Feten (Anfang des  4. Fetalmonats). Vollständige Ausbildung der Gelenkhöhle; Femur (f), Aceta- bulum (A), Gelenkkapsel (ca), Labrum acet…
+7. **anatomy+phys+vol2a.pdf** p.530 — meatuses, 975 Mechanical digestion, 1029 mechanical digestion, 1073 mechanically gated channel, 489, 504 mechanoreceptor, 563, 602 meconium, 1258, 1282 Medial, 31 medial, 39 medial (internal) rotation, 348, 368 medial border of the scapula, 291, 320 medial compartment of the thig…
+8. **978-3-540-69483-0.pdf** p.266 — net, in dem die Inkongruenz zwischen den bikonvexen Femur- kondylen und den leicht konkaven Facetten des Tibiaplateaus durch  die Menisken ausgeglichen wird. Man unterteilt das Femorotibial- gelenk daher in ein Meniskotibialgelenk und in ein Meniskofemo- ralgelenk. Im Femoropatel…
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_477_img_0.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_434_img_0.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_437_img_0.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 8
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-FIG01 — Describe the illustration of the motor pathway on the page where it appe…
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-FIG01 |
+| **Category** | figure |
+| **Outcome** | Answered |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
+| **Request time** | n/a |
+
+**Question:**  
+Describe the illustration of the motor pathway on the page where it appears in your book.
+
+**Expected key points (gold):**  
+Motor pathway diagram
+
+**System answer:**  
+
+
+Based on the provided context passages, the illustration of the motor pathway likely depicts the descending corticospinal tract from the primary motor cortex to skeletal muscles. Key features would include:
+
+- **Origin**: The precentral gyrus (primary motor cortex) in the frontal lobe, where large Betz cells (upper motor neurons) are located.
+- **Pathway**: Axons of upper motor neurons travel through the deep white matter of the cerebrum, then through the midbrain and pons, into the medulla where most fibers decussate (cross to the opposite side).
+- **Spinal cord descent**: The axons continue down in the lateral columns (crossed fibers) or anterior columns (uncrossed fibers) of the spinal cord white matter.
+- **Synapse**: They synapse on lower motor neurons located in the ventral horn of the spinal cord gray matter.
+- **Final connection**: Lower motor neuron axons exit via spinal nerves and reach skeletal muscles at neuromuscular junctions, causing contraction.
+
+The illustration may also label components such as the corticospinal tract, upper and lower motor neurons, decussation point in the medulla, and the ventral horn. It might emphasize the two-cell projection model (upper and lower motor neuron) and possibly show how different muscle groups are represented on the motor cortex (e.g., fine movements vs. powerful muscles).
+
+**Sources:**  
+1. **anatomy+phys+vol2a.pdf** p.139 — 14.3 | Motor Responses By the end of this section, you will be able to: • List the components of the basic processing stream for the motor system • Describe the pathway of descending motor commands from the cortex to the skeletal muscles • Compare different descending pathways, b…
+2. **anatomy+phys+vol2a-30-60.pdf** p.24 — cortex. Following integration of that information with other cognitive processes and sensory information, the brain sends a command back down to the spinal cord to initiate a motor response by controlling a skeletal muscle. The motor pathway is composed of two cells, the upper mo…
+3. **anatomy+phys+vol2a.pdf** p.216 — The skeletomotor system is largely based on the simple, two-cell projection from the precentral gyrus of the frontal lobe to the skeletal muscles. The corticospinal tract represents the neurons that send output from the primary motor cortex. These fibers travel through the deep w…
+4. **anatomy+phys+vol2a.pdf** p.150 — receptor cell specialized to respond to light stimuli cortical area anterior to the primary motor cortex that is responsible for planning movements region of the cerebral cortex that initially receives sensory input from an ascending pathway from the thalamus and begins the proce…
+5. **anatomy+phys+vol2a.pdf** p.140 — motor area is hypothesized to be responsible for planning and coordinating movement. The supplemental motor area also manages sequential movements that are based on prior experience (that is, learned movements). Neurons in these areas are most active leading up to the initiation …
+6. **anatomy+phys+vol2a-30-60.pdf** p.3 — whether that is to turn the temperature up, turn the whole shower off and go back to bed, or step into the shower. To do any of these things, the cerebral cortex has to send a command out to your body to move muscles (Figure 12.16). Figure 12.16 The Motor Response On the basis of…
+7. **anatomy+phys+vol2a.pdf** p.153 — cerebellum connect to the origins of these tracts in the brain stem. All of these motor pathways project to the spinal cord to synapse with motor neurons in the ventral horn of the spinal cord. These lower motor neurons are the cells that connect to skeletal muscle and cause cont…
+8. **anatomy+phys+vol2a.pdf** p.141 — muscles that perform fine, agile movements, such as the muscles of the fingers and the lower face. The “power muscles” that perform coarser movements, such as the buttock and back muscles, occupy much less space on the motor cortex. Descending Pathways The motor output from the c…
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_22_img_1.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a-30-60_page_7_img_0.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_36_img_0.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 8
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-FIG02 — What does the diagram of the nervous system show about gray and white ma…
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-FIG02 |
+| **Category** | figure |
+| **Outcome** | Answered |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
+| **Request time** | n/a |
+
+**Question:**  
+What does the diagram of the nervous system show about gray and white matter?
+
+**Expected key points (gold):**  
+CNS cross-section
+
+**System answer:**  
+
+
+The diagram illustrates that gray matter consists primarily of neuron cell bodies, dendrites, and synapses, while white matter is composed mainly of axons bundled together. In the central nervous system (CNS), gray matter forms nuclei (or cortical layers) and white matter forms tracts; in the peripheral nervous system (PNS), ganglia represent gray matter and nerves represent white matter. The diagram also shows the characteristic colors: gray matter appears pinkish or tan due to blood content, while white matter is white because axons are insulated by myelin, a lipid-rich substance that gives it a fatty appearance.
+
+**Sources:**  
+1. **anatomy+phys+vol2a.pdf** p.17 — and regions that are largely composed of just axons. These two regions within nervous system structures are often referred to as gray matter (the regions with many cell bodies and dendrites) or white matter (the regions with many axons). Figure 12.3 demonstrates the appearance of…
+2. **anatomy+phys+vol2a-30-60.pdf** p.30 — nervous system illustrates the concept very well. Fresh, unstained nervous tissue can be described as gray or white matter, and within those two types of tissue it can be very hard to see any detail. However, as specific regions and structures have been described, they were relat…
+3. **anatomy+phys+vol2a-30-60.pdf** p.24 — Nervous tissue can also be described as gray matter and white matter on the basis of its appearance in unstained tissue. These descriptions are more often used in the CNS. Gray matter is where nuclei are found and white matter is where tracts are found. In the PNS, ganglia are ba…
+4. **anatomy+phys+vol2a.pdf** p.19 — game indicate the separation of white and gray matter compared with the freshly dissected tissue shown earlier? Structures of the CNS and PNS CNS PNS Group of Neuron Cell Bodies (i.e., gray matter) Nucleus Ganglion Bundle of Axons (i.e., white matter) Tract Nerve Table 12.1 CHAPT…
+5. **anatomy+phys+vol2a.pdf** p.16 — Relate the functional and structural differences between gray matter and white matter structures of the nervous system to the structure of neurons • List the basic functions of the nervous system The picture you have in your mind of the nervous system probably includes the brain,…
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_19_img_1.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_22_img_1.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_196_img_0.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 5
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-FIG03 — Show a didactic image of the neuromuscular junction.
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-FIG03 |
+| **Category** | figure |
+| **Outcome** | Answered (world knowledge) |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
+| **Request time** | n/a |
+
+**Question:**  
+Show a didactic image of the neuromuscular junction.
+
+**Expected key points (gold):**  
+NMJ figure
+
+**System answer:**  
+
+
+I am unable to display images directly as I am a text-based AI assistant. However, I can describe what a didactic image of the neuromuscular junction typically illustrates, based on general anatomy knowledge and relevant context from your provided passages.
+
+A didactic image of the neuromuscular junction would usually show:
+- **The motor neuron axon terminal** (presynaptic side), containing synaptic vesicles filled with acetylcholine.
+- **The synaptic cleft**, a narrow gap between the nerve ending and the muscle fiber.
+- **The muscle fiber’s sarcolemma** at the neuromuscular junction, specifically the specialized region called the motor end plate (or end plate).
+- **Nicotinic acetylcholine receptors** embedded in the postsynaptic membrane of the muscle fiber.
+- The release of acetylcholine from vesicles into the cleft upon nerve impulse arrival.
+- Binding of acetylcholine to receptors, leading to depolarization and an end plate potential (as noted in your context: “Acetylcholine is released at this specialized synapse, which causes the muscle action potential to begin, following a large potential known as an end plate potential”).
+- Often, labels for structures like the axon terminal, synaptic vesicles, cleft, receptors, and sarcolemma are included to aid learning.
+
+Such images are commonly found in anatomy textbooks or educational resources. If you need visual references, I recommend searching for “neuromuscular junction diagram” in reputable medical or biology sources.
+
+**Sources:**  
+1. **anatomy+phys+vol2a.pdf** p.165 — above, would be called neuromodulators. The structure of postganglionic connections are not the typical synaptic end bulb that is found at the neuromuscular junction, but rather are chains of swellings along the length of a postganglionic fiber called a varicosity (Figure 15.5). …
+2. **anatomy+phys+vol2a.pdf** p.144 — activity at the neuromuscular junction reliably leads to muscle fiber contraction with every nerve impulse received from a motor neuron. However, the strength of contraction and the number of fibers that contract can be affected by the frequency of the motor neuron impulses. Refl…
+3. **anatomy+phys+vol2a-30-60.pdf** p.3 — down the spinal cord. At the level of the spinal cord at which this axon makes a synapse, a graded potential occurs in the cell membrane of a lower motor neuron. This second motor neuron is responsible for causing muscle fibers to contract. In the manner described in the chapter …
+4. **anatomy+phys+vol2a.pdf** p.153 — cerebellum connect to the origins of these tracts in the brain stem. All of these motor pathways project to the spinal cord to synapse with motor neurons in the ventral horn of the spinal cord. These lower motor neurons are the cells that connect to skeletal muscle and cause cont…
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_347_img_0.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_62_img_0.jpeg`
+3. `http://localhost:8080/outputs/anatomyphysvol2a-30-60_page_7_img_0.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 4
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-FIG04 — Which figure shows the semicircular canals and vestibule?
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-FIG04 |
+| **Category** | figure |
+| **Outcome** | Answered |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
+| **Request time** | n/a |
+
+**Question:**  
+Which figure shows the semicircular canals and vestibule?
+
+**Expected key points (gold):**  
+Inner ear diagram
+
+**System answer:**  
+
+
+Based on the provided context, **Figure 14.12** is the only figure explicitly mentioned in relation to the semicircular canals. The text states that "The anterior and posterior vertical canals are oriented at approximately 45 degrees relative to the sagittal plane (Figure 14.12)." Since the semicircular canals are part of the vestibule, it is reasonable to infer that Figure 14.12 depicts both structures within the inner ear. No other figure number in the context is directly associated with these anatomical features.
+
+**Sources:**  
+1. **anatomy+phys+vol2a.pdf** p.119 — Figure 14.11 Linear Acceleration Coding by Maculae The maculae are specialized for sensing linear acceleration, such as when gravity acts on the tilting head, or if the head starts moving in a straight line. The difference in inertia between the hair cell stereocilia and the otol…
+2. **anatomy+phys+vol2a.pdf** p.118 — in motion. These cells are located within the vestibule of the inner ear. Head position is sensed by the utricle and saccule, whereas head movement is sensed by the semicircular canals. The neural signals generated in the vestibular ganglion are transmitted through the vestibuloc…
+3. **anatomy+phys+vol2a.pdf** p.114 — The inner ear is often described as a bony labyrinth, as it is composed of a series of canals embedded within the temporal bone. It has two separate regions, the cochlea and the vestibule, which are responsible for hearing and balance, respectively. The neural signals from these …
+4. **anatomy+phys+vol2a.pdf** p.207 — medulla. Though the two senses are not directly related, anatomy is mirrored in the two systems. Problems with balance, such as vertigo, and deficits in hearing may both point to problems with the inner ear. Within the petrous region of the temporal bone is the bony labyrinth of …
+5. **anatomy+phys+vol2a.pdf** p.130 — thalamus receives the auditory information and then projects that information to the auditory cortex in the temporal lobe of the cerebral cortex. The superior colliculus receives input from the visual and somatosensory systems, as well as the ears, to initiate stimulation of the …
+6. **anatomy+phys+vol2a.pdf** p.82 — connected to the third ventricle by two openings called the interventricular foramina. The third ventricle is the space between the left and right sides of the diencephalon, which opens into the cerebral aqueduct that passes through the midbrain. The aqueduct opens into the fourt…
+7. **anatomy+phys+vol2a.pdf** p.69 — a layered nucleus that lies just medial to the putamen; they are called the lenticular nuclei because they look like curved pieces fitting together like lenses. The globus pallidus has two subdivisions, the external and internal segments, which are lateral and medial, respectivel…
+8. **anatomy+phys+vol2a.pdf** p.423 — structure known as the arterial circle (or circle of Willis), an anastomosis that is remarkably like a traffic circle that sends off branches (in this case, arterial branches to the brain). As a rule, branches to the anterior portion of the cerebrum are normally fed by the intern…
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_115_img_0.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_215_img_0.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_470_img_0.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 8
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-FIG05 — Find a figure of the shoulder joint and describe the labeled structures.
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-FIG05 |
+| **Category** | figure |
+| **Outcome** | Answered (world knowledge) |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
+| **Request time** | n/a |
+
+**Question:**  
+Find a figure of the shoulder joint and describe the labeled structures.
+
+**Expected key points (gold):**  
+Glenohumeral joint
+
+**System answer:**  
+
+
+The provided context does not contain a figure of the shoulder joint with labeled structures. From general anatomical knowledge, the shoulder (glenohumeral) joint is formed by the head of the humerus articulating with the glenoid cavity of the scapula. Commonly labeled structures in such figures include:
+
+- **Humerus** – the upper arm bone; its proximal end features a rounded head and greater/lesser tubercles.
+- **Scapula** – the shoulder blade, providing the glenoid fossa (socket) and acromion process.
+- **Clavicle** – the collarbone that connects to the scapula at the acromioclavicular joint.
+- **Rotator cuff muscles** – supraspinatus, infraspinatus, teres minor, and subscapularis, which stabilize the joint.
+- **Tendons and ligaments** – such as the coracoacromial ligament and glenohumeral ligaments.
+
+Without a specific labeled figure, these are typical structures that would be identified in an anatomical illustration of the shoulder joint.
+
+**Sources:**  
+1. **anatomy+phys+vol2a.pdf** p.212 — Figure 16.11 Muscles Controlled by the Accessory Nerve The accessory nerve innervates the sternocleidomastoid and trapezius muscles, both of which attach to the head and to the trunk and shoulders. They can act as antagonists in head flexion and extension, and as synergists in la…
+2. **anatomy+phys+vol2a.pdf** p.120 — of a muscle. In skeletal muscle tissue, these stretch receptors are called muscle spindles. Golgi tendon organs similarly transduce the stretch levels of tendons. Bulbous corpuscles are also present in joint capsules, where they measure stretch in the components of the skeletal s…
+3. **anatomy+phys+vol2a.pdf** p.69 — a layered nucleus that lies just medial to the putamen; they are called the lenticular nuclei because they look like curved pieces fitting together like lenses. The globus pallidus has two subdivisions, the external and internal segments, which are lateral and medial, respectivel…
+4. **anatomy+phys+vol2a.pdf** p.228 — 26. What term describes the inability to lift the arm above the level of the shoulder? a. paralysis b. paresis c. fasciculation d. fibrillation 27. Which type of reflex is the jaw-jerk reflex that is part of the cranial nerve exam for the vestibulocochlear nerve? a. visceral refl…
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_115_img_0.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_213_img_0.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_143_img_0.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 4
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-FIG06 — Show the brain lobes figure and name each lobe.
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-FIG06 |
+| **Category** | figure |
+| **Outcome** | Answered |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
+| **Request time** | n/a |
+
+**Question:**  
+Show the brain lobes figure and name each lobe.
+
+**Expected key points (gold):**  
+Cerebral lobes
+
+**System answer:**  
+
+
+I am unable to display images directly. However, based on the provided context and general anatomy knowledge, here is a description of the four major lobes of the cerebral cortex:
+
+- **Frontal lobe**: Located anteriorly; responsible for motor functions such as planning movements and executing commands. It is separated from the parietal lobe by the central sulcus.
+- **Parietal lobe**: Situated posterior to the frontal lobe; processes somatosensation (touch, temperature, pain). On the lateral surface, it has no obvious border with the occipital or temporal lobes. On the medial surface, it is separated from the occipital lobe by the parieto-occipital sulcus.
+- **Temporal lobe**: Located inferiorly; contains the cortical area for auditory processing and regions crucial for memory formation. Like the parietal lobe, it lacks a clear anatomical border with the occipital or frontal lobes on the lateral surface.
+- **Occipital lobe**: Found at the posterior end of the brain; where visual processing begins. On the medial surface, it is separated from the parietal lobe by the parieto-occipital sulcus. On the lateral surface, there are no obvious borders with the temporal or parietal lobes.
+
+A typical anatomical figure would show these four regions on both the lateral and medial views of the brain, highlighting landmarks like the central sulcus and parieto-occipital sulcus where visible.
+
+**Sources:**  
+1. **anatomy+phys+vol2a.pdf** p.67 — lobe and frontal lobe, which are separated from each other by the central sulcus. The posterior region of the cortex is the occipital lobe, which has no obvious anatomical border between it and the parietal or temporal lobes on the lateral surface of the brain. From the medial su…
+2. **anatomy+phys+vol2a.pdf** p.102 — The other lobes are responsible for sensory functions. The parietal lobe is where somatosensation is processed. The occipital lobe is where visual processing begins, although the other parts of the brain can contribute to visual function. The temporal lobe contains the cortical a…
+3. **anatomy+phys+vol2a.pdf** p.101 — thickening and the hollow center becoming a very small central canal through the cord. The rest of the hollow center of the neural tube corresponds to open spaces within the brain called the ventricles, where cerebrospinal fluid is found. 13.2 The Central Nervous System The adult…
+4. **anatomy+phys+vol2a.pdf** p.66 — 13.2 | The Central Nervous System By the end of this section, you will be able to: • Name the major regions of the adult brain • Describe the connections between the cerebrum and brain stem through the diencephalon, and from those regions into the spinal cord • Recognize the comp…
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_69_img_0.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_71_img_0.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_220_img_0.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 4
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-FIG07 — Display a heart anatomy diagram with chambers labeled.
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-FIG07 |
+| **Category** | figure |
+| **Outcome** | Answered |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
+| **Request time** | n/a |
+
+**Question:**  
+Display a heart anatomy diagram with chambers labeled.
+
+**Expected key points (gold):**  
+Heart chambers
+
+**System answer:**  
+*empty*
+
+**Sources:**  
+1. **anatomy+phys+vol2a.pdf** p.332 — show the bicupid and tricuspid valves; the interatrial septum is not visible, since its location is covered by the aorta and pulmonary trunk. Since these openings and valves structurally weaken the atrioventricular septum, the remaining tissue is heavily reinforced with dense con…
+2. **anatomy+phys+vol2a.pdf** p.375 — valves to the papillary muscles branch of the left coronary artery that follows coronary sulcus branches of the ascending aorta that supply blood to the heart; the left coronary artery feeds the left side of the heart, the left atrium and ventricle, and the interventricular septu…
+3. **anatomy+phys+vol2a.pdf** p.329 — of drainage tubes into the pericardial cavity. Premature removal of these drainage tubes, for example, following cardiac surgery, or clot formation within these tubes are causes of this condition. Untreated, cardiac tamponade can lead to death. Surface Features of the Heart Insid…
+4. **anatomy+phys+vol2a.pdf** p.379 — 19.1 Heart Anatomy The heart resides within the pericardial sac and is located in the mediastinal space within the thoracic cavity. The pericardial sac consists of two fused layers: an outer fibrous capsule and an inner parietal pericardium lined with a serous membrane. Between t…
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_348_img_0.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_332_img_0.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_421_img_0.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 4
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-FIG08 — Show muscle compartments of the leg from a textbook figure.
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-FIG08 |
+| **Category** | figure |
+| **Outcome** | Answered (world knowledge) |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
+| **Request time** | n/a |
+
+**Question:**  
+Show muscle compartments of the leg from a textbook figure.
+
+**Expected key points (gold):**  
+Lower limb
+
+**System answer:**  
+
+
+The provided context does not contain information about the muscle compartments of the leg. Based on general anatomy knowledge:
+
+In anatomical terms, the **leg** (the region between the knee and ankle) is divided into three main fascial compartments: **anterior**, **lateral**, and **posterior**. A typical textbook figure would illustrate these compartments with their respective muscles and innervation. For example:
+
+- **Anterior compartment**: Contains tibialis anterior, extensor hallucis longus, extensor digitorum longus, and fibularis tertius (when present). Innervated by the deep peroneal nerve.
+- **Lateral compartment**: Contains fibularis longus and brevis. Innervated by the superficial peroneal nerve.
+- **Posterior compartment**: Divided into superficial and deep layers. The superficial layer includes gastrocnemius, plantaris, and soleus; the deep layer includes tibialis posterior, flexor digitorum longus, and flexor hallucis longus. Innervated by the tibial nerve.
+
+The figure would typically label these compartments and their constituent muscles to show how they are organized within the leg.
+
+**Sources:**  
+1. **anatomy+phys+vol2a.pdf** p.388 — changing body conditions, from exercise to hydration. Regulation of both blood flow and blood pressure is discussed in detail later in this chapter. The smooth muscle layers of the tunica media are supported by a framework of collagenous fibers that also binds the tunica media to…
+2. **anatomy+phys+vol2a.pdf** p.141 — stimulates spinal cord neurons to stimulate skeletal muscle contraction. The primary motor cortex is arranged in a similar fashion to the primary somatosensory cortex, in that it has a topographical map of the body, creating a motor homunculus (see Figure 14.23). The neurons resp…
+3. **anatomy+phys+vol2a.pdf** p.142 — Figure 14.28 Corticospinal Tract The major descending tract that controls skeletal muscle movements is the corticospinal tract. It is composed of two neurons, the upper motor neuron and the lower motor neuron. The upper motor neuron has its cell body in the primary motor cortex o…
+4. **anatomy+phys+vol2a.pdf** p.216 — to skeletal muscle and cause contraction. These two cells are termed the upper motor neuron (UMN) and the lower motor neuron (LMN). Voluntary movements require these two cells to be active. The motor exam tests the function of these neurons and the muscles they control. First, th…
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_437_img_0.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_143_img_0.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a-30-60_page_6_img_0.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 4
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-FIG09 — Find the mitral valve in a heart diagram.
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-FIG09 |
+| **Category** | figure |
+| **Outcome** | Answered |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
+| **Request time** | n/a |
+
+**Question:**  
+Find the mitral valve in a heart diagram.
+
+**Expected key points (gold):**  
+Heart valves
+
+**System answer:**  
+
+
+The mitral valve (also called the bicuspid valve) is located between the left atrium and left ventricle of the heart. In a standard heart diagram, it would be identified as one of the four valves, situated at the junction of these two chambers. The context describes that in a transverse section through the heart slightly above the level of the atrioventricular septum (Figure 19.8), all four heart valves are visible. Specifically, Figure 19.13 illustrates blood flow from the left atrium to the left ventricle with the mitral valve open; when the atria have been removed in such a diagram, the mitral valve may not be directly visible, but its position can still be inferred relative to the aortic semilunar valve and the interventricular septum. The mitral valve is connected to papillary muscles via chordae tendineae, and there are two papillary muscles on the left (anterior and posterior), which can serve as additional landmarks in diagrams that show these structures.
+
+**Sources:**  
+1. **anatomy+phys+vol2a.pdf** p.335 — Left Ventricle Recall that, although both sides of the heart will pump the same amount of blood, the muscular layer is much thicker in the left ventricle compared to the right (see Figure 19.8). Like the right ventricle, the left also has trabeculae carneae, but there is no moder…
+2. **anatomy+phys+vol2a.pdf** p.374 — Purkinje fibers and also to the right papillary muscle via the moderator band (also, bundle of His) group of specialized myocardial conductile cells that transmit the impulse from the AV node through the interventricular septum; form the left and right atrioventricular bundle bra…
+3. **anatomy+phys+vol2a.pdf** p.380 — from this gif loop so the chordae tendineae are not visible, why is their presence more critical for the atrioventricular valves (tricuspid and mitral) than the semilunar (aortic and pulmonary) valves? REVIEW QUESTIONS 2. Which of the following is not important in preventing back…
+4. **anatomy+phys+vol2a.pdf** p.337 — Figure 19.13 Blood Flow from the Left Atrium to the Left Ventricle (a) A transverse section through the heart illustrates the four heart valves. The two atrioventricular valves are open; the two semilunar valves are closed. The atria and vessels have been removed. (b) A frontal s…
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_326_img_0.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_337_img_0.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_374_img_0.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 4
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-FIG10 — Show an eye muscle extraocular diagram.
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-FIG10 |
+| **Category** | figure |
+| **Outcome** | Answered (world knowledge) |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
+| **Request time** | n/a |
+
+**Question:**  
+Show an eye muscle extraocular diagram.
+
+**Expected key points (gold):**  
+Extraocular muscles
+
+**System answer:**  
+
+
+Although I cannot generate or display an image directly, I can provide a detailed textual description of the extraocular muscles based on the provided context and general anatomical knowledge. The extraocular muscles are responsible for moving the eye in all directions and elevating the upper eyelid. Below is a summary of each muscle, its primary action, innervation (cranial nerve), and relevant details from the context passages.
+
+### Extraocular Muscles Overview
+
+| Muscle | Primary Action(s) | Innervation (Cranial Nerve) | Context Reference |
+|--------|-------------------|----------------------------|-------------------|
+| **Medial rectus** | Medial rotation (adduction) of the eye | Oculomotor nerve (CN III) | “extraocular muscle responsible for medial rotation of the eye” |
+| **Lateral rectus** | Abduction (lateral movement) of the eye | Abducens nerve (CN VI) | “extraocular muscle responsible for abduction of the eye” |
+| **Superior rectus** | Elevation, adduction, and intorsion; primary elevator when the eye is in primary position | Oculomotor nerve (CN III) | Could be linked to “looking up” (though inferior oblique also elevates) |
+| **Inferior rectus** | Depression, adduction, and extorsion | Oculomotor nerve (CN III) | — |
+| **Superior oblique** | Depression, abduction, and intorsion; helps look down and out | Trochlear nerve (CN IV) | “extraocular muscle responsible for looking up” may refer to this or inferior oblique depending on eye position |
+| **Inferior oblique** | Elevation, abduction, and extorsion; elevates when the eye is adducted | Oculomotor nerve (CN III) | — |
+| **Levator palpebrae superioris** | Elevates the upper eyelid | Oculomotor nerve (CN III) | “muscle that causes elevation of the upper eyelid, controlled by fibers in the oculomotor nerve” |
+
+### Additional Contextual Notes
+- The cranial nerves table in the context confirms:  
+  - **CN III (Oculomotor)** innervates all extraocular muscles except the lateral rectus and superior oblique, plus the levator palpebrae superioris.  
+  - **CN IV (Trochlear)** innervates only the superior oblique muscle.  
+  - **CN VI (Abducens)** innervates only the lateral rectus muscle.
+- The phrase “extraocular muscle responsible for looking up” is ambiguous because both the superior rectus and inferior oblique contribute to elevation; however, in many anatomical contexts, the superior rectus is considered the primary elevator when the eye is in a neutral position.
+
+### Summary Diagram (Text-Based)
+```
+        Superior Rectus      Inferior Rectus
+              ↑                  ↓
+              |                  |
+    Medial Rectus → Eye ← Lateral Rectus
+              ↗                ↖
+         Superior Oblique   Inferior Oblique
+              ↘                ↙
+             Levator Palpebrae Superioris (eyelid)
+```
+
+If you need a visual diagram, I recommend consulting an anatomy atlas or online resource such as Netter’s Atlas of Human Anatomy. Let me know if you would like further clarification on any specific muscle!
+
+**Sources:**  
+1. **anatomy+phys+vol2a.pdf** p.151 — of vision structure in the midbrain that combines visual, auditory, and somatosensory input to coordinate spatial and topographic representations of the three sensory systems extraocular muscle responsible for medial rotation of the eye extraocular muscle responsible for looking …
+2. **anatomy+phys+vol2a.pdf** p.148 — duct in the medial corner of the orbit that drains tears into the nasal cavity gland lateral to the orbit that produces tears to wash across the surface of the eye division of the corticospinal pathway that travels through the lateral column of the spinal cord and controls append…
+3. **anatomy+phys+vol2a.pdf** p.524 — 248, 276 External respiration, 998 external respiration, 1012 external root sheath, 184, 197 external urinary sphincter, 1132, 1165 exteroceptor, 563, 601 Extracellular fluid (ECF), 89, 1175 extracellular fluid (ECF), 124, 1198 extraocular muscle, 601 extraocular muscles, 544, 55…
+4. **anatomy+phys+vol2a.pdf** p.91 — thread of relation between them. Cranial Nerves Mnemonic # Name Function (S/M/B) Central connection (nuclei) Peripheral connection (ganglion or muscle) On I Olfactory Smell (S) Olfactory bulb Olfactory epithelium Old II Optic Vision (S) Hypothalamus/ thalamus/midbrain Retina (ret…
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_123_img_0.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_122_img_0.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_115_img_0.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 4
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-Q01 — Quote or summarize what the text says about upper motor neuron and cereb…
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-Q01 |
+| **Category** | quotation |
+| **Outcome** | Answered |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
+| **Request time** | n/a |
+
+**Question:**  
+Quote or summarize what the text says about upper motor neuron and cerebral cortex.
+
+**Expected key points (gold):**  
+Verbatim or faithful paraphrase with citation
+
+**System answer:**  
+
+
+According to the provided text, the upper motor neuron has its cell body located in the cerebral cortex—specifically in the precentral gyrus of the frontal lobe (also called the primary motor cortex). This region is specialized for generating motor commands and sending signals down to the spinal cord. The corticospinal tract represents these neurons that send output from the primary motor cortex, with their axons extending all the way down the spinal cord where they synapse on lower motor neurons in the gray matter of the spinal cord. As stated directly: “The upper motor neuron has its cell body in the cerebral cortex and synapses on a cell in the gray matter of the spinal cord.”
+
+**Sources:**  
+1. **anatomy+phys+vol2a-30-60.pdf** p.24 — cortex. Following integration of that information with other cognitive processes and sensory information, the brain sends a command back down to the spinal cord to initiate a motor response by controlling a skeletal muscle. The motor pathway is composed of two cells, the upper mo…
+2. **anatomy+phys+vol2a-30-60.pdf** p.3 — whether that is to turn the temperature up, turn the whole shower off and go back to bed, or step into the shower. To do any of these things, the cerebral cortex has to send a command out to your body to move muscles (Figure 12.16). Figure 12.16 The Motor Response On the basis of…
+3. **anatomy+phys+vol2a-30-60.pdf** p.22 — in the nervous system, a localized collection of neuron cell bodies that are functionally related; a “center” of neural function glial cell type in the CNS that provides the myelin insulation for axons in tracts anatomical division of the nervous system that is largely outside th…
+4. **anatomy+phys+vol2a.pdf** p.216 — The skeletomotor system is largely based on the simple, two-cell projection from the precentral gyrus of the frontal lobe to the skeletal muscles. The corticospinal tract represents the neurons that send output from the primary motor cortex. These fibers travel through the deep w…
+5. **anatomy+phys+vol2a.pdf** p.213 — • Differentiate between upper motor neuron and lower motor neuron diseases • Describe the clinical indications of common reflexes Connections between the body and the CNS occur through the spinal cord. The cranial nerves connect the head and neck directly to the brain, but the sp…
+6. **anatomy+phys+vol2a.pdf** p.229 — topographical map of sensory innervation. What does this mean? 41. Why are upper motor neuron lesions characterized by “spastic paralysis”? 42. Learning to ride a bike is a motor function dependent on the cerebellum. Why are the different regions of the cerebellum involved in thi…
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_71_img_0.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_196_img_0.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_135_img_0.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 6
+- **used_multimodal_text_excerpts:** False
+- **primary_basis:** retrieved_corpus_synthesized
+- **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
+- **evaluation_note:** Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs.
+
+---
+### R-Q02 — Give the exact definition of "vestibulo-ocular reflex (VOR)" as written …
+
+| Field | Content |
+| ----- | ------- |
+| **ID** | R-Q02 |
+| **Category** | quotation |
+| **Outcome** | Answered |
+| **Model** | lmstudio / `qwen3.5-9b-deepseek-v4-flash` |
+| **Request time** | n/a |
+
+**Question:**  
+Give the exact definition of "vestibulo-ocular reflex (VOR)" as written in the glossary.
+
+**Expected key points (gold):**  
+Exact glossary wording
+
+**System answer:**  
+*empty*
+
+**Sources:**  
+1. **anatomy+phys+vol2a.pdf** p.152 — vestibulo-ocular reflex (VOR) vestibulospinal tract visceral sense vision visual acuity vitreous humor working memory zonule fibers reflex based on connections between the vestibular system and the cranial nerves of eye movements that ensures images are stabilized on the retina a…
+2. **anatomy+phys+vol2a.pdf** p.226 — vestibulo-ocular reflex (VOR) vestibulocerebellum Weber test Wernicke’s area reflex based on connections between the vestibular system and the cranial nerves of eye movements that ensures that images are stabilized on the retina as the head and body move flocculonodular lobe of t…
+3. **anatomy+phys+vol2a.pdf** p.131 — To assist the visual system, fibers of the vestibular nuclei project to the oculomotor, trochlear, and abducens nuclei to influence signals sent along the cranial nerves. These connections constitute the pathway of the vestibulo-ocular reflex (VOR), which compensates for head and…
+4. **anatomy+phys+vol2a.pdf** p.209 — the parasympathetic fibers of the oculomotor nerve. The change in focal power of the eye is referred to as accommodation. Accommodation ability changes with age; focusing on nearer objects, such as the written text of a book or on a computer screen, may require corrective lenses …
+
+**Images:**  
+**Count:** 3
+1. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_123_img_0.jpeg`
+2. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_135_img_0.jpeg`
+3. `http://localhost:8080/outputs/anatomy+phys+vol2a_page_114_img_0.jpeg`
+
+**Grounding metadata:**  
+- **had_retrieved_passages_in_prompt:** True
+- **unique_text_passages_used:** 4
 - **used_multimodal_text_excerpts:** False
 - **primary_basis:** retrieved_corpus_synthesized
 - **provenance_explanation:** The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.
