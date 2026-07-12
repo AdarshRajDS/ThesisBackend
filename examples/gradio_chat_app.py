@@ -129,6 +129,7 @@ def _render_3d_markdown(data: dict) -> str:
     anatomy = data.get("render_3d_anatomy")
     image_url = data.get("render_3d_url")
     model_url = data.get("render_3d_model_url")
+    suggestions = data.get("render_3d_suggestions") or []
 
     if image_url:
         parts.append(f"\n\n### 3D anatomy render ({anatomy or 'detected'})")
@@ -136,6 +137,9 @@ def _render_3d_markdown(data: dict) -> str:
     if model_url:
         parts.append("\n\n### Interactive 3D model")
         parts.append(f"\n\n[Open GLB model in browser/viewer]({model_url})")
+    if suggestions and not image_url:
+        parts.append("\n\n### Exportable anatomy suggestions")
+        parts.append("\n\n" + ", ".join(f"`{label}`" for label in suggestions))
     return "".join(parts)
 
 

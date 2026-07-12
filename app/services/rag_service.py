@@ -18,5 +18,8 @@ def ask_question(question: str):
         "grounding": result.get("grounding"),
         "render_3d_url": render.get("render_3d_url"),
         "render_3d_model_url": render.get("render_3d_model_url"),
+        "render_3d_viewer_url": render.get("render_3d_viewer_url"),
+        "render_3d_annotations_url": render.get("render_3d_annotations_url"),
         "render_3d_anatomy": render.get("anatomy_key"),
+        "render_3d_suggestions": render.get("render_3d_suggestions"),
     }

@@ -4,17 +4,39 @@ from __future__ import annotations
 
 import json
 from pathlib import Path
+from typing import Any
 
 import bpy
 from mathutils import Vector
 
 from blender_paths import SCENE_SCAN_DIR
-from export_utils import serialize_vector
+from export_utils import extract_custom_properties, serialize_vector
+
+CROSS_SECTION_KEYS = (
+    "Cross-section-X",
+    "Cross-section-Y",
+    "Cross-section-Z",
+    "Cross-section-X-inverse",
+    "Cross-section-Y-inverse",
+    "Cross-section-Z-inverse",
+)
 
 ANNOTATIONS_SCAN_PATH = SCENE_SCAN_DIR / "annotations_full.json"
 ANNOTATION_SUFFIXES = (".j", ".t", ".g", ".i", ".s")
 LABEL_SUFFIXES = (".t",)
 MAX_NEAREST_LABEL_DISTANCE = 0.35
+# Annotations must anchor to real landmark geometry. FONT/EMPTY objects in
+# Z-Anatomy are collection-taxonomy captions ("Joints", "Sutures", ...) that are
+# not landmarks of the exported part, so they are excluded from discovery.
+LANDMARK_TYPES = {"MESH", "CURVE", "SURFACE"}
+# A label is only tied to the exported part through a *part-scoped* collection.
+# Z-Anatomy region/system collections ("Left upper limb", "3: Joints",
+# "1: Skeletal system", ...) contain hundreds-to-thousands of objects spanning
+# the whole body; linking through them drags in unrelated structures (e.g. a
+# clavicle marker that shares only "Left upper limb" with a hand ligament). Part
+# collections ("Femur", "Left hand", "Joints of hand", ...) hold at most a few
+# dozen objects, so an absolute size cap separates the two cleanly.
+SPECIFIC_COLLECTION_MAX_OBJECTS = 300
 
 
 def normalize_label(value: str) -> str:
@@ -122,11 +144,28 @@ def scope_collection_names(
     return names
 
 
+def collection_object_count(name: str) -> int:
+    collection = bpy.data.collections.get(name)
+    if collection is None:
+        return 0
+    return len(collection.all_objects)
+
+
+def specific_scope_collections(scope_collections: set[str]) -> set[str]:
+    """Keep only part-scoped collections; drop broad region/system collections."""
+    specific = set()
+    for name in scope_collections:
+        count = collection_object_count(name)
+        if 0 < count <= SPECIFIC_COLLECTION_MAX_OBJECTS:
+            specific.add(name)
+    return specific
+
+
 def annotation_descendant_names(target_objects) -> set[str]:
     names = set()
     for obj in target_objects:
         for child in obj.children_recursive:
-            if is_annotation_like_name(child.name):
+            if child.type in LANDMARK_TYPES and is_annotation_like_name(child.name):
                 names.add(child.name)
     return names
 
@@ -147,17 +186,6 @@ def nearest_target_name(label_obj, target_objects, target_names: set[str]) -> st
     if best_distance <= threshold:
         return best_name
     return None
-
-
-def linked_to_targets(label_obj, target_names: set[str], scope_collections: set[str]) -> bool:
-    if label_obj.name in target_names:
-        return False
-    if any(parent_name in target_names for parent_name in parent_chain_names(label_obj)):
-        return True
-    label_collections = {collection.name for collection in label_obj.users_collection}
-    if label_collections.intersection(scope_collections):
-        return True
-    return False
 
 
 def add_annotation_entry(
@@ -192,40 +220,43 @@ def collect_scene_annotations(
     target_names = {obj.name for obj in target_objects}
     center, _ = selected_bounds(target_objects)
     scope_collections = scope_collection_names(target_objects, object_names, collection_names)
+    specific_collections = specific_scope_collections(scope_collections)
     entries: dict[str, dict] = {}
 
+    # 1) Direct annotation descendants (parented markers) of the targets are the
+    # reliable landmark source: Z-Anatomy parents each "<landmark>.i" marker to
+    # the bone it belongs to, so this pass yields the part's own landmarks.
     for obj_name in annotation_descendant_names(target_objects):
         label_obj = bpy.data.objects.get(obj_name)
         if label_obj is None:
             continue
         add_annotation_entry(entries, label_obj, part_label, center, sorted(target_names))
 
-    for collection_name in scope_collections:
+    # 2) Non-parented landmark geometry that sits *physically on* the part. We do
+    # NOT link by shared collection: Z-Anatomy taxonomy captions ("Carpal bones",
+    # "Bones of upper limb", ...) share mid-level grouping collections with the
+    # target yet belong to unrelated structures. Spatial proximity is the only
+    # trustworthy signal here; group captions live at their group centroid, far
+    # from a single part, so they are correctly rejected.
+    for collection_name in specific_collections:
         collection = bpy.data.collections.get(collection_name)
         if collection is None:
             continue
         for label_obj in collection.all_objects:
-            if label_obj.type not in {"MESH", "CURVE", "SURFACE", "FONT", "EMPTY"}:
+            # Only real landmark geometry — never FONT/EMPTY taxonomy captions.
+            if label_obj.type not in LANDMARK_TYPES:
                 continue
-            if not is_annotation_like_name(label_obj.name) and label_obj.type not in {"FONT", "EMPTY"}:
+            if not is_annotation_like_name(label_obj.name):
                 continue
             if label_obj.name in target_names:
                 continue
-            if not linked_to_targets(label_obj, target_names, scope_collections):
-                nearest = nearest_target_name(label_obj, target_objects, target_names)
-                if nearest is None:
-                    continue
-                linked = [nearest]
-            else:
-                linked = sorted(
-                    {
-                        name
-                        for name in parent_chain_names(label_obj)
-                        if name in target_names
-                    }
-                    or target_names
-                )
-            add_annotation_entry(entries, label_obj, part_label, center, linked)
+            # Already captured as a parented descendant in pass 1.
+            if normalize_label(label_display_name(label_obj.name)) in entries:
+                continue
+            nearest = nearest_target_name(label_obj, target_objects, target_names)
+            if nearest is None:
+                continue
+            add_annotation_entry(entries, label_obj, part_label, center, [nearest])
 
     return list(entries.values())
 
@@ -253,6 +284,9 @@ def collect_scan_annotations(
     candidates: dict[str, dict] = {}
 
     for item in scan_annotations:
+        # Skip collection-taxonomy captions; keep only landmark geometry.
+        if item.get("type") in {"FONT", "EMPTY"}:
+            continue
         is_descendant = item["name"] in descendant_names
         source_obj = bpy.data.objects.get(item["name"])
         parent_related = False
@@ -296,6 +330,41 @@ def ensure_minimum_labels(part_label: str, target_objects, annotations: list[dic
     if annotations:
         return annotations
     center, _ = selected_bounds(target_objects)
+
+    # No external label/marker geometry exists for this selection. This is normal
+    # for ligament / joint-capsule parts that ARE the anatomy (they have no ".i"
+    # marker children). Label each target by its own name so the viewer shows the
+    # real structures instead of one generic part caption.
+    self_labels: list[dict] = []
+    seen: set[str] = set()
+    for obj in target_objects:
+        display = label_display_name(obj.name)
+        # Drop the Z-Anatomy laterality suffix (".l"/".r") — the side is already
+        # conveyed by the part label, so "... ligament.l" reads as "... ligament".
+        for side in (".l", ".r"):
+            if display.endswith(side):
+                display = display[: -len(side)].rstrip()
+                break
+        key = normalize_label(display)
+        if not key or key in seen:
+            continue
+        seen.add(key)
+        anchor = object_center_world(obj)
+        self_labels.append(
+            {
+                "label": display,
+                "source_object": obj.name,
+                "object_type": obj.type,
+                "anchor_world": serialize_vector(anchor),
+                "anchor_relative": serialize_vector(anchor - center),
+                "linked_targets": [obj.name],
+                "classification": "self",
+            }
+        )
+
+    if self_labels:
+        return self_labels
+
     return [
         {
             "label": part_label,
@@ -307,6 +376,23 @@ def ensure_minimum_labels(part_label: str, target_objects, annotations: list[dic
             "classification": "synthetic",
         }
     ]
+
+
+def mesh_cross_section_flags(obj) -> dict[str, Any]:
+    """Z-Anatomy per-mesh cross-section toggles (exported for the web viewer)."""
+    props = extract_custom_properties(obj)
+    return {key: props[key] for key in CROSS_SECTION_KEYS if key in props}
+
+
+def build_mesh_metadata(target_objects) -> dict[str, dict]:
+    metadata: dict[str, dict] = {}
+    for obj in target_objects:
+        if getattr(obj, "type", None) != "MESH":
+            continue
+        flags = mesh_cross_section_flags(obj)
+        if flags:
+            metadata[obj.name] = {"cross_section": flags}
+    return metadata
 
 
 def build_annotation_payload(
@@ -340,6 +426,8 @@ def build_annotation_payload(
     strategy_parts = ["scene_graph"]
     if scan_entries:
         strategy_parts.append("annotation_scan")
+    if annotations and all(item.get("classification") == "self" for item in annotations):
+        strategy_parts.append("self_labels")
     if len(annotations) == 1 and annotations[0].get("classification") == "synthetic":
         strategy_parts.append("synthetic_fallback")
 
@@ -348,4 +436,5 @@ def build_annotation_payload(
         "selected_objects": [obj.name for obj in target_objects],
         "annotation_strategy": "+".join(strategy_parts),
         "annotations": annotations,
+        "mesh_metadata": build_mesh_metadata(target_objects),
     }

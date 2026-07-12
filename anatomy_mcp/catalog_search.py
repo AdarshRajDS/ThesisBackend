@@ -4,7 +4,10 @@ from __future__ import annotations
 
 from typing import Any
 
-from anatomy_mcp.query_validation import NON_SPECIFIC_PART_TERMS
+try:
+    from query_validation import NON_SPECIFIC_PART_TERMS
+except ImportError:
+    from anatomy_mcp.query_validation import NON_SPECIFIC_PART_TERMS
 
 LATERAL_TOKENS = frozenset({"left", "right", "l", "r"})
 

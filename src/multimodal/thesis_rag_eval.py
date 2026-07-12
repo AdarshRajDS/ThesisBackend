@@ -15,7 +15,7 @@ from pathlib import Path
 from typing import Any
 
 from src.config.settings import settings
-from src.llm.llm_factory import get_groq_llm
+from src.llm.llm_factory import get_llm
 from src.multimodal.run_multimodal_rag import get_rag
 
 
@@ -67,10 +67,10 @@ def run_thesis_rag_experiment(question: str, *, persist_log: bool = True) -> dic
     else:
         strict_context = numbered_passages
 
-    baseline_llm = get_groq_llm(0.7)
-    strict_llm = get_groq_llm(0.2)
-    coherent_llm = get_groq_llm(0.3)
-    judge_llm = get_groq_llm(0.0)
+    baseline_llm = get_llm(0.7)
+    strict_llm = get_llm(0.2)
+    coherent_llm = get_llm(0.3)
+    judge_llm = get_llm(0.0)
 
     baseline_ans = baseline_llm.invoke(question).content
 

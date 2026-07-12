@@ -5,7 +5,6 @@ from __future__ import annotations
 import importlib
 import os
 import sys
-from functools import lru_cache
 from pathlib import Path
 from typing import Any, Optional
 
@@ -14,8 +13,40 @@ from src.config.settings import settings
 _ANATOMY_MCP_ROOT = Path(__file__).resolve().parents[2] / "anatomy_mcp"
 
 
-def configure_anatomy_mcp_urls(public_api_base: Optional[str] = None) -> None:
-    """Set public URLs before importing anatomy MCP modules."""
+def _with_canonical_export_urls(
+    payload: dict[str, Any],
+    public_api_base: Optional[str],
+    *,
+    part_query: Optional[str] = None,
+) -> dict[str, Any]:
+    from app.services.anatomy_mcp_client import (
+        build_anatomy_viewer_url,
+        finalize_anatomy_export,
+        rewrite_local_urls,
+        structured_to_anatomy_export,
+    )
+
+    origin = configure_anatomy_mcp_urls(public_api_base)
+    rewritten = rewrite_local_urls(payload, origin)
+    if rewritten.get("error") or not rewritten.get("model_url"):
+        return rewritten
+    mapped = finalize_anatomy_export(
+        structured_to_anatomy_export(rewritten, part_query=part_query),
+        origin,
+    )
+    if mapped:
+        return {**rewritten, **mapped}
+    if rewritten.get("model_url") and rewritten.get("annotations_url"):
+        rewritten["viewer_url"] = build_anatomy_viewer_url(
+            origin,
+            str(rewritten["model_url"]),
+            str(rewritten["annotations_url"]),
+        )
+    return rewritten
+
+
+def configure_anatomy_mcp_urls(public_api_base: Optional[str] = None) -> str:
+    """Set public URLs before importing anatomy MCP modules. Returns normalized API origin."""
     base = (public_api_base or settings.public_api_base or "http://127.0.0.1:8000").rstrip("/")
     os.environ["ANATOMY_MCP_ROOT"] = str(_ANATOMY_MCP_ROOT)
     os.environ["ANATOMY_MCP_PUBLIC_BASE_URL"] = f"{base}/anatomy-exports"
@@ -24,6 +55,7 @@ def configure_anatomy_mcp_urls(public_api_base: Optional[str] = None) -> None:
         os.environ["BLENDER_BIN"] = settings.blender_bin
     if settings.z_anatomy_blend:
         os.environ["Z_ANATOMY_BLEND"] = settings.z_anatomy_blend
+    return base
 
 
 def _ensure_pywin32() -> None:
@@ -68,25 +100,26 @@ def _ensure_import_path() -> None:
         sys.path.insert(0, root)
 
 
-@lru_cache(maxsize=1)
-def _server_module():
-    configure_anatomy_mcp_urls()
+def _reload_server_module(public_api_base: Optional[str] = None):
+    """Load anatomy MCP server with current env URLs (avoids stale localhost:8080 config)."""
+    configure_anatomy_mcp_urls(public_api_base)
+    _ensure_pywin32()
+    _ensure_import_path()
+    import config as anatomy_config  # noqa: WPS433
+    import server as anatomy_server  # noqa: WPS433
+
+    importlib.reload(anatomy_config)
+    importlib.reload(anatomy_server)
+    return anatomy_server
+
+
+def anatomy_mcp_health(public_api_base: Optional[str] = None) -> dict[str, Any]:
+    configure_anatomy_mcp_urls(public_api_base)
     _ensure_pywin32()
     _ensure_import_path()
     import config as anatomy_config  # noqa: WPS433
 
     importlib.reload(anatomy_config)
-    import server as anatomy_server  # noqa: WPS433
-
-    importlib.reload(anatomy_server)
-    return anatomy_server
-
-
-def anatomy_mcp_health() -> dict[str, Any]:
-    configure_anatomy_mcp_urls()
-    _ensure_pywin32()
-    _ensure_import_path()
-    import config as anatomy_config  # noqa: WPS433
 
     mcp_import_ok = True
     mcp_import_error = None
@@ -124,19 +157,42 @@ def anatomy_mcp_health() -> dict[str, Any]:
     }
 
 
-def search_anatomy_catalog(query: str, limit: int = 10) -> dict[str, Any]:
-    server = _server_module()
+def search_anatomy_catalog(
+    query: str,
+    limit: int = 10,
+    *,
+    public_api_base: Optional[str] = None,
+) -> dict[str, Any]:
+    server = _reload_server_module(public_api_base)
     return server.search_anatomy_catalog(query=query, limit=limit)
+
+
+def suggest_exportable_anatomy(
+    query: str,
+    limit: int = 8,
+    include_nearby: bool = True,
+    *,
+    public_api_base: Optional[str] = None,
+) -> dict[str, Any]:
+    server = _reload_server_module(public_api_base)
+    return server.suggest_exportable_anatomy(
+        query=query,
+        limit=limit,
+        include_nearby=include_nearby,
+    )
 
 
 def export_anatomy_part(
     part_query: str,
     include_preview: bool = True,
     region_hint: Optional[str] = None,
+    *,
+    public_api_base: Optional[str] = None,
 ) -> dict[str, Any]:
-    server = _server_module()
-    return server.export_anatomy_part(
+    server = _reload_server_module(public_api_base)
+    payload = server.export_anatomy_part(
         part_query=part_query,
         include_preview=include_preview,
         region_hint=region_hint,
     )
+    return _with_canonical_export_urls(payload, public_api_base, part_query=part_query)

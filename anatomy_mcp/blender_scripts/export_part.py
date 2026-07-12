@@ -9,6 +9,13 @@ from pathlib import Path
 import bpy
 from mathutils import Vector
 
+# Blender's ``--python`` does not add the script's own directory to sys.path,
+# so sibling modules (annotation_discovery, export_utils, ...) are not importable
+# unless we add it explicitly before importing them.
+_SCRIPT_DIR = Path(__file__).resolve().parent
+if str(_SCRIPT_DIR) not in sys.path:
+    sys.path.insert(0, str(_SCRIPT_DIR))
+
 from annotation_discovery import build_annotation_payload
 
 
@@ -44,6 +51,13 @@ def parse_args():
     parser.add_argument("--out", required=True)
     parser.add_argument("--annotations-out")
     parser.add_argument("--preview")
+    # "original" keeps the authored Z-Anatomy materials (recommended, looks like
+    # the Z-Anatomy viewer). "flat" reverts to the old single-color override.
+    parser.add_argument(
+        "--material-mode",
+        choices=("original", "flat"),
+        default="original",
+    )
     return parser.parse_args(argv)
 
 
@@ -220,22 +234,129 @@ def ensure_preview_target(location):
     return target
 
 
-def ensure_preview_light():
-    light = bpy.data.objects.get(PREVIEW_LIGHT_NAME)
-    if light is not None and light.type == "LIGHT":
-        return light
+def _track_to(obj, target):
+    for constraint in list(obj.constraints):
+        obj.constraints.remove(constraint)
+    constraint = obj.constraints.new(type="TRACK_TO")
+    constraint.target = target
+    constraint.track_axis = "TRACK_NEGATIVE_Z"
+    constraint.up_axis = "UP_Y"
 
-    light_data = bpy.data.lights.new(name=PREVIEW_LIGHT_NAME, type="AREA")
-    light_data.energy = 2200
-    light = bpy.data.objects.new(PREVIEW_LIGHT_NAME, light_data)
-    bpy.context.scene.collection.objects.link(light)
+
+def _ensure_area_light(name, energy, size):
+    light = bpy.data.objects.get(name)
+    if light is None or light.type != "LIGHT":
+        light_data = bpy.data.lights.new(name=name, type="AREA")
+        light = bpy.data.objects.new(name, light_data)
+        bpy.context.scene.collection.objects.link(light)
+    light.data.energy = energy
+    if hasattr(light.data, "shape"):
+        light.data.shape = "RECTANGLE"
+    if hasattr(light.data, "size"):
+        light.data.size = size
+    if hasattr(light.data, "size_y"):
+        light.data.size_y = size * 0.85
+    # New preview lights must always render even after set_scene_visibility().
+    light.hide_render = False
+    try:
+        light.hide_set(False)
+    except Exception:
+        pass
     return light
+
+
+def ensure_preview_lights(center, max_dimension, target):
+    """
+    Soft 3-point studio rig (key + fill + rim) scaled to the part size.
+
+    Energies scale with the part's size so small and large structures are both
+    exposed reasonably; the flat single-light setup previously produced harsh,
+    under-/over-lit previews.
+    """
+    # Area-light irradiance falls off with distance^2, so tie energy to scale.
+    scale = max(max_dimension, 0.1)
+    base = 60.0 * (scale ** 2)
+
+    key = _ensure_area_light(PREVIEW_LIGHT_NAME, energy=base * 3.0, size=scale * 3.0)
+    key.location = center + Vector((scale * 1.8, -scale * 1.6, scale * 2.4))
+    _track_to(key, target)
+
+    fill = _ensure_area_light("MCP_PreviewFill", energy=base * 1.1, size=scale * 4.0)
+    fill.location = center + Vector((-scale * 2.4, -scale * 1.2, scale * 0.6))
+    _track_to(fill, target)
+
+    rim = _ensure_area_light("MCP_PreviewRim", energy=base * 2.2, size=scale * 2.0)
+    rim.location = center + Vector((scale * 0.4, scale * 2.6, scale * 1.8))
+    _track_to(rim, target)
+
+    return key
+
+
+def _configure_preview_world(scene):
+    """Neutral studio backdrop with gentle ambient fill via world nodes."""
+    world = scene.world
+    if world is None:
+        world = bpy.data.worlds.new("MCP_PreviewWorld")
+        scene.world = world
+    try:
+        world.use_nodes = True
+        nodes = world.node_tree.nodes
+        links = world.node_tree.links
+        nodes.clear()
+        bg = nodes.new(type="ShaderNodeBackground")
+        out = nodes.new(type="ShaderNodeOutputWorld")
+        bg.inputs["Color"].default_value = (0.09, 0.10, 0.12, 1.0)
+        bg.inputs["Strength"].default_value = 1.0
+        links.new(bg.outputs["Background"], out.inputs["Surface"])
+    except Exception:
+        # Fallback for builds without world nodes.
+        world.color = (0.09, 0.10, 0.12)
+
+
+def _configure_color_management(scene):
+    """Filmic/AgX view transform + contrast so renders aren't flat/washed out."""
+    view = scene.view_settings
+    for transform in ("AgX", "Filmic"):
+        try:
+            view.view_transform = transform
+            break
+        except (TypeError, ValueError):
+            continue
+    for look in ("AgX - Medium High Contrast", "Medium High Contrast", "High Contrast"):
+        try:
+            view.look = look
+            break
+        except (TypeError, ValueError):
+            continue
+    try:
+        view.exposure = 0.0
+        view.gamma = 1.0
+    except Exception:
+        pass
+
+
+def _configure_render_engine(scene):
+    """EEVEE preview with higher AA samples; tolerant of legacy/Next identifiers."""
+    for engine in ("BLENDER_EEVEE_NEXT", "BLENDER_EEVEE"):
+        try:
+            scene.render.engine = engine
+            break
+        except (TypeError, ValueError):
+            continue
+    eevee = getattr(scene, "eevee", None)
+    if eevee is not None:
+        if hasattr(eevee, "taa_render_samples"):
+            eevee.taa_render_samples = 128
+        # Ambient occlusion adds contact shadows/depth (legacy EEVEE only).
+        if hasattr(eevee, "use_gtao"):
+            eevee.use_gtao = True
+        if hasattr(eevee, "use_ssr"):
+            eevee.use_ssr = True
 
 
 def configure_preview(target_objects, preview_path):
     scene = bpy.context.scene
     camera = ensure_camera()
-    light = ensure_preview_light()
     center, size = selected_bounds(target_objects)
     target = ensure_preview_target(center)
 
@@ -244,28 +365,11 @@ def configure_preview(target_objects, preview_path):
     direction = Vector((1.45, -1.55, 0.95)).normalized()
 
     camera.location = center + (direction * distance)
-    for constraint in list(camera.constraints):
-        camera.constraints.remove(constraint)
-    camera_constraint = camera.constraints.new(type="TRACK_TO")
-    camera_constraint.target = target
-    camera_constraint.track_axis = "TRACK_NEGATIVE_Z"
-    camera_constraint.up_axis = "UP_Y"
+    _track_to(camera, target)
     camera.data.lens = 52
     scene.camera = camera
 
-    light.location = center + Vector((max_dimension * 1.8, -max_dimension * 1.6, max_dimension * 2.6))
-    for constraint in list(light.constraints):
-        light.constraints.remove(constraint)
-    light_constraint = light.constraints.new(type="TRACK_TO")
-    light_constraint.target = target
-    light_constraint.track_axis = "TRACK_NEGATIVE_Z"
-    light_constraint.up_axis = "UP_Y"
-    if hasattr(light.data, "shape"):
-        light.data.shape = "RECTANGLE"
-    if hasattr(light.data, "size"):
-        light.data.size = max_dimension * 3.0
-    if hasattr(light.data, "size_y"):
-        light.data.size_y = max_dimension * 2.6
+    ensure_preview_lights(center, max_dimension, target)
 
     scene.render.image_settings.file_format = "PNG"
     scene.render.filepath = str(preview_path)
@@ -273,7 +377,6 @@ def configure_preview(target_objects, preview_path):
     scene.render.resolution_y = 1200
     scene.render.resolution_percentage = 100
     scene.render.film_transparent = False
-    scene.render.engine = "BLENDER_EEVEE"
     scene.render.use_freestyle = False
     if hasattr(scene.render, "use_compositing"):
         scene.render.use_compositing = False
@@ -281,7 +384,10 @@ def configure_preview(target_objects, preview_path):
         scene.render.use_sequencer = False
     if hasattr(scene, "use_nodes"):
         scene.use_nodes = False
-    scene.world.color = (0.17, 0.18, 0.20)
+
+    _configure_render_engine(scene)
+    _configure_preview_world(scene)
+    _configure_color_management(scene)
     bpy.context.view_layer.update()
 
 
@@ -290,6 +396,8 @@ def export_glb(out_path):
         filepath=str(out_path),
         export_format="GLB",
         use_selection=True,
+        export_materials="EXPORT",
+        export_apply=True,
     )
 
 
@@ -375,8 +483,13 @@ def main():
         return
     timer.mark("gather_target_objects", selected_count=len(target_objects))
 
-    apply_export_materials(target_objects, args.part_label)
-    timer.mark("apply_export_materials")
+    if args.material_mode == "flat":
+        apply_export_materials(target_objects, args.part_label)
+        timer.mark("apply_export_materials", material_mode="flat")
+    else:
+        # Keep the authored Z-Anatomy materials so exports/previews match the
+        # look of the Z-Anatomy viewer instead of a single flat organ color.
+        timer.mark("apply_export_materials", material_mode="original", skipped=True)
     selectable_targets = set_scene_visibility(target_objects)
     if not selectable_targets:
         json_result(

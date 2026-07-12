@@ -1,26 +1,46 @@
 "use client";
 
 import { Box, Download, ExternalLink, FileJson } from "lucide-react";
+import AnatomySuggestionList from "./AnatomySuggestionList";
 import { t } from "../i18n/strings";
 
-export default function AnatomyExportPanel({ exportData, language = "en" }) {
+export default function AnatomyExportPanel({
+  exportData,
+  language = "en",
+  onSelectSuggestion,
+  busy = false,
+}) {
   if (!exportData) return null;
 
   const isOk = exportData.status === "ok";
 
   if (!isOk) {
     const message = exportData.error || t(language, "exportUnavailable");
+    const suggestions = exportData.suggestions || [];
+    const suggestionLabels =
+      exportData.suggestion_labels || exportData.matches || [];
+
     return (
       <div className="anatomy-export anatomy-export--error">
         <p className="anatomy-export__title">{t(language, "exportTitle")}</p>
         <p className="anatomy-export__error">{message}</p>
-        {!!exportData.matches?.length && (
+        {!!suggestionLabels.length && !suggestions.length && (
           <p className="anatomy-export__hint">
-            {t(language, "didYouMean")}: {exportData.matches.join(", ")}?
+            {t(language, "didYouMean")}: {suggestionLabels.join(", ")}?
           </p>
         )}
         {exportData.instruction && (
           <p className="anatomy-export__hint">{exportData.instruction}</p>
+        )}
+        {(suggestions.length > 0 || suggestionLabels.length > 0) && onSelectSuggestion && (
+          <AnatomySuggestionList
+            language={language}
+            suggestions={suggestions}
+            suggestionLabels={suggestionLabels}
+            onSelect={onSelectSuggestion}
+            busy={busy}
+            compact
+          />
         )}
       </div>
     );

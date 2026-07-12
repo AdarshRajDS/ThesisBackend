@@ -28,23 +28,34 @@ from anatomy_mcp.query_validation import (
 
 from app.services.anatomy_mcp_client import (
     MCPBridge,
+    auto_export_candidate_from_structured,
     best_catalog_export_match,
     extract_resource_links,
     extract_structured_from_tool_payload,
     extract_timeout_query,
+    finalize_anatomy_export,
+    format_structured_suggestions_for_user,
     get_mcp_bridge,
     is_blender_timeout_payload,
     is_mcp_tool_error_payload,
     payload_structured,
     preferred_catalog_options,
+    resolve_exact_catalog_label,
     structured_error,
+    structured_suggestion_labels,
     structured_to_anatomy_export,
 )
 from src.config.settings import settings
 
+_API_ORIGIN = (settings.public_api_base or "http://127.0.0.1:8000").rstrip("/")
+
 MAX_TOOL_ROUNDS = 6
 _ANATOMY_EXPORT_URL_RE = re.compile(
     r"https?://[^\s\)]*/anatomy-(?:exports|viewer)[^\s\)]*",
+    re.IGNORECASE,
+)
+_ANATOMY_MARKDOWN_LINK_RE = re.compile(
+    r"\[[^\]]*\]\(\s*https?://[^\s\)]*/anatomy-(?:exports|viewer)[^\s\)]*\s*\)",
     re.IGNORECASE,
 )
 
@@ -86,9 +97,19 @@ def compact_tool_result_for_llm(payload: dict[str, Any]) -> str:
     if structured.get("error"):
         compact = {
             key: structured[key]
-            for key in ("error", "part_query", "matches", "instruction", "timeout_seconds")
+            for key in (
+                "error",
+                "part_query",
+                "matches",
+                "suggestion_labels",
+                "instruction",
+                "timeout_seconds",
+            )
             if structured.get(key) is not None
         }
+        suggestions = structured.get("suggestions")
+        if isinstance(suggestions, list):
+            compact["suggestions"] = suggestions[:8]
         return json.dumps(compact, ensure_ascii=False)
 
     compact: dict[str, Any] = {}
@@ -96,15 +117,15 @@ def compact_tool_result_for_llm(payload: dict[str, Any]) -> str:
         "part_label",
         "part_query",
         "normalized_query",
-        "model_url",
-        "annotations_url",
-        "viewer_url",
         "annotation_count",
         "result_count",
         "cache_hit",
     ):
         if structured.get(key) is not None:
             compact[key] = structured[key]
+
+    if structured.get("model_url") or structured.get("viewer_url"):
+        compact["export_status"] = "ok"
 
     if "results" in structured:
         compact["results"] = structured["results"][:12]
@@ -142,8 +163,23 @@ def sanitize_assistant_answer(
     if _ANATOMY_EXPORT_URL_RE.search(cleaned) and not tools_used:
         return mcp_ui(language, "no_tools")
 
-    if _ANATOMY_EXPORT_URL_RE.search(cleaned):
+    if tools_used and any(name.startswith("export_") for name in tools_used):
+        cleaned = _ANATOMY_MARKDOWN_LINK_RE.sub("", cleaned)
         cleaned = _ANATOMY_EXPORT_URL_RE.sub("", cleaned)
+        cleaned = re.sub(
+            r"(?i)\s*(you can view it here\.?|view it here\.?|open the viewer\.?)\s*",
+            " ",
+            cleaned,
+        )
+        cleaned = re.sub(r"\n{3,}", "\n\n", cleaned).strip()
+        if not cleaned:
+            return mcp_ui(language, "export_finished")
+        return cleaned
+
+    if _ANATOMY_EXPORT_URL_RE.search(cleaned) or _ANATOMY_MARKDOWN_LINK_RE.search(cleaned):
+        cleaned = _ANATOMY_MARKDOWN_LINK_RE.sub("", cleaned)
+        cleaned = _ANATOMY_EXPORT_URL_RE.sub("", cleaned)
+        cleaned = re.sub(r"(?i)\s*(you can view it here\.?|view it here\.?)\s*", " ", cleaned)
         cleaned = re.sub(r"\n{3,}", "\n\n", cleaned).strip()
         if not cleaned:
             return mcp_ui(language, "export_finished")
@@ -159,7 +195,11 @@ def _agent_result(
     tool_steps: list[dict[str, Any]] | None = None,
     resource_links: list[dict[str, str]] | None = None,
     catalog_info: dict[str, Any] | None = None,
+    catalog_suggestions: list[dict[str, Any]] | None = None,
+    suggestion_labels: list[str] | None = None,
 ) -> dict[str, Any]:
+    if isinstance(anatomy_export, dict):
+        anatomy_export = finalize_anatomy_export(anatomy_export, _API_ORIGIN)
     return {
         "answer": answer,
         "anatomy_export": anatomy_export,
@@ -168,6 +208,8 @@ def _agent_result(
         "mcp_resources": resource_links or [],
         "mcp_mode": "lmstudio_mcp",
         "catalog_info": catalog_info,
+        "catalog_suggestions": catalog_suggestions or [],
+        "suggestion_labels": suggestion_labels or [],
     }
 
 
@@ -191,15 +233,7 @@ def _suggestion_labels_from_search(
     *,
     limit: int = 6,
 ) -> list[str]:
-    if not isinstance(structured, dict):
-        return []
-    explicit = structured.get("suggestions")
-    if isinstance(explicit, list) and explicit:
-        return [str(label) for label in explicit[:limit]]
-    results = structured.get("results")
-    if isinstance(results, list) and results:
-        return preferred_catalog_options(results, limit=limit)
-    return []
+    return structured_suggestion_labels(structured, limit=limit)
 
 
 def _format_no_exact_match_answer(
@@ -210,6 +244,15 @@ def _format_no_exact_match_answer(
     info = _catalog_info_from_search(structured)
     catalog = info.get("catalog_name") or "exportable_catalog.json"
     labels = _suggestion_labels_from_search(structured)
+    formatted = format_structured_suggestions_for_user(structured, limit=6)
+    if formatted:
+        return mcp_ui(
+            language,
+            "no_exact_with_structured_suggestions",
+            query=query,
+            catalog=catalog,
+            suggestions=formatted,
+        )
     if labels:
         return mcp_ui(
             language,
@@ -270,7 +313,10 @@ async def _try_catalog_fast_path(
             }
         )
         export_structured = _export_structured_from_tool(export_payload)
-        export_attachment = structured_to_anatomy_export(export_structured, catalog_query)
+        export_attachment = finalize_anatomy_export(
+            structured_to_anatomy_export(export_structured, catalog_query),
+            _API_ORIGIN,
+        )
         if export_attachment and export_attachment.get("status") == "ok" and export_structured:
             return _agent_result(
                 answer=build_success_answer(export_attachment, used_tools, language),
@@ -293,29 +339,123 @@ async def _try_catalog_fast_path(
             tool_steps=tool_steps,
         )
 
-    structured = payload_structured(search_payload)
+    search_structured = payload_structured(search_payload)
+    auto_candidate = auto_export_candidate_from_structured(
+        search_structured if isinstance(search_structured, dict) else None
+    )
+    if auto_candidate and auto_candidate.get("label"):
+        export_payload = await bridge.call_tool(
+            "export_anatomy_part",
+            {"part_query": auto_candidate["label"], "include_preview": False},
+        )
+        used_tools.append("export_anatomy_part")
+        tool_steps.append(
+            {
+                "name": "export_anatomy_part",
+                "arguments": {"part_query": auto_candidate["label"], "include_preview": False},
+            }
+        )
+        export_structured = _export_structured_from_tool(export_payload)
+        export_attachment = finalize_anatomy_export(
+            structured_to_anatomy_export(export_structured, catalog_query),
+            _API_ORIGIN,
+        )
+        if export_attachment and export_attachment.get("status") == "ok" and export_structured:
+            return _agent_result(
+                answer=build_success_answer(export_attachment, used_tools, language),
+                anatomy_export=export_attachment,
+                used_tools=used_tools,
+                tool_steps=tool_steps,
+                resource_links=extract_resource_links(export_payload),
+                catalog_info=_catalog_info_from_search(
+                    search_structured if isinstance(search_structured, dict) else None
+                ),
+            )
+
+    suggest_payload = await bridge.call_tool(
+        "suggest_exportable_anatomy",
+        {"query": catalog_query, "limit": 8, "include_nearby": True},
+    )
+    used_tools.append("suggest_exportable_anatomy")
+    tool_steps.append(
+        {
+            "name": "suggest_exportable_anatomy",
+            "arguments": {"query": catalog_query, "limit": 8, "include_nearby": True},
+        }
+    )
+
+    suggest_structured = payload_structured(suggest_payload)
     catalog_info = _catalog_info_from_search(
-        structured if isinstance(structured, dict) else None
+        suggest_structured if isinstance(suggest_structured, dict) else None
     )
     labels = _suggestion_labels_from_search(
-        structured if isinstance(structured, dict) else None
+        suggest_structured if isinstance(suggest_structured, dict) else None
     )
     if labels:
+        suggestions = (
+            suggest_structured.get("suggestions")
+            if isinstance(suggest_structured, dict)
+            else None
+        )
         return _agent_result(
-            answer=_format_no_exact_match_answer(language, catalog_query, structured),
+            answer=_format_no_exact_match_answer(language, catalog_query, suggest_structured),
             used_tools=used_tools,
             tool_steps=tool_steps,
             catalog_info=catalog_info,
+            catalog_suggestions=suggestions if isinstance(suggestions, list) else None,
+            suggestion_labels=labels,
         )
 
-    if isinstance(structured, dict):
+    if isinstance(search_structured, dict):
         return _agent_result(
-            answer=_format_no_exact_match_answer(language, catalog_query, structured),
+            answer=_format_no_exact_match_answer(language, catalog_query, search_structured),
             used_tools=used_tools,
             tool_steps=tool_steps,
-            catalog_info=catalog_info,
+            catalog_info=_catalog_info_from_search(search_structured),
         )
 
+    return None
+
+
+async def _try_exact_label_export(
+    bridge: MCPBridge,
+    exact_label: str,
+    language: SupportedLanguage,
+) -> dict[str, Any] | None:
+    """
+    Deterministic export for a fully-specified catalog label.
+
+    When the user's input IS an exact catalog label there is nothing for the LLM
+    to decide, so we export it directly via MCP. This guarantees any renderable
+    catalog label always produces a model, without the LLM dithering across
+    near-identical suggestions. Fuzzy/ambiguous input never reaches here.
+    """
+    used_tools = ["export_anatomy_part"]
+    tool_steps = [
+        {
+            "name": "export_anatomy_part",
+            "arguments": {"part_query": exact_label, "include_preview": False},
+        }
+    ]
+    export_payload = await bridge.call_tool(
+        "export_anatomy_part",
+        {"part_query": exact_label, "include_preview": False},
+    )
+    export_structured = _export_structured_from_tool(export_payload)
+    export_attachment = finalize_anatomy_export(
+        structured_to_anatomy_export(export_structured, exact_label),
+        _API_ORIGIN,
+    )
+    if export_attachment and export_attachment.get("status") == "ok" and export_structured:
+        return _agent_result(
+            answer=build_success_answer(export_attachment, used_tools, language),
+            anatomy_export=export_attachment,
+            used_tools=used_tools,
+            tool_steps=tool_steps,
+            resource_links=extract_resource_links(export_payload),
+        )
+    # Export of an exact label failed (e.g. Blender timeout) — fall back to the
+    # normal LLM tool-calling loop rather than dead-ending here.
     return None
 
 
@@ -341,9 +481,22 @@ async def run_lmstudio_mcp_agent(
     if is_vague_part_query(latest):
         return _agent_result(answer=clarification_message(lang))
 
-    fast_path = await _try_catalog_fast_path(bridge, latest, catalog_query, lang)
-    if fast_path is not None:
-        return fast_path
+    # Exact-label short-circuit: if the request IS a specific, renderable catalog
+    # label there is nothing for the LLM to decide, so export it deterministically.
+    # This applies even in strict mode (it is not fuzzy tool selection).
+    exact_label = resolve_exact_catalog_label(catalog_query) or resolve_exact_catalog_label(latest)
+    if exact_label:
+        exact_export = await _try_exact_label_export(bridge, exact_label, lang)
+        if exact_export is not None:
+            return exact_export
+
+    # Strict MCP agent (default): skip the deterministic catalog fast-path so the LLM
+    # itself decides every MCP tool call. The fast-path is opt-in via
+    # ANATOMY_MCP_FAST_PATH_ENABLED for setups with a weak local model.
+    if settings.anatomy_mcp_fast_path_enabled:
+        fast_path = await _try_catalog_fast_path(bridge, latest, catalog_query, lang)
+        if fast_path is not None:
+            return fast_path
 
     lm_client = AsyncOpenAI(
         base_url=settings.llm_api_base,
@@ -391,12 +544,18 @@ async def run_lmstudio_mcp_agent(
             if successful_export is None and last_export_tool_payload is not None:
                 successful_export = _export_structured_from_tool(last_export_tool_payload)
 
-            export_attachment = structured_to_anatomy_export(successful_export, latest)
+            export_attachment = finalize_anatomy_export(
+                structured_to_anatomy_export(successful_export, latest),
+                _API_ORIGIN,
+            )
             if export_attachment is None and last_export_tool_payload is not None:
                 failed_structured = extract_structured_from_tool_payload(
                     last_export_tool_payload
                 )
-                export_attachment = structured_to_anatomy_export(failed_structured, latest)
+                export_attachment = finalize_anatomy_export(
+                    structured_to_anatomy_export(failed_structured, latest),
+                    _API_ORIGIN,
+                )
 
             has_export = bool(export_attachment and export_attachment.get("status") == "ok")
 
@@ -501,7 +660,10 @@ async def run_lmstudio_mcp_agent(
                     }
                 )
 
-    export_attachment = structured_to_anatomy_export(successful_export, latest)
+    export_attachment = finalize_anatomy_export(
+        structured_to_anatomy_export(successful_export, latest),
+        _API_ORIGIN,
+    )
     timeout_note = ""
     if timeout_queries:
         timeout_note = f" Last timeout: '{timeout_queries[-1]}'."

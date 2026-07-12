@@ -10,9 +10,18 @@ from src.llm.llm_factory import get_llm
 from src.multimodal.clip_embedding import CLIPEmbedding
 from src.embeddings.embedding_factory import get_text_embedding
 from src.retrieval.vector_store import VectorStoreFactory
+from src.rag.content_heuristics import infer_content_type
+from src.rag.query_rewriter import rewrite_queries
+from src.rag.passage_reranker import rerank_passages
+from src.rag.citation_filter import filter_sources_pre_generation
+from src.rag.question_classifier import classify_question, max_passages_for_type
 
-_MAX_UNIQUE_TEXT_PASSAGES = 3
-_CHROMA_TEXT_CANDIDATES = 24
+# Fallback cap when no question-type-specific cap applies.
+_MAX_UNIQUE_TEXT_PASSAGES = 6
+# Candidates pulled per query variant / retrieval method before dedupe + rerank.
+_CHROMA_TEXT_CANDIDATES = 40
+# Fused candidate pool size returned by the hybrid retriever.
+_HYBRID_FINAL = 32
 
 
 def _normalize_pdf_stem(name: str | None) -> str:
@@ -49,6 +58,18 @@ class MultimodalRAG:
         # Text corpus (MiniLM) — same Chroma as `src/ingestion/run.py`
         self.text_vectordb = VectorStoreFactory.create(self.text_embedder)
 
+        # Hybrid retriever (BM25 + dense + phrase, RRF fused). Built once; the
+        # BM25 index is cached to disk. Falls back to plain dense search if it
+        # cannot be constructed (e.g. empty corpus or missing rank_bm25).
+        try:
+            from src.retrieval.hybrid_retriever import HybridRetriever
+
+            self.hybrid = HybridRetriever(self.text_vectordb, text_embedder=self.text_embedder)
+            print("DEBUG hybrid retriever ready")
+        except Exception as e:
+            print("DEBUG hybrid retriever unavailable, using dense only:", str(e))
+            self.hybrid = None
+
         # project root
         self.PROJECT_ROOT = Path(__file__).resolve().parents[2]
         print("DEBUG PROJECT_ROOT:", self.PROJECT_ROOT)
@@ -60,30 +81,19 @@ class MultimodalRAG:
 
         self.PUBLIC_BASE_URL = os.getenv("PUBLIC_BASE_URL", "")
 
-    def _retrieve_text_corpus(self, query: str):
+    def _dedupe_candidates(self, candidates: list):
         """
-        Text chunks from the PDF index (MiniLM Chroma). Fetches many candidates, dedupes by
-        (normalized PDF stem + page) and by near-duplicate body text, returns at most
-        `_MAX_UNIQUE_TEXT_PASSAGES` (dynamic count 0..max).
+        Dedupe candidate Documents by near-duplicate body text and by
+        (normalized PDF stem + page), and drop obvious TOC/footer/index chunks.
+        Returns aligned (docs, sources) lists.
         """
-        try:
-            candidates = self.text_vectordb.similarity_search(
-                query, k=_CHROMA_TEXT_CANDIDATES
-            )
-        except Exception as e:
-            print("DEBUG text corpus retrieval error:", str(e))
-            return [], []
-
         seen_fp: set[str] = set()
         seen_loc: set[tuple[str, int | None]] = set()
         out_docs = []
         sources = []
 
         for d in candidates:
-            if len(out_docs) >= _MAX_UNIQUE_TEXT_PASSAGES:
-                break
-
-            body = (d.page_content or "").strip()
+            body = (getattr(d, "page_content", None) or "").strip()
             if not body:
                 continue
 
@@ -91,7 +101,13 @@ class MultimodalRAG:
             if fp in seen_fp:
                 continue
 
-            meta = d.metadata or {}
+            meta = getattr(d, "metadata", None) or {}
+
+            # Drop table-of-contents / footer / index chunks outright: these were
+            # polluting sources (e.g. book index pages) and starving real content.
+            if infer_content_type(body, meta) in ("toc", "footer", "index"):
+                continue
+
             raw_src = meta.get("source") or meta.get("file_path")
             stem = _normalize_pdf_stem(str(raw_src) if raw_src else None)
             page = meta.get("page")
@@ -114,18 +130,110 @@ class MultimodalRAG:
             sources.append({"source": src, "page": page, "chunk_preview": preview})
             out_docs.append(d)
 
+        return out_docs, sources
+
+    def _retrieve_text_corpus(
+        self,
+        query: str,
+        *,
+        question_type: str = "simple",
+        figure_id: str | None = None,
+        max_passages: int | None = None,
+    ):
+        """
+        Grounded text retrieval: query rewrite -> hybrid (BM25 + dense + phrase)
+        candidate search -> dedupe + TOC/index drop -> support-score rerank ->
+        pre-generation citation filter. Returns at most `max_passages` passages.
+        """
+        cap = max_passages if max_passages is not None else _MAX_UNIQUE_TEXT_PASSAGES
+        if cap <= 0:
+            return [], []
+
+        # 1. Query variants (typo fix + anatomy synonym/corpus expansion).
+        try:
+            variants = rewrite_queries(query, question_type=question_type) or [query]
+        except Exception as e:
+            print("DEBUG query rewrite error:", str(e))
+            variants = [query]
+
+        # 2. Hybrid candidate retrieval (fallback to plain dense search).
+        candidates = []
+        if self.hybrid is not None:
+            try:
+                candidates = self.hybrid.search(
+                    variants,
+                    k_per_query=_CHROMA_TEXT_CANDIDATES,
+                    k_final=_HYBRID_FINAL,
+                )
+            except Exception as e:
+                print("DEBUG hybrid retrieval error:", str(e))
+                candidates = []
+        if not candidates:
+            try:
+                candidates = self.text_vectordb.similarity_search(
+                    query, k=_CHROMA_TEXT_CANDIDATES
+                )
+            except Exception as e:
+                print("DEBUG text corpus retrieval error:", str(e))
+                return [], []
+
+        # 3. Dedupe + drop TOC/index/footer.
+        cand_docs, cand_sources = self._dedupe_candidates(candidates)
+        if not cand_docs:
+            print("DEBUG text corpus: no usable candidates after dedupe/filter")
+            return [], []
+
+        # 4. Support-score rerank (lexical overlap + semantic + content-type).
+        try:
+            ranked_docs, ranked_sources, _ = rerank_passages(
+                query,
+                cand_docs,
+                cand_sources,
+                question_type=question_type,
+                figure_id=figure_id,
+                text_embedder=self.text_embedder,
+                min_score=0.10,
+                max_passages=cap,
+            )
+        except Exception as e:
+            print("DEBUG rerank error:", str(e))
+            ranked_docs, ranked_sources = cand_docs[:cap], cand_sources[:cap]
+
+        # 5. Pre-generation citation filter (residual footer/low-support drop).
+        try:
+            filtered_sources = filter_sources_pre_generation(ranked_sources)
+        except Exception as e:
+            print("DEBUG citation pre-filter error:", str(e))
+            filtered_sources = ranked_sources
+
+        if filtered_sources and len(filtered_sources) != len(ranked_sources):
+            kept_ids = {id(s) for s in filtered_sources}
+            pairs = [
+                (d, s)
+                for d, s in zip(ranked_docs, ranked_sources)
+                if id(s) in kept_ids
+            ]
+            ranked_docs = [d for d, _ in pairs]
+            ranked_sources = filtered_sources
+
         print(
-            "DEBUG text corpus unique passages:",
-            len(out_docs),
-            f"(cap {_MAX_UNIQUE_TEXT_PASSAGES})",
+            "DEBUG text corpus passages:",
+            len(ranked_docs),
+            f"(cap {cap}, type={question_type})",
         )
 
-        return out_docs, sources
+        return ranked_docs, ranked_sources
 
     def gather_retrieval_bundle(self, query: str) -> dict:
         """
         Shared retrieval for production `ask` and thesis `/rag/experiment` (no LLM calls).
         """
+        classification = classify_question(query)
+        question_type = classification.question_type
+        figure_id = classification.figure_id
+        cap = max_passages_for_type(question_type)
+        print(f"DEBUG question_type={question_type} passage_cap={cap} figure_id={figure_id}")
+
         docs, metas = self.retriever.retrieve(query, k=20)
 
         print("DEBUG total metas:", len(metas))
@@ -134,7 +242,12 @@ class MultimodalRAG:
 
         print("DEBUG image metas:", len(image_metas))
 
-        text_corpus_docs, text_sources = self._retrieve_text_corpus(query)
+        text_corpus_docs, text_sources = self._retrieve_text_corpus(
+            query,
+            question_type=question_type,
+            figure_id=figure_id,
+            max_passages=cap,
+        )
         print("DEBUG text corpus chunks:", len(text_corpus_docs))
 
         multimodal_text = "\n\n".join(d for d in docs if d and str(d).strip())
@@ -163,6 +276,8 @@ class MultimodalRAG:
             "multimodal_text": multimodal_text,
             "context": context,
             "context_blocks": blocks,
+            "question_type": question_type,
+            "figure_id": figure_id,
         }
 
     def rank_and_publish_images(self, query: str, image_metas: list) -> list:
@@ -343,7 +458,12 @@ class MultimodalRAG:
         prompt = f"""
 You are a medical anatomy assistant.
 
-Use the context to answer the question. Prefer facts supported by the context when present.
+Base your answer on the context passages below whenever they are relevant to the
+question. You may use general anatomy knowledge to fill small gaps, but never
+contradict the context. If the context contains nothing relevant, say so briefly
+and answer from general anatomy knowledge.
+
+Always answer in the same language as the question.
 
 Context:
 {context}

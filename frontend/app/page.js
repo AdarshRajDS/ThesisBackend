@@ -154,6 +154,12 @@ export default function Page() {
           images: data.images || [],
           questionType: data.question_type || null,
           confidence: data.confidence || null,
+          render3dUrl: data.render_3d_url || null,
+          render3dModelUrl: data.render_3d_model_url || null,
+          render3dViewerUrl: data.render_3d_viewer_url || null,
+          render3dAnnotationsUrl: data.render_3d_annotations_url || null,
+          render3dAnatomy: data.render_3d_anatomy || null,
+          render3dSuggestions: data.render_3d_suggestions || [],
         };
         return updated;
       });
@@ -234,7 +240,12 @@ export default function Page() {
               )}
 
               {messages.map((item, idx) => (
-                <ChatMessage key={`msg-${idx}`} item={item} language={language} />
+                <ChatMessage
+                  key={`msg-${idx}`}
+                  item={item}
+                  language={language}
+                  apiBase={normalizedBase}
+                />
               ))}
               <div ref={messagesEndRef} />
             </div>

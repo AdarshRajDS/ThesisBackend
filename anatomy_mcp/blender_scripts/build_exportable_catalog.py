@@ -16,6 +16,38 @@ from export_utils import extract_custom_properties, serialize_vector
 OUTPUT_PATH = EXPORTABLE_CATALOG_PATH
 EXPORTABLE_TYPES = {"MESH", "CURVE", "SURFACE"}
 
+# Lateral name suffixes seen in this Z-Anatomy Startup.blend. Top-level bones use
+# .l/.r, but many sub-regions/landmarks use .i/.j as the paired suffix. All four
+# are treated as "one member of a bilateral pair".
+LATERAL_SUFFIXES = ("l", "r", "i", "j")
+
+
+def geometry_counts(obj):
+    """Return (vertex_count, polygon_count) for a renderable object, 0 if empty."""
+    data = getattr(obj, "data", None)
+    if data is None:
+        return 0, 0
+    try:
+        if obj.type == "MESH":
+            return len(data.vertices), len(data.polygons)
+        if obj.type in {"CURVE", "SURFACE"}:
+            verts = 0
+            for spline in getattr(data, "splines", []):
+                verts += len(getattr(spline, "points", []))
+                verts += len(getattr(spline, "bezier_points", []))
+            return verts, 0
+    except Exception:
+        return 0, 0
+    return 0, 0
+
+
+def object_has_geometry(obj):
+    """True when the object carries actual renderable geometry (drops empty meshes)."""
+    verts, polys = geometry_counts(obj)
+    if obj.type == "MESH":
+        return polys > 0 or verts > 0
+    return verts > 0
+
 
 def normalize_label(value):
     import re
@@ -122,6 +154,7 @@ def complexity_from_count(object_count):
 def object_entry(obj, parents):
     collection_names = sorted({collection.name for collection in obj.users_collection}, key=str.lower)
     paths = object_collection_paths(obj, parents)
+    vertex_count, polygon_count = geometry_counts(obj)
     return {
         "id": f"object:{obj.name}",
         "label": obj.name,
@@ -130,9 +163,12 @@ def object_entry(obj, parents):
         "object_names": [obj.name],
         "collection_names": [],
         "object_count": 1,
+        "vertex_count": vertex_count,
+        "polygon_count": polygon_count,
         "parent_collections": collection_names,
         "collection_paths": paths,
         "side": side_from_name(obj.name),
+        "lateral_suffix": None,
         "is_pair_candidate": False,
         "estimated_complexity": "low",
         "bbox": object_bbox_world(obj),
@@ -148,11 +184,21 @@ def object_entry(obj, parents):
 
 def collection_entry(collection, parents):
     objects = sorted(
-        [obj for obj in collection.all_objects if obj.type in EXPORTABLE_TYPES],
+        [
+            obj
+            for obj in collection.all_objects
+            if obj.type in EXPORTABLE_TYPES and object_has_geometry(obj)
+        ],
         key=lambda item: item.name.lower(),
     )
     object_names = [obj.name for obj in objects]
     paths = collection_paths(collection, parents)
+    vertex_count = 0
+    polygon_count = 0
+    for obj in objects:
+        verts, polys = geometry_counts(obj)
+        vertex_count += verts
+        polygon_count += polys
     return {
         "id": f"collection:{collection.name}",
         "label": collection.name,
@@ -161,9 +207,12 @@ def collection_entry(collection, parents):
         "object_names": object_names,
         "collection_names": [collection.name],
         "object_count": len(object_names),
+        "vertex_count": vertex_count,
+        "polygon_count": polygon_count,
         "parent_collections": sorted(set(parents.get(collection.name, [])), key=str.lower),
         "collection_paths": paths,
         "side": side_from_name(collection.name),
+        "lateral_suffix": None,
         "is_pair_candidate": False,
         "estimated_complexity": complexity_from_count(len(object_names)),
         "bbox": combined_bbox(objects),
@@ -178,24 +227,95 @@ def collection_entry(collection, parents):
     }
 
 
-def mark_pair_candidates(entries):
-    by_base = {}
-    for entry in entries:
-        normalized = entry["normalized_label"]
-        side = entry.get("side")
-        if side == "left":
-            base = normalized.removeprefix("left_").removesuffix("_l")
-        elif side == "right":
-            base = normalized.removeprefix("right_").removesuffix("_r")
-        else:
-            continue
-        by_base.setdefault(base, set()).add(side)
+def split_lateral(normalized_label):
+    """Return (base, suffix) when the label carries a lateral suffix/prefix, else (label, None)."""
+    for suffix in LATERAL_SUFFIXES:
+        marker = f"_{suffix}"
+        if normalized_label.endswith(marker) and len(normalized_label) > len(marker):
+            return normalized_label[: -len(marker)], suffix
+    if normalized_label.startswith("left_"):
+        return normalized_label[len("left_") :], "l"
+    if normalized_label.startswith("right_"):
+        return normalized_label[len("right_") :], "r"
+    return normalized_label, None
 
-    paired_bases = {base for base, sides in by_base.items() if {"left", "right"}.issubset(sides)}
+
+def bbox_center_x(entry):
+    bbox = entry.get("bbox")
+    if not isinstance(bbox, dict):
+        return None
+    center = bbox.get("center")
+    if not center:
+        return None
+    try:
+        return float(center[0])
+    except (TypeError, ValueError, IndexError):
+        return None
+
+
+def learn_positive_x_side(entries):
+    """
+    Self-calibrate the world-X -> anatomical-side convention from entries whose
+    side is already known (.l/.r/left/right). Returns the anatomical side that
+    sits on positive X, or None when there is not enough signal.
+    """
+    left_x = []
+    right_x = []
     for entry in entries:
-        normalized = entry["normalized_label"]
-        base = normalized.removeprefix("left_").removeprefix("right_").removesuffix("_l").removesuffix("_r")
-        entry["is_pair_candidate"] = base in paired_bases
+        center_x = bbox_center_x(entry)
+        if center_x is None:
+            continue
+        if entry.get("side") == "left":
+            left_x.append(center_x)
+        elif entry.get("side") == "right":
+            right_x.append(center_x)
+    if not left_x or not right_x:
+        return None
+    mean_left = sum(left_x) / len(left_x)
+    mean_right = sum(right_x) / len(right_x)
+    if mean_left == mean_right:
+        return None
+    return "left" if mean_left > mean_right else "right"
+
+
+def assign_sides_and_pairs(entries):
+    """
+    Mark bilateral pairs (.l/.r and .i/.j) and fill in side for suffixes the
+    name alone can't decode (.i/.j) using the learned bounding-box convention.
+    Authoritative name-based sides (.l/.r/left/right) are never overwritten.
+    """
+    positive_x_side = learn_positive_x_side(entries)
+    negative_x_side = None
+    if positive_x_side == "left":
+        negative_x_side = "right"
+    elif positive_x_side == "right":
+        negative_x_side = "left"
+
+    groups = {}
+    for entry in entries:
+        base, suffix = split_lateral(entry["normalized_label"])
+        if suffix is None:
+            continue
+        entry["lateral_suffix"] = suffix
+        groups.setdefault(base, []).append(entry)
+
+    for members in groups.values():
+        is_pair = len(members) >= 2
+        for entry in members:
+            entry["is_pair_candidate"] = is_pair
+
+        if not is_pair or positive_x_side is None:
+            continue
+
+        with_x = [(bbox_center_x(entry), entry) for entry in members]
+        with_x = [(x, entry) for x, entry in with_x if x is not None]
+        if len(with_x) < 2:
+            continue
+        midpoint = sum(x for x, _ in with_x) / len(with_x)
+        for center_x, entry in with_x:
+            if entry.get("side") in {"left", "right"}:
+                continue
+            entry["side"] = positive_x_side if center_x >= midpoint else negative_x_side
 
 
 def main():
@@ -204,14 +324,19 @@ def main():
 
     entries = []
     for collection in sorted(bpy.data.collections, key=lambda item: item.name.lower()):
-        if any(obj.type in EXPORTABLE_TYPES for obj in collection.all_objects):
-            entries.append(collection_entry(collection, parents))
+        if any(
+            obj.type in EXPORTABLE_TYPES and object_has_geometry(obj)
+            for obj in collection.all_objects
+        ):
+            entry = collection_entry(collection, parents)
+            if entry["object_count"] > 0:
+                entries.append(entry)
 
     for obj in sorted(bpy.data.objects, key=lambda item: item.name.lower()):
-        if obj.type in EXPORTABLE_TYPES:
+        if obj.type in EXPORTABLE_TYPES and object_has_geometry(obj):
             entries.append(object_entry(obj, parents))
 
-    mark_pair_candidates(entries)
+    assign_sides_and_pairs(entries)
     payload = {
         "source_blend": bpy.data.filepath,
         "schema_version": 1,

@@ -128,6 +128,11 @@ _MCP_UI: dict[SupportedLanguage, dict[str, str]] = {
             "Similar exportable structures: {labels}. "
             "Reply with one exact catalog label to export."
         ),
+        "no_exact_with_structured_suggestions": (
+            'No exact match for "{query}" in {catalog}. '
+            "Exportable alternatives (all verified in exportable_catalog.json):\n{suggestions}\n"
+            "Reply with one exact catalog label to export."
+        ),
         "no_exact_no_suggestions": (
             'No match for "{query}" in {catalog}. '
             "Try a specific Z-Anatomy label (e.g. femur.l, Hip bone.l, Hip region.l)."
@@ -180,6 +185,11 @@ _MCP_UI: dict[SupportedLanguage, dict[str, str]] = {
             "Ähnliche exportierbare Strukturen: {labels}. "
             "Bitte ein exaktes Katalog-Label zum Export nennen."
         ),
+        "no_exact_with_structured_suggestions": (
+            'Kein exakter Treffer für „{query}" im Katalog {catalog}. '
+            "Exportierbare Alternativen (geprüft in exportable_catalog.json):\n{suggestions}\n"
+            "Bitte ein exaktes Katalog-Label zum Export nennen."
+        ),
         "no_exact_no_suggestions": (
             'Kein Treffer für „{query}" im Katalog {catalog}. '
             "Versuchen Sie ein konkretes Z-Anatomy-Label (z. B. femur.l, Hip bone.l, Hip region.l)."
@@ -207,6 +217,11 @@ def build_mcp_system_prompt(language: SupportedLanguage) -> str:
         "Do not claim an export succeeded unless you called export_anatomy_part or export_anatomy_package. "
         "Matching uses exportable_catalog.json (geometry-proven entries from Startup.blend). "
         "Use search_anatomy_catalog when the structure name may be broad, ambiguous, or unfamiliar. "
+        "When search or export returns part_not_found, call suggest_exportable_anatomy — "
+        "it only returns geometry-proven exportable_catalog.json entries (can_export=true). "
+        "Present suggestion labels with match_reason; do not invent anatomy names. "
+        "Only auto-export when auto_export_candidate confidence meets auto_export_threshold; "
+        "otherwise ask the user to pick an exact label. "
         "If the user message is vague (e.g. 'show me the organ', 'export the part'), do NOT guess part_query; "
         "ask them to name a specific structure (liver, heart, femur.l, left kidney). "
         "If search returns multiple entries, ask the user to pick an exact label before exporting. "
@@ -225,6 +240,9 @@ def build_mcp_system_prompt(language: SupportedLanguage) -> str:
             "Behaupten Sie keinen erfolgreichen Export ohne export_anatomy_part oder export_anatomy_package. "
             "Matching nutzt exportable_catalog.json (geometriegeprüfte Einträge aus Startup.blend). "
             "Nutzen Sie search_anatomy_catalog bei breiten oder unklaren Strukturnamen. "
+            "Bei part_not_found suggest_exportable_anatomy aufrufen — nur exportierbare Katalogeinträge. "
+            "Vorschläge mit match_reason zeigen; keine erfundenen Anatomienamen. "
+            "Nur bei auto_export_candidate über auto_export_threshold automatisch exportieren. "
             "Bei vagen Anfragen (z. B. „zeig mir das Organ“) part_query NICHT raten; "
             "bitten Sie um eine konkrete Struktur (Leber, Herz, femur.l, linke Niere). "
             "Bei mehreren Treffern wählen lassen, bevor exportiert wird. "

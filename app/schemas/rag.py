@@ -35,4 +35,7 @@ class AskResponse(BaseModel):
     grounding: Optional[AnswerGrounding] = None
     render_3d_url: Optional[str] = None
     render_3d_model_url: Optional[str] = None
+    render_3d_viewer_url: Optional[str] = None
+    render_3d_annotations_url: Optional[str] = None
     render_3d_anatomy: Optional[str] = None
+    render_3d_suggestions: Optional[List[str]] = None

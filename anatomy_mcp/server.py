@@ -12,6 +12,12 @@ from urllib.parse import quote
 
 from mcp.server.fastmcp import FastMCP
 
+from catalog_exportability import AUTO_EXPORT_CONFIDENCE_THRESHOLD, is_exportable_catalog_entry
+from catalog_suggest import (
+    rank_suggestions_for_query,
+    suggestion_labels,
+    top_auto_export_candidate,
+)
 from query_validation import (
     CLARIFICATION_MESSAGE,
     catalog_query_from_user_message,
@@ -579,11 +585,14 @@ def read_cached_package_response(package_dir: Path, part_label: str) -> dict[str
     timings_payload = load_timing_sidecar(timings_path)
     preview_path = package_dir / "preview.png"
 
-    viewer_model_path = anatomy_path
+    # Prefer the GLB that keeps the authored Z-Anatomy materials so the viewer/
+    # embed match the rich Z-Anatomy look; fall back to the web-safe GLB.
+    viewer_model_path = original_materials_path if original_materials_path.exists() else anatomy_path
     return {
         "part_label": part_label,
         "export_id": package_dir.name,
-        "model_url": build_public_url(anatomy_path),
+        "model_url": build_public_url(viewer_model_path),
+        "web_safe_model_url": build_public_url(anatomy_path),
         "annotations_url": build_public_url(annotations_path),
         "package_url": build_public_url(package_dir),
         "package_manifest_url": build_public_url(manifest_path),
@@ -768,6 +777,12 @@ def search_anatomy_catalog(query: str, limit: int = 20) -> dict[str, Any]:
     )
     results = merge_search_results(primary_results, token_hits, limit=safe_limit)
 
+    suggestions = _structured_suggestions_for_query(
+        catalog_query,
+        resolver_result=resolved,
+        limit=min(8, safe_limit),
+    )
+
     return {
         "query": query,
         "catalog_query": catalog_query,
@@ -784,25 +799,111 @@ def search_anatomy_catalog(query: str, limit: int = 20) -> dict[str, Any]:
         "result_count": len(results),
         "total_matches": max(len(scored), len(token_hits)),
         "results": results,
+        "suggestions": suggestions,
+        "suggestion_labels": suggestion_labels(suggestions, limit=min(6, safe_limit)),
+        "auto_export_candidate": top_auto_export_candidate(suggestions),
+        "auto_export_threshold": AUTO_EXPORT_CONFIDENCE_THRESHOLD,
     }
+
+
+def _structured_suggestions_for_query(
+    catalog_query: str,
+    *,
+    resolver_result: dict[str, Any] | None = None,
+    include_nearby: bool = True,
+    limit: int = 8,
+) -> list[dict[str, Any]]:
+    catalog_data = load_exportable_catalog()
+    if catalog_data is None:
+        return []
+
+    items = [item for item in build_catalog_items(catalog_data) if is_exportable_catalog_entry(item)]
+    normalized = normalize_label(catalog_query)
+    resolver = resolver_result or resolve_part_query(catalog_query)
+    return rank_suggestions_for_query(
+        items,
+        normalized,
+        resolver_status=resolver.get("status"),
+        resolver_matches=resolver.get("matches"),
+        synonyms=SYNONYMS,
+        include_nearby=include_nearby,
+        limit=limit,
+        query_text=catalog_query,
+    )
 
 
 def _catalog_suggestions_for_query(
     catalog_query: str,
     *,
     limit: int = 6,
+    resolver_result: dict[str, Any] | None = None,
 ) -> list[str]:
-    from anatomy_mcp.catalog_search import rank_catalog_items_by_tokens, suggestion_labels
+    return suggestion_labels(
+        _structured_suggestions_for_query(
+            catalog_query,
+            resolver_result=resolver_result,
+            limit=limit,
+        ),
+        limit=limit,
+    )
+
+
+@mcp.tool()
+def suggest_exportable_anatomy(
+    query: str,
+    limit: int = 8,
+    include_nearby: bool = True,
+) -> dict[str, Any]:
+    """Suggest exportable anatomy parts when a query has no exact catalog match."""
+    validation_error = validate_user_text(query, "query")
+    if validation_error:
+        return error_response(validation_error, query=query)
+
+    catalog_query = catalog_query_from_user_message(query)
+    vague_error = validate_part_query_specificity(catalog_query)
+    if vague_error is not None:
+        return vague_error
 
     catalog_data = load_exportable_catalog()
     if catalog_data is None:
-        return []
-    items = build_catalog_items(catalog_data)
-    normalized = normalize_label(catalog_query)
-    return suggestion_labels(
-        rank_catalog_items_by_tokens(items, normalized, limit=limit),
-        limit=limit,
+        return error_response(
+            "exportable_catalog_not_found",
+            catalog_path=str(EXPORTABLE_CATALOG_PATH),
+            instruction="Run blender_scripts/build_exportable_catalog.py with Blender first.",
+        )
+
+    safe_limit = max(1, min(int(limit or 8), 20))
+    normalized_query = normalize_label(catalog_query)
+    resolved = resolve_part_query(catalog_query)
+    suggestions = _structured_suggestions_for_query(
+        catalog_query,
+        resolver_result=resolved,
+        include_nearby=include_nearby,
+        limit=safe_limit,
     )
+
+    status = "suggestions"
+    if resolved.get("status") == "ok":
+        status = "exact_match"
+    elif resolved.get("status") == "ambiguous":
+        status = "ambiguous"
+    elif not suggestions:
+        status = "no_suggestions"
+
+    return {
+        "status": status,
+        "query": query,
+        "catalog_query": catalog_query,
+        "normalized_query": normalized_query,
+        "catalog_name": "exportable_catalog.json",
+        "catalog_path": str(EXPORTABLE_CATALOG_PATH),
+        "resolver_status": resolved.get("status"),
+        "resolver_source": resolved.get("resolver_source", "exportable_catalog"),
+        "suggestions": suggestions,
+        "suggestion_labels": suggestion_labels(suggestions, limit=min(6, safe_limit)),
+        "auto_export_candidate": top_auto_export_candidate(suggestions),
+        "auto_export_threshold": AUTO_EXPORT_CONFIDENCE_THRESHOLD,
+    }
 
 
 @mcp.tool()
@@ -838,17 +939,25 @@ def export_anatomy_part(
     resolver_result = resolve_part_query(catalog_query, region_hint=region_hint)
 
     if resolver_result["status"] == "not_found":
-        suggestions = _catalog_suggestions_for_query(catalog_query)
+        structured_suggestions = _structured_suggestions_for_query(
+            catalog_query,
+            resolver_result=resolver_result,
+        )
         return error_response(
             "part_not_found",
             part_query=part_query,
             catalog_query=catalog_query,
             catalog_name="exportable_catalog.json",
             catalog_path=str(EXPORTABLE_CATALOG_PATH),
-            suggestions=suggestions,
+            suggestions=structured_suggestions,
+            suggestion_labels=suggestion_labels(structured_suggestions),
         )
     if resolver_result["status"] == "ambiguous":
         matches = resolver_result.get("matches") or []
+        structured_suggestions = _structured_suggestions_for_query(
+            catalog_query,
+            resolver_result=resolver_result,
+        )
         return error_response(
             "ambiguous_part",
             part_query=part_query,
@@ -856,7 +965,8 @@ def export_anatomy_part(
             catalog_name="exportable_catalog.json",
             catalog_path=str(EXPORTABLE_CATALOG_PATH),
             matches=matches,
-            suggestions=matches,
+            suggestions=structured_suggestions,
+            suggestion_labels=suggestion_labels(structured_suggestions) or matches,
         )
 
     if _should_force_package_export(resolver_result):
@@ -1182,17 +1292,25 @@ def export_anatomy_package(
     resolver_result = resolve_part_query(catalog_query, region_hint=region_hint)
 
     if resolver_result["status"] == "not_found":
-        suggestions = _catalog_suggestions_for_query(catalog_query)
+        structured_suggestions = _structured_suggestions_for_query(
+            catalog_query,
+            resolver_result=resolver_result,
+        )
         return error_response(
             "part_not_found",
             part_query=part_query,
             catalog_query=catalog_query,
             catalog_name="exportable_catalog.json",
             catalog_path=str(EXPORTABLE_CATALOG_PATH),
-            suggestions=suggestions,
+            suggestions=structured_suggestions,
+            suggestion_labels=suggestion_labels(structured_suggestions),
         )
     if resolver_result["status"] == "ambiguous":
         matches = resolver_result.get("matches") or []
+        structured_suggestions = _structured_suggestions_for_query(
+            catalog_query,
+            resolver_result=resolver_result,
+        )
         return error_response(
             "ambiguous_part",
             part_query=part_query,
@@ -1200,7 +1318,8 @@ def export_anatomy_package(
             catalog_name="exportable_catalog.json",
             catalog_path=str(EXPORTABLE_CATALOG_PATH),
             matches=matches,
-            suggestions=matches,
+            suggestions=structured_suggestions,
+            suggestion_labels=suggestion_labels(structured_suggestions) or matches,
         )
 
     part_label = resolver_result["part_label"]
@@ -1412,11 +1531,17 @@ def export_anatomy_package(
         )
 
     manifest_payload = json.loads(manifest_path.read_text(encoding="utf-8"))
-    viewer_model_path = anatomy_path
+    # Prefer the authored-materials GLB for display; fall back to the web-safe one.
+    viewer_model_path = (
+        original_materials_path
+        if include_original_materials and original_materials_path.exists()
+        else anatomy_path
+    )
     response = {
         "part_label": part_label,
         "export_id": export_id,
-        "model_url": build_public_url(anatomy_path),
+        "model_url": build_public_url(viewer_model_path),
+        "web_safe_model_url": build_public_url(anatomy_path),
         "annotations_url": build_public_url(annotations_path),
         "package_url": build_public_url(package_dir),
         "package_manifest_url": build_public_url(manifest_path),

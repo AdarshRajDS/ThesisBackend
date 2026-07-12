@@ -1,44 +1,11 @@
 "use client";
 
-import { useState } from "react";
+import { useState, useCallback } from "react";
 import { Box, Send, Loader2, RefreshCw } from "lucide-react";
 import AnatomyExportPanel from "./AnatomyExportPanel";
+import AnatomySuggestionList from "./AnatomySuggestionList";
+import { normalizeAnatomyUrls, resolveExportPayload } from "../lib/anatomyUrls";
 import { t } from "../i18n/strings";
-
-const EXPORT_URL_RE = /https?:\/\/[^\s)\]"']+/gi;
-
-function buildViewerUrl(apiBase, modelUrl, annotationsUrl) {
-  if (!modelUrl || !annotationsUrl) return null;
-  const origin = (apiBase || "http://127.0.0.1:8000").replace(/\/+$/, "");
-  return `${origin}/anatomy-viewer/index.html?model=${encodeURIComponent(modelUrl)}&annotations=${encodeURIComponent(annotationsUrl)}`;
-}
-
-function salvageExportFromAnswer(answer, partQuery, apiBase) {
-  if (!answer || !/anatomy-exports/i.test(answer)) return null;
-
-  const urls = [
-    ...new Set(
-      (answer.match(EXPORT_URL_RE) || []).map((u) => u.replace(/[.,;]+$/, ""))
-    ),
-  ];
-  const modelUrl =
-    urls.find((u) => /\/anatomy\.glb$/i.test(u)) ||
-    urls.find((u) => u.includes(".glb") && !/original_materials/i.test(u));
-  const annotationsUrl = urls.find((u) => /annotations\.json/i.test(u));
-  if (!modelUrl && !annotationsUrl) return null;
-
-  const viewerFromText = urls.find((u) => u.includes("/anatomy-viewer/"));
-  const viewerUrl = viewerFromText || buildViewerUrl(apiBase, modelUrl, annotationsUrl);
-
-  return {
-    status: "ok",
-    part_query: partQuery,
-    part_label: partQuery,
-    model_url: modelUrl,
-    annotations_url: annotationsUrl,
-    viewer_url: viewerUrl,
-  };
-}
 
 function isVerboseLlmDump(text) {
   if (!text) return false;
@@ -53,8 +20,49 @@ export default function AnatomyMcpPanel({ apiBase, language = "en" }) {
   const [busy, setBusy] = useState(false);
   const [mcpToolsUsed, setMcpToolsUsed] = useState([]);
   const [catalogInfo, setCatalogInfo] = useState(null);
+  const [catalogSuggestions, setCatalogSuggestions] = useState([]);
+  const [suggestionLabels, setSuggestionLabels] = useState([]);
 
   const base = (apiBase || "").replace(/\/+$/, "");
+
+  const exportLabel = useCallback(
+    async (label) => {
+      const part = (label || "").trim();
+      if (!part) return;
+
+      setBusy(true);
+      setStatus(t(language, "mcpExportingLabel", { label: part }));
+      setErrorMessage("");
+
+      try {
+        const res = await fetch(`${base}/anatomy/export/direct`, {
+          method: "POST",
+          headers: { "Content-Type": "application/json" },
+          body: JSON.stringify({ part_query: part, include_preview: true }),
+        });
+        const data = await res.json();
+        setExportData(normalizeAnatomyUrls(data, base));
+        setMcpToolsUsed(["export/direct"]);
+
+        if (data.status === "ok") {
+          setErrorMessage("");
+          setStatus("");
+          setMessage(part);
+        } else {
+          setErrorMessage(data.error || t(language, "mcpNoExport"));
+          setCatalogSuggestions(data.suggestions || []);
+          setSuggestionLabels(data.suggestion_labels || data.matches || []);
+          setStatus("");
+        }
+      } catch (err) {
+        setErrorMessage(String(err));
+        setStatus("");
+      } finally {
+        setBusy(false);
+      }
+    },
+    [base, language]
+  );
 
   async function sendToMcp() {
     const text = message.trim();
@@ -69,6 +77,8 @@ export default function AnatomyMcpPanel({ apiBase, language = "en" }) {
     setExportData(null);
     setMcpToolsUsed([]);
     setCatalogInfo(null);
+    setCatalogSuggestions([]);
+    setSuggestionLabels([]);
 
     try {
       const res = await fetch(`${base}/anatomy/ask`, {
@@ -97,28 +107,34 @@ export default function AnatomyMcpPanel({ apiBase, language = "en" }) {
         );
       }
 
-      let exportPayload = data.anatomy_export || null;
-      if (exportPayload?.status !== "ok" && isVerboseLlmDump(data.answer)) {
-        const salvaged = salvageExportFromAnswer(data.answer, text, base);
-        if (salvaged) exportPayload = salvaged;
-      }
+      let exportPayload = resolveExportPayload(data.anatomy_export, data.answer, text, base);
 
       const exportOk = exportPayload?.status === "ok";
       setExportData(exportPayload);
       setMcpToolsUsed(data.mcp_tools_used || []);
       setCatalogInfo(data.catalog_info || null);
+      setCatalogSuggestions(data.catalog_suggestions || exportPayload?.suggestions || []);
+      setSuggestionLabels(
+        data.suggestion_labels ||
+          exportPayload?.suggestion_labels ||
+          exportPayload?.matches ||
+          []
+      );
       setStatus("");
 
       if (exportOk) {
         setErrorMessage("");
       } else if (exportPayload?.status === "error") {
         setErrorMessage(exportPayload.error || data.error || t(language, "mcpNoExport"));
+        if (exportPayload.suggestions?.length) {
+          setCatalogSuggestions(exportPayload.suggestions);
+        }
+        if (exportPayload.suggestion_labels?.length) {
+          setSuggestionLabels(exportPayload.suggestion_labels);
+        }
       } else if (data.error) {
         setErrorMessage(data.error);
-      } else if (
-        /exported/i.test(data.answer || "") &&
-        !exportOk
-      ) {
+      } else if (/exported/i.test(data.answer || "") && !exportOk) {
         setErrorMessage(t(language, "mcpExportUrlsError"));
       } else if (isVerboseLlmDump(data.answer)) {
         setErrorMessage(t(language, "mcpExportUrlsError"));
@@ -126,6 +142,19 @@ export default function AnatomyMcpPanel({ apiBase, language = "en" }) {
         setErrorMessage(data.answer);
       } else {
         setErrorMessage(t(language, "mcpNoExport"));
+      }
+
+      if (!exportOk && !(data.catalog_suggestions?.length || data.suggestion_labels?.length)) {
+        const suggestRes = await fetch(
+          `${base}/anatomy/suggest?q=${encodeURIComponent(text)}&limit=8&include_nearby=true`
+        );
+        if (suggestRes.ok) {
+          const suggestData = await suggestRes.json();
+          if (suggestData.suggestions?.length) {
+            setCatalogSuggestions(suggestData.suggestions);
+            setSuggestionLabels(suggestData.suggestion_labels || []);
+          }
+        }
       }
     } catch (err) {
       setStatus("");
@@ -142,7 +171,13 @@ export default function AnatomyMcpPanel({ apiBase, language = "en" }) {
     setExportData(null);
     setMcpToolsUsed([]);
     setCatalogInfo(null);
+    setCatalogSuggestions([]);
+    setSuggestionLabels([]);
   }
+
+  const showSuggestions =
+    exportData?.status !== "ok" &&
+    (catalogSuggestions.length > 0 || suggestionLabels.length > 0);
 
   return (
     <aside className="mcp-panel">
@@ -214,7 +249,22 @@ export default function AnatomyMcpPanel({ apiBase, language = "en" }) {
           <div className="mcp-panel__answer mcp-panel__answer--error">{errorMessage}</div>
         )}
 
-        <AnatomyExportPanel exportData={exportData} language={language} />
+        {showSuggestions && (
+          <AnatomySuggestionList
+            language={language}
+            suggestions={catalogSuggestions}
+            suggestionLabels={suggestionLabels}
+            onSelect={exportLabel}
+            busy={busy}
+          />
+        )}
+
+        <AnatomyExportPanel
+          exportData={exportData}
+          language={language}
+          onSelectSuggestion={exportLabel}
+          busy={busy}
+        />
 
         {exportData?.viewer_url && exportData.status === "ok" && (
           <div className="mcp-panel__viewer-wrap">
@@ -222,6 +272,16 @@ export default function AnatomyMcpPanel({ apiBase, language = "en" }) {
               className="mcp-panel__viewer-frame"
               src={exportData.viewer_url}
               title={`${t(language, "mcpViewerTitle")}: ${exportData.part_label || "anatomy"}`}
+            />
+          </div>
+        )}
+
+        {exportData?.preview_url && exportData.status === "ok" && !exportData.viewer_url && (
+          <div className="mcp-panel__preview-wrap">
+            <img
+              className="mcp-panel__preview-img"
+              src={exportData.preview_url}
+              alt={exportData.part_label || t(language, "anatomyPart")}
             />
           </div>
         )}

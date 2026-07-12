@@ -3,13 +3,16 @@
 from __future__ import annotations
 
 import asyncio
+import functools
 import json
+import os
 import re
 import sys
 from contextlib import AsyncExitStack
 from dataclasses import dataclass
 from pathlib import Path
 from typing import Any, Optional
+from urllib.parse import quote
 
 from mcp import ClientSession, StdioServerParameters, types as mcp_types
 from mcp.client.stdio import stdio_client
@@ -17,9 +20,77 @@ from mcp.client.stdio import stdio_client
 from app.services.anatomy_mcp_service import configure_anatomy_mcp_urls, _ensure_pywin32
 from src.config.settings import settings
 
-_ANATOMY_MCP_ROOT = Path(__file__).resolve().parents[2] / "anatomy_mcp"
+_REPO_ROOT = Path(__file__).resolve().parents[2]
+_ANATOMY_MCP_ROOT = _REPO_ROOT / "anatomy_mcp"
 _MCP_SERVER_PY = _ANATOMY_MCP_ROOT / "server.py"
+_EXPORTABLE_CATALOG_PATH = _ANATOMY_MCP_ROOT / "label_index" / "exportable_catalog.json"
 MCP_BRIDGE_START_TIMEOUT_SECONDS = 20.0
+
+
+def _normalize_catalog_label(value: str) -> str:
+    """Match ``build_exportable_catalog.normalize_label`` exactly so queries line up with normalized_label."""
+    normalized = (value or "").lower().replace("-", "_").replace(" ", "_")
+    normalized = re.sub(r"[^a-z0-9_]+", "_", normalized)
+    normalized = re.sub(r"_+", "_", normalized).strip("_")
+    return normalized
+
+
+@functools.lru_cache(maxsize=1)
+def _exportable_catalog_label_maps() -> tuple[dict[str, str], dict[str, frozenset[str]]]:
+    """
+    Build lookup maps from exportable_catalog.json for exact-label resolution:
+      - exact: lower(label) -> canonical label (object entries preferred)
+      - normalized: normalized_label -> frozenset of canonical labels
+    Only entries that are exportable geometry are indexed, so any hit is renderable.
+    """
+    exact: dict[str, str] = {}
+    normalized_acc: dict[str, set[str]] = {}
+    try:
+        data = json.loads(_EXPORTABLE_CATALOG_PATH.read_text(encoding="utf-8"))
+    except Exception:
+        return {}, {}
+
+    for entry in data.get("entries", []):
+        if not isinstance(entry, dict):
+            continue
+        label = str(entry.get("label") or "").strip()
+        if not label:
+            continue
+        match_type = entry.get("match_type")
+        key = label.lower()
+        # Prefer object entries when a label collides with a collection.
+        if key not in exact or match_type == "object":
+            exact[key] = label
+        norm = str(entry.get("normalized_label") or "") or _normalize_catalog_label(label)
+        if norm:
+            normalized_acc.setdefault(norm, set()).add(label)
+
+    normalized = {key: frozenset(values) for key, values in normalized_acc.items()}
+    return exact, normalized
+
+
+def resolve_exact_catalog_label(query: str) -> str | None:
+    """
+    Return the canonical catalog label when ``query`` is unambiguously an exact
+    catalog entry (by literal label or normalized label). Returns None for
+    fuzzy/ambiguous input so those keep flowing through the LLM tool-calling loop.
+    """
+    text = (query or "").strip()
+    if not text:
+        return None
+
+    exact, normalized = _exportable_catalog_label_maps()
+    if not exact:
+        return None
+
+    direct = exact.get(text.lower())
+    if direct:
+        return direct
+
+    labels = normalized.get(_normalize_catalog_label(text))
+    if labels and len(labels) == 1:
+        return next(iter(labels))
+    return None
 
 _bridge: Optional["MCPBridge"] = None
 _bridge_lock = asyncio.Lock()
@@ -30,6 +101,7 @@ class MCPClientConfig:
     python_executable: str
     mcp_server_py: str
     public_api_base: str
+    repo_root: str
 
     @classmethod
     def from_settings(cls) -> "MCPClientConfig":
@@ -38,7 +110,77 @@ class MCPClientConfig:
             python_executable=sys.executable,
             mcp_server_py=str(_MCP_SERVER_PY),
             public_api_base=(settings.public_api_base or "http://127.0.0.1:8000").rstrip("/"),
+            repo_root=str(_REPO_ROOT),
         )
+
+    def subprocess_env(self) -> dict[str, str]:
+        """
+        Environment for the MCP server subprocess.
+
+        The server (``anatomy_mcp/server.py``) and its sibling modules use a mix
+        of flat imports (``from config import ...``) and absolute package imports
+        (``from anatomy_mcp.catalog_search import ...``). Running the script puts
+        only ``anatomy_mcp/`` on ``sys.path``, so the absolute imports fail with
+        ``No module named 'anatomy_mcp'`` unless the repo root is on PYTHONPATH.
+        """
+        env = dict(os.environ)
+        existing = env.get("PYTHONPATH", "")
+        parts = [self.repo_root] + ([existing] if existing else [])
+        env["PYTHONPATH"] = os.pathsep.join(parts)
+        return env
+
+
+def build_anatomy_viewer_url(
+    app_origin: str,
+    model_url: str,
+    annotations_url: str,
+) -> str:
+    """Canonical viewer URL — always derived from the live API origin."""
+    base = (app_origin or "http://127.0.0.1:8000").rstrip("/")
+    return (
+        f"{base}/anatomy-viewer/index.html"
+        f"?model={quote(model_url, safe='')}"
+        f"&annotations={quote(annotations_url, safe='')}"
+    )
+
+
+def finalize_anatomy_export(
+    export: dict[str, Any] | None,
+    app_origin: str,
+) -> dict[str, Any] | None:
+    """
+    Normalize every export payload before it reaches the UI:
+    rewrite stale localhost ports and rebuild viewer_url from model + annotations.
+    """
+    if not isinstance(export, dict):
+        return None
+
+    origin = (app_origin or "http://127.0.0.1:8000").rstrip("/")
+    finalized = rewrite_local_urls(dict(export), origin)
+    if finalized.get("status") != "ok":
+        return finalized
+
+    model_url = finalized.get("model_url")
+    annotations_url = finalized.get("annotations_url")
+    if model_url and annotations_url:
+        finalized["viewer_url"] = build_anatomy_viewer_url(
+            origin,
+            str(model_url),
+            str(annotations_url),
+        )
+    elif model_url or annotations_url or finalized.get("preview_url"):
+        for key in ("model_url", "annotations_url", "viewer_url", "preview_url"):
+            if finalized.get(key):
+                finalized[key] = rewrite_local_urls(finalized[key], origin)
+
+    return finalized
+
+
+def rewrite_mcp_payload(payload: dict[str, Any], app_origin: str) -> dict[str, Any]:
+    """Rewrite URLs inside an MCP tool payload (structured + text content)."""
+    if not isinstance(payload, dict):
+        return payload
+    return rewrite_local_urls(payload, app_origin)
 
 
 def make_json_safe(value: Any) -> Any:
@@ -63,9 +205,31 @@ def rewrite_local_urls(value: Any, app_origin: str) -> Any:
     if isinstance(value, list):
         return [rewrite_local_urls(item, app_origin) for item in value]
     if isinstance(value, str):
-        rewritten = value.replace("http://localhost:8123", app_origin)
-        if "/exports/" in rewritten and app_origin not in rewritten:
-            rewritten = rewritten.replace("http://127.0.0.1:8123", app_origin)
+        origin = (app_origin or "").rstrip("/")
+        if not origin:
+            return value
+        rewritten = value
+        stale_origins = (
+            "http://localhost:8080",
+            "http://127.0.0.1:8080",
+            "http://localhost:8123",
+            "http://127.0.0.1:8123",
+            "http://localhost:8001",
+            "http://127.0.0.1:8001",
+        )
+        for stale in stale_origins:
+            if stale in rewritten and origin not in rewritten:
+                rewritten = rewritten.replace(stale, origin)
+        if "/anatomy-exports/" in rewritten or "/anatomy-viewer/" in rewritten:
+            try:
+                from urllib.parse import urlparse, urlunparse
+
+                parsed = urlparse(rewritten)
+                if parsed.path.startswith("/anatomy-"):
+                    parsed = parsed._replace(scheme=urlparse(origin).scheme, netloc=urlparse(origin).netloc)
+                    rewritten = urlunparse(parsed)
+            except Exception:
+                pass
         return rewritten
     return value
 
@@ -220,6 +384,70 @@ def preferred_catalog_options(results: list[dict[str, Any]], limit: int = 6) -> 
     return labels
 
 
+def structured_suggestion_labels(structured: dict[str, Any] | None, *, limit: int = 6) -> list[str]:
+    if not isinstance(structured, dict):
+        return []
+    explicit = structured.get("suggestion_labels")
+    if isinstance(explicit, list) and explicit:
+        return [str(label) for label in explicit[:limit]]
+
+    suggestions = structured.get("suggestions")
+    if isinstance(suggestions, list) and suggestions:
+        if suggestions and isinstance(suggestions[0], dict):
+            return preferred_catalog_options(suggestions, limit=limit)
+        return [str(label) for label in suggestions[:limit]]
+
+    results = structured.get("results")
+    if isinstance(results, list) and results:
+        return preferred_catalog_options(results, limit=limit)
+    return []
+
+
+def format_structured_suggestions_for_user(
+    structured: dict[str, Any] | None,
+    *,
+    limit: int = 6,
+) -> str:
+    if not isinstance(structured, dict):
+        return ""
+    suggestions = structured.get("suggestions")
+    if not isinstance(suggestions, list):
+        return ""
+
+    lines: list[str] = []
+    for row in suggestions[:limit]:
+        if not isinstance(row, dict):
+            continue
+        label = str(row.get("label") or "").strip()
+        if not label:
+            continue
+        reason = str(row.get("match_reason") or "suggested")
+        confidence = row.get("confidence")
+        if confidence is not None:
+            lines.append(f"- {label} ({reason}, confidence={confidence})")
+        else:
+            lines.append(f"- {label} ({reason})")
+    return "\n".join(lines)
+
+
+def auto_export_candidate_from_structured(structured: dict[str, Any] | None) -> dict[str, Any] | None:
+    if not isinstance(structured, dict):
+        return None
+    candidate = structured.get("auto_export_candidate")
+    if isinstance(candidate, dict) and candidate.get("label"):
+        return candidate
+    suggestions = structured.get("suggestions")
+    if not isinstance(suggestions, list) or not suggestions:
+        return None
+    top = suggestions[0]
+    if not isinstance(top, dict):
+        return None
+    threshold = float(structured.get("auto_export_threshold") or 0.95)
+    if float(top.get("confidence") or 0) >= threshold and top.get("can_export"):
+        return top
+    return None
+
+
 def is_blender_timeout_payload(payload: dict[str, Any]) -> bool:
     structured = payload.get("structured_content")
     if isinstance(structured, dict) and structured.get("error") == "blender_timeout":
@@ -361,14 +589,16 @@ def structured_to_anatomy_export(
             "status": "error",
             "part_query": part_query or structured.get("part_query"),
             "error": message if error_code == "query_too_vague" else error_code,
-            "matches": structured.get("matches"),
+            "matches": structured.get("matches") or structured.get("suggestion_labels"),
             "instruction": structured.get("instruction"),
+            "suggestions": structured.get("suggestions"),
+            "suggestion_labels": structured.get("suggestion_labels"),
         }
 
     if not structured.get("model_url"):
         return None
 
-    return {
+    export = {
         "status": "ok",
         "part_query": part_query or structured.get("part_label"),
         "part_label": structured.get("part_label"),
@@ -382,6 +612,7 @@ def structured_to_anatomy_export(
         "annotation_count": structured.get("annotation_count"),
         "cache_hit": structured.get("cache_hit"),
     }
+    return export
 
 
 class MCPBridge:
@@ -409,6 +640,8 @@ class MCPBridge:
         server_params = StdioServerParameters(
             command=self.config.python_executable,
             args=[self.config.mcp_server_py],
+            env=self.config.subprocess_env(),
+            cwd=self.config.repo_root,
         )
 
         read_stream, write_stream = await stack.enter_async_context(stdio_client(server_params))

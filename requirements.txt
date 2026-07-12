@@ -6,6 +6,7 @@ uvicorn[standard]
 langchain
 langchain-community
 langchain-groq
+langchain-openai
 langchain-chroma
 langchain-huggingface
 

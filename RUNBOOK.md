@@ -72,7 +72,7 @@ Copy and edit environment variables (create `.env` from `.env.example`):
 LLM_PROVIDER=lmstudio
 LLM_API_BASE=http://127.0.0.1:1234/v1
 LLM_API_KEY=lm-studio
-LLM_MODEL=qwen2.5-7b-instruct-1m
+LLM_MODEL=google/gemma-4-e2b
 
 STORAGE_PROVIDER=minio
 MINIO_ENABLED=true
@@ -253,6 +253,17 @@ Invoke-RestMethod -Method POST http://127.0.0.1:8000/anatomy/export `
   -ContentType application/json `
   -Body '{"part_query":"liver","include_preview":true}'
 ```
+
+### Semantic suggestion fallback (optional)
+
+The catalog resolver first tries lexical tiers (exact, token, fuzzy, Latin synonyms). When those are thin, a MiniLM embedding index provides a meaning-based fallback (e.g. "brain stem" → Brainstem). Build it once after `exportable_catalog.json` exists (no Blender needed):
+
+```powershell
+$env:HF_HOME="data"
+.\.venv311\Scripts\python.exe scripts/build_anatomy_semantic_index.py
+```
+
+This writes `anatomy_mcp/label_index/semantic_index.npz` + `semantic_index_meta.json`. If the index or model is missing, the resolver silently falls back to the lexical tiers. Disable with `ANATOMY_SEMANTIC_SUGGEST_ENABLED=false`; tune the cutoff with `ANATOMY_SEMANTIC_MIN_SCORE` (default `0.30`).
 
 When RAG detects an anatomy part, `/rag/ask` includes `anatomy_export` with `viewer_url` (annotation viewer), `model_url` (GLB), and `annotations_url`.
 

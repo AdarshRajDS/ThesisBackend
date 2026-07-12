@@ -149,3 +149,48 @@ def test_sanitize_detects_hallucinated_export_without_tools():
         language="en",
     )
     assert "without running MCP tools" in answer
+
+
+def test_sanitize_strips_markdown_viewer_link_after_export_tools():
+    answer = sanitize_assistant_answer(
+        "Exported Fibula.l. You can view it [here](http://localhost:8080/anatomy-viewer/index.html?model=x).",
+        tools_used=["export_anatomy_part"],
+        language="en",
+    )
+    assert "http" not in answer
+    assert "Fibula" in answer or "Export finished" in answer
+
+
+def test_finalize_anatomy_export_rewrites_stale_viewer_port():
+    from app.services.anatomy_mcp_client import finalize_anatomy_export
+
+    export = finalize_anatomy_export(
+        {
+            "status": "ok",
+            "part_label": "Fibula.l",
+            "model_url": "http://127.0.0.1:8000/anatomy-exports/packages/fibula_l/anatomy.glb",
+            "annotations_url": "http://127.0.0.1:8000/anatomy-exports/packages/fibula_l/annotations.json",
+            "viewer_url": "http://localhost:8080/anatomy-viewer/index.html?model=bad",
+        },
+        "http://127.0.0.1:8000",
+    )
+    assert export["viewer_url"].startswith("http://127.0.0.1:8000/anatomy-viewer/")
+    assert "8080" not in export["viewer_url"]
+    assert "fibula_l" in export["viewer_url"]
+
+
+def test_compact_tool_result_hides_urls_from_llm():
+    payload = {
+        "structured_content": {
+            "part_label": "Fibula.l",
+            "model_url": "http://127.0.0.1:8000/anatomy-exports/packages/fibula_l/anatomy.glb",
+            "annotations_url": "http://127.0.0.1:8000/anatomy-exports/packages/fibula_l/annotations.json",
+            "viewer_url": "http://127.0.0.1:8000/anatomy-viewer/index.html",
+            "annotation_count": 12,
+        }
+    }
+    text = compact_tool_result_for_llm(payload)
+    assert "anatomy-exports" not in text
+    assert "anatomy-viewer" not in text
+    assert "export_status" in text
+    assert "Fibula.l" in text

@@ -1,0 +1,326 @@
+[
+  {
+    "question": "Bitte stelle mir die wichtigsten Muskeln für die Bewegung der Sprunggelenke zusammen und sortiere diese bitte nach Bewegungsrichtungen.",
+    "response": {
+      "answer": "Die bereitgestellten Textpassagen enthalten keine Informationen über die Muskeln, die für die Bewegung der Sprunggelenke zuständig sind. Daher kann ich Ihre Frage anhand des Kontextes nicht beantworten.",
+      "images": [],
+      "sources": [
+        {
+          "source": "anatomy+phys+vol2a.pdf",
+          "page": 288,
+          "chunk_preview": "All formed elements arise from stem cells of the red bone marrow. Recall that stem cells undergo mitosis plus cytokinesis\n(cellular division) to give rise to new daughter cells: One of these remains a stem cell and the other differentiates into one\nof any number of diverse cell types. Stem cells may be viewed as occupying a hierarchal system, with some loss of the\nability to diversify at each step…"
+        },
+        {
+          "source": "anatomy+phys+vol2a.pdf",
+          "page": 537,
+          "chunk_preview": "temporomandibular joint (TMJ),\n351, 370\ntendinous intersections, 435, 463\ntendon, 337, 370\ntendon sheath, 338, 370\ntenia coli, 1075\nteniae coli, 1053\ntensor fascia lata, 450, 463\nteres major, 442, 463\nteres minor, 442, 463\nINDEX\n1331"
+        },
+        {
+          "source": "anatomy+phys+vol2a.pdf",
+          "page": 60,
+          "chunk_preview": "the developmental pattern, it is possible to learn what the major regions of the nervous system are.\nThe Neural Tube\nTo begin, a sperm cell and an egg cell fuse to become a fertilized egg. The fertilized egg cell, or zygote, starts dividing to\ngenerate the cells that make up an entire organism. Sixteen days after fertilization, the developing embryo’s cells belong to\none of three germ layers that …"
+        }
+      ],
+      "grounding": {
+        "had_retrieved_passages_in_prompt": true,
+        "unique_text_passages_used": 3,
+        "used_multimodal_text_excerpts": false,
+        "primary_basis": "retrieved_corpus_synthesized",
+        "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+        "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+      },
+      "render_3d_url": null,
+      "render_3d_model_url": null,
+      "render_3d_viewer_url": null,
+      "render_3d_annotations_url": null,
+      "render_3d_anatomy": "hand",
+      "render_3d_suggestions": null
+    },
+    "error": null
+  },
+  {
+    "question": "Bitte stelle mir eine Übersicht über die wichtigen Muskeln zusammen, welche benötigt werden, um eine Faust zu schließen. Hierbei sollte die Innervation berücksichtigt werden. Bitte zeige mir dazu auch zwei didaktisch gute Bilder.",
+    "response": null,
+    "error": "HTTP Error 500: Internal Server Error"
+  },
+  {
+    "question": "Welche Faktoren begünstigen einen Hochstand des Humeruskopfes und damit eine Enge unter dem Schulterdach?",
+    "response": {
+      "answer": "Die bereitgestellten Textpassagen enthalten keine Informationen, die die Faktoren für einen Hochstand des Humeruskopfes oder eine Enge unter dem Schulterdach beschreiben.",
+      "images": [],
+      "sources": [
+        {
+          "source": "anatomy+phys+vol2a.pdf",
+          "page": 536,
+          "chunk_preview": "shaft of the humerus, 292, 322\nshaft of the radius, 294, 322\nshaft of the tibia, 310, 322\nshaft of the ulna, 294, 322\nshort bone, 208, 234\nshort reflex, 624, 641\nshort-term memory, 654, 679\nshunt, 1257, 1283\nsickle cell disease, 751, 771\nsigmoid colon, 1051, 1074\nsigmoid sinuses, 534, 554, 893,\n912\nsimple columnar epithelium, 139,\n165\nsimple cuboidal epithelium, 139,\n165\nsimple squamous epithelium…"
+        },
+        {
+          "source": "anatomy+phys+vol2a.pdf",
+          "page": 530,
+          "chunk_preview": "meatuses, 975\nMechanical digestion, 1029\nmechanical digestion, 1073\nmechanically gated channel, 489,\n504\nmechanoreceptor, 563, 602\nmeconium, 1258, 1282\nMedial, 31\nmedial, 39\nmedial (internal) rotation, 348,\n368\nmedial border of the scapula,\n291, 320\nmedial compartment of the thigh,\n451, 460\nmedial condyle of the femur, 306,\n320\nmedial condyle of the tibia, 310,\n320\nmedial cuneiform, 311, 320\nmedia…"
+        },
+        {
+          "source": "anatomy+phys+vol2a.pdf",
+          "page": 198,
+          "chunk_preview": "anatomical underpinnings. The German neurologist and histologist Korbinian Brodmann, who made a careful study of the\ncytoarchitecture of the cerebrum around the turn of the nineteenth century, described approximately 50 regions of the\ncortex that differed enough from each other to be considered separate areas (Figure 16.4). Brodmann made preparations\nof many different regions of the cerebral corte…"
+        }
+      ],
+      "grounding": {
+        "had_retrieved_passages_in_prompt": true,
+        "unique_text_passages_used": 3,
+        "used_multimodal_text_excerpts": false,
+        "primary_basis": "retrieved_corpus_synthesized",
+        "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+        "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+      },
+      "render_3d_url": null,
+      "render_3d_model_url": null,
+      "render_3d_viewer_url": null,
+      "render_3d_annotations_url": null,
+      "render_3d_anatomy": "brain",
+      "render_3d_suggestions": null
+    },
+    "error": null
+  },
+  {
+    "question": "Welcher Muskel ist der wichtigste Hüftbeuger beim Menschen?",
+    "response": {
+      "answer": "Der bereitgestellte Kontext enthält keine Informationen über die Muskelanatomie oder welche Muskeln als wichtigste Hüftbeuger beim Menschen gelten.",
+      "images": [],
+      "sources": [
+        {
+          "source": "anatomy+phys+vol2a.pdf",
+          "page": 198,
+          "chunk_preview": "anatomical underpinnings. The German neurologist and histologist Korbinian Brodmann, who made a careful study of the\ncytoarchitecture of the cerebrum around the turn of the nineteenth century, described approximately 50 regions of the\ncortex that differed enough from each other to be considered separate areas (Figure 16.4). Brodmann made preparations\nof many different regions of the cerebral corte…"
+        },
+        {
+          "source": "anatomy+phys+vol2a.pdf",
+          "page": 68,
+          "chunk_preview": "Figure 13.7 Lobes of the Cerebral Cortex The cerebral cortex is divided into four lobes. Extensive folding increases\nthe surface area available for cerebral functions.\nDifferent regions of the cerebral cortex can be associated with particular functions, a concept known as localization\nof function. In the early 1900s, a German neuroscientist named Korbinian Brodmann performed an extensive study of …"
+        },
+        {
+          "source": "anatomy+phys+vol2a.pdf",
+          "page": 20,
+          "chunk_preview": "the blood.\nResponse. The nervous system produces a response on the basis of the stimuli perceived by sensory structures. An\nobvious response would be the movement of muscles, such as withdrawing a hand from a hot stove, but there are broader\nuses of the term. The nervous system can cause the contraction of all three types of muscle tissue. For example, skeletal\nmuscle contracts to move the skeleto…"
+        }
+      ],
+      "grounding": {
+        "had_retrieved_passages_in_prompt": true,
+        "unique_text_passages_used": 3,
+        "used_multimodal_text_excerpts": false,
+        "primary_basis": "retrieved_corpus_synthesized",
+        "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+        "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+      },
+      "render_3d_url": null,
+      "render_3d_model_url": null,
+      "render_3d_viewer_url": null,
+      "render_3d_annotations_url": null,
+      "render_3d_anatomy": "brain",
+      "render_3d_suggestions": null
+    },
+    "error": null
+  },
+  {
+    "question": "Kannst Du mir kurz erklären, wie der Vestibulo-Okuläre-Reflex funktioniert?",
+    "response": {
+      "answer": "Der vestibululo-okuläre Reflex (VOR) ist ein Mechanismus, der dazu dient, Bilder auf der Netzhaut zu stabilisieren, während der Kopf und der Körper sich bewegen.\n\n**Funktionsweise:**\n\n1. **Verbindung:** Fasern der vestibulären Kerne projizieren zu den Nuclei des Okulomotorius, Trochlearis und Abducens, um Signale entlang der Hirnnerven zu beeinflussen. Diese Verbindungen bilden den Weg des VOR.\n2. **Ziel:** Der Reflex kompensiert die Bewegung des Kopfes und des Körpers.\n3. **Ergebnis:** Er stabilisiert die Bilder auf der Netzhaut, sodass die Augen auch bei Kopfbewegungen auf einem visuellen Reiz zentriert bleiben.\n\nKurz gesagt: Der VOR sorgt dafür, dass die Augen den visuellen Reiz stabilisieren, selbst wenn sich der Kopf bewegt.",
+      "images": [
+        "http://localhost:9000/anatomy-images/anatomy%2Bphys%2Bvol2a/page_169/anatomy%2Bphys%2Bvol2a_page_169_img_0.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=minioadmin%2F20260628%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260628T075950Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=4c70a43ae89f4c29c31a840a71399577874a06a9d65dd64fc9899043786bffb6",
+        "http://localhost:9000/anatomy-images/anatomy%2Bphys%2Bvol2a/page_167/anatomy%2Bphys%2Bvol2a_page_167_img_1.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=minioadmin%2F20260628%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260628T075950Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=950d9621cfe5511c3fb435db7dc75201c15384bcd5a0c3701a6fedd69dd317b8"
+      ],
+      "sources": [
+        {
+          "source": "anatomy+phys+vol2a.pdf",
+          "page": 131,
+          "chunk_preview": "To assist the visual system, fibers of the vestibular nuclei project to the oculomotor, trochlear, and abducens nuclei to\ninfluence signals sent along the cranial nerves. These connections constitute the pathway of the vestibulo-ocular reflex\n(VOR), which compensates for head and body movement by stabilizing images on the retina (Figure 14.21). Finally, the\nvestibular nuclei project to the thalamu…"
+        },
+        {
+          "source": "anatomy+phys+vol2a.pdf",
+          "page": 152,
+          "chunk_preview": "vestibulo-ocular reflex (VOR)\nvestibulospinal tract\nvisceral sense\nvision\nvisual acuity\nvitreous humor\nworking memory\nzonule fibers\nreflex based on connections between the vestibular system and the cranial nerves of\neye movements that ensures images are stabilized on the retina as the head and body move\nextrapyramidal connections between the vestibular nuclei in the brain stem and spinal cord that…"
+        },
+        {
+          "source": "anatomy+phys+vol2a.pdf",
+          "page": 213,
+          "chunk_preview": "particular stimuli to each receptive organ. General senses can be tested through sensory discrimination of touch versus\npainful stimuli.\nThe oculomotor, trochlear, and abducens nerves control the extraocular muscles and are connected by the medial\nlongitudinal fasciculus to coordinate gaze. Testing conjugate gaze is as simple as having the patient follow a visual target,\nlike a pen tip, through th…"
+        }
+      ],
+      "grounding": {
+        "had_retrieved_passages_in_prompt": true,
+        "unique_text_passages_used": 3,
+        "used_multimodal_text_excerpts": false,
+        "primary_basis": "retrieved_corpus_synthesized",
+        "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+        "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+      },
+      "render_3d_url": null,
+      "render_3d_model_url": null,
+      "render_3d_viewer_url": null,
+      "render_3d_annotations_url": null,
+      "render_3d_anatomy": "brain",
+      "render_3d_suggestions": null
+    },
+    "error": null
+  },
+  {
+    "question": "Gibt es den Vestibulookulären Reflex nur in der Horizontalen?",
+    "response": {
+      "answer": "Der Kontext beschreibt die Orientierung der halbkreisförmigen Kanäle (semicircular canals), die Erweiterungen des Vestibulus sind:\n\n\"Die halbkreisförmigen Kanäle sind drei ringförmige Erweiterungen des Vestibulus. Eine ist in der horizontalen Ebene ausgerichtet, während die anderen beiden in der vertikalen Ebene ausgerichtet sind.\"\n\nDer Kontext liefert keine Aussage darüber, ob der vestibulookuläre Reflex (VOR) *nur* in der Horizontalen existiert; er beschreibt lediglich die räumliche Ausrichtung der Vestibularstrukturen.",
+      "images": [
+        "http://localhost:9000/anatomy-images/anatomy%2Bphys%2Bvol2a/page_22/anatomy%2Bphys%2Bvol2a_page_22_img_1.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=minioadmin%2F20260628%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260628T080128Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=66a6d6d80cd86087c8e1a8e62b0172d5091f2001ff7f506cdb433d0bf6fd34dc",
+        "http://localhost:9000/anatomy-images/anatomy%2Bphys%2Bvol2a-30-60/page_7/anatomy%2Bphys%2Bvol2a-30-60_page_7_img_1.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=minioadmin%2F20260628%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260628T080128Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=6d934265a05843305f841e04969ba59f133e507c1934e918cf31b20e9825978a",
+        "http://localhost:9000/anatomy-images/anatomy%2Bphys%2Bvol2a/page_36/anatomy%2Bphys%2Bvol2a_page_36_img_1.jpeg?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=minioadmin%2F20260628%2Fus-east-1%2Fs3%2Faws4_request&X-Amz-Date=20260628T080128Z&X-Amz-Expires=3600&X-Amz-SignedHeaders=host&X-Amz-Signature=c5cabaa1da8edff901be91e7b879450a3a9e8d061757d8aec3efd56df38f8817"
+      ],
+      "sources": [
+        {
+          "source": "anatomy+phys+vol2a.pdf",
+          "page": 152,
+          "chunk_preview": "vestibulo-ocular reflex (VOR)\nvestibulospinal tract\nvisceral sense\nvision\nvisual acuity\nvitreous humor\nworking memory\nzonule fibers\nreflex based on connections between the vestibular system and the cranial nerves of\neye movements that ensures images are stabilized on the retina as the head and body move\nextrapyramidal connections between the vestibular nuclei in the brain stem and spinal cord that…"
+        },
+        {
+          "source": "anatomy+phys+vol2a.pdf",
+          "page": 226,
+          "chunk_preview": "vestibulo-ocular reflex (VOR)\nvestibulocerebellum\nWeber test\nWernicke’s area\nreflex based on connections between the vestibular system and the cranial nerves of\neye movements that ensures that images are stabilized on the retina as the head and body move\nflocculonodular lobe of the cerebellum named for the vestibular input from the eighth cranial\nnerve\nuse of a tuning fork to test the laterality o…"
+        },
+        {
+          "source": "anatomy+phys+vol2a.pdf",
+          "page": 119,
+          "chunk_preview": "Figure 14.11 Linear Acceleration Coding by Maculae The maculae are specialized for sensing linear acceleration,\nsuch as when gravity acts on the tilting head, or if the head starts moving in a straight line. The difference in inertia\nbetween the hair cell stereocilia and the otolith in which they are embedded leads to a shearing force that causes the\nstereocilia to bend in the direction of that li…"
+        }
+      ],
+      "grounding": {
+        "had_retrieved_passages_in_prompt": true,
+        "unique_text_passages_used": 3,
+        "used_multimodal_text_excerpts": false,
+        "primary_basis": "retrieved_corpus_synthesized",
+        "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+        "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+      },
+      "render_3d_url": null,
+      "render_3d_model_url": null,
+      "render_3d_viewer_url": null,
+      "render_3d_annotations_url": null,
+      "render_3d_anatomy": "brain",
+      "render_3d_suggestions": null
+    },
+    "error": null
+  },
+  {
+    "question": "Welche Augenmuskeln wirken denn mit welchen Borgengängen zusammen?",
+    "response": {
+      "answer": "Die extraokularen Muskeln werden von drei Hirnnerven innerviert.\n\n*   Der **laterale Rectus** (verursacht Abduktion des Auges) wird vom **Abducensnerv** innerviert.\n*   Der **oblique Superior** wird vom **Trochlearnerv** innerviert.",
+      "images": [],
+      "sources": [
+        {
+          "source": "anatomy+phys+vol2a.pdf",
+          "page": 121,
+          "chunk_preview": "compensate for the superior rectus pulling at approximately a 20-degree angle, rather than straight up. The same is true for\nthe inferior rectus, which is compensated by contraction of the inferior oblique. A seventh muscle in the orbit is the levator\npalpebrae superioris, which is responsible for elevating and retracting the upper eyelid, a movement that usually occurs in\nconcert with elevation o…"
+        },
+        {
+          "source": "anatomy+phys+vol2a.pdf",
+          "page": 68,
+          "chunk_preview": "Figure 13.7 Lobes of the Cerebral Cortex The cerebral cortex is divided into four lobes. Extensive folding increases\nthe surface area available for cerebral functions.\nDifferent regions of the cerebral cortex can be associated with particular functions, a concept known as localization\nof function. In the early 1900s, a German neuroscientist named Korbinian Brodmann performed an extensive study of …"
+        },
+        {
+          "source": "anatomy+phys+vol2a.pdf",
+          "page": 5,
+          "chunk_preview": "10.8 Smooth Muscle\n .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 402\n10.9 Development and Regeneration of Muscle Tissue .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 405\nChapter 11: The Muscular System  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 415\n11.1 Interactions of…"
+        }
+      ],
+      "grounding": {
+        "had_retrieved_passages_in_prompt": true,
+        "unique_text_passages_used": 3,
+        "used_multimodal_text_excerpts": false,
+        "primary_basis": "retrieved_corpus_synthesized",
+        "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+        "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+      },
+      "render_3d_url": null,
+      "render_3d_model_url": null,
+      "render_3d_viewer_url": null,
+      "render_3d_annotations_url": null,
+      "render_3d_anatomy": "brain",
+      "render_3d_suggestions": null
+    },
+    "error": null
+  },
+  {
+    "question": "Bitte erkläre mir die Funktion des Herzens.",
+    "response": {
+      "answer": "Die bereitgestellten Textpassagen enthalten keine Informationen über die Funktion des Herzens.",
+      "images": [],
+      "sources": [
+        {
+          "source": "anatomy+phys+vol2a.pdf",
+          "page": 110,
+          "chunk_preview": "is most important to autonomic functions. A special sense is one that has a specific organ devoted to it, namely the eye,\ninner ear, tongue, or nose.\nEach of the senses is referred to as a sensory modality. Modality refers to the way that information is encoded, which\nis similar to the idea of transduction. The main sensory modalities can be described on the basis of how each is transduced.\nThe ch…"
+        },
+        {
+          "source": "anatomy+phys+vol2a.pdf",
+          "page": 20,
+          "chunk_preview": "combines sensory perceptions and higher cognitive functions such as memories, learning, and emotion to produce a\nresponse.\nSensation. The first major function of the nervous system is sensation—receiving information about the environment to\ngain input about what is happening outside the body (or, sometimes, within the body). The sensory functions of the nervous\nsystem register the presence of a ch…"
+        },
+        {
+          "source": "anatomy+phys+vol2a.pdf",
+          "page": 198,
+          "chunk_preview": "on the outside of the cerebrum. It is approximately a millimeter thick in most regions and highly folded to fit within the\nlimited space of the cranial vault. These higher functions are distributed across various regions of the cortex, and specific\nlocations can be said to be responsible for particular functions. There is a limited set of regions, for example, that are\ninvolved in language functio…"
+        }
+      ],
+      "grounding": {
+        "had_retrieved_passages_in_prompt": true,
+        "unique_text_passages_used": 3,
+        "used_multimodal_text_excerpts": false,
+        "primary_basis": "retrieved_corpus_synthesized",
+        "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+        "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+      },
+      "render_3d_url": null,
+      "render_3d_model_url": null,
+      "render_3d_viewer_url": null,
+      "render_3d_annotations_url": null,
+      "render_3d_anatomy": "brain",
+      "render_3d_suggestions": null
+    },
+    "error": null
+  },
+  {
+    "question": "Bitte erstelle mir ein Kurzreferat für 3 Minuten für den Schultergürtel wo es um Bewegungen des Armes geht und Dinge wie Abduktion und Elevation.",
+    "response": {
+      "answer": "Basierend auf den bereitgestellten Textpassagen kann ich Ihnen ein Kurzreferat über die motorische Steuerung von Armbewegungen und die damit verbundenen Mechanismen erstellen.\n\nDa der Kontext sich primär auf die neurologische Kontrolle von Bewegung (Propriozeption, Reflexe) und Augenmuskeln konzentriert, liegt der Fokus des Referats auf dem Zusammenspiel von Gehirn und Muskeln bei der Bewegung des Arms.\n\n***\n\n## Kurzreferat: Motorische Steuerung von Armbewegungen und Propriozeption (ca. 3 Minuten)\n\n**Einleitung: Die motorische Kontrolle des Arms**\n\nWir beginnen mit der Betrachtung, wie unser Körper Bewegungen ausführt und korrigiert. Die Bewegung des Arms ist ein komplexer motorischer Prozess, der nicht nur durch direkte Befehle, sondern auch durch kontinuierliches Feedback gesteuert wird.\n\n**1. Propriozeptives Feedback und Korrekturmechanismen**\n\nWenn wir den Arm bewegen, geschieht dies als ein fortlaufender motorischer Prozess. Um die Bewegung präzise zu steuern, nutzt das Gehirn eine wichtige Rückmeldung: das **propriozeptive Feedback**. Dieses Feedback informiert das zentrale Nervensystem über die aktuelle Position und den Zustand der Gliedmaßen.\n\n*   **Die Rolle des Kleinhirns (Cerebellum):** Das Kleinhirn spielt eine entscheidende Rolle bei der Koordination. Es vergleicht den motorischen Befehl, der vom Gehirn gesendet wird, mit dem propriozeptiven Feedback. Wenn eine Diskrepanz auftritt, passt das Kleinhirn die absteigenden Signale an, um die Bewegung zu korrigieren und die ursprüngliche Position wiederherzustellen.\n*   **Muskuläre Reaktion:** Um diese Korrektur zu ermöglichen, senden Strukturen wie der **Rote Nucleus** zusätzliche Signale an die peripheren Nerven (LMN), damit die Armmuskeln kurzzeitig eine erhöhte Kontraktion ausführen können, um die veränderte Position zu überwinden und die Ausgangsposition wiederzuerlangen.\n\n**2. Reflexe und Muskelkontrolle**\n\nDie Kontrolle der Muskelkontraktion wird durch Reflexe unterstützt. Beispielsweise ist der **Check-Reflex** abhängig von der Eingabe des Kleinhirns, um sicherzustellen, dass die erhöhte Kontraktion nicht weiter fortgesetzt wird, nachdem eine Widerstandslosigkeit aufgehoben wurde. Dies gewährleistet eine kontrollierte und sichere Bewegung.\n\n**Zusammenfassung:**\n\nDie Bewegungen des Arms – wie Abduktion oder Elevation – werden durch ein dynamisches Zusammenspiel von motorischen Befehlen, sensorischem Feedback (Propriozeption) und Korrekturmechanismen im Kleinhirn gesteuert. Dieses System stellt sicher, dass die Bewegung nicht nur ausgeführt wird, sondern auch präzise und kontrolliert bleibt.\n\n***\n*(Hinweis: Die bereitgestellten Textpassagen fokussieren stark auf die neurologische Steuerung von Bewegungen und Reflexe. Für eine vollständige anatomische Darstellung des Schultergürtels (Bänder, Knochen) müssten weitere anatomische Texte herangezogen werden.)*",
+      "images": [],
+      "sources": [
+        {
+          "source": "anatomy+phys+vol2a.pdf",
+          "page": 220,
+          "chunk_preview": "position. The extension of the arms is an ongoing motor process, and the tap or push on the arms presents a change in\nthe proprioceptive feedback. The cerebellum compares the cerebral motor command with the proprioceptive feedback and\nadjusts the descending input to correct. The red nucleus would send an additional signal to the LMN for the arm to increase\ncontraction momentarily to overcome the c…"
+        },
+        {
+          "source": "anatomy+phys+vol2a.pdf",
+          "page": 121,
+          "chunk_preview": "compensate for the superior rectus pulling at approximately a 20-degree angle, rather than straight up. The same is true for\nthe inferior rectus, which is compensated by contraction of the inferior oblique. A seventh muscle in the orbit is the levator\npalpebrae superioris, which is responsible for elevating and retracting the upper eyelid, a movement that usually occurs in\nconcert with elevation o…"
+        },
+        {
+          "source": "anatomy+phys+vol2a.pdf",
+          "page": 4,
+          "chunk_preview": "Chapter 8: The Appendicular Skeleton .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 287\n8.1 The Pectoral Girdle  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 288\n8.2 Bones of the Upper Limb  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  .  . 292\n8.3…"
+        }
+      ],
+      "grounding": {
+        "had_retrieved_passages_in_prompt": true,
+        "unique_text_passages_used": 3,
+        "used_multimodal_text_excerpts": false,
+        "primary_basis": "retrieved_corpus_synthesized",
+        "provenance_explanation": "The model was given retrieved text from your index (and possibly multimodal text snippets). The reply is typically a synthesis or paraphrase of those passages, not a guaranteed verbatim extract, unless it explicitly quotes the context. General world knowledge may still appear where the model fills gaps.",
+        "evaluation_note": "Automatic correctness is not asserted. Options for thesis evaluation: human expert rubric, LLM-as-judge with caution, RAGAS-style metrics (faithfulness/context precision), and a small gold Q&A set over your PDFs."
+      },
+      "render_3d_url": null,
+      "render_3d_model_url": null,
+      "render_3d_viewer_url": null,
+      "render_3d_annotations_url": null,
+      "render_3d_anatomy": "brain",
+      "render_3d_suggestions": null
+    },
+    "error": null
+  }
+]

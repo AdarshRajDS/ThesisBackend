@@ -1,4 +1,5 @@
 import mimetypes
+import re
 from pathlib import Path
 from typing import Any, Dict, List, Optional, Tuple
 
@@ -160,20 +161,38 @@ ANATOMY_SYNONYMS: Dict[str, str] = {
 }
 
 
-def _extract_anatomy_key(question: str, answer: str = "", sources: Optional[List[Dict[str, Any]]] = None) -> Optional[str]:
+def _match_anatomy_key_in_text(text: str) -> Optional[str]:
     """
-    Resolve one anatomy key from question/answer/sources.
-    """
-    source_text = ""
-    if sources:
-        source_text = " ".join((s.get("chunk_preview") or "") for s in sources if isinstance(s, dict))
-    combined = f"{question}\n{answer}\n{source_text}".lower()
+    Return the first anatomy key whose synonym appears in `text` as a whole word.
 
-    # deterministic ordering prioritizes explicit target list
-    for token, key in ANATOMY_SYNONYMS.items():
-        if token in combined:
+    Word-boundary matching (\\b) avoids substring false positives such as
+    "cerebral" matching inside unrelated words, and prefers longer/more-specific
+    synonyms first so e.g. "vertebrae" wins over a stray "spinal".
+    """
+    lowered = (text or "").lower()
+    if not lowered.strip():
+        return None
+    # Longer tokens first: more specific terms take priority over generic ones.
+    for token, key in sorted(ANATOMY_SYNONYMS.items(), key=lambda kv: len(kv[0]), reverse=True):
+        if re.search(rf"\b{re.escape(token)}\b", lowered):
             return key
     return None
+
+
+def _extract_anatomy_key(question: str, answer: str = "", sources: Optional[List[Dict[str, Any]]] = None) -> Optional[str]:
+    """
+    Resolve one anatomy key for the legacy asset renderer.
+
+    Only the user's question is considered first; the generated answer is a weak
+    fallback used *only* when the question itself contains no anatomy term.
+
+    Retrieved source text (`sources`) is intentionally IGNORED: index/glossary/TOC
+    chunks routinely contain incidental anatomy words (e.g. "cerebral", "hand"),
+    which previously caused the wrong 3D model to be attached to unrelated answers
+    (e.g. "brain" for a hip-flexor question). `sources` is kept in the signature
+    for backward compatibility only.
+    """
+    return _match_anatomy_key_in_text(question) or _match_anatomy_key_in_text(answer)
 
 
 def _call_remote_asset_render(asset_key: str, camera_preset: str, request_id: str) -> Dict[str, Any]:
@@ -200,11 +219,111 @@ def _call_remote_asset_render(asset_key: str, camera_preset: str, request_id: st
         return {"status": "error", "error": f"Blender MCP render error: {exc}"}
 
 
-def render_related_anatomy(question: str, answer: str = "", sources: Optional[List[Dict[str, Any]]] = None) -> Dict[str, Any]:
+# Minimum confidence to auto-export via MCP during RAG enrichment (below chat auto-export threshold).
+MCP_RAG_EXPORT_CONFIDENCE = 0.85
+
+
+def _combined_anatomy_text(
+    question: str,
+    answer: str = "",
+    sources: Optional[List[Dict[str, Any]]] = None,
+) -> str:
+    source_text = ""
+    if sources:
+        source_text = " ".join((s.get("chunk_preview") or "") for s in sources if isinstance(s, dict))
+    return f"{question}\n{answer}\n{source_text}".strip()
+
+
+def _try_mcp_catalog_render(
+    question: str,
+    answer: str = "",
+    sources: Optional[List[Dict[str, Any]]] = None,
+) -> Dict[str, Any]:
     """
-    Best-effort anatomy asset render for RAG.
-    Returns only remote URL metadata; backend does not persist local render files.
+    Resolve an exportable Z-Anatomy part via MCP catalog suggestions, then export preview.
     """
+    try:
+        from anatomy_mcp.query_validation import catalog_query_from_user_message, is_vague_part_query
+        from app.services.anatomy_mcp_service import export_anatomy_part, suggest_exportable_anatomy
+    except Exception as exc:
+        return {"status": "skipped", "reason": f"MCP anatomy modules unavailable: {exc}"}
+
+    catalog_query = catalog_query_from_user_message(question)
+    if not catalog_query or is_vague_part_query(catalog_query):
+        for text in (answer, _combined_anatomy_text("", answer, sources)):
+            if not text:
+                continue
+            candidate = catalog_query_from_user_message(text)
+            if candidate and not is_vague_part_query(candidate):
+                catalog_query = candidate
+                break
+
+    if not catalog_query or is_vague_part_query(catalog_query):
+        return {"status": "skipped", "reason": "No specific anatomy query for MCP catalog."}
+
+    suggest = suggest_exportable_anatomy(catalog_query, limit=6, include_nearby=True)
+    if suggest.get("error"):
+        return {"status": "skipped", "reason": str(suggest.get("error"))}
+
+    suggestions = suggest.get("suggestions") or []
+    suggestion_labels = [
+        str(row.get("label"))
+        for row in suggestions
+        if isinstance(row, dict) and row.get("label") and row.get("can_export")
+    ]
+
+    candidate = suggest.get("auto_export_candidate")
+    if not candidate and suggestions:
+        top = suggestions[0]
+        if isinstance(top, dict) and float(top.get("confidence") or 0) >= MCP_RAG_EXPORT_CONFIDENCE:
+            candidate = top
+
+    if not candidate or not candidate.get("label"):
+        return {
+            "status": "skipped",
+            "reason": "No high-confidence exportable catalog match.",
+            "render_3d_suggestions": suggestion_labels[:6],
+        }
+
+    export = export_anatomy_part(part_query=str(candidate["label"]), include_preview=True)
+    if export.get("error"):
+        return {
+            "status": "skipped",
+            "reason": str(export.get("error")),
+            "render_3d_suggestions": suggestion_labels[:6],
+        }
+
+    preview_url = export.get("preview_url")
+    model_url = export.get("model_url")
+    annotations_url = export.get("annotations_url")
+    viewer_url = export.get("viewer_url")
+    render_url = preview_url or model_url
+    if not render_url:
+        return {
+            "status": "skipped",
+            "reason": "MCP export succeeded but returned no preview/model URL.",
+            "render_3d_suggestions": suggestion_labels[:6],
+        }
+
+    return {
+        "status": "rendered",
+        "anatomy_key": candidate.get("label"),
+        "render_3d_url": render_url,
+        "render_3d_model_url": model_url,
+        "render_3d_viewer_url": viewer_url,
+        "render_3d_annotations_url": annotations_url,
+        "render_source": "mcp_exportable_catalog",
+        "match_reason": candidate.get("match_reason"),
+        "confidence": candidate.get("confidence"),
+        "render_3d_suggestions": suggestion_labels[:6],
+    }
+
+
+def _legacy_asset_render(
+    question: str,
+    answer: str = "",
+    sources: Optional[List[Dict[str, Any]]] = None,
+) -> Dict[str, Any]:
     key = _extract_anatomy_key(question, answer=answer, sources=sources)
     if not key:
         return {"status": "skipped", "reason": "No mapped anatomy keyword found."}
@@ -246,4 +365,30 @@ def render_related_anatomy(question: str, answer: str = "", sources: Optional[Li
         "render_3d_model_url": render.get("model_url"),
         "camera_preset": mapping["camera_preset"],
         "asset_key": mapping["asset_key"],
+        "render_source": "legacy_blend_asset",
+    }
+
+
+def render_related_anatomy(question: str, answer: str = "", sources: Optional[List[Dict[str, Any]]] = None) -> Dict[str, Any]:
+    """
+    Best-effort anatomy asset render for RAG.
+    Prefers MCP exportable_catalog export; falls back to legacy preloaded .blend assets.
+    """
+    mcp_result = _try_mcp_catalog_render(question, answer=answer, sources=sources)
+    if mcp_result.get("status") == "rendered":
+        return mcp_result
+
+    legacy_result = _legacy_asset_render(question, answer=answer, sources=sources)
+    suggestions = mcp_result.get("render_3d_suggestions") or []
+    if legacy_result.get("status") == "rendered":
+        if suggestions and not legacy_result.get("render_3d_suggestions"):
+            legacy_result["render_3d_suggestions"] = suggestions
+        return legacy_result
+
+    # Neither path produced a real render. Do NOT surface a speculative
+    # `anatomy_key`: it would set `render_3d_anatomy` in the API response and make
+    # the UI show a 3D label with no actual model/preview behind it.
+    return {
+        "status": "skipped",
+        "render_3d_suggestions": suggestions,
     }

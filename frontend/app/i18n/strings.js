@@ -74,6 +74,19 @@ export const STRINGS = {
     downloadGlb: "Download GLB",
     downloadAnnotations: "Download annotations JSON",
     yesPattern: "yes|y|ok|okay|sure",
+    exportableSuggestions: "Exportable catalog matches — click to export",
+    exportSuggestionTitle: "Export this verified catalog structure",
+    mcpExportingLabel: "Exporting {label}…",
+    rag3dTitle: "3D anatomy",
+    suggestReason_token_overlap: "token match",
+    suggestReason_partial_token_overlap: "partial match",
+    suggestReason_fuzzy_label: "similar spelling",
+    suggestReason_synonym: "synonym",
+    suggestReason_hierarchy_neighbor: "nearby structure",
+    suggestReason_region_sibling: "same body system",
+    suggestReason_spatial_nearby: "spatially nearby",
+    suggestReason_lateral_pair: "left/right pair",
+    suggestReason_ambiguous_match: "multiple matches",
     uploadPanelTitle: "Knowledge Base",
     pdfResources: "PDF Resources",
     uploadPdfLabel: "Upload PDF Resource",
@@ -154,6 +167,19 @@ export const STRINGS = {
     downloadGlb: "GLB herunterladen",
     downloadAnnotations: "Beschriftungs-JSON herunterladen",
     yesPattern: "yes|y|ok|okay|sure|ja|j",
+    exportableSuggestions: "Exportierbare Katalogtreffer — zum Exportieren klicken",
+    exportSuggestionTitle: "Diese geprüfte Katalogstruktur exportieren",
+    mcpExportingLabel: "Exportiere {label}…",
+    rag3dTitle: "3D-Anatomie",
+    suggestReason_token_overlap: "Token-Treffer",
+    suggestReason_partial_token_overlap: "Teiltreffer",
+    suggestReason_fuzzy_label: "ähnliche Schreibweise",
+    suggestReason_synonym: "Synonym",
+    suggestReason_hierarchy_neighbor: "nahe Struktur",
+    suggestReason_region_sibling: "gleiches Körpersystem",
+    suggestReason_spatial_nearby: "räumlich nah",
+    suggestReason_lateral_pair: "Links/Rechts-Paar",
+    suggestReason_ambiguous_match: "mehrere Treffer",
     uploadPanelTitle: "Wissensbasis",
     pdfResources: "PDF-Ressourcen",
     uploadPdfLabel: "PDF-Ressource hochladen",
@@ -166,9 +192,15 @@ export const STRINGS = {
   },
 };
 
-export function t(lang, key) {
+export function t(lang, key, vars) {
   const code = lang === "de" ? "de" : "en";
-  return STRINGS[code][key] ?? STRINGS.en[key] ?? key;
+  let text = STRINGS[code][key] ?? STRINGS.en[key] ?? key;
+  if (vars && typeof text === "string") {
+    for (const [name, value] of Object.entries(vars)) {
+      text = text.replaceAll(`{${name}}`, String(value));
+    }
+  }
+  return text;
 }
 
 export function yesRegex(lang) {
