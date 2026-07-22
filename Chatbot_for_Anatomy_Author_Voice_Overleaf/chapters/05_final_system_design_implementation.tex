@@ -253,12 +253,12 @@ The schemas preserve the mode boundary. \codepath{AskResponse} is document-orien
 \section{Configuration and Reproducibility}
 \label{sec:configuration-reproducibility}
 
-Requirements files, \codepath{package-lock.json}, Docker images, model identifiers, and the repository hash provide partial version evidence. \Cref{tab:environment-versions} separates declared values from information that depends on the final machine.
+Requirements files, \codepath{package-lock.json}, Docker images, model identifiers, and repository commits provide partial version evidence. \Cref{tab:environment-versions} separates the audit HEAD, the hybrid-connection commit, the earlier dense-only inspection snapshot, and declared dependency values from information that depends on the final machine.
 
 \small
 \setlength{\tabcolsep}{3pt}
 \begin{longtable}{L{0.23\textwidth}L{0.39\textwidth}L{0.29\textwidth}}
-  \caption{Environment and version record for the frozen implementation.}
+  \caption{Environment and version record for the audited implementation timeline.}
   \label{tab:environment-versions}\\
   \toprule
   Item & Repository-declared value & Final evidence status \\
@@ -274,7 +274,9 @@ Requirements files, \codepath{package-lock.json}, Docker images, model identifie
   \endfoot
   \bottomrule
   \endlastfoot
-  Repository snapshot & \nolinkurl{cb041d52787f469bbbe0434e9fc7690edc122afa} & Verified from ZIP archive comment. \\
+  Audit snapshot & \nolinkurl{d3a544d0b2202b1e068b648968a2ae17f871bfa8} & Thesis audit HEAD; not a claim that every dependency was frozen with P1. \\
+  Hybrid-connection commit & \nolinkurl{5089fcc0182f86c71558ccce21b75ebcb18b06f4} (12 July 2026) & \codepath{HybridRetriever} wired into \codepath{MultimodalRAG}/\codepath{/rag/ask}; preferred P1 route. \\
+  Historical dense-only snapshot & \nolinkurl{cb041d52787f469bbbe0434e9fc7690edc122afa} (27 June 2026) & Earlier inspection baseline only; not the final or July-evaluated implementation. \\
   Backend base & Python \codepath{3.11-slim} & Runtime patch version required. \\
   Next.js / React & Next.js \codepath{16.2.4}; React/ReactDOM \codepath{19.2.5} & Lock-file verified; Node.js version required. \\
   Embedding libraries & \codepath{sentence-transformers==2.7.0}; \codepath{transformers==4.41.2} & Declared; installed freeze required. \\

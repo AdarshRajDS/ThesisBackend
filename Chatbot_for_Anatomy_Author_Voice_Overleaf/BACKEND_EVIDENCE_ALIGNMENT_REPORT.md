@@ -6,12 +6,21 @@
 
 ---
 
-## Final build status
+## Commits on this branch
+
+| Commit | Message |
+| ------ | ------- |
+| `55463d377083b54d6b83f8874d5dd4b0891ba55c` | `thesis: align manuscript with backend evaluation evidence` |
+| this branch tip (see packaging note / `git log -1`) | `thesis: remove residual hybrid-route contradictions` |
+
+---
+
+## Final build status (after residual contradiction pass)
 
 | Build | Commands | Result |
 | ----- | -------- | ------ |
-| Full local | `pdflatex -interaction=nonstopmode main_full.tex` (×2) then `python scripts/refresh_fast_cache.py` | **Success** — no `!` LaTeX errors. `main_full.pdf` **123 pages**, 992 332 bytes. |
-| Free-plan | `pdflatex -interaction=nonstopmode main.tex` after cache refresh | **Success** — no `!` LaTeX errors. `main.pdf` **125 pages**, 929 768 bytes. |
+| Full local | `pdflatex -interaction=nonstopmode main_full.tex` (×2) then `python scripts/refresh_fast_cache.py` | **Success** — no `!` LaTeX errors. `main_full.pdf` **124 pages**, 994 068 bytes. |
+| Free-plan | `pdflatex -interaction=nonstopmode main.tex` after cache refresh | **Success** — no `!` LaTeX errors. `main.pdf` **126 pages**, 931 502 bytes. |
 
 ### Remaining warnings (non-fatal)
 
@@ -22,16 +31,40 @@
 
 ---
 
+## Residual contradiction-only pass (follow-up)
+
+Targeted prose fixes only. Evaluation numbers, raw JSON, architecture code, research questions, and thesis conclusions were not changed.
+
+| Location | Before | After |
+| -------- | ------ | ----- |
+| Ch4.1 evidence standard | Production path “did not instantiate” `HybridRetriever` | Connected in `5089fcc`; preferred P1 route; dense-only improvement unevaluated |
+| Ch4.7 evidence checklist | Hybrid, consent, grading, and separation treated as one unverified bundle | Hybrid wiring verified; consent / grounding / citation / route-separation remain incomplete or unverified |
+| Ch4.8 summary | Archived endpoint “does not fully connect the hybrid and grounding components” | Hybrid connected; WK consent, strict evidence gating, and post-generation citation verification incomplete |
+| Table 5.4 | Single `cb041d5` “Repository snapshot” as frozen implementation | Separate rows: audit `d3a544d`, hybrid-connect `5089fcc…`, historical dense-only `cb041d5` (explicitly not final/July-evaluated) |
+| German abstract | “Ein matched Vergleich denser versus hybrider Retrieval” | “Ein kontrollierter Vergleich zwischen dichtem und hybridem Retrieval” |
+
+### Obsolete-phrase scan (editable thesis `.tex`)
+
+No remaining matches in `chapters/`, `frontmatter/`, `appendices/`, or `figures/` for:
+
+- hybrid retriever not instantiated / not connected;
+- archived endpoint does not connect hybrid;
+- production endpoint is dense-only;
+- `cb041d5` as the evaluated July / final frozen implementation;
+- “Ein matched Vergleich denser versus hybrider Retrieval”.
+
+---
+
 ## File-by-file change log (manuscript)
 
 | File | Change |
 | ---- | ------ |
 | `frontmatter/abstract_en.tex` | P1 = hybrid-preferred after `5089fcc`; historical `cb041d5`; no superiority; type caps; WK not enforced |
-| `frontmatter/abstract_de.tex` | German equivalent |
+| `frontmatter/abstract_de.tex` | German equivalent + natural “kontrollierter Vergleich…” phrasing |
 | `chapters/01_introduction.tex` | RQ1/C2/C4 hybrid-preferred; `\systemname` introduced |
 | `chapters/03_methodology_requirements.tex` | 10-step verified route; FR5; RQ map |
-| `chapters/04_system_evolution_design_decisions.tex` | Dense→hybrid evolution; early top-3 historical; July type caps |
-| `chapters/05_final_system_design_implementation.tex` | Active hybrid path; component map; inactive WK/post-gen only |
+| `chapters/04_system_evolution_design_decisions.tex` | Dense→hybrid evolution; residual Ch4.1/4.7/4.8 hybrid-route contradictions removed |
+| `chapters/05_final_system_design_implementation.tex` | Active hybrid path; Table 5.4 timeline rows (`d3a544d` / `5089fcc` / `cb041d5`) |
 | `chapters/06_evaluation_methodology.tex` | P1 config; proxy catalogue; **M1 scale explained at first detailed occurrence** |
 | `chapters/07_results_discussion.tex` | Hybrid-preferred results; P@1 0.907; distribution; **Not evaluated / Pending expert annotation** wording; RQ answers |
 | `chapters/08_conclusion_future_work.tex` | RQ answers per evidence; no new numbers |
@@ -69,6 +102,8 @@
 | M1 2.56/5.56/8.89 | Unexplained scale | Explained as exploratory relative ranks; 1–5-per-criterion tradition; max not frozen with means | Clarified |
 | `\systemname` | Unused | Used in Ch1 + PDF keywords | Resolved |
 | `thakur2021beir` | Incomplete | DOI + arXiv URL | Resolved |
+| Residual Ch4 hybrid-unwired wording | Still present after first pass | Removed in follow-up contradiction pass | Corrected |
+| Table 5.4 `cb041d5` as frozen snapshot | Misleading | Split into audit / hybrid-connect / historical dense-only | Corrected |
 
 ---
 
@@ -100,3 +135,5 @@
 ## Packaging note
 
 Clean Overleaf ZIP: `Chatbot_for_Anatomy_Evidence_Aligned_2026-07-22.zip` (see sibling manifest/checksum after packaging).
+
+Follow-up contradiction-pass commit SHA: report via `git log -1 --format=%H` on `thesis/backend-evidence-alignment` (message `thesis: remove residual hybrid-route contradictions`).
