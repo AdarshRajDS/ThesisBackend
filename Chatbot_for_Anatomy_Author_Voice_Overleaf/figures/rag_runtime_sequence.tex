@@ -1,0 +1,26 @@
+\begin{tikzpicture}[
+  node distance=6mm and 5mm,
+  every node/.style={font=\scriptsize,align=center},
+  b/.style={draw,rounded corners,minimum width=18mm,minimum height=8mm,fill=RAGBlueLight,draw=RAGBlue},
+  inactive/.style={draw,rounded corners,dashed,minimum width=18mm,minimum height=8mm,fill=white,draw=WarningOrange},
+  arr/.style={-{Stealth[length=1.6mm]},thick,draw=RAGBlue}
+]
+\node[b] (q) {POST /rag/ask\\question};
+\node[b,right=of q] (cls) {classify\\question};
+\node[b,right=of cls] (rw) {rewrite\\queries};
+\node[b,right=of rw] (d) {dense};
+\node[b,above=of d] (bm) {BM25};
+\node[b,below=of d] (ph) {phrase};
+\node[b,right=of d] (rrf) {RRF};
+\node[b,right=of rrf] (dd) {dedupe};
+\node[b,right=of dd] (rr) {rerank};
+\node[b,below=of rr] (pf) {pre-gen\\filter};
+\node[b,left=of pf] (cap) {type cap\\4--8};
+\node[b,left=of cap] (gen) {LLM +\\sources};
+\node[inactive,below=of gen] (wk) {allow\_world\_knowledge\\not in schema};
+\node[inactive,right=of wk] (post) {post-gen max-3\\filter unused};
+\draw[arr] (q)--(cls)--(rw)--(d);
+\draw[arr] (rw)|-(bm)--(rrf);
+\draw[arr] (rw)|-(ph)--(rrf);
+\draw[arr] (d)--(rrf)--(dd)--(rr)--(pf)--(cap)--(gen);
+\end{tikzpicture}

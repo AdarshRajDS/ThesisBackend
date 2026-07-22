@@ -1,0 +1,26 @@
+\begin{tikzpicture}[
+  x=1.0cm,y=1.0cm,
+  every node/.style={font=\scriptsize,align=center},
+  stage/.style={draw,rounded corners,minimum width=22mm,minimum height=13mm,fill=NoteGray},
+  arr/.style={-{Stealth[length=2mm]},thick}
+]
+\node[stage] (v0) at (0,0) {v0\\Dense-only RAG};
+\node[stage] (v1) at (3,0) {v1\\Hybrid retrieval};
+\node[stage] (v2) at (6,0) {v2\\Grounding + dedupe};
+\node[stage] (v3) at (9,0) {v3\\CLIP + storage};
+\node[stage] (v4) at (12,0) {v4\\Procedural 3D};
+\node[stage] (v5) at (15,0) {v5\\Z-Anatomy catalog};
+\node[stage] (v6) at (18,0) {Final\\MCP dual pipeline};
+\draw[arr] (v0)--(v1);
+\draw[arr] (v1)--(v2);
+\draw[arr] (v2)--(v3);
+\draw[arr] (v3)--(v4);
+\draw[arr] (v4)--(v5);
+\draw[arr] (v5)--(v6);
+\node[below=5mm of v0,text width=22mm] {Exact terms missed};
+\node[below=5mm of v1,text width=22mm] {Noise and duplicates};
+\node[below=5mm of v2,text width=22mm] {Figure blindness};
+\node[below=5mm of v3,text width=22mm] {Need real 3D};
+\node[below=5mm of v4,text width=22mm] {Synthetic geometry};
+\node[below=5mm of v5,text width=22mm] {Need standard tools};
+\end{tikzpicture}

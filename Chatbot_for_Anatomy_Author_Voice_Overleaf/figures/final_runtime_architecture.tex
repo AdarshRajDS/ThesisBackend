@@ -1,0 +1,25 @@
+\begin{tikzpicture}[
+  node distance=8mm and 10mm,
+  every node/.style={font=\scriptsize,align=center},
+  active/.style={draw,rounded corners,minimum width=24mm,minimum height=9mm,fill=RAGBlueLight,draw=RAGBlue},
+  mcp/.style={draw,rounded corners,minimum width=24mm,minimum height=9mm,fill=MCPGreenLight,draw=MCPGreen},
+  inactive/.style={draw,rounded corners,dashed,minimum width=24mm,minimum height=9mm,fill=white,draw=WarningOrange},
+  arr/.style={-{Stealth[length=1.8mm]},thick}
+]
+\node[active] (api) {FastAPI};
+\node[active,right=of api] (ask) {\codepath{/rag/ask}};
+\node[active,right=of ask] (mm) {MultimodalRAG};
+\node[active,above right=6mm and 8mm of mm] (hyb) {HybridRetriever\\dense+BM25+phrase+RRF};
+\node[active,below right=6mm and 8mm of mm] (clip) {CLIP figures};
+\node[active,right=of hyb] (post) {Dedupe / rerank /\\pre-filter / type caps};
+\node[active,right=of post] (llm) {LLM + sources};
+\node[inactive,below=of post] (wk) {WK consent field\\(inactive)};
+\node[inactive,below=of llm] (cite) {Post-gen citation\\filter (inactive)};
+\node[mcp,below=of api] (anat) {\codepath{/anatomy/ask}};
+\node[mcp,right=of anat] (bridge) {MCPBridge};
+\node[mcp,right=of bridge] (srv) {FastMCP + Blender};
+\draw[arr,draw=RAGBlue] (api)--(ask)--(mm);
+\draw[arr,draw=RAGBlue] (mm)--(hyb)--(post)--(llm);
+\draw[arr,draw=RAGBlue] (mm)--(clip);
+\draw[arr,draw=MCPGreen] (api)--(anat)--(bridge)--(srv);
+\end{tikzpicture}

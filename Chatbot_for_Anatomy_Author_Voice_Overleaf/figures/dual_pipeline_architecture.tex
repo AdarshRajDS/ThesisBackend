@@ -1,0 +1,42 @@
+\begin{tikzpicture}[
+  node distance=9mm and 11mm,
+  every node/.style={font=\scriptsize,align=center},
+  comp/.style={draw,rounded corners,minimum width=26mm,minimum height=10mm,fill=white},
+  rag/.style={comp,draw=RAGBlue,fill=RAGBlueLight},
+  mcp/.style={comp,draw=MCPGreen,fill=MCPGreenLight},
+  store/.style={draw,cylinder,shape border rotate=90,aspect=0.25,minimum height=13mm,minimum width=20mm,fill=white},
+  arr/.style={-{Stealth[length=2.0mm]},thick}
+]
+\node[comp] (user) {User / evaluator};
+\node[comp,right=of user] (front) {Next.js frontend\\chat, upload, 3D panel};
+\node[comp,right=of front] (api) {FastAPI backend};
+
+\node[rag,above right=8mm and 13mm of api] (ragroute) {\codepath{/rag/ask}\\RAG service};
+\node[rag,right=of ragroute] (ragengine) {Hybrid-preferred\\RAG engine};
+\node[store,right=of ragengine] (pdfidx) {Chroma\\BM25\\CLIP};
+\node[rag,above=of pdfidx] (llmrag) {RAG LLM};
+\node[rag,below=of pdfidx] (ragout) {Answer + type-capped\\evidence context\\+ optional figures};
+
+\node[mcp,below right=8mm and 13mm of api] (mcproute) {\codepath{/anatomy/ask}\\MCP host};
+\node[mcp,right=of mcproute] (bridge) {MCPBridge\\stdio client};
+\node[mcp,right=of bridge] (server) {FastMCP server\\search / export tools};
+\node[store,above=of server] (catalog) {Exportable\\catalog};
+\node[mcp,below=of server] (blender) {Blender + Z-Anatomy};
+\node[mcp,right=of server] (mcpout) {GLB + annotations\\+ Three.js viewer};
+
+\draw[arr] (user)--(front);
+\draw[arr] (front)--(api);
+\draw[arr,draw=RAGBlue] (api)--(ragroute);
+\draw[arr,draw=RAGBlue] (ragroute)--(ragengine);
+\draw[arr,draw=RAGBlue] (ragengine)--(pdfidx);
+\draw[arr,draw=RAGBlue] (ragengine)--(llmrag);
+\draw[arr,draw=RAGBlue] (pdfidx)--(ragout);
+\draw[arr,draw=RAGBlue] (ragout.west) -| (front.north);
+\draw[arr,draw=MCPGreen] (api)--(mcproute);
+\draw[arr,draw=MCPGreen] (mcproute)--(bridge);
+\draw[arr,draw=MCPGreen] (bridge)--(server);
+\draw[arr,draw=MCPGreen] (server)--(catalog);
+\draw[arr,draw=MCPGreen] (server)--(blender);
+\draw[arr,draw=MCPGreen] (server)--(mcpout);
+\draw[arr,draw=MCPGreen] (mcpout.west) -| (front.south);
+\end{tikzpicture}

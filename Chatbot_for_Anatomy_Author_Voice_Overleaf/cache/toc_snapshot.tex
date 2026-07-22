@@ -1,0 +1,169 @@
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{Declaration of Independent Work}{I}{chapter*.1}%
+\contentsline {chapter}{Acknowledgements}{II}{chapter*.2}%
+\contentsline {chapter}{Abstract}{III}{chapter*.3}%
+\contentsline {paragraph}{\nonumberline Keywords:}{IV}{paragraph*.4}%
+\contentsline {chapter}{Zusammenfassung}{V}{chapter*.5}%
+\babel@toc {ngerman}{}\relax 
+\babel@toc {english}{}\relax 
+\contentsline {chapter}{\nonumberline List of Figures}{XII}{chapter*.7}%
+\contentsline {chapter}{\nonumberline List of Tables}{XIII}{chapter*.8}%
+\contentsline {chapter}{List of Abbreviations}{XV}{chapter*.9}%
+\contentsline {chapter}{\numberline {1}Introduction}{1}{chapter.1}%
+\contentsline {section}{\numberline {1.1}Motivation}{2}{section.1.1}%
+\contentsline {section}{\numberline {1.2}Problem Statement}{3}{section.1.2}%
+\contentsline {section}{\numberline {1.3}Research Positioning and Gap}{4}{section.1.3}%
+\contentsline {section}{\numberline {1.4}Aim and Objectives}{4}{section.1.4}%
+\contentsline {section}{\numberline {1.5}Research Questions}{5}{section.1.5}%
+\contentsline {section}{\numberline {1.6}Contributions}{6}{section.1.6}%
+\contentsline {section}{\numberline {1.7}Scope and Non-Goals}{7}{section.1.7}%
+\contentsline {section}{\numberline {1.8}High-Level Thesis Concept}{8}{section.1.8}%
+\contentsline {section}{\numberline {1.9}Thesis Structure}{8}{section.1.9}%
+\contentsline {chapter}{\numberline {2}Background and Related Work}{9}{chapter.2}%
+\contentsline {section}{\numberline {2.1}Large Language Models in Education}{9}{section.2.1}%
+\contentsline {section}{\numberline {2.2}Hallucination, Factuality, Grounding, and Provenance}{10}{section.2.2}%
+\contentsline {section}{\numberline {2.3}Retrieval-Augmented Generation}{11}{section.2.3}%
+\contentsline {section}{\numberline {2.4}Sentence Embeddings, MiniLM, and Dense Retrieval}{12}{section.2.4}%
+\contentsline {section}{\numberline {2.5}BM25, Sparse Retrieval, Hybrid Retrieval, and Reciprocal Rank Fusion}{13}{section.2.5}%
+\contentsline {section}{\numberline {2.6}CLIP and Multimodal Retrieval}{14}{section.2.6}%
+\contentsline {section}{\numberline {2.7}Evaluation of Retrieval-Augmented Generation}{15}{section.2.7}%
+\contentsline {subsection}{\numberline {2.7.1}Retrieval effectiveness}{15}{subsection.2.7.1}%
+\contentsline {subsection}{\numberline {2.7.2}Answer quality, faithfulness, and citations}{16}{subsection.2.7.2}%
+\contentsline {subsection}{\numberline {2.7.3}Boundary and multimodal evaluation}{17}{subsection.2.7.3}%
+\contentsline {section}{\numberline {2.8}Three-Dimensional Anatomy Education and Browser-Based Visualisation}{17}{section.2.8}%
+\contentsline {section}{\numberline {2.9}Tool-Using Large Language Models}{18}{section.2.9}%
+\contentsline {section}{\numberline {2.10}Model Context Protocol as a Technical Protocol}{19}{section.2.10}%
+\contentsline {section}{\numberline {2.11}Positioning of This Thesis}{19}{section.2.11}%
+\contentsline {chapter}{\numberline {3}Research Methodology and Requirements}{22}{chapter.3}%
+\contentsline {section}{\numberline {3.1}Introduction}{22}{section.3.1}%
+\contentsline {section}{\numberline {3.2}Research Approach and Justification}{23}{section.3.2}%
+\contentsline {subsection}{\numberline {3.2.1}Design-Science Orientation}{23}{subsection.3.2.1}%
+\contentsline {subsection}{\numberline {3.2.2}Artefact, Evaluation Object, and Boundaries}{23}{subsection.3.2.2}%
+\contentsline {section}{\numberline {3.3}Actual Iterative Research Process}{24}{section.3.3}%
+\contentsline {subsection}{\numberline {3.3.1}Verified production document route}{25}{subsection.3.3.1}%
+\contentsline {section}{\numberline {3.4}Requirements Derivation and Evidence}{26}{section.3.4}%
+\contentsline {section}{\numberline {3.5}Functional Requirements}{26}{section.3.5}%
+\contentsline {section}{\numberline {3.6}Non-Functional Requirements}{28}{section.3.6}%
+\contentsline {section}{\numberline {3.7}Local-First, Privacy, Copyright, and Deployment Constraints}{28}{section.3.7}%
+\contentsline {section}{\numberline {3.8}Assumptions and Non-Goals}{29}{section.3.8}%
+\contentsline {section}{\numberline {3.9}Research-Question Traceability and Evaluation Separation}{30}{section.3.9}%
+\contentsline {section}{\numberline {3.10}Ethical and Reproducibility Considerations}{30}{section.3.10}%
+\contentsline {section}{\numberline {3.11}Chapter Summary}{32}{section.3.11}%
+\contentsline {chapter}{\numberline {4}System Evolution and Design Decisions}{33}{chapter.4}%
+\contentsline {section}{\numberline {4.1}Purpose, Scope, and Evidence Standard}{33}{section.4.1}%
+\contentsline {section}{\numberline {4.2}Evolution of the Document-Grounded RAG Pipeline}{34}{section.4.2}%
+\contentsline {subsection}{\numberline {4.2.1}Initial Monolithic Dense-Only RAG}{34}{subsection.4.2.1}%
+\contentsline {subsection}{\numberline {4.2.2}Dense Retrieval to BM25, Dense Search, and RRF}{35}{subsection.4.2.2}%
+\contentsline {subsection}{\numberline {4.2.3}Duplicate Passages, the Early Three-Source Rule, and Later Type-Dependent Caps}{35}{subsection.4.2.3}%
+\contentsline {subsection}{\numberline {4.2.4}Weak Evidence, Evidence Grading, and Abstention}{36}{subsection.4.2.4}%
+\contentsline {subsection}{\numberline {4.2.5}Figure Blindness and CLIP}{37}{subsection.4.2.5}%
+\contentsline {subsection}{\numberline {4.2.6}Local Paths and Storage Abstraction}{37}{subsection.4.2.6}%
+\contentsline {section}{\numberline {4.3}Evolution of the 3D Anatomy Pipeline}{38}{section.4.3}%
+\contentsline {subsection}{\numberline {4.3.1}Procedural Blender and Synthetic Geometry}{38}{subsection.4.3.1}%
+\contentsline {subsection}{\numberline {4.3.2}Remote Preview Worker Limitations}{38}{subsection.4.3.2}%
+\contentsline {subsection}{\numberline {4.3.3}Adoption of Z-Anatomy}{39}{subsection.4.3.3}%
+\contentsline {subsection}{\numberline {4.3.4}Raw Scene Labels versus the Exportable Catalogue}{39}{subsection.4.3.4}%
+\contentsline {subsection}{\numberline {4.3.5}Direct Python Calls versus MCP Stdio}{40}{subsection.4.3.5}%
+\contentsline {subsection}{\numberline {4.3.6}Fake 3D Success versus Model-URL Verification}{40}{subsection.4.3.6}%
+\contentsline {subsection}{\numberline {4.3.7}Blender Locking and Cache}{41}{subsection.4.3.7}%
+\contentsline {section}{\numberline {4.4}From Mixed Responsibilities to Independent Pipelines}{41}{section.4.4}%
+\contentsline {section}{\numberline {4.5}Cross-Cutting Lessons}{42}{section.4.5}%
+\contentsline {section}{\numberline {4.6}Consolidated Design-Decision Matrix}{42}{section.4.6}%
+\contentsline {section}{\numberline {4.7}Evidence Checklist Before Final Claims}{44}{section.4.7}%
+\contentsline {section}{\numberline {4.8}Chapter Summary}{45}{section.4.8}%
+\contentsline {chapter}{\numberline {5}Final System Design and Implementation}{46}{chapter.5}%
+\contentsline {section}{\numberline {5.1}Chapter Scope and Evidence Basis}{46}{section.5.1}%
+\contentsline {section}{\numberline {5.2}Final System Context and Deployment Topology}{46}{section.5.2}%
+\contentsline {section}{\numberline {5.3}Repository Structure and Responsibility Mapping}{47}{section.5.3}%
+\contentsline {section}{\numberline {5.4}Next.js Frontend and FastAPI API Layer}{49}{section.5.4}%
+\contentsline {subsection}{\numberline {5.4.1}Document Chat and Upload Interface}{49}{subsection.5.4.1}%
+\contentsline {subsection}{\numberline {5.4.2}MCP Anatomy Interface}{49}{subsection.5.4.2}%
+\contentsline {subsection}{\numberline {5.4.3}FastAPI Composition and Static Serving}{49}{subsection.5.4.3}%
+\contentsline {section}{\numberline {5.5}PDF Ingestion, Cleaning, Chunking, and Metadata}{50}{section.5.5}%
+\contentsline {section}{\numberline {5.6}Text Retrieval: Hybrid-Preferred Production Route}{51}{section.5.6}%
+\contentsline {subsection}{\numberline {5.6.1}Active Production Retrieval}{51}{subsection.5.6.1}%
+\contentsline {subsection}{\numberline {5.6.2}Hybrid Retriever Construction and Dense Fallback}{52}{subsection.5.6.2}%
+\contentsline {section}{\numberline {5.7}Query Processing, Reranking, Deduplication, and Evidence Grading}{52}{section.5.7}%
+\contentsline {section}{\numberline {5.8}Answer Synthesis, Sources, Abstention, and Grounding Metadata}{52}{section.5.8}%
+\contentsline {section}{\numberline {5.9}CLIP Image Extraction, Indexing, Retrieval, and Late Fusion}{53}{section.5.9}%
+\contentsline {section}{\numberline {5.10}Local, MinIO, and Supabase Storage}{54}{section.5.10}%
+\contentsline {section}{\numberline {5.11}MCP Host and MCPBridge Client}{54}{section.5.11}%
+\contentsline {section}{\numberline {5.12}FastMCP Server and Tool Schemas}{56}{section.5.12}%
+\contentsline {section}{\numberline {5.13}Geometry Catalogue and Structure Resolution}{56}{section.5.13}%
+\contentsline {section}{\numberline {5.14}Blender Export, GLB, Annotations, and Three.js}{57}{section.5.14}%
+\contentsline {section}{\numberline {5.15}Locking, Caching, Health Checks, and Safe Errors}{57}{section.5.15}%
+\contentsline {section}{\numberline {5.16}API Contract Summary}{58}{section.5.16}%
+\contentsline {section}{\numberline {5.17}Configuration and Reproducibility}{58}{section.5.17}%
+\contentsline {section}{\numberline {5.18}Chapter Summary}{61}{section.5.18}%
+\contentsline {chapter}{\numberline {6}Evaluation Methodology}{62}{chapter.6}%
+\contentsline {section}{\numberline {6.1}Evaluation Design and Units of Analysis}{62}{section.6.1}%
+\contentsline {section}{\numberline {6.2}Evaluation Runs and Evidence Hierarchy}{63}{section.6.2}%
+\contentsline {section}{\numberline {6.3}Primary English RAG Dataset}{64}{section.6.3}%
+\contentsline {section}{\numberline {6.4}Execution Procedure and Recorded Configuration}{64}{section.6.4}%
+\contentsline {subsection}{\numberline {6.4.1}Primary P1 configuration}{64}{subsection.6.4.1}%
+\contentsline {section}{\numberline {6.5}Request Reliability and Outcome Classification}{65}{section.6.5}%
+\contentsline {section}{\numberline {6.6}Automatic Retrieval-Proxy Analysis}{65}{section.6.6}%
+\contentsline {section}{\numberline {6.7}Answer, Grounding, Citation, and Anatomy Review}{66}{section.6.7}%
+\contentsline {section}{\numberline {6.8}Multimodal Figure Assessment}{67}{section.6.8}%
+\contentsline {section}{\numberline {6.9}German Diagnostic Set and Formative Comparisons}{67}{section.6.9}%
+\contentsline {section}{\numberline {6.10}MCP Verification Method and Empirical Boundary}{68}{section.6.10}%
+\contentsline {section}{\numberline {6.11}Analysis and Reporting Rules}{68}{section.6.11}%
+\contentsline {section}{\numberline {6.12}Threats to Validity}{69}{section.6.12}%
+\contentsline {paragraph}{\nonumberline Internal validity.}{69}{paragraph*.24}%
+\contentsline {paragraph}{\nonumberline Construct validity.}{69}{paragraph*.25}%
+\contentsline {paragraph}{\nonumberline Annotation validity.}{69}{paragraph*.26}%
+\contentsline {paragraph}{\nonumberline External validity.}{69}{paragraph*.27}%
+\contentsline {paragraph}{\nonumberline Reproducibility.}{69}{paragraph*.28}%
+\contentsline {chapter}{\numberline {7}Results and Discussion}{70}{chapter.7}%
+\contentsline {section}{\numberline {7.1}Recorded Configuration of the Primary RAG Run}{70}{section.7.1}%
+\contentsline {section}{\numberline {7.2}RAG Retrieval Results}{72}{section.7.2}%
+\contentsline {subsection}{\numberline {7.2.1}Primary English evaluation}{72}{subsection.7.2.1}%
+\contentsline {subsection}{\numberline {7.2.2}Automatic retrieval-ranking proxies and the missing dense baseline}{73}{subsection.7.2.2}%
+\contentsline {subsection}{\numberline {7.2.3}Robustness and duplicate control}{74}{subsection.7.2.3}%
+\contentsline {section}{\numberline {7.3}Grounding, Citation, and Boundary Behaviour}{74}{section.7.3}%
+\contentsline {section}{\numberline {7.4}Exploratory Multimodal Figure Results}{76}{section.7.4}%
+\contentsline {section}{\numberline {7.5}Exploratory Model Comparisons}{77}{section.7.5}%
+\contentsline {section}{\numberline {7.6}MCP Evaluation Status, Artefacts, and Latency}{77}{section.7.6}%
+\contentsline {section}{\numberline {7.7}Failure-Case Analysis}{78}{section.7.7}%
+\contentsline {section}{\numberline {7.8}Answers to the Research Questions}{79}{section.7.8}%
+\contentsline {subsection}{\numberline {7.8.1}RQ1: Retrieval effectiveness and corpus-boundary behaviour}{79}{subsection.7.8.1}%
+\contentsline {subsection}{\numberline {7.8.2}RQ2: Figure availability and observed relevance limitations}{79}{subsection.7.8.2}%
+\contentsline {subsection}{\numberline {7.8.3}RQ3: MCP verification design for 3D artefact success}{79}{subsection.7.8.3}%
+\contentsline {subsection}{\numberline {7.8.4}RQ4: Design trade-offs and limitations}{80}{subsection.7.8.4}%
+\contentsline {section}{\numberline {7.9}Discussion and Comparison with Prior Work}{80}{section.7.9}%
+\contentsline {section}{\numberline {7.10}Threats to Validity}{81}{section.7.10}%
+\contentsline {paragraph}{\nonumberline Internal validity.}{81}{paragraph*.36}%
+\contentsline {paragraph}{\nonumberline Construct validity.}{81}{paragraph*.37}%
+\contentsline {paragraph}{\nonumberline Annotation validity.}{82}{paragraph*.38}%
+\contentsline {paragraph}{\nonumberline External validity.}{82}{paragraph*.39}%
+\contentsline {paragraph}{\nonumberline Anatomical and educational validity.}{82}{paragraph*.40}%
+\contentsline {paragraph}{\nonumberline Reproducibility.}{82}{paragraph*.41}%
+\contentsline {section}{\numberline {7.11}Claim-to-Result Traceability}{82}{section.7.11}%
+\contentsline {section}{\numberline {7.12}Chapter Summary}{84}{section.7.12}%
+\contentsline {chapter}{\numberline {8}Conclusion and Future Work}{85}{chapter.8}%
+\contentsline {section}{\numberline {8.1}Chapter Overview}{85}{section.8.1}%
+\contentsline {section}{\numberline {8.2}Summary of the Research and System}{85}{section.8.2}%
+\contentsline {section}{\numberline {8.3}Summary of Contributions}{86}{section.8.3}%
+\contentsline {section}{\numberline {8.4}Final Answers to the Research Questions}{87}{section.8.4}%
+\contentsline {subsection}{\numberline {8.4.1}RQ1: Retrieval effectiveness and corpus-boundary behaviour}{87}{subsection.8.4.1}%
+\contentsline {subsection}{\numberline {8.4.2}RQ2: Figure availability and observed relevance limitations}{87}{subsection.8.4.2}%
+\contentsline {subsection}{\numberline {8.4.3}RQ3: MCP verification design for 3D artefact success}{87}{subsection.8.4.3}%
+\contentsline {subsection}{\numberline {8.4.4}RQ4: Design Trade-offs and Limitations}{88}{subsection.8.4.4}%
+\contentsline {section}{\numberline {8.5}Limitations}{88}{section.8.5}%
+\contentsline {section}{\numberline {8.6}Prioritised Future Work}{89}{section.8.6}%
+\contentsline {section}{\numberline {8.7}Final Conclusion}{90}{section.8.7}%
+\contentsline {chapter}{\nonumberline Bibliography}{91}{chapter*.43}%
+\def \@chapapp {\appendixname }
+\contentsline {chapter}{\numberline {A}Reproducibility Record}{97}{appendix.A}%
+\contentsline {chapter}{\numberline {B}RAG Evaluation Register}{100}{appendix.B}%
+\contentsline {section}{\numberline {B.1}Run Register}{100}{section.B.1}%
+\contentsline {section}{\numberline {B.2}P1 Category Register}{100}{section.B.2}%
+\contentsline {section}{\numberline {B.3}Interpretation Rules}{100}{section.B.3}%
+\contentsline {chapter}{\numberline {C}MCP Verification Protocol and Evidence Status}{102}{appendix.C}%
+\contentsline {chapter}{\numberline {D}API and Artefact Contracts}{104}{appendix.D}%
+\contentsline {section}{\numberline {D.1}Active RAG Request Contract}{104}{section.D.1}%
+\contentsline {section}{\numberline {D.2}Active RAG Response Fields}{104}{section.D.2}%
+\contentsline {section}{\numberline {D.3}MCP Request and Verified-Success Contract}{105}{section.D.3}%
+\contentsline {chapter}{\numberline {E}AI-Assistance Disclosure}{106}{appendix.E}%
+\contentsline {chapter}{\numberline {F}Supervisor-Requirement Traceability}{107}{appendix.F}%
+\providecommand \tocbasic@end@toc@file {}\tocbasic@end@toc@file 

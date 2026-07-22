@@ -1,0 +1,17 @@
+\chapter*{Abstract}
+\addcontentsline{toc}{chapter}{Abstract}
+
+This thesis reports the development and evaluation of \emph{Chatbot for Anatomy}, a prototype that combines document-based question answering with a separate workflow for exporting interactive 3D anatomy. The two outputs are handled differently because they require different evidence. Uploaded anatomy PDFs are indexed with MiniLM embeddings in Chroma, and a CLIP-based index can return figures. Repository and timeline evidence show that the primary English evaluation used the hybrid-preferred production route on \codepath{/rag/ask}: after commit \texttt{5089fcc} (12~July~2026), \codepath{MultimodalRAG} constructed \codepath{HybridRetriever} and fused dense, BM25, and phrase candidates with Reciprocal Rank Fusion, followed by deduplication, reranking, and pre-generation filtering. An earlier dense-only snapshot (\texttt{cb041d5}, 27~June~2026) with a hard three-passage cap is retained as historical design context only. No matched dense-only versus hybrid experiment was completed, so hybrid superiority is not claimed. For 3D requests, the system resolves a structure through the Model Context Protocol, uses a geometry-validated Z-Anatomy catalogue, invokes Blender, and returns a GLB file, annotations, and a Three.js viewer. The host accepts an export only when the tool result contains a valid model artefact.
+
+The principal English evaluation contained 55 questions, with usable responses for 51. On the 43 non-boundary questions, an automatic embedding-similarity procedure produced Precision@3 of 0.86, Recall@3 of 0.58, nDCG@3 of 0.90, and MRR of 0.93. These are ranking proxies rather than expert assessments of relevance, faithfulness, citation quality, or anatomical correctness. Observed source counts had mean 5.16 and followed question-type-dependent caps of approximately four to eight rather than the earlier fixed three-passage rule. Thirteen completed responses were classified as using world knowledge despite a recorded document-only setting that was not enforced by the request schema. All ten figure-related requests returned image objects, although manual development checks found unreliable relevance and no systematic visual study was completed. The MCP branch established an inspectable success criterion, but its planned comparative runtime evaluation remained unfinished. The main contribution is therefore a dual-pipeline architecture and an evidence-led account of the engineering decisions, observed failures, and evaluation work still required.
+
+\paragraph{Keywords:}
+retrieval-augmented generation;
+multimodal retrieval;
+anatomy education;
+Model Context Protocol;
+Blender;
+Z-Anatomy;
+large language models.
+
+\cleardoublepage

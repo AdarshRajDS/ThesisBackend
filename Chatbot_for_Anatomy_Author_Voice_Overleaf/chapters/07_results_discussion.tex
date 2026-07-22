@@ -1,0 +1,343 @@
+\chapter{Results and Discussion}
+\label{chap:results}
+
+The evidence preserved from the project is uneven. The document-question route has the most complete dataset; the image path has a smaller exploratory record; and the \MCP{} branch is represented mainly by its implemented verification logic because the planned end-to-end workbook was left empty. I keep those differences visible. An answer with source objects, a relevant figure, and a verified 3D artefact are separate outcomes, and combining them would conceal the stage at which a failure occurred.
+
+\section{Recorded Configuration of the Primary RAG Run}
+\label{sec:results-configuration}
+
+The broadest record is the 55-question English evaluation from 12 July 2026. It preserves submitted questions, response categories, raw outputs, endpoint details, and automatic retrieval calculations, so I use it as the primary run. ``Primary'' should not be read as ``fully frozen'': the evaluation commit, corpus hashes, environment, prompt revision, hardware, and exact call trace were not archived together. The German professor set and earlier model-comparison workbooks are used only when they clarify a failure pattern; they are not treated as additional samples from the same condition.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Recorded configuration and unresolved reproducibility details of the primary RAG run.}
+  \label{tab:results-config}
+  \small
+  \begin{tabularx}{\textwidth}{L{0.25\textwidth}Y L{0.19\textwidth}}
+    \toprule
+    Item & Value & Evidence status \\
+    \midrule
+    Evaluation date & 12 July 2026 & Recorded \\
+    Repository branch and evaluation commit & Not archived with the run & Reproducibility limitation \\
+    Endpoint & \codepath{POST /rag/ask} & Recorded \\
+    Provider and model & LM Studio; \codepath{qwen3.5-9b-deepseek-v4-flash} & Recorded \\
+    API base & \codepath{http://127.0.0.1:1234/v1} & Recorded \\
+    Language & English primary run; German professor set & Recorded \\
+    Retrieval route & Hybrid-preferred \codepath{/rag/ask} after \texttt{5089fcc}; dense fallback possible & Verified from code path and timeline; per-request mode not archived \\
+    Final text context & Question-type-dependent caps (approx.\ 4--8); mean sources 5.16 & Verified from \codepath{eval/rag_eval_55_results.json} \\
+    World-knowledge setting & Recorded \codepath{allow_world_knowledge=false}; not enforced by schema & Schema accepts only \codepath{question} \\
+    Early three-passage rule & Historical design only (pre-\texttt{5089fcc} dense path) & Not active as hard default in P1 \\
+    Retrieval proxy & \codepath{all-MiniLM-L6-v2}; threshold 0.38 & Recorded \\
+    Audit HEAD / hybrid connect & \texttt{d3a544d} / \texttt{5089fcc} & Repository timeline \\
+    Earlier dense-only snapshot & \texttt{cb041d5} (27 June 2026) & Historical inspection baseline \\
+    Corpus and hashes & Not archived with the run & Reproducibility limitation \\
+    Package versions, prompts, hardware & Partially recoverable from repository; not archived with the run & Reproducibility limitation \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+The July source counts are explained by the post-\texttt{5089fcc} type-dependent caps rather than by an unexplained failure of a hard three-passage rule. The earlier three-passage design remains part of the system-evolution discussion in \cref{chap:evolution}. I report the recorded distribution as runtime evidence and do not claim hybrid superiority over dense-only retrieval.
+
+\section{RAG Retrieval Results}
+\label{sec:rag-retrieval-results}
+
+\subsection{Primary English evaluation}
+\label{subsec:english-rag-run}
+
+The test set included 15 direct factual questions, 10 complex or multi-step questions, 10 figure-related questions, five quotation requests, 10 boundary or off-topic cases, and five robustness variants. Two of the 55 requests timed out and two returned HTTP 500, leaving 51 usable responses. I retain both denominators: removing the four failed calls from all reporting would hide an operational limitation. Request completion was 92.7\%.
+
+Of the 51 usable responses, the workbook labelled 37 as corpus-based, 13 as world-knowledge answers, and one as an abstention. Forty-nine contained retrieved passages and at least one source object. These figures describe the returned data; they do not establish that every answer statement was supported by the attached passage.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Primary English RAG results.}
+  \label{tab:english-rag-summary}
+  \small
+  \begin{tabularx}{\textwidth}{L{0.39\textwidth}C Y}
+    \toprule
+    Measure & Result & Interpretation \\
+    \midrule
+    Administered / scored & 55 / 51 & Four infrastructure failures \\
+    Request-completion rate & 92.7\% & Reliability result \\
+    Corpus-classified answers & 37/51 (72.5\%) & Workbook outcome classification \\
+    World-knowledge answers & 13/51 (25.5\%) & Recorded \codepath{allow_world_knowledge=false} was not schema-enforced \\
+    Abstentions & 1/51 (2.0\%) & Low overall refusal frequency \\
+    Retrieval and source-object presence & 49/51 (96.1\%) & Availability proxy only \\
+    Mean returned sources & 5.16 & Type-dependent caps; distribution $\{0{:}2,2{:}1,4{:}27,5{:}3,6{:}3,8{:}15\}$ \\
+    Duplicate source--page pairs & 0 extras / 263 slots & No repeated (source, page) pairs in scored responses \\
+    Figure requests returning image objects & 10/10 (100\%) & Image availability, not relevance \\
+    Preliminary acceptable boundary handling & 1/8 (12.5\%) & Provisional workbook label only; not a final primary metric \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+The preliminary boundary value of 1/8 is difficult to interpret because the eight cases did not share one expected response. Some called for refusal, others for correction of a false premise, and others for a bounded answer. At least one label also conflicts with the raw response. I retain 1/8 only as a provisional workbook label and do not treat it as a final primary metric. The more dependable finding is qualitative: several answers admitted that the corpus was insufficient and then continued with general knowledge even though \codepath{allow_world_knowledge=false} was recorded in the run metadata without being enforced by the request schema.
+
+\subsection{Automatic retrieval-ranking proxies and the missing dense baseline}
+\label{subsec:retrieval-proxy}
+
+For the automatic analysis, each question was combined with its expected key points, embedded, and compared with the returned passages by cosine similarity. Scores of 0.38 or above counted as proxy relevance. Boundary cases were excluded from the principal macro because success there could mean refusing unsupported content rather than retrieving an anatomy passage. \Cref{sec:retrieval-proxy-method} gives the full operational definition and limitations.
+
+Across the 43 non-boundary questions, Precision@3 was 0.86, Recall@3 was 0.58, nDCG@3 was 0.90, MRR was 0.93, and source overlap was 0.58. Recomputing the same proxy rule on the stored passages yields Precision@1 of 0.907. Under the proxy, a semantically similar passage usually appeared near the top. Coverage was weaker: the first three passages often missed part of the expected evidence for multi-part questions.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Automatic embedding-similarity retrieval proxies for the primary hybrid-preferred run.}
+  \label{tab:retrieval-results}
+  \scriptsize
+  \setlength{\tabcolsep}{3pt}
+  \begin{tabularx}{\textwidth}{L{0.23\textwidth}CCCCCC Y}
+    \toprule
+    Condition & $n$ & P@1 & P@3 & R@3 & nDCG@3 & MRR & Status \\
+    \midrule
+    Primary non-boundary run & 43 & 0.907 & 0.86 & 0.58 & 0.90 & 0.93 & Automatic embedding proxy \\
+    All scored questions & 51 & --- & 0.80 & 0.56 & 0.84 & 0.88 & Includes boundary cases \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+These figures describe the hybrid-preferred production responses preserved for P1. Dense encoders, BM25, and RRF have complementary motivations---paraphrase matching, exact terms, and rank-based fusion \parencite{karpukhin2020,reimers2019,robertson2009,cormack2009}---but no matched dense-only baseline was saved. Hybrid superiority therefore cannot be claimed. The exact per-request mode was not traced, so dense fallback remains a residual possibility even though the preferred code path after \texttt{5089fcc} constructs and calls \codepath{HybridRetriever}. \Cref{tab:retrieval-results} reports the recorded responses, not a causal ablation of BM25 or fusion.
+
+The evaluator introduces another source of uncertainty. Semantic proximity approximates relevance but cannot determine whether a passage answers the question. A passage may name the correct structure and still be insufficient; useful evidence may also fall below the threshold because it is phrased differently. Using a MiniLM-family representation in both retrieval and evaluation may reinforce the same semantic preferences. Expert labels and threshold-sensitivity analysis are needed to test whether the ranking remains stable under another judgement process.
+
+\subsection{Robustness and duplicate control}
+\label{subsec:query-dedup-results}
+
+The five robustness items separated ordinary rewording from severe input corruption. An abbreviation, a mitral-valve paraphrase, and a short cerebellum query retrieved useful passages under the proxy; a laterality case produced mixed top-three precision. The misspelled ``wat is broinstem'' scored zero and triggered a Dutch world-knowledge answer. Five cases are too few for a broad robustness claim, but they identify spelling correction and language locking as concrete regression tests.
+
+Duplicate suppression was introduced after repeated chunks and source cards appeared during development. In the preserved P1 responses, no duplicate source--page pairs were observed among 263 returned source slots. The evaluation still contains no with-versus-without ablation, so the causal reduction cannot be quantified against an earlier build. A follow-up should record unique source--page pairs, repeated fingerprints, citation redundancy, and claim coverage under fixed and adaptive context sizes.
+
+\section{Grounding, Citation, and Boundary Behaviour}
+\label{sec:grounding-boundary-results}
+
+The strongest English-run finding is the coexistence of source availability and boundary leakage. Retrieved material appeared in 49 of 51 responses, while 13 outputs were classified as using world knowledge. Retrieval can supply context without forcing the generator to follow it \parencite{lewis2020,ji2023}; the result also supports evaluation approaches that separate retrieval, answer quality, faithfulness, and citation behaviour \parencite{es2024ragas}.
+
+Boundary leakage appeared across several types of request, including CRISPR, a transformer paper, an antibiotic dose, a misleading spleen premise, and emergency thoracotomy. In multiple cases, the model stated that the uploaded material lacked the answer and then supplied one from general knowledge. That behaviour makes the recorded document-only setting ineffective in practice because the backend schema did not consume the flag. A controlled rerun should propagate the setting through the full request path and compare identical questions with the flag disabled and enabled.
+
+The German diagnostic set contained one unambiguous anatomy error: a response exchanged the innervation of the superior and inferior oblique muscles. The superior oblique is supplied by the trochlear nerve and the inferior oblique by the oculomotor nerve \parencite{purves2001extraocular}. The case should become a regression test, but it cannot support a system-wide accuracy percentage.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Grounding, citation, quotation, and boundary evidence.}
+  \label{tab:grounding-results}
+  \scriptsize
+  \begin{tabularx}{\textwidth}{L{0.31\textwidth}L{0.22\textwidth}Y}
+    \toprule
+    Measure & Result & Evidence status \\
+    \midrule
+    Retrieval/source-object presence & 49/51 (96.1\%) & Operational proxy \\
+    World-knowledge responses & 13/51 (25.5\%) & Classification; schema did not enforce the recorded flag \\
+    Preliminary acceptable boundary handling & 1/8 (12.5\%) & Provisional; pending expert re-annotation \\
+    Human correctness, completeness, relevance & Not evaluated & Pending expert annotation \\
+    Claim support and hallucination rate & Not evaluated & Pending expert annotation \\
+    Citation correctness and completeness & Not evaluated & Pending expert annotation \\
+    Exact-quotation accuracy & Not evaluated & Pending expert annotation \\
+    World-knowledge setting on/off comparison & Not evaluated & Controlled experiment pending \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+Two quotation requests failed before a usable response, leaving three cases. Two had strong retrieval-proxy values; the gray-matter request had none. The workbook does not verify the returned wording against the cited PDF. The run therefore indicates whether source-like material was retrieved, not whether a displayed quotation was verbatim. A fluent paraphrase should not be reported as an exact extract.
+
+The high source count creates a related presentation risk. Several source cards can make an answer look well supported even when only one card relates to its central claim. A stronger evaluation should attach each substantive claim to a passage and label the relationship as supported, partial, unsupported, or contradicted. That would distinguish evidence from decorative provenance.
+
+\section{Exploratory Multimodal Figure Results}
+\label{sec:multimodal-results}
+
+All ten figure-related responses contained at least one image object, confirming that extraction, indexing, URL construction, and response delivery worked together. Manual checks repeatedly found irrelevant or loosely related images, however. I therefore treat image return as an availability result rather than a successful visual answer. In anatomy, a weakly matched diagram can encourage a false association between the explanation and the depicted structure.
+
+The interface added another inconsistency. Some answers said that no image could be displayed even though the JSON response contained image URLs. User-visible behaviour is therefore determined by both structured data and generated wording; checking only one misses the failure.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Exploratory multimodal findings and uncompleted evaluation dimensions.}
+  \label{tab:multimodal-results}
+  \small
+  \begin{tabularx}{\textwidth}{L{0.36\textwidth}L{0.22\textwidth}Y}
+    \toprule
+    Measure & Result & Interpretation \\
+    \midrule
+    Figure requests returning image objects & 10/10 (100\%) & Operational availability only \\
+    Anatomically relevant figure retrieval & Not evaluated & Irrelevant images observed; pending expert annotation \\
+    Top-1 and Top-$k$ relevance & Not evaluated & Pending expert annotation \\
+    Image--answer consistency & Not evaluated & Text sometimes denied image capability \\
+    Duplicate and broken-link rates & Not evaluated & URL and duplicate audit required \\
+    Correct PDF/page metadata & Not evaluated & Manual source-page verification required \\
+    Text-only versus multimodal comparison & Not evaluated & No matched ablation completed \\
+    Educational usefulness & Not evaluated & No learner study conducted \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\CLIP{} provides a practical text-to-image retrieval mechanism \parencite{radford2021}, but anatomy PDFs are a difficult target. Small labels, multi-panel layouts, specialised terms, and fine spatial relations may not be captured by a general-purpose model. Evidence that visual and 3D resources can help anatomy learning in suitable settings \parencite{yammine2015,moro2017} does not validate the figures chosen here. The stage produced a useful negative result: images were technically available, but dependable relevance was not achieved.
+
+A labelled figure set should precede another model change. It would allow caption and neighbouring-text features, OCR terms, anatomy-specific reranking, duplicate detection, and abstention thresholds to be compared against expert judgement. Without an abstention threshold, always returning an image favours coverage over trustworthiness.
+
+\section{Exploratory Model Comparisons}
+\label{sec:model-comparisons}
+
+The nine German professor questions were tested under an earlier cloud configuration and a later local LM Studio setup. The local run produced seven substantive answers, one HTTP 500, and one timeout. The cloud run produced four substantive answers, four abstentions, and one HTTP 500; its exact model was not recorded. Provider, model, retrieval state, and prompt all differed, so this is debugging evidence rather than a benchmark.
+
+The local model answered more questions, but three of its seven substantive responses were labelled as world-knowledge fallback. The ankle-muscle and humeral-head answers went beyond the retrieved passages, and the extraocular-muscle response contained the innervation error noted above. The cloud setup was more conservative, although some abstentions may have resulted from recoverable retrieval failures. The comparison reveals a coverage--provenance trade-off rather than a winning model.
+
+An earlier spreadsheet (M1) reported mean formative rubric scores of 2.56 for Qwen, 5.56 for Gemma, and 8.89 for a ChatGPT/document-grounded baseline. As defined in \cref{sec:diagnostic-method}, these are exploratory relative ranks from a 1--5-per-criterion human rubric tradition; the archived summary does not fix the composite maximum with the means. The results helped shift attention from model choice to retrieval and grounding. They are not final rankings because corpus, prompts, pipeline state, and evaluation conditions were not frozen.
+
+\section{MCP Evaluation Status, Artefacts, and Latency}
+\label{sec:mcp-results}
+
+The planned \MCP{} workbook includes exact labels, natural-language names, laterality, synonyms, ambiguity, invalid input, repeated cache calls, and injected failures. Its result fields are empty. Repository inspection and unit tests establish the presence of catalogue search, structured calls, export checks, and viewer URLs, but they cannot supply end-to-end success rates. I therefore report no empirical value for resolution, Blender export, GLB access, annotation correctness, viewer loading, cache effects, or recovery.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Uncompleted MCP, latency, and caching measurements.}
+  \label{tab:mcp-results}
+  \scriptsize
+  \begin{tabularx}{\textwidth}{L{0.35\textwidth}L{0.23\textwidth}Y}
+    \toprule
+    Measure & Result & Required evidence \\
+    \midrule
+    Catalogue, laterality, synonym, and ambiguity accuracy & Not evaluated & Expected and resolved labels plus rejection records \\
+    Verified MCP tool execution & Not evaluated & Tool names and structured results \\
+    GLB export and accessibility & Not evaluated & Non-empty file and HTTP 200 \\
+    Annotation and viewer correctness & Not evaluated & Parsed JSON and visible requested anatomy \\
+    Unverifiable-success and failure handling & Not evaluated & False-success, timeout, missing-file, and concurrency traces \\
+    RAG end-to-end latency & Not evaluated & Per-request elapsed time \\
+    MCP cold and cached latency & Not evaluated & Matched new and repeated exports \\
+    Cache speed-up and viewer-load latency & Not evaluated & Cache-hit and request-to-visible-model traces \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+The absence of results nevertheless clarifies the future scoring structure. A correct catalogue match followed by Blender failure is a resolution success and an export failure. A loadable GLB of the wrong side is accessible but anatomically incorrect. One success percentage would obscure these distinctions. Resolution, tool execution, file production, laterality, annotation, and viewer display should be scored separately before any end-to-end summary.
+
+\section{Failure-Case Analysis}
+\label{sec:failure-analysis}
+
+Concrete cases make the aggregate values easier to interpret. The failures in \cref{tab:failure-cases} occurred at different layers and therefore require different corrections.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Representative failure cases and their implications.}
+  \label{tab:failure-cases}
+  \scriptsize
+  \begin{tabularx}{\textwidth}{L{0.20\textwidth}L{0.28\textwidth}Y Y}
+    \toprule
+    Case & Observed behaviour & Interpretation & Required action \\
+    \midrule
+    Ankle muscles & Irrelevant passages; cloud abstained; local used world knowledge & Retrieval miss plus model-dependent fallback & Improve retrieval and enforce boundary \\
+    Hip flexor & Correct-looking answer with zero retrieval proxy & Plausible but ungrounded output & Separate correctness from provenance \\
+    Severe typo & Zero retrieval proxies; Dutch answer & Spelling and language-control failure & Query correction and language locking \\
+    Boundary cases & Multiple off-corpus answers despite recorded but unenforced setting & Evidence-boundary leakage & Re-annotate cases and enforce schema/prompt consent \\
+    Extraocular muscles & Incorrect cranial-nerve assignment & Anatomical correctness failure & Expert scoring and regression case \\
+    Figure requests & Image objects returned, but irrelevant figures observed and text denied display capability & Retrieval relevance and response/UI mismatch & Domain reranking and visual abstention \\
+    Context cap & Recorded passage/source counts exceeded intended maximum & Evaluated route not fully traceable & Freeze and trace runtime configuration \\
+    Infrastructure & English 4/55 failed; German local 2/9 failed & Reliability limitation and exclusion risk & Rerun and retain both denominators \\
+    MCP evaluation & Design and call path inspected; no completed runtime dataset & RQ3 answered as a verification design, not a performance claim & Execute catalogue, export, viewer, and failure tests \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+English and German local completion rates were 92.7\% and 77.8\%. These are prototype results, not incidental inconveniences, but they should remain separate from semantic answer quality. A timeout requires operational diagnosis; an unsupported hip-flexor answer requires retrieval and grounding analysis. The hip-flexor case is particularly useful because the answer sounded plausible despite zero retrieval-proxy support.
+
+\section{Answers to the Research Questions}
+\label{sec:rq-answers}
+
+\subsection{RQ1: Retrieval effectiveness and corpus-boundary behaviour}
+\label{subsec:rq1-answer}
+
+For RQ1, the hybrid-preferred route often ranked semantically similar passages highly under the automatic proxy. The 43 non-boundary questions produced Precision@3 of 0.86, Recall@3 of 0.58, nDCG@3 of 0.90, and MRR of 0.93, with proxy Precision@1 of 0.907, while 49 of 51 usable responses contained source objects. These values come from embedding-based labels rather than expert judgement; claim-level faithfulness was not completed, and 13 responses were classified as world-knowledge answers. Reliable grounded generation was therefore not established. The resulting answer is mixed: proxy ranking was promising, but the uploaded-corpus boundary was not reliable.
+
+\subsection{RQ2: Figure availability and observed relevance limitations}
+\label{subsec:rq2-answer}
+
+For RQ2, all ten figure-related responses contained image objects, which shows that the delivery path functioned. Manual checks also found weak and irrelevant matches. Without expert labels, a page-provenance audit, a text-only comparator, or a learner study, the evidence supports technical integration only; improvement in visual support was not established.
+
+\subsection{RQ3: MCP verification design for 3D artefact success}
+\label{subsec:rq3-answer}
+
+For RQ3, the \MCP{} architecture defines a verifiable tool-and-artefact success condition. The host expects structured tool output and a valid model URL, and the server checks the artefact before returning success. A natural-language statement is insufficient. Runtime reliability and any reduction of unverifiable 3D claims remain unmeasured because the comparator and end-to-end dataset were not executed.
+
+\subsection{RQ4: Design trade-offs and limitations}
+\label{subsec:rq4-answer}
+
+RQ4 is answered through the trade-offs observed during development: coverage versus grounding, compact context versus evidence coverage, visual availability versus relevance, and local control versus reproducibility burden. Local execution increased control over documents, models, and anatomy assets, but also increased dependency management, hardware demands, reproducibility work, and recovery effort. Type-dependent context sizes eased inspection relative to unfiltered top-$k$ lists, although Recall@3 suggests that multi-part questions may need more passages. The local model answered more diagnostic questions but crossed the document boundary more often. Figure retrieval added availability and a new relevance risk. Separating RAG and 3D made each output easier to verify while requiring two datasets, two evaluation protocols, and more runtime components. Latency and deployment cost were not measured comprehensively.
+
+\section{Discussion and Comparison with Prior Work}
+\label{sec:discussion-prior-work}
+
+The results show why an end-to-end chatbot demonstration is not enough. RAG makes external evidence available \parencite{lewis2020}, but the generator may still depart from it \parencite{ji2023}. Here, strong early-ranking proxies and frequent source objects coexisted with 13 world-knowledge responses. This supports evaluation frameworks that keep retrieval, context use, answer quality, and citation behaviour separate \parencite{es2024ragas}.
+
+The hybrid-preferred route needs the same restraint. Dense search, lexical search, and rank fusion are well motivated for a corpus containing paraphrases and exact anatomy terms \parencite{karpukhin2020,reimers2019,robertson2009,cormack2009}. Without a matched dense-only comparison, the saved experiment cannot identify which component helped. The engineering rationale is plausible, while the performance effect relative to dense-only retrieval is unknown.
+
+The early hard three-passage rule originated in a genuine usability problem: earlier responses showed too many overlapping chunks and source cards. A smaller context was easier to inspect, yet the July hybrid-preferred route used type-dependent caps and proxy Recall@3 was 0.58. An adaptive policy may therefore be preferable. One or two strong passages may be enough for a direct question; a multi-part explanation may justify further non-redundant evidence.
+
+The image path shows a similar difference between coverage and trust. Returning an image for every figure query established availability, not relevance. General \CLIP{} alignment supports cross-modal search \parencite{radford2021}, while anatomy figures add labels, laterality, multiple panels, and fine spatial relations that need domain-specific checking. Studies of visual and 3D anatomy resources \parencite{yammine2015,moro2017} evaluate educational interventions, not automatically selected PDF figures. The absence of an improvement claim follows from the evidence.
+
+For the 3D route, the main contribution is the acceptance criterion. Tool-use research separates generated reasoning from external action and observation \parencite{yao2023react,schick2023toolformer}. The host implements that distinction by requiring a model URL and artefact metadata. Until the end-to-end workbook is completed, this is an inspectable design property rather than a measured reduction in false success.
+
+Four tensions recur across the evidence: answer coverage versus evidence discipline, compact context versus evidence coverage, image availability versus visual relevance, and local control versus operational burden. They support describing the outcome as a research prototype with documented architecture and failure modes, not as a clinically validated or production-ready educational system.
+
+\section{Threats to Validity}
+\label{sec:results-threats}
+
+\paragraph{Internal validity.}
+The exact commit, prompt revision, corpus state, dependencies, and per-request retrieval-mode trace were not archived as one package, and several components changed during development. The study cannot isolate the causal effect of retrieval mode, evidence filtering, or model choice. The move from an earlier hard three-passage rule to type-dependent July caps must be reported as design evolution rather than as unexplained measurement noise. Failed requests also create bias when quality metrics use completed responses only.
+
+\paragraph{Construct validity.}
+Retrieval labels came from an \codepath{all-MiniLM-L6-v2} similarity proxy with a 0.38 threshold. This measures representational similarity rather than expert evidence sufficiency, and related embedding families in the system and evaluator may favour the same patterns. Source-object presence, an image URL, and a success string are likewise narrower than citation correctness, figure relevance, and a verified GLB.
+
+\paragraph{Annotation validity.}
+The boundary set mixes refusals, corrections, and bounded answers, and at least one label conflicts with the saved response. Human columns for correctness, claim support, citation quality, quotation fidelity, and figure relevance were unfinished, with no inter-rater agreement measurement. The preliminary boundary value and single anatomy error are therefore diagnostic cases rather than population estimates.
+
+\paragraph{External validity.}
+External validity is limited to one PDF corpus, 55 English questions, nine German questions, and no completed MCP query set. Other documents, languages, anatomical regions, model quantisations, catalogue revisions, and hardware may behave differently.
+
+\paragraph{Anatomical and educational validity.}
+Targeted inspection found one definite innervation error, but there was no systematic anatomy-expert review. Figure relevance was not scored, and no learner study measured comprehension, retention, or spatial learning. The study concerns technical feasibility and evidence behaviour rather than clinical validity or educational effectiveness.
+
+\paragraph{Reproducibility.}
+Outputs may change with model revision and quantisation, loaded-model state, index contents, corpus order, caches, and hardware. Reproduction requires a frozen commit, locked environment, corpus hashes, prompts, raw traces, scoring rules, and analysis scripts in one run package.
+
+\section{Claim-to-Result Traceability}
+\label{sec:claim-traceability}
+
+{\scriptsize
+\begin{longtable}{L{0.27\textwidth}L{0.25\textwidth}L{0.15\textwidth}L{0.21\textwidth}}
+\caption{Traceability from Chapter 7 conclusions to raw project evidence.}\label{tab:claim-traceability}\\
+\toprule
+Claim & Raw evidence & Status & Limitation \\
+\midrule
+\endfirsthead
+\toprule
+Claim & Raw evidence & Status & Limitation \\
+\midrule
+\endhead
+Automatic P@3 of 0.86 and nDCG@3 of 0.90 & \codepath{eval/retrieval_metrics.json}; non-boundary macro, $n=43$ & Supported as proxy & Not expert relevance \\
+Automatic P@1 of 0.907 & Recomputed from \codepath{eval/retrieval_metrics.json} passages; $n=43$ & Supported as proxy & Same embedding threshold 0.38 \\
+Request-completion rate of 51/55 & \codepath{eval/rag_eval_55_results.json}; R-B01, R-B02, R-Q04, R-Q05 & Supported & July configuration only \\
+Hybrid-preferred P1 route & \codepath{src/multimodal/multimodal_rag_chain.py}; commit \texttt{5089fcc}; source-count distribution & Provisional verified & Per-request mode not logged \\
+Mean sources 5.16; caps approx.\ 4--8 & \codepath{eval/rag_eval_55_results.json}; \codepath{src/rag/question_classifier.py} & Verified descriptive & Not a hard top-3 run \\
+Zero duplicate source--page pairs & Derived from P1 \codepath{response.sources} & Verified descriptive & No with/without ablation \\
+World-knowledge leakage occurred & \codepath{eval/rag_eval_55_results.json}; outcome classifications and boundary responses & Supported & Schema did not enforce flag \\
+Preliminary boundary value of 1/8 & \codepath{evaluationThesis.md}; R-B03--R-B10 & Provisional & Not a final primary metric \\
+Image objects returned for 10/10 figure questions & \codepath{eval/rag_eval_55_results.json}; R-FIG01--R-FIG10 & Supported & Relevance not measured \\
+Irrelevant images were observed during development & Author development observation & Qualitative & No systematic count \\
+Extraocular-muscle innervation error & \codepath{german_eval_lmstudio_results.json}; LM-R07 & Supported as failure case & Not an aggregate accuracy rate \\
+Early three-passage design reduced clutter in development & Design-history evidence (\texttt{cb041d5} era) & Qualitative & Historical only \\
+Hard three-passage cap active in P1 & Detailed passage/source metadata & False / not established & Type-dependent caps observed \\
+Hybrid outperformed dense-only & No matched dense-only run & Not evaluated & Future work \\
+Answers were faithful and anatomically correct overall & Human rubric columns unpopulated & Not evaluated & Not available \\
+Multimodal retrieval improved visual support & No text-only ablation or relevance labels & Not evaluated & Future work \\
+MCP reduced unverifiable success claims & MCP workbook unpopulated & Not evaluated & Not available \\
+Caching reduced export latency & No cold/cached timing records & Not evaluated & Not available \\
+Clinical, educational, or production effectiveness & No corresponding validation study & Not assessed and not claimed & Outside completed evaluation \\
+\bottomrule
+\end{longtable}
+}
+
+\section{Chapter Summary}
+\label{sec:results-summary}
+
+The July hybrid-preferred run produced strong early-ranking proxies---Precision@3 of 0.86 and nDCG@3 of 0.90 for 43 non-boundary questions---alongside four request failures, Recall@3 of 0.58, type-dependent source counts (mean 5.16), 13 world-knowledge responses, and incomplete human annotation. The useful conclusion is not one headline score. Retrieval quality and evidence discipline must be evaluated separately.
+
+The image path proved that figures could be attached, while irrelevant matches prevented a relevance or educational-benefit claim. The MCP branch defined 3D success through a structured artefact result, but runtime accuracy, viewer reliability, cache effects, and a comparator remain unevaluated. These findings support the conditional RQ answers and the priorities in \cref{chap:conclusion}.

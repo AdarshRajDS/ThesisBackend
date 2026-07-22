@@ -1,0 +1,107 @@
+\chapter{Conclusion and Future Work}
+\label{chap:conclusion}
+
+\section{Chapter Overview}
+\label{sec:conclusion-overview}
+
+The project did not end with the all-purpose anatomy chatbot imagined at the outset. It produced something narrower: a working prototype, a record of its failures, and a clearer standard for judging different outputs. This chapter answers the research questions from that evidence. Experimental findings are kept apart from conclusions based only on code and design inspection. No new numerical results are introduced here.
+
+\section{Summary of the Research and System}
+\label{sec:conclusion-summary}
+
+Development began with question answering over local anatomy PDFs. Two problems gradually separated. A document answer had to be linked to passages and had to admit when the corpus was insufficient. A 3D request required a real tool execution and a file that could be opened. Treating both outcomes as ordinary assistant messages obscured whether either task had succeeded.
+
+The final prototype therefore has two paths. The document route ingests PDFs, uses hybrid-preferred retrieval on \codepath{/rag/ask}, returns source records under question-type-dependent caps, and may attach extracted figures. Dense-only search remains only as a fallback; a matched dense-versus-hybrid ablation was not completed. The 3D route uses \MCP{} tools, a geometry-oriented Z-Anatomy catalogue, Blender, annotation files, and a Three.js viewer. Its success condition is concrete: structured output must identify a valid model artefact.
+
+The largest English run submitted 55 questions and produced 51 usable responses. Four requests timed out or failed with HTTP errors. Of the completed responses, 37 were classified as corpus-based, 13 as using world knowledge, and one as an abstention; 49 contained retrieved passages or source objects. The smaller German set exposed further infrastructure problems, boundary leakage, and one definite extraocular-muscle innervation error. These failures restrict the claims. They also reveal where the prototype needs work.
+
+\section{Summary of Contributions}
+\label{sec:conclusion-contributions}
+
+\Cref{tab:conclusion-contributions} records each contribution together with its evidential status.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Summary of contributions and their evidential status.}
+  \label{tab:conclusion-contributions}
+  \small
+  \begin{tabularx}{\textwidth}{L{0.20\textwidth}Y L{0.25\textwidth}}
+    \toprule
+    Level & Contribution & Evidential status \\
+    \midrule
+    Architecture & Separate PDF-grounded \RAG{} and \MCP{}-based 3D pipelines. & Implemented; independent evaluation required. \\
+    Architecture & Hybrid-preferred production retrieval (dense, BM25, phrase, RRF) with dense fallback, deduplication, reranking, pre-generation filtering, and type-dependent context. & Implemented and used in P1; no hybrid-effectiveness claim versus dense-only. \\
+    Architecture & Local-first control over documents, models, and anatomy assets. & Supported mainly by implementation and engineering observations. \\
+    Integrity & Separation of retrieval, correctness, faithfulness, citation quality, tool execution, and artefact verification. & Methodological and reporting contribution. \\
+    Integrity & 3D success defined through tool evidence and inspectable artefacts rather than an LLM statement. & Implemented criterion; comparative effectiveness not evaluated. \\
+    Methodology & Separate evidence requirements for answers, citations, figures, and 3D exports. & Evaluation-framework contribution. \\
+    Prototype & Integration of PDF ingestion, answering, optional figures, catalogue resolution, Blender export, annotations, and viewer. & Prototype implementation, not clinical, educational, or production validation. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+The engineering record is part of that contribution. It preserves failed requests, type-dependent source counts, irrelevant figures, world-knowledge leakage, an anatomy error, and an unfinished MCP experiment. These examples distinguish a mechanism that exists in code from one that is active in a request path and from one whose effect has actually been measured.
+
+\section{Final Answers to the Research Questions}
+\label{sec:conclusion-rqs}
+
+\subsection{RQ1: Retrieval effectiveness and corpus-boundary behaviour}
+\label{sec:conclusion-rq1}
+
+The hybrid-preferred route often ranked semantically similar evidence highly under an automatic proxy, but reliable grounded generation was not established. Across 43 non-boundary questions, Precision@3 was 0.86, Recall@3 was 0.58, nDCG@3 was 0.90, and MRR was 0.93 \cref{tab:retrieval-results}. These are early ranking indicators, not expert relevance judgements.
+
+Corpus control was weaker. Thirteen completed responses were classified as using world knowledge despite a recorded document-only setting that was not enforced by the request schema \cref{tab:english-rag-summary,tab:grounding-results}. RQ1 therefore has a mixed answer: ranking was promising under the proxy, but the system did not reliably stay within the uploaded corpus.
+
+\subsection{RQ2: Figure availability and observed relevance limitations}
+\label{sec:conclusion-rq2}
+
+Image integration was technically demonstrated, but improvement in visual support was not established because figure relevance was not evaluated and irrelevant images were observed. All ten figure-related requests returned an image object \cref{tab:multimodal-results}.
+
+\subsection{RQ3: MCP verification design for 3D artefact success}
+\label{sec:conclusion-rq3}
+
+The MCP architecture defines a verifiable tool-and-artefact success condition, but its reduction of unverifiable 3D claims was not empirically measured. The host expects a structured result and model URL, while the server checks the expected files before reporting success. An assistant sentence is therefore insufficient proof. Because the planned runtime dataset and comparator were not completed \cref{tab:mcp-results}, RQ3 is answered as a design and implementation result rather than a measured advantage over other approaches.
+
+\subsection{RQ4: Design Trade-offs and Limitations}
+\label{sec:conclusion-rq4}
+
+The thesis demonstrates trade-offs between coverage and grounding, compact context and evidence coverage, visual availability and relevance, and local control and reproducibility burden. Local operation increased control over PDFs, model hosting, and anatomy assets, but also increased the burden of dependency management and reproducibility. Type-dependent context reduced clutter relative to unfiltered candidate lists, although Recall@3 suggests that some multi-part questions need wider evidence. Figure retrieval added a modality and a relevance risk. Separating RAG and 3D tooling clarified what had to be verified while requiring separate test sets, logs, and metrics.
+
+The practical lesson is simple: report the route that ran, not only the most advanced component found in an earlier snapshot.
+
+\section{Limitations}
+\label{sec:conclusion-limitations}
+
+Four limitations govern the interpretation of the study.
+
+\begin{itemize}
+  \item \textbf{The evaluated configuration was not frozen as one package.} The commit, corpus hashes, prompt version, model state, environment, hardware, and per-request retrieval-mode trace were not archived together. July source counts reflect type-dependent caps rather than the earlier hard three-passage rule.
+  \item \textbf{The document evaluation was incomplete.} Embedding similarity replaced expert passage labels, no matched dense-versus-hybrid ablation was saved, and claim support, citation quality, quotation accuracy, and anatomical correctness were not fully annotated.
+  \item \textbf{Visual and 3D evidence remained limited.} Image availability was recorded without a systematic relevance audit. The MCP worksheet contains no completed results for resolution, laterality, export validity, viewer loading, caching, concurrency, or injected failures.
+  \item \textbf{Educational and clinical effectiveness were not tested.} No comprehensive anatomy-expert review, learner experiment, usability study, or deployment validation was conducted. Latency and resource use were not profiled systematically.
+\end{itemize}
+
+The system is therefore a research prototype, not an anatomy authority or a production service.
+
+\section{Prioritised Future Work}
+\label{sec:conclusion-future-work}
+
+The next stage should strengthen the evidence before adding further interface features.
+
+\begin{enumerate}
+  \item \textbf{Freeze one release and evaluation package.} Store the commit, corpus hashes, prompts, model revision and quantisation, dependencies, hardware, settings, raw traces, and analysis scripts together.
+  \item \textbf{Repair the document boundary.} Propagate the world-knowledge flag through the backend and add regression cases for unsupported, misleading, and off-topic questions.
+  \item \textbf{Create expert annotations.} Label passage relevance, answer claims, citations, quotations, anatomy errors, and boundary outcomes.
+  \item \textbf{Run controlled ablations.} Compare dense-only and hybrid retrieval, then isolate query rewriting, deduplication, evidence grading, and context size.
+  \item \textbf{Measure latency.} Instrument per-request timers and report median and tail percentiles.
+  \item \textbf{Evaluate figures for relevance.} Add OCR and layout-aware extraction, improve caption context, test anatomy-specific reranking, preserve page provenance, and allow visual abstention.
+  \item \textbf{Complete the MCP experiment.} Test names, aliases, laterality, ambiguity, invalid requests, missing dependencies, timeouts, caching, and concurrency. Preserve tool traces, selected objects, artefact checks, viewer behaviour, and latency.
+  \item \textbf{Study learners only after technical reliability improves.} Compare text-only, text-plus-image, and text-plus-3D conditions. Institutional deployment would also need access control, privacy controls, monitoring, recovery procedures, and repeatable installation.
+\end{enumerate}
+
+\section{Final Conclusion}
+\label{sec:conclusion-final}
+
+The final prototype is one interface with two verification problems. Its document route often found similar text early under a hybrid-preferred configuration but did not consistently remain inside the uploaded corpus. Its image route returned figures whose relevance was uncertain. Its 3D route set a firmer rule: return an inspectable artefact or report failure.
+
+That distinction is the thesis's central result. Passages, figures, and 3D models require different evidence. By making those differences visible---and by retaining the unsuccessful cases---the project provides a practical basis for the expert review, runtime tests, and learner studies that should follow.

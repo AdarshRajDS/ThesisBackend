@@ -1,0 +1,27 @@
+\begin{tikzpicture}[
+  node distance=7mm and 6mm,
+  every node/.style={font=\scriptsize,align=center},
+  b/.style={draw,rounded corners,minimum width=20mm,minimum height=9mm,fill=RAGBlueLight,draw=RAGBlue},
+  inactive/.style={draw,rounded corners,minimum width=20mm,minimum height=9mm,fill=white,draw=WarningOrange,dashed},
+  arr/.style={-{Stealth[length=1.8mm]},thick,draw=RAGBlue}
+]
+\node[b] (q) {Question};
+\node[b,right=of q] (cls) {Classify\\question type};
+\node[b,right=of cls] (rw) {Rewrite\\queries};
+\node[b,right=of rw] (hyb) {HybridRetriever\\dense+BM25+phrase};
+\node[b,below=of hyb] (rrf) {RRF fusion};
+\node[b,left=of rrf] (dedupe) {Dedupe +\\rerank};
+\node[b,left=of dedupe] (pre) {Pre-generation\\filter};
+\node[b,left=of pre] (cap) {Type-dependent\\passage cap};
+\node[b,below=of cap] (gen) {Answer synthesis\\+ sources};
+\node[inactive,right=of gen] (post) {Post-gen citation\\filter (inactive)};
+\node[inactive,right=of post] (wk) {WK consent\\field (inactive)};
+\draw[arr] (q)--(cls);
+\draw[arr] (cls)--(rw);
+\draw[arr] (rw)--(hyb);
+\draw[arr] (hyb)--(rrf);
+\draw[arr] (rrf)--(dedupe);
+\draw[arr] (dedupe)--(pre);
+\draw[arr] (pre)--(cap);
+\draw[arr] (cap)--(gen);
+\end{tikzpicture}

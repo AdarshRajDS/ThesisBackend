@@ -1,0 +1,56 @@
+\chapter{RAG Evaluation Register}
+\label{app:rag-templates}
+
+\section{Run Register}
+\label{app:rag-run-register}
+
+\setlength{\tabcolsep}{3pt}
+\begin{longtable}{L{0.08\textwidth}L{0.17\textwidth}L{0.16\textwidth}L{0.19\textwidth}L{0.25\textwidth}}
+\caption{RAG runs referenced in the thesis.}\label{tab:rag-run-register}\\
+\toprule
+ID & Date / language & Administered & Purpose & Interpretation \\
+\midrule
+\endfirsthead
+\toprule
+ID & Date / language & Administered & Purpose & Interpretation \\
+\midrule
+\endhead
+F1 & Earlier formative, English & 15 & Manual rubric and failure discovery & Exploratory; configuration not frozen. \\
+P1 & 12 July 2026, English & 55; 51 usable & Primary retrieval and boundary analysis & Main quantitative run; incomplete reproducibility record. \\
+D1 & July 2026, German & 9; 7 substantive & Diagnostic language and anatomy inspection & Failure-case evidence, not an accuracy estimate. \\
+M1 & Earlier comparison & Model-specific workbook & Qwen, Gemma, and document-grounded comparison & Exploratory because conditions were not matched. \\
+\bottomrule
+\end{longtable}
+
+\section{P1 Category Register}
+\label{app:rag-category-register}
+
+\begin{table}[htbp]
+  \centering
+  \caption{Question categories in the primary English run.}
+  \label{tab:rag-category-register}
+  \begin{tabularx}{\textwidth}{L{0.30\textwidth}C Y}
+    \toprule
+    Category & Count & Intended diagnostic role \\
+    \midrule
+    Direct factual & 15 & Passage retrieval and concise document-based answering. \\
+    Complex / multi-part & 10 & Evidence coverage and synthesis across multiple expected points. \\
+    Figure-related & 10 & Availability of image objects; relevance was not scored. \\
+    Exact quotation & 5 & Exact source-span and attribution behaviour. \\
+    Boundary / off-topic & 10 & Refusal, correction, or disclosed non-document behaviour. \\
+    Robustness variants & 5 & Wording and typographical variation. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+\section{Interpretation Rules}
+\label{app:rag-interpretation}
+
+The following distinctions were applied throughout the thesis:
+\begin{itemize}
+  \item a returned passage is a retrieval result, not automatically relevant evidence;
+  \item a returned source object is provenance metadata, not automatically a correct citation;
+  \item a corpus-classified answer is not automatically faithful at claim level;
+  \item an image object demonstrates availability, not anatomical relevance or educational usefulness; and
+  \item an infrastructure failure remains part of reliability reporting even when excluded from answer metrics.
+\end{itemize}

@@ -1,0 +1,224 @@
+\chapter{Background and Related Work}
+\label{chap:background}
+
+\begin{chapterplan}{14--17 pages}{Establish the scientific foundations for the thesis design and position the work relative to prior research without prematurely describing the implementation.}
+The review connects educational language models with document retrieval, multimodal evidence, 3D anatomy, and tool execution. It also marks the point at which the literature stops and project-specific evidence must begin.
+\end{chapterplan}
+
+The prototype combines ideas that are usually evaluated separately. Its document route relies on educational language models, information retrieval, grounding, and multimodal search. Its 3D route depends on anatomy visualisation, browser graphics, tool-using models, and the Model Context Protocol (MCP). The purpose of this chapter is to establish those foundations and to show why they lead to different verification requirements.
+
+This is a structured narrative review rather than a systematic review. I recorded sources in a literature matrix and prioritised canonical method papers, recent peer-reviewed evaluations, and official specifications. The review can therefore support the design argument and define relevant concepts. It cannot demonstrate that no comparable system exists, and it is not evidence that the implementation works.
+
+\section{Large Language Models in Education}
+\label{sec:llms-education}
+
+A conversational model can explain, reformulate, summarise, answer questions, and generate feedback. In educational settings, this is attractive because a learner can ask for help without knowing the heading or terminology used by a textbook. Reviews describe opportunities for personalised interaction and teacher support, but they also show that educational value depends on the task, the quality of feedback, and the surrounding pedagogy \parencite{kasneci2023}.
+
+Anatomy provides a plausible use case because students regularly move between names, functions, spatial relationships, and visual representations. They may want a pathway explained in smaller steps or need help comparing two structures. A conversational interface can support that exploration, but it does not turn the model into an authoritative source. A systematic review of LLMs in medical education found broad use across learning and assessment tasks alongside accuracy concerns and large differences in models, prompts, and evaluation methods \parencite{lucas2024medicaleducation}.
+
+The main risks are not limited to wrong facts. Bias, privacy exposure, over-reliance, and reduced critical engagement have also been discussed \parencite{kasneci2023,lucas2024medicaleducation}. Fluent wording can make unsupported content difficult to identify \parencite{ji2023}. In anatomy, a small lexical difference may alter the answer materially: left and right, a closely related structure name, or the distinction between a nerve and a vessel.
+
+Learning support and assessment should also be separated. A model may help a student explore a concept, but the generated explanation is not evidence of unaided mastery unless the assessment design accounts for the assistance. Institutions must additionally consider retention of student data, copyright-sensitive teaching material, transparency, and responsibility for errors. These concerns shaped the present project: the interface should be tied to an identifiable knowledge source, missing support should remain visible, and the tool should complement rather than replace expert teaching. Any claim about learning outcomes would require a separate study.
+
+\section{Hallucination, Factuality, Grounding, and Provenance}
+\label{sec:hallucination-grounding}
+
+The term \emph{hallucination} is used in several ways. Here it covers generated content that lacks support in the relevant source, conflicts with the supplied input, or is factually wrong relative to accepted external knowledge \parencite{ji2023,wang2024factuality}. This definition contains two questions that should not be collapsed. \emph{Faithfulness} concerns the relationship between the answer and the context given to the model. \emph{Factuality} concerns agreement with external knowledge. An answer can be faithful to an incorrect document, or factually correct while unsupported by the documents the user asked the system to use.
+
+Grounding and provenance describe different parts of the evidence chain. Grounding is the support relationship between a claim and evidence. Provenance identifies where that evidence came from, such as a PDF, page, and passage. A citation is the reference shown to the user. Retrieval, grounding, provenance, and citation are therefore connected stages rather than interchangeable terms.
+
+Unsupported generation can arise from incomplete or conflicting pre-training data, an ambiguous prompt, weak retrieved context, or a decoding process that favours a plausible continuation over an admission of uncertainty \parencite{ji2023,wang2024factuality}. Retrieval supplies external information at inference time, but the generator may still ignore it, extend it, or attach it to the wrong claim. RAGTruth provides fine-grained evidence that hallucination remains present even when retrieved context is available \parencite{niu2024ragtruth}.
+
+Mitigation methods work at different layers. Fine-tuning, calibration, and self-critique act on or around the model. Application controls include retrieval, constrained prompts, external verification, citation checks, and abstention \parencite{ji2023,wang2024factuality}. None of these controls covers the whole route. For a document-grounded application, a practical strategy is to retain passage identifiers and inspect whether each substantive claim is supported by the material shown to the model.
+
+Scores need the same discipline. A confident tone is not evidence of confidence, and a similarity score is not an anatomy-correctness probability. The evaluation must keep passage retrieval, answer faithfulness, citation support, and independent anatomical correctness visible as separate constructs.
+
+\section{Retrieval-Augmented Generation}
+\label{sec:rag-background}
+
+Retrieval-augmented generation combines a generative model with an external collection. In the foundational formulation, retrieved documents serve as non-parametric memory alongside knowledge encoded in model parameters \parencite{lewis2020}. A practical RAG system usually has two phases. During ingestion, documents are extracted, divided into passages, represented, and stored with metadata. At query time, candidates are retrieved and ranked before selected evidence is supplied to the generator.
+
+Much of the quality is determined before the LLM receives a prompt. Scanned pages may require OCR; multi-column layouts may be extracted in the wrong order; chunks may be too short to preserve an explanation or too long to isolate the relevant statement. Repeated ingestion can create duplicate records. Source and page metadata must survive these stages if the interface is expected to show provenance. Such choices are part of the method rather than neutral preprocessing \parencite{xiong2024medrag}.
+
+For educational documents, RAG offers three practical advantages. The corpus can change without retraining the generator, retrieved passages can be shown to the user, and local or course-specific material can be prioritised over broad parametric knowledge \parencite{lewis2020}. The same architecture can support abstention when evidence is weak, but only if the application checks sufficiency instead of assuming that the top-ranked passage is adequate.
+
+There is no single standard pipeline. Extraction, chunking, query processing, retrieval, ranking, context construction, and generation all affect the result. Medical RAG benchmarks show interactions between the corpus, retriever, and language model \parencite{xiong2024medrag}. Self-RAG takes another approach by learning when to retrieve and critique evidence rather than treating retrieval as a fixed preliminary step \parencite{asai2024selfrag}. That additional control comes with greater training and orchestration complexity.
+
+For this thesis, a modular design was methodologically useful. Individual stages could be inspected and replaced without hiding their behaviour inside a larger learned controller. The evaluation still had to follow the components. A retrieval miss, irrelevant context, source conflict, prompt limitation, and unsupported synthesis may all end in a poor answer, but they require different corrections.
+
+\section{Sentence Embeddings, MiniLM, and Dense Retrieval}
+\label{sec:dense-retrieval-background}
+
+Dense retrieval represents questions and passages as vectors and ranks passages by proximity in a shared space. Sentence-BERT uses Siamese or triplet architectures to produce sentence embeddings that can be compared efficiently \parencite{reimers2019}. Dense Passage Retrieval uses separate question and passage encoders so that document vectors can be prepared before a query arrives \parencite{karpukhin2020}. Both methods support semantic matching when the learner's wording differs from the wording in the source.
+
+MiniLM reduces Transformer size through knowledge distillation while retaining useful representation capacity \parencite{wang2020}. MiniLM-based Sentence-Transformers are widely used in resource-constrained retrieval systems. Reproducible reporting still requires the exact model card, dimensionality, objective, and licence \parencite{minilmModelCard}.
+
+Query and passage vectors are commonly compared with cosine similarity. A vector store can retain the vector together with the original passage and its metadata, while an approximate nearest-neighbour index makes search efficient. The returned value describes proximity under the selected model and distance function. It is not a probability that the passage answers the question and should not be presented as factual confidence \parencite{reimers2019,minilmModelCard}.
+
+Dense retrieval is well suited to paraphrases, although performance varies across domains and datasets \parencite{thakur2021beir}. Exact labels, abbreviations, and laterality may still be decisive. Anatomy shows the trade-off clearly: semantic similarity helps when a student paraphrases a function, whereas tokens such as \emph{left}, \emph{right}, or a Latin name may need exact preservation. This motivates adding a lexical signal rather than replacing semantic retrieval altogether.
+
+\section{BM25, Sparse Retrieval, Hybrid Retrieval, and Reciprocal Rank Fusion}
+\label{sec:hybrid-retrieval-background}
+
+Sparse retrieval ranks documents from lexical evidence. BM25 rewards occurrence of query terms, gives more weight to discriminative terms, applies term-frequency saturation, and normalises for document length \parencite{robertson2009}. One common formulation is
+
+\begin{equation}
+\mathrm{BM25}(q,d)=\sum_{t\in q}\mathrm{IDF}(t)
+\frac{f(t,d)(k_1+1)}{f(t,d)+k_1\left(1-b+b\frac{|d|}{\mathrm{avgdl}}\right)},
+\label{eq:bm25}
+\end{equation}
+
+where $f(t,d)$ is the frequency of term $t$ in document $d$, $|d|$ is the document length, $\mathrm{avgdl}$ is the average document length, and $k_1$ and $b$ control saturation and length normalisation. BM25 is useful for exact structure names, abbreviations, numerical expressions, and laterality. Its weakness is vocabulary mismatch: a relevant passage may express the same idea with different words.
+
+Dense and sparse search therefore contribute different signals. A hybrid retriever can gather candidates from both rankings. Directly averaging raw scores is problematic because cosine similarity and BM25 values are on different scales. Reciprocal Rank Fusion (RRF) uses positions instead \parencite{cormack2009}:
+
+\begin{equation}
+\mathrm{RRF}(d)=\sum_{r\in R}\frac{1}{k+\mathrm{rank}_{r}(d)},
+\label{eq:rrf}
+\end{equation}
+
+where $R$ is the set of rankings and $k$ limits the influence of large rank differences. A passage can contribute strongly when either retriever places it near the top.
+
+Fusion is usually followed by further control. Reranking examines a smaller candidate pool against the exact question, while deduplication prevents overlapping chunks, repeated pages, or repeated ingestion from dominating the context. Neither step establishes that the evidence is sufficient. A passage may be highly related to the topic and still omit the statement required for the answer.
+
+Hybrid retrieval also adds operational and methodological costs. Lexical search can over-rank passages that repeat a term without addressing the question, and the sparse index must remain synchronised with the vector store. Fusion weights, query rewriting, and reranking introduce choices that need validation. In this thesis, dense-plus-BM25 retrieval is treated as a testable design hypothesis rather than an assumed improvement.
+
+\section{CLIP and Multimodal Retrieval}
+\label{sec:clip-multimodal}
+
+Contrastive Language--Image Pre-training (CLIP) learns text and image encoders in a shared space from paired image--text data \parencite{radford2021}. Training pulls matched pairs closer and separates unrelated pairs. Once image embeddings have been computed, a textual query can be compared with them, which enables text-to-image retrieval without a separate classifier for every visual category.
+
+This is relevant to anatomy because useful evidence may appear in diagrams, radiographs, histology, screenshots, or cross-sectional figures. Retrieval is preferable to image generation when the aim is to return material from an uploaded source and preserve its provenance. General CLIP models were trained on broad web data and may miss specialised biomedical distinctions. MedCLIP adapts contrastive learning to medical image--text data \parencite{wang2022medclip}, but a model trained on clinical images is not automatically ideal for textbook pages that combine drawings, labels, screenshots, and photographs.
+
+Model selection therefore requires representative evaluation rather than a domain label alone. MiniLM and CLIP scores also have no common numerical meaning because the models were trained with different objectives and in different spaces \parencite{reimers2019,radford2021}. Late fusion is easier to audit: text and images are retrieved independently and joined only in the response.
+
+Captions, page metadata, and nearby text may improve image search, but PDF extraction can associate the wrong text with a figure or split a composite image. Decorative images, duplicates, small labels, broken URLs, and fine anatomical relations add further failure modes. Image availability and visual relevance need their own measures. A learner study would still be required before claiming that the returned figures improve learning.
+
+\section{Evaluation of Retrieval-Augmented Generation}
+\label{sec:rag-evaluation-background}
+
+An end-to-end RAG score can hide the point of failure. The evidence may never have been retrieved; a useful passage may have been ranked too low; the generator may have ignored the context; or a source may have been attached to the wrong claim. Frameworks such as RAGAS, ARES, and RAGChecker reflect this modularity by evaluating context, answers, and support separately \parencite{es2024ragas,saadfalcon2024ares,ru2024ragchecker}.
+
+Automated evaluators add another model- and prompt-dependent layer. Their agreement with human judgement should be checked in the target domain rather than assumed. ARES and RAGChecker include meta-evaluation against human annotations \parencite{saadfalcon2024ares,ru2024ragchecker}. For anatomy, an expert-labelled subset can also check laterality, structural relationships, and whether an explanation is educationally adequate. Raw outputs should be preserved so later reviewers can revisit the scoring.
+
+\subsection{Retrieval effectiveness}
+
+Let $R_q$ be the set of passages judged relevant for question $q$, and let $D_q^{(k)}$ be the first $k$ retrieved passages. Precision at $k$ measures how many returned passages are relevant, while Recall at $k$ measures how much of the known relevant set was recovered:
+
+\begin{equation}
+\mathrm{Precision@}k=\frac{|D_q^{(k)}\cap R_q|}{k},
+\qquad
+\mathrm{Recall@}k=\frac{|D_q^{(k)}\cap R_q|}{|R_q|}.
+\label{eq:precision-recall-k}
+\end{equation}
+
+Mean Reciprocal Rank (MRR) focuses on the first relevant result and assigns zero when none is retrieved:
+
+\begin{equation}
+\mathrm{MRR}=\frac{1}{N}\sum_{q=1}^{N}\frac{1}{\mathrm{rank}_q}.
+\label{eq:mrr}
+\end{equation}
+
+Reciprocal rank appeared in early question-answering evaluation, including TREC-8 \parencite{voorhees1999}. It is informative when one strong passage can answer a question, but it ignores further relevant passages. Normalised Discounted Cumulative Gain (nDCG) supports graded relevance and rewards useful material near the top \parencite{jarvelin2002}:
+
+\begin{equation}
+\mathrm{DCG@}k=\sum_{i=1}^{k}\frac{2^{rel_i}-1}{\log_2(i+1)},
+\qquad
+\mathrm{nDCG@}k=\frac{\mathrm{DCG@}k}{\mathrm{IDCG@}k}.
+\label{eq:ndcg}
+\end{equation}
+
+All three measures depend on the relevance judgements. If the gold set contains only one acceptable passage when several could support the answer, recall and nDCG may understate retrieval quality.
+
+\subsection{Answer quality, faithfulness, and citations}
+
+Correctness concerns agreement with an expert answer or accepted reference. Completeness asks whether the necessary aspects were covered. A short response may be correct but incomplete; a detailed response may include the required information and still introduce unsupported claims. Lexical overlap alone is therefore a weak measure for free-form explanations.
+
+Faithfulness is assessed against the context supplied to the generator. One practical approach is to divide an answer into substantive claims and label each claim as supported, partly supported, unsupported, or contradicted. RAGTruth illustrates the value of fine-grained annotation for hallucination in retrieved-context generation \parencite{niu2024ragtruth}. The following ratio makes the intended construct explicit:
+
+\begin{equation}
+\mathrm{Hallucination\ Rate}=
+\frac{\text{unsupported or contradicted claims}}
+{\text{all substantive claims}}.
+\label{eq:hallucination-rate}
+\end{equation}
+
+The annotation protocol must specify how claims are segmented and how partial support is counted. A system can also reduce the ratio by making fewer claims, so hallucination and completeness should be interpreted together.
+
+Citations are valuable only when they support the attached statement. ALCE separates citation correctness from citation completeness \parencite{gao2023alce}. Correctness asks whether the cited passage supports the claim; completeness asks whether all claims that require evidence are cited. Exact quotation adds a stricter condition: the displayed wording must match the source and page. A paraphrase should not be labelled as a quotation.
+
+\subsection{Boundary and multimodal evaluation}
+
+A document-constrained assistant should sometimes refuse, qualify, or ask for clarification. Unsupported, off-topic, ambiguous, typo-containing, and quotation requests test whether the system recognises the limits of its corpus. False acceptance occurs when it answers without adequate evidence; false rejection occurs when it refuses despite sufficient support. If general knowledge is permitted, the interface should identify that basis explicitly.
+
+Images require a parallel evaluation. Top-1 relevance, Precision@$k$, duplicate rate, broken-URL rate, source-page accuracy, and image--answer consistency cannot be inferred from text quality. A defensible RAG study therefore combines retrieval measures with human or validated model-assisted answer review, citation checks, boundary cases, and separate operational and visual tests.
+
+\section{Three-Dimensional Anatomy Education and Browser-Based Visualisation}
+\label{sec:3d-anatomy-education}
+
+Anatomy requires reasoning about depth, orientation, and relationships that are difficult to express in one two-dimensional view. Interactive models permit rotation, zooming, isolation, and inspection from several perspectives. \textcite{yammine2015} reported benefits for factual and spatial anatomy knowledge, while reviews of virtual and augmented reality found potential advantages alongside wide variation in study quality, instructional design, and hardware \parencite{moro2017,garciarobles2024}.
+
+Engagement and novelty are not learning outcomes. Immersive hardware may introduce cost, discomfort, and access barriers, and a preferred interface may not improve retention \parencite{moro2017,garciarobles2024}. Browser delivery avoids specialist headsets and suits an initial feasibility study whose immediate question is whether a requested structure can be delivered and inspected reliably.
+
+Three-dimensional resources remain complementary to cadaveric, clinical, and conventional teaching. Their effectiveness depends on the learning task, guidance, asset quality, and integration with the curriculum \parencite{yammine2015,moro2017,garciarobles2024}. Earlier work demonstrated browser-based interactive anatomy visualisation \parencite{petersson2009}. glTF provides a runtime format, and GLB can package the scene into one binary asset \parencite{khronosGltf}. Loading a model successfully, however, does not prove that the correct structure was selected. Source, selection, export, and viewer behaviour all remain part of the evidence chain.
+
+\section{Tool-Using Large Language Models}
+\label{sec:tool-using-llms}
+
+Tool-using language-model systems allow a model to request an operation that is executed outside the model. The model interprets the user's wording and proposes a tool with structured arguments; external software performs the action. This pattern is relevant when the desired result is a database query, calculation, retrieval operation, or file rather than prose alone.
+
+ReAct interleaves reasoning, actions, and observations \parencite{yao2023react}. Toolformer studies self-supervised insertion of API calls \parencite{schick2023toolformer}, while ToolLLM addresses training and evaluation over a large set of real-world APIs \parencite{qin2024toolllm}. These approaches establish tool choice and tool use as capabilities distinct from ordinary text generation. They also make the result of an external operation observable.
+
+Schemas form a contract between the model-facing host and the tool. Required fields can be validated, and a trace can retain the selected operation, arguments, status, result, and error. A valid call is only the first step. The model may choose the wrong tool, supply invalid arguments, repeat calls, or misread the result. The tool may fail because of permissions, configuration, missing resources, or timeouts.
+
+When an operation has side effects, the host should validate the result and expose failure clearly. Bounded tools are easier to audit than unrestricted code execution. That principle motivates the separation in this thesis between interpreting an anatomy request and exporting a 3D structure. The cited work motivates tool-mediated action; MCP supplies the communication protocol used in the implementation.
+
+\section{Model Context Protocol as a Technical Protocol}
+\label{sec:mcp-background}
+
+MCP is an open protocol for communication between AI applications and capability servers. It defines host, client, and server roles over JSON-RPC. The host coordinates interaction with the user and model, the client maintains the protocol session, and the server exposes tools, resources, or prompts \parencite{mcp20251125}. MCP standardises discovery, schemas, lifecycle negotiation, messages, results, and transport. It leaves the host's reasoning strategy and model choice open.
+
+A tool is described by a name, purpose, and input schema. The client can list available tools and invoke one with structured arguments; the server can return structured and textual content \parencite{mcp20251125}. In a 3D export workflow, the structured result may include status, a canonical structure label, model and annotation URLs, and an explicit error. The host can inspect those fields before reporting success.
+
+Stdio is one supported transport. The client launches a server subprocess and exchanges JSON-RPC messages through standard input and output. Streamable HTTP supports networked deployment \parencite{mcp20251125}. Protocol versions are negotiated during initialisation. The 2025-06-18 and 2025-11-25 revisions show why a reproducible study must record both the specification and the SDK version used by the frozen runtime \parencite{mcp20250618,mcp20251125}.
+
+Versioning matters because tool definitions, transports, and SDK interfaces can change. MCP improves interoperability and gives the host structured evidence of a call, but permissions, input validation, result checks, and context exposure remain host responsibilities \parencite{mcp20251125}. In this project, correct output also depends on resolving the intended structure, selecting appropriate source geometry, exporting a valid model, and loading it in the viewer.
+
+\section{Positioning of This Thesis}
+\label{sec:positioning-thesis}
+
+The literature supplies established methods for each part of the prototype. Educational LLM research explains both the attraction and the risks of conversational interaction. Information retrieval and RAG support document-conditioned answers. Vision--language models enable retrieval of existing figures. Anatomy-education research motivates spatial resources, and tool-use research separates language interpretation from external action. MCP provides the protocol boundary for that action.
+
+The thesis does not introduce a new foundation model, retrieval algorithm, vision encoder, or protocol. Its contribution lies in integration and evidence: how can these methods be combined while preserving different verification rules for document claims and 3D artefacts? \Cref{tab:related-work-comparison} summarises that position.
+
+\begin{small}
+\begin{longtable}{@{}L{0.15\textwidth} L{0.18\textwidth} L{0.275\textwidth} L{0.275\textwidth}@{}}
+\caption{Comparison of representative related work and the scope of this thesis.}
+\label{tab:related-work-comparison}\\
+\toprule
+Area & Representative work & Established contribution & Relationship to this thesis \\
+\midrule
+\endfirsthead
+\multicolumn{4}{c}{\tablename\ \thetable{} -- continued}\\
+\toprule
+Area & Representative work & Established contribution & Relationship to this thesis \\
+\midrule
+\endhead
+\midrule
+\multicolumn{4}{r}{Continued on next page}\\
+\endfoot
+\bottomrule
+\endlastfoot
+Educational LLMs & \textcite{kasneci2023}; \textcite{lucas2024medicaleducation} & Conversational support and documented educational risks & Motivates constrained interaction; no learning-outcome claim \\
+Hallucination and RAG & \textcite{ji2023}; \textcite{lewis2020}; \textcite{xiong2024medrag} & Hallucination taxonomy and external-evidence generation & Motivates grounding, provenance, and component-level evaluation \\
+Dense retrieval & \textcite{reimers2019}; \textcite{karpukhin2020} & Efficient semantic representations and passage retrieval & Supports paraphrase-sensitive document search \\
+Sparse and hybrid retrieval & \textcite{robertson2009}; \textcite{cormack2009} & Exact lexical matching and rank-based fusion & Motivates testable BM25+dense retrieval for anatomy terms \\
+Multimodal retrieval & \textcite{radford2021}; \textcite{wang2022medclip} & Contrastive text--image alignment & Supports retrieval of existing PDF figures, not image generation \\
+RAG evaluation & \textcite{es2024ragas}; \textcite{gao2023alce}; \textcite{saadfalcon2024ares} & Context, faithfulness, answer, and citation evaluation & Informs separate retrieval, grounding, citation, and boundary metrics \\
+3D anatomy education & \textcite{yammine2015}; \textcite{garciarobles2024} & Conditional evidence for spatial and factual learning support & Motivates browser-based 3D support; effectiveness needs a user study \\
+Tool-using LLMs & \textcite{yao2023react}; \textcite{schick2023toolformer}; \textcite{qin2024toolllm} & Models that select and invoke external actions & Motivates verifiable execution rather than prompt-only claims \\
+MCP & MCP specifications \parencite{mcp20250618,mcp20251125} & Host--client--server communication, schemas, and transports & Defines the protocol boundary for local search and export tools \\
+\end{longtable}
+\end{small}
+
+Most of the reviewed work studies document grounding, image retrieval, 3D anatomy, and tool execution as separate problems. This thesis preserves that separation inside one prototype. Document claims are examined against retrieved sources; 3D success is tied to resolution and observable artefacts. The position is deliberately narrower than clinical correctness, production readiness, or demonstrated learning improvement. \Cref{chap:methodology} translates these foundations into the research approach and requirements.

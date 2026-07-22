@@ -1,0 +1,158 @@
+% -----------------------------------------------------------------------------
+% FAST OVERLEAF PREAMBLE
+% This version avoids TikZ/tcolorbox/Biber on every cloud compile.
+% Diagrams are pre-rendered PDFs in figures/rendered/.
+% Bibliography uses natbib + BibTeX for faster compilation.
+% -----------------------------------------------------------------------------
+
+% Encoding, language and typography
+\usepackage[utf8]{inputenc}
+\usepackage[T1]{fontenc}
+\usepackage[main=english,ngerman]{babel}
+\usepackage{lmodern}
+\usepackage{csquotes}
+\usepackage{setspace}
+\usepackage{geometry}
+\usepackage{scrlayer-scrpage}
+\usepackage{etoolbox}
+
+\geometry{
+  left=3.2cm,
+  right=2.6cm,
+  top=2.6cm,
+  bottom=2.8cm,
+  headsep=0.8cm
+}
+\onehalfspacing
+\KOMAoptions{parskip=half}
+\setlength{\emergencystretch}{3em}
+
+% Tables, figures, mathematics and code
+\usepackage{graphicx}
+\usepackage{booktabs}
+\usepackage{longtable}
+\usepackage{tabularx}
+\usepackage{array}
+\usepackage{amsmath,amssymb}
+\usepackage{enumitem}
+\usepackage{caption}
+\usepackage{pdflscape}
+\usepackage{listings}
+\usepackage{xcolor}
+
+% Fast author-year bibliography: BibTeX instead of Biber
+\usepackage[round,authoryear]{natbib}
+\renewcommand{\bibname}{References}
+% Compatibility aliases so existing chapter files do not need rewriting.
+\newcommand{\parencite}[1]{\citep{#1}}
+\newcommand{\textcite}[1]{\citet{#1}}
+
+% Links and references
+\usepackage{xurl}
+\usepackage[hidelinks]{hyperref}
+\usepackage{bookmark}
+\makeatletter
+\renewcommand*{\@pnumwidth}{2.6em}
+\makeatother
+\usepackage[nameinlink,noabbrev,capitalise]{cleveref}
+\hypersetup{
+  pdftitle={\ThesisTitle},
+  pdfauthor={\ThesisAuthor},
+  pdfsubject={Master's thesis},
+  pdfkeywords={retrieval-augmented generation, multimodal retrieval, anatomy education, Model Context Protocol, Blender, Z-Anatomy, Multimodal Anatomy Learning Assistant}
+}
+
+% Header and footer
+\clearpairofpagestyles
+\ihead{\headmark}
+\ohead{\pagemark}
+\automark[section]{chapter}
+\setkomafont{pageheadfoot}{\small}
+\pagestyle{scrheadings}
+
+% Colours and reusable styles
+\definecolor{RAGBlue}{HTML}{2563EB}
+\definecolor{RAGBlueLight}{HTML}{EAF2FF}
+\definecolor{MCPGreen}{HTML}{059669}
+\definecolor{MCPGreenLight}{HTML}{EAF8F2}
+\definecolor{NoteGray}{HTML}{F3F4F6}
+\definecolor{WarningOrange}{HTML}{B45309}
+\definecolor{WarningLight}{HTML}{FFF7ED}
+\definecolor{EvidenceRed}{HTML}{B91C1C}
+
+\newcolumntype{Y}{>{\raggedright\arraybackslash}X}
+\newcolumntype{C}{>{\centering\arraybackslash}X}
+\newcolumntype{L}[1]{>{\raggedright\arraybackslash}p{#1}}
+
+\lstdefinestyle{thesiscode}{
+  basicstyle=\ttfamily\small,
+  breaklines=true,
+  frame=single,
+  backgroundcolor=\color{NoteGray},
+  rulecolor=\color{black!15},
+  showstringspaces=false,
+  columns=fullflexible,
+  keepspaces=true,
+  upquote=true
+}
+\lstset{style=thesiscode}
+
+% -----------------------------------------------------------------------------
+% Drafting controls
+% false = fastest and cleanest Overleaf compile.
+% true  = show lightweight evidence reminders and chapter plans.
+% -----------------------------------------------------------------------------
+\newif\ifdraftnotes
+\draftnotesfalse
+
+\newcommand{\codepath}[1]{\texttt{\nolinkurl{#1}}}
+\newcommand{\RAG}{RAG}
+\newcommand{\MCP}{MCP}
+\newcommand{\CLIP}{CLIP}
+\newcommand{\systemname}{Multimodal Anatomy Learning Assistant}
+
+
+\newcommand{\evidencerequired}[1]{%
+  \ifdraftnotes
+    \par\smallskip\noindent
+    \fcolorbox{WarningOrange}{WarningLight}{%
+      \begin{minipage}{0.93\linewidth}\small
+      \textbf{Evidence required.} #1
+      \end{minipage}}
+    \par\smallskip
+  \fi
+}
+
+\newcommand{\finalvaluerequired}[1]{%
+  \ifdraftnotes\textcolor{EvidenceRed}{\textbf{[FINAL VALUE REQUIRED: #1]}}\else---\fi
+}
+\newcommand{\TBD}{\ifdraftnotes\textcolor{EvidenceRed}{\textbf{TBD}}\else---\fi}
+\newcommand{\verifyruntime}[1]{%
+  \ifdraftnotes\textcolor{WarningOrange}{\textbf{[VERIFY RUNTIME WIRING: #1]}}\fi
+}
+
+\NewDocumentEnvironment{chapterplan}{m m +b}{%
+  \ifdraftnotes
+    \par\medskip\noindent\begin{minipage}{\textwidth}\small
+    \textbf{Drafting plan --- target length: #1.}\par
+    \textbf{What this chapter must establish.} #2\par\medskip
+    #3
+    \end{minipage}\par\medskip
+  \fi
+}{}
+
+\newenvironment{decisionbox}[1]{%
+  \par\medskip\noindent\begin{minipage}{\textwidth}
+  \color{RAGBlue}\textbf{#1}\color{black}\par\smallskip
+}{%
+  \end{minipage}\par\medskip
+}
+
+\newenvironment{mcpsidebar}[1]{%
+  \par\medskip\noindent\begin{minipage}{\textwidth}
+  \color{MCPGreen}\textbf{#1}\color{black}\par\smallskip
+}{%
+  \end{minipage}\par\medskip
+}
+
+\AtBeginEnvironment{longtable}{\small}
