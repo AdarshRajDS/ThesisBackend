@@ -33,9 +33,11 @@ def label_token_set(item: dict[str, Any]) -> set[str]:
 
 
 def desired_side_from_tokens(query_tokens: list[str]) -> str | None:
-    if "left" in query_tokens or "l" in query_tokens:
+    left_tokens = {"left", "l", "links", "linke", "linker", "linkes", "linken", "linkem"}
+    right_tokens = {"right", "r", "rechts", "rechte", "rechter", "rechtes", "rechten", "rechtem"}
+    if left_tokens.intersection(query_tokens):
         return "left"
-    if "right" in query_tokens or "r" in query_tokens:
+    if right_tokens.intersection(query_tokens):
         return "right"
     return None
 

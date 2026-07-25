@@ -1,0 +1,203 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Professor Blender Retrieval Demo — Z-Anatomy 3D</title>
+  <style>
+    :root {
+      --bg: #0f1419;
+      --panel: #1a222c;
+      --text: #e8eef4;
+      --muted: #9aa8b6;
+      --accent: #3d9a8b;
+      --err: #c45c5c;
+      --ok: #6bbf8a;
+      --line: #2a3542;
+    }
+    * { box-sizing: border-box; }
+    body {
+      margin: 0;
+      font-family: "Segoe UI", system-ui, sans-serif;
+      background: radial-gradient(1200px 600px at 10% -10%, #1c2a33, var(--bg));
+      color: var(--text);
+      min-height: 100vh;
+    }
+    header {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 2.5rem 1.25rem 1rem;
+    }
+    header h1 {
+      margin: 0 0 0.5rem;
+      font-size: clamp(1.6rem, 3vw, 2.2rem);
+      font-weight: 650;
+      letter-spacing: -0.02em;
+    }
+    header p {
+      margin: 0.35rem 0;
+      color: var(--muted);
+      max-width: 52rem;
+      line-height: 1.5;
+    }
+    .grid {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 1rem 1.25rem 3rem;
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 1rem;
+    }
+    .card {
+      background: color-mix(in srgb, var(--panel) 92%, black);
+      border: 1px solid var(--line);
+      border-radius: 12px;
+      padding: 1.1rem 1.15rem 1.2rem;
+      display: flex;
+      flex-direction: column;
+      gap: 0.35rem;
+    }
+    .card h2 { margin: 0; font-size: 1.15rem; }
+    .en { margin: 0; color: var(--muted); font-size: 0.92rem; }
+    .label code, .files code {
+      font-size: 0.78rem;
+      color: #b7c7d6;
+      word-break: break-word;
+    }
+    .meta { margin: 0.25rem 0 0.5rem; font-size: 0.85rem; }
+    .ok { color: var(--ok); }
+    .err { color: var(--err); }
+    .open {
+      margin-top: 0.35rem;
+      display: inline-block;
+      text-decoration: none;
+      color: #06241f;
+      background: var(--accent);
+      padding: 0.45rem 0.8rem;
+      border-radius: 8px;
+      font-weight: 600;
+      font-size: 0.9rem;
+      width: fit-content;
+      margin-right: 0.4rem;
+    }
+    .open.secondary { background: #2a4050; color: #d7e6ef; }
+    .open:hover { filter: brightness(1.08); }
+    .open.disabled {
+      background: #3a4552;
+      color: #9aa8b6;
+      pointer-events: none;
+    }
+    footer {
+      max-width: 1100px;
+      margin: 0 auto;
+      padding: 0 1.25rem 2.5rem;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Blender / Z-Anatomy retrieval examples</h1>
+    <p>
+      Offline HTML gallery for the professor test list.
+      Each card has a dedicated HTML page under <code>pages/</code> plus an interactive Three.js viewer.
+      No backend required — open <code>index.html</code> locally or publish this folder on GitHub Pages.
+    </p>
+  </header>
+  <section class="grid">
+    
+      <article class="card">
+        <h2>Leber</h2>
+        <p class="en">Liver</p>
+        <p class="label"><code>Liver</code></p>
+        <p class="meta"><span class="ok">0.266 MB</span></p>
+        <p class="files"><code>pages/leber.html</code></p>
+        <a class="open" href="pages/leber.html">Open HTML page</a> <a class="open secondary" href="viewer.html?model=models/leber.glb&annotations=annotations/leber.annotations.json&title=Leber">Direct viewer</a>
+      </article>
+      <article class="card">
+        <h2>Pankreas</h2>
+        <p class="en">Pancreas</p>
+        <p class="label"><code>Pancreas</code></p>
+        <p class="meta"><span class="ok">0.091 MB</span></p>
+        <p class="files"><code>pages/pankreas.html</code></p>
+        <a class="open" href="pages/pankreas.html">Open HTML page</a> <a class="open secondary" href="viewer.html?model=models/pankreas.glb&annotations=annotations/pankreas.annotations.json&title=Pankreas">Direct viewer</a>
+      </article>
+      <article class="card">
+        <h2>Nebenniere</h2>
+        <p class="en">Suprarenal gland (left)</p>
+        <p class="label"><code>Suprarenal gland.l</code></p>
+        <p class="meta"><span class="ok">0.07 MB</span></p>
+        <p class="files"><code>pages/nebenniere.html</code></p>
+        <a class="open" href="pages/nebenniere.html">Open HTML page</a> <a class="open secondary" href="viewer.html?model=models/nebenniere.glb&annotations=annotations/nebenniere.annotations.json&title=Nebenniere">Direct viewer</a>
+      </article>
+      <article class="card">
+        <h2>Nervus facialis</h2>
+        <p class="en">Facial nerve (VII)</p>
+        <p class="label"><code>Facial nerve (VII)</code></p>
+        <p class="meta"><span class="ok">1.653 MB</span></p>
+        <p class="files"><code>pages/nervus-facialis.html</code></p>
+        <a class="open" href="pages/nervus-facialis.html">Open HTML page</a> <a class="open secondary" href="viewer.html?model=models/nervus-facialis.glb&annotations=annotations/nervus-facialis.annotations.json&title=Nervus%20facialis">Direct viewer</a>
+      </article>
+      <article class="card">
+        <h2>Auge und visuelles System</h2>
+        <p class="en">Accessory visual structures</p>
+        <p class="label"><code>Accessory visual structures</code></p>
+        <p class="meta"><span class="ok">0.159 MB</span></p>
+        <p class="files"><code>pages/auge-visuelles-system.html</code></p>
+        <a class="open" href="pages/auge-visuelles-system.html">Open HTML page</a> <a class="open secondary" href="viewer.html?model=models/auge-visuelles-system.glb&annotations=annotations/auge-visuelles-system.annotations.json&title=Auge%20und%20visuelles%20System">Direct viewer</a>
+      </article>
+      <article class="card">
+        <h2>Incus</h2>
+        <p class="en">Incus (left)</p>
+        <p class="label"><code>Incus.l</code></p>
+        <p class="meta"><span class="ok">0.059 MB</span></p>
+        <p class="files"><code>pages/incus.html</code></p>
+        <a class="open" href="pages/incus.html">Open HTML page</a> <a class="open secondary" href="viewer.html?model=models/incus.glb&annotations=annotations/incus.annotations.json&title=Incus">Direct viewer</a>
+      </article>
+      <article class="card">
+        <h2>Linea aspera</h2>
+        <p class="en">Linea aspera</p>
+        <p class="label"><code>Linea aspera.i</code></p>
+        <p class="meta"><span class="err">export failed</span></p>
+        <p class="files"><code>pages/linea-aspera.html</code></p>
+        <span class="open disabled">Unavailable</span>
+      </article>
+      <article class="card">
+        <h2>Trochanter major</h2>
+        <p class="en">Greater trochanter</p>
+        <p class="label"><code>Greater trochanter.i</code></p>
+        <p class="meta"><span class="err">export failed</span></p>
+        <p class="files"><code>pages/trochanter-major.html</code></p>
+        <span class="open disabled">Unavailable</span>
+      </article>
+      <article class="card">
+        <h2>Musculus quadriceps femoris</h2>
+        <p class="en">Quadriceps femoris muscle</p>
+        <p class="label"><code>Quadriceps femoris muscle.el</code></p>
+        <p class="meta"><span class="err">export failed</span></p>
+        <p class="files"><code>pages/m-quadriceps-femoris.html</code></p>
+        <span class="open disabled">Unavailable</span>
+      </article>
+      <article class="card">
+        <h2>Kniegelenk</h2>
+        <p class="en">Knee joint</p>
+        <p class="label"><code>Knee joint</code></p>
+        <p class="meta"><span class="ok">0.422 MB</span></p>
+        <p class="files"><code>pages/kniegelenk.html</code></p>
+        <a class="open" href="pages/kniegelenk.html">Open HTML page</a> <a class="open secondary" href="viewer.html?model=models/kniegelenk.glb&annotations=annotations/kniegelenk.annotations.json&title=Kniegelenk">Direct viewer</a>
+      </article>
+      <article class="card">
+        <h2>Sprunggelenk</h2>
+        <p class="en">Ankle joint</p>
+        <p class="label"><code>Ankle joint</code></p>
+        <p class="meta"><span class="ok">0.027 MB</span></p>
+        <p class="files"><code>pages/sprunggelenk.html</code></p>
+        <a class="open" href="pages/sprunggelenk.html">Open HTML page</a> <a class="open secondary" href="viewer.html?model=models/sprunggelenk.glb&annotations=annotations/sprunggelenk.annotations.json&title=Sprunggelenk">Direct viewer</a>
+      </article>
+  </section>
+  <footer>
+    Tip: rotate with left drag, zoom with scroll, pan with right drag. Use Reset view if framing looks off.
+  </footer>
+</body>
+</html>

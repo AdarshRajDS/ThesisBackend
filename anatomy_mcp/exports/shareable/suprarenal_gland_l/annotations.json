@@ -1,0 +1,42 @@
+{
+  "part_label": "Suprarenal gland.l",
+  "selected_objects": [
+    "Suprarenal gland.l"
+  ],
+  "annotation_strategy": "scene_graph+self_labels",
+  "annotations": [
+    {
+      "label": "Suprarenal gland",
+      "source_object": "Suprarenal gland.l",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.051403,
+        0.024937,
+        1.160559
+      ],
+      "anchor_relative": [
+        0.0,
+        0.0,
+        0.0
+      ],
+      "linked_targets": [
+        "Suprarenal gland.l"
+      ],
+      "classification": "self",
+      "id": "suprarenal_gland.l-001",
+      "index": 1
+    }
+  ],
+  "mesh_metadata": {
+    "Suprarenal gland.l": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    }
+  }
+}

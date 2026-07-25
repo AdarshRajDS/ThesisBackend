@@ -1,0 +1,23 @@
+\begin{tikzpicture}[
+  node distance=10mm and 13mm,
+  every node/.style={font=\small,align=center},
+  cyclebox/.style={draw,rounded corners,minimum width=24mm,minimum height=10mm,fill=NoteGray},
+  arr/.style={-{Stealth[length=2.2mm]},thick}
+]
+\node[cyclebox] (problem) {Identify\\problem};
+\node[cyclebox,right=of problem] (requirements) {Define\\requirements};
+\node[cyclebox,right=of requirements] (baseline) {Build\\baseline};
+\node[cyclebox,right=of baseline] (observe) {Evaluate and\\observe};
+\node[cyclebox,below=of observe] (redesign) {Diagnose and\\redesign};
+\node[cyclebox,left=of redesign] (final) {Implement\\improvement};
+\node[cyclebox,left=of final] (reeval) {Re-evaluate\\artifact};
+\node[cyclebox,left=of reeval] (communicate) {Communicate\\findings};
+\draw[arr] (problem)--(requirements);
+\draw[arr] (requirements)--(baseline);
+\draw[arr] (baseline)--(observe);
+\draw[arr] (observe)--(redesign);
+\draw[arr] (redesign)--(final);
+\draw[arr] (final)--(reeval);
+\draw[arr] (reeval)--(communicate);
+\draw[arr,bend left=22] (reeval) to node[above,font=\scriptsize]{new observation} (observe);
+\end{tikzpicture}

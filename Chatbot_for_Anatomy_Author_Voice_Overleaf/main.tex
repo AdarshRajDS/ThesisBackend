@@ -1,0 +1,77 @@
+% !TeX program = pdflatex
+% OVERLEAF FREE-PLAN / TIMEOUT-SAFE ENTRY POINT
+% This project intentionally provides only one active root document: main.tex.
+% It compiles in one pdfLaTeX pass using cached citations, labels, lists, and a
+% static bibliography. Full local-build sources are stored as *.disabled under
+% local_build_sources/ so Overleaf cannot select them accidentally.
+\documentclass[
+  12pt,
+  a4paper,
+  oneside,
+  open=right,
+  headings=big,
+  bibliography=totoc,
+  listof=totoc,
+  numbers=enddot
+]{scrreprt}
+
+\input{metadata}
+\input{preamble}
+
+% Prevent creation of .aux/.toc/.lof/.lot/.out files. This is essential for a
+% reliable single-pass Overleaf free-plan build because latexmk otherwise sees
+% changed auxiliary files and launches additional passes.
+\nofiles
+
+% Load the frozen citation and cross-reference definitions on every build.
+\makeatletter
+\input{cache/aux_snapshot}
+\makeatother
+
+\begin{document}
+
+\hypersetup{pageanchor=false}
+\input{frontmatter/titlepage}
+\hypersetup{pageanchor=true}
+
+\pagenumbering{Roman}
+\input{frontmatter/declaration}
+\input{frontmatter/acknowledgements}
+\input{frontmatter/abstract_en}
+\input{frontmatter/abstract_de}
+
+% Static snapshots of the contents and lists. Refresh them locally only after
+% changing section structure, figure/table captions, or page numbering.
+\chapter*{\contentsname}
+\makeatletter\input{cache/toc_snapshot}\makeatother
+\cleardoublepage
+\chapter*{\listfigurename}
+\makeatletter\input{cache/lof_snapshot}\makeatother
+\cleardoublepage
+\chapter*{\listtablename}
+\makeatletter\input{cache/lot_snapshot}\makeatother
+\input{frontmatter/abbreviations}
+\cleardoublepage
+
+\pagenumbering{arabic}
+\input{chapters/01_introduction}
+\input{chapters/02_background_related_work}
+\input{chapters/03_methodology_requirements}
+\input{chapters/04_system_evolution_design_decisions}
+\input{chapters/05_final_system_design_implementation}
+\input{chapters/06_evaluation_methodology}
+\input{chapters/07_results_discussion}
+\input{chapters/08_conclusion_future_work}
+
+\cleardoublepage
+\input{references_manual}
+
+\appendix
+\input{appendices/a_reproducibility}
+\input{appendices/b_rag_evaluation_templates}
+\input{appendices/c_mcp_evaluation_templates}
+\input{appendices/d_api_artifact_examples}
+\input{appendices/e_ai_assistance_disclosure}
+\input{appendices/f_supervisor_traceability}
+
+\end{document}

@@ -1,0 +1,24 @@
+\begin{tikzpicture}[
+  node distance=8mm and 8mm,
+  every node/.style={font=\scriptsize,align=center},
+  b/.style={draw,rounded corners,minimum width=23mm,minimum height=9mm,fill=MCPGreenLight,draw=MCPGreen},
+  arr/.style={-{Stealth[length=1.8mm]},thick,draw=MCPGreen}
+]
+\node[b] (q) {Structure query};
+\node[b,right=of q] (route) {Fast path or\\LLM tool loop};
+\node[b,right=of route] (search) {MCP catalog\\search};
+\node[b,right=of search] (resolve) {Resolve validated\\label};
+\node[b,below=of resolve] (cache) {Cache check +\\export lock};
+\node[b,left=of cache] (blend) {Headless Blender\\+ Z-Anatomy};
+\node[b,left=of blend] (art) {GLB + annotation\\artifacts};
+\node[b,left=of art] (verify) {Verify status and\\model URL};
+\node[b,left=of verify] (viewer) {Three.js viewer};
+\draw[arr] (q)--(route);
+\draw[arr] (route)--(search);
+\draw[arr] (search)--(resolve);
+\draw[arr] (resolve)--(cache);
+\draw[arr] (cache)--(blend);
+\draw[arr] (blend)--(art);
+\draw[arr] (art)--(verify);
+\draw[arr] (verify)--(viewer);
+\end{tikzpicture}

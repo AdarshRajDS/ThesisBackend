@@ -52,6 +52,10 @@ def main() -> None:
     )
     fix_mcp_subsections(REPO / "evaluationThesis.md")
     subprocess.check_call(
+        [sys.executable, str(REPO / "scripts" / "compute_retrieval_metrics.py")],
+        cwd=REPO,
+    )
+    subprocess.check_call(
         [sys.executable, str(REPO / "scripts" / "build_professor_metrics_workbook.py")],
         cwd=REPO,
     )

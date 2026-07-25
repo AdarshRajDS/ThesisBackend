@@ -1,0 +1,59 @@
+% !TeX program = pdflatex
+% !BIB program = biber
+% Overleaf-ready Master's thesis project
+\documentclass[
+  12pt,
+  a4paper,
+  oneside,
+  open=right,
+  headings=big,
+  bibliography=totoc,
+  listof=totoc
+]{scrreprt}
+
+\input{metadata}
+\input{preamble}
+
+% Uncomment selected lines while drafting to compile only specific chapters.
+% \includeonly{chapters/04_system_evolution_design_decisions}
+
+\begin{document}
+
+\hypersetup{pageanchor=false}
+\input{frontmatter/titlepage}
+\hypersetup{pageanchor=true}
+
+\pagenumbering{Roman}
+\input{frontmatter/declaration}
+\input{frontmatter/acknowledgements}
+\input{frontmatter/abstract_en}
+\input{frontmatter/abstract_de}
+
+\tableofcontents
+\listoffigures
+\listoftables
+\input{frontmatter/abbreviations}
+\cleardoublepage
+
+\pagenumbering{arabic}
+\include{chapters/01_introduction}
+\include{chapters/02_background_related_work}
+\include{chapters/03_methodology_requirements}
+\include{chapters/04_system_evolution_design_decisions}
+\include{chapters/05_final_system_design_implementation}
+\include{chapters/06_evaluation_methodology}
+\include{chapters/07_results_discussion}
+\include{chapters/08_conclusion_future_work}
+
+\cleardoublepage
+\input{references_manual}
+
+\appendix
+\include{appendices/a_reproducibility}
+\include{appendices/b_rag_evaluation_templates}
+\include{appendices/c_mcp_evaluation_templates}
+\include{appendices/d_api_artifact_examples}
+\include{appendices/e_ai_assistance_disclosure}
+\include{appendices/f_supervisor_traceability}
+
+\end{document}

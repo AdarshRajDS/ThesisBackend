@@ -57,6 +57,11 @@ class AnatomyExportResult(BaseModel):
     model_url: Optional[str] = None
     annotations_url: Optional[str] = None
     viewer_url: Optional[str] = None
+    html_url: Optional[str] = None
+    html_path: Optional[str] = None
+    html_zip_url: Optional[str] = None
+    html_zip_path: Optional[str] = None
+    html_package_dir: Optional[str] = None
     preview_url: Optional[str] = None
     source_blend: Optional[str] = None
     selected_objects: Optional[List[str]] = None

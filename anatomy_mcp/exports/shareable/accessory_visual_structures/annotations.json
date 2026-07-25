@@ -1,0 +1,268 @@
+{
+  "part_label": "Accessory visual structures",
+  "selected_objects": [
+    "Suspensory ligament of eyeball.r",
+    "Suspensory ligament of eyeball.l",
+    "Lacrimal gland.r",
+    "Ampulla of lacrimal canaliculus.r",
+    "Lacrimal canaliculus.r",
+    "Lacrimal sac.r",
+    "Nasolacrimal duct.r",
+    "Lacrimal gland.l",
+    "Ampulla of lacrimal canaliculus.l",
+    "Lacrimal canaliculus.l",
+    "Lacrimal sac.l",
+    "Nasolacrimal duct.l"
+  ],
+  "annotation_strategy": "scene_graph+self_labels",
+  "annotations": [
+    {
+      "label": "Suspensory ligament of eyeball",
+      "source_object": "Suspensory ligament of eyeball.r",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.030566,
+        -0.062819,
+        1.592244
+      ],
+      "anchor_relative": [
+        -0.030566,
+        0.001151,
+        0.009012
+      ],
+      "linked_targets": [
+        "Suspensory ligament of eyeball.r"
+      ],
+      "classification": "self",
+      "id": "accessory_visual_structures-001",
+      "index": 1
+    },
+    {
+      "label": "Lacrimal gland",
+      "source_object": "Lacrimal gland.r",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.041514,
+        -0.065777,
+        1.602583
+      ],
+      "anchor_relative": [
+        -0.041514,
+        -0.001807,
+        0.019351
+      ],
+      "linked_targets": [
+        "Lacrimal gland.r"
+      ],
+      "classification": "self",
+      "id": "accessory_visual_structures-002",
+      "index": 2
+    },
+    {
+      "label": "Ampulla of lacrimal canaliculus",
+      "source_object": "Ampulla of lacrimal canaliculus.r",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.015822,
+        -0.073152,
+        1.588176
+      ],
+      "anchor_relative": [
+        -0.015822,
+        -0.009182,
+        0.004943
+      ],
+      "linked_targets": [
+        "Ampulla of lacrimal canaliculus.r"
+      ],
+      "classification": "self",
+      "id": "accessory_visual_structures-003",
+      "index": 3
+    },
+    {
+      "label": "Lacrimal canaliculus",
+      "source_object": "Lacrimal canaliculus.r",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.013724,
+        -0.072848,
+        1.588129
+      ],
+      "anchor_relative": [
+        -0.013724,
+        -0.008878,
+        0.004897
+      ],
+      "linked_targets": [
+        "Lacrimal canaliculus.r"
+      ],
+      "classification": "self",
+      "id": "accessory_visual_structures-004",
+      "index": 4
+    },
+    {
+      "label": "Lacrimal sac",
+      "source_object": "Lacrimal sac.r",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.011174,
+        -0.070416,
+        1.583004
+      ],
+      "anchor_relative": [
+        -0.011174,
+        -0.006446,
+        -0.000229
+      ],
+      "linked_targets": [
+        "Lacrimal sac.r"
+      ],
+      "classification": "self",
+      "id": "accessory_visual_structures-005",
+      "index": 5
+    },
+    {
+      "label": "Nasolacrimal duct",
+      "source_object": "Nasolacrimal duct.r",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.01019,
+        -0.064172,
+        1.564962
+      ],
+      "anchor_relative": [
+        -0.01019,
+        -0.000203,
+        -0.01827
+      ],
+      "linked_targets": [
+        "Nasolacrimal duct.r"
+      ],
+      "classification": "self",
+      "id": "accessory_visual_structures-006",
+      "index": 6
+    }
+  ],
+  "mesh_metadata": {
+    "Suspensory ligament of eyeball.r": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Suspensory ligament of eyeball.l": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Lacrimal gland.r": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Ampulla of lacrimal canaliculus.r": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Lacrimal canaliculus.r": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Lacrimal sac.r": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Nasolacrimal duct.r": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Lacrimal gland.l": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Ampulla of lacrimal canaliculus.l": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Lacrimal canaliculus.l": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Lacrimal sac.l": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Nasolacrimal duct.l": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    }
+  }
+}

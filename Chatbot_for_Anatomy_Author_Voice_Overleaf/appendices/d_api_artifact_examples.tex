@@ -1,0 +1,67 @@
+\chapter{API and Artefact Contracts}
+\label{app:api-examples}
+
+\section{Active RAG Request Contract}
+\label{app:rag-contract}
+
+The inspected backend request schema accepted only the question field:
+\begin{lstlisting}[language={},caption={RAG request supported by the inspected backend schema.}]
+POST /rag/ask
+{
+  "question": "What is the function of the mitral valve?"
+}
+\end{lstlisting}
+
+The frontend also submitted language and world-knowledge-consent fields, but these fields were not declared by the active backend schema and did not control the inspected production route.
+
+\section{Active RAG Response Fields}
+\label{app:rag-response-contract}
+
+\begin{lstlisting}[language={},caption={Response-field structure declared by the inspected RAG schema.}]
+{
+  "answer": "...",
+  "images": ["..."],
+  "sources": [
+    {"source": "...", "page": 12, "chunk_preview": "..."}
+  ],
+  "grounding": {
+    "had_retrieved_passages_in_prompt": true,
+    "unique_text_passages_used": 3,
+    "used_multimodal_text_excerpts": false,
+    "primary_basis": "retrieved_corpus_synthesized",
+    "provenance_explanation": "...",
+    "evaluation_note": "..."
+  }
+}
+\end{lstlisting}
+
+The grounding object describes process state. It is not an automatic measure of factual correctness, citation correctness, or anatomical accuracy.
+
+\section{MCP Request and Verified-Success Contract}
+\label{app:mcp-contract}
+
+\begin{lstlisting}[language={},caption={MCP anatomy request.}]
+POST /anatomy/ask
+{
+  "message": "left femur",
+  "language": "en"
+}
+\end{lstlisting}
+
+\begin{lstlisting}[language={},caption={Required structure of a verified MCP success response.}]
+{
+  "anatomy_export": {
+    "status": "ok",
+    "part_label": "Femur.l",
+    "model_url": ".../anatomy.glb",
+    "annotations_url": ".../annotations.json",
+    "viewer_url": ".../index.html?..."
+  },
+  "mcp_tools_used": [
+    "search_anatomy_catalog",
+    "export_anatomy_part"
+  ]
+}
+\end{lstlisting}
+
+This listing documents the schema and success criterion. It is not presented as a captured result from the uncompleted MCP evaluation.

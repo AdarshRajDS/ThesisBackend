@@ -1,0 +1,38 @@
+\chapter{Reproducibility Record}
+\label{app:reproducibility}
+
+This record separates values recoverable from the inspected repository from values that were not archived with the primary evaluation. ``Not archived'' is an evidential limitation and should not be replaced with an inferred value.
+
+\begin{longtable}{L{0.30\textwidth}L{0.32\textwidth}L{0.28\textwidth}}
+\caption{Reproducibility status of the implementation and primary RAG run.}\label{tab:repro-record}\\
+\toprule
+Category & Recorded or recoverable value & Status \\
+\midrule
+\endfirsthead
+\toprule
+Category & Recorded or recoverable value & Status \\
+\midrule
+\endhead
+Earlier dense-only inspection snapshot & \nolinkurl{cb041d52787f469bbbe0434e9fc7690edc122afa} (27 June 2026) & Historical baseline: dense \codepath{similarity\_search}, 24 candidates, hard max three passages. Not the P1 evaluated route. \\
+Hybrid connection commit & \texttt{5089fcc} (12 July 2026, 08:28 +0200) & Verified: \codepath{HybridRetriever} constructed in \codepath{MultimodalRAG} and called on \codepath{/rag/ask}. \\
+Repository audit HEAD & \texttt{d3a544d} & Audit reference HEAD after retrieval-metric commits. \\
+Primary evaluation timestamp & 12 July 2026, \texttt{2026-07-12T15:08:35Z} in \codepath{eval/rag_eval_55_results.json} & Recorded; later than hybrid connection on the same calendar day. \\
+Primary endpoint & \codepath{POST /rag/ask} & Recorded and present in repository. \\
+Text retrieval route (P1) & Hybrid-preferred (dense + BM25 + phrase + RRF); dense fallback possible & Verified from code path and timeline; exact per-request retrieval mode not stored in the result JSON. \\
+Final context policy (P1) & Question-type-dependent caps approx.\ 4--8; mean sources 5.16 & Verified from results; earlier hard three-passage rule not active as default. \\
+RAG provider and model & LM Studio; \codepath{qwen3.5-9b-deepseek-v4-flash} & Recorded in evaluation evidence; exact model revision and quantisation not archived. \\
+Python compatibility & \texttt{>=3.10,<3.12} & Declared in \codepath{pyproject.toml}. \\
+Embedding package & \codepath{sentence-transformers==2.7.0} & Declared. \\
+Transformer and PyTorch packages & \codepath{transformers==4.41.2}; \codepath{torch==2.2.2} & Declared. \\
+Chroma & \codepath{chromadb>=1.5.0} & Lower bound declared; exact installed version not archived. \\
+MCP SDK & \codepath{mcp[cli]>=1.27.1} & Declared separately under \codepath{anatomy_mcp/requirements.txt}. \\
+Text embedding model & \codepath{all-MiniLM-L6-v2} & Recorded; model-file revision not archived. \\
+Image model & \codepath{clip-ViT-B-32} & Hard-coded in inspected image path; model-file revision not archived. \\
+Catalogue & \codepath{exportable_catalog.json}, schema version 1, 6,075 entries & Present in repository; catalogue SHA-256 recorded in Chapter~5. \\
+Blender and Z-Anatomy & External local dependencies & Exact Blender version, Z-Anatomy release, licence snapshot, and source-file hash not archived with P1. \\
+Operating system and hardware & Not archived with P1 & CPU, RAM, GPU, and available memory unknown. \\
+Corpus manifest and hashes & Not archived with P1 & Exact PDF set and clean-index state cannot be reconstructed. \\
+Prompt revision and raw route trace & Partially recorded & Complete prompt text and per-request retrieval-mode fields were not archived together. \\
+Storage mode & Local, MinIO, or Supabase supported & Active P1 provider not established from the run record. \\
+\bottomrule
+\end{longtable}

@@ -1,0 +1,27 @@
+\chapter{MCP Verification Protocol and Evidence Status}
+\label{app:mcp-templates}
+
+The MCP branch was implemented, but the supplied evaluation register contained no completed runtime rows. This appendix therefore records the verification protocol used to define success and the measurements still required for an empirical claim.
+
+\begin{longtable}{L{0.23\textwidth}L{0.34\textwidth}L{0.31\textwidth}}
+\caption{MCP verification dimensions and evidence status.}\label{tab:mcp-verification-status}\\
+\toprule
+Dimension & Required observation & Evidence status in this thesis \\
+\midrule
+\endfirsthead
+\toprule
+Dimension & Required observation & Evidence status in this thesis \\
+\midrule
+\endhead
+Catalogue resolution & Expected canonical label, laterality, resolver source, and ambiguity handling & Design and code inspected; no completed accuracy set. \\
+Tool execution & Recorded MCP tool names, arguments, structured result, and explicit error & Schema and call path inspected; no aggregate execution rate. \\
+GLB artefact & Non-empty file, successful parse, and accessible model URL & Verification code inspected; no completed result register. \\
+Annotations & Parseable JSON and correspondence to exported objects & Schema inspected; no systematic validity score. \\
+Viewer & Requested structure visible and interactive & Viewer implementation inspected; no measured load rate. \\
+False success & No successful UI state without a valid artefact & Design condition present; no prompt-only or direct-call comparator. \\
+Failure handling & Explicit response for missing catalogue, Blender, timeout, invalid query, and missing file & Error branches present; no controlled failure-injection run. \\
+Performance & Cold export, cache hit, request-to-viewer latency, and concurrency behaviour & Not measured. \\
+\bottomrule
+\end{longtable}
+
+A future experiment should include exact labels, natural-language aliases, left/right structures, ambiguous terms, nonexistent structures, large packages, repeated cache requests, missing dependencies, timeouts, and invalid artefacts. Until such a run is completed, the thesis claims a verification-oriented design rather than demonstrated comparative effectiveness.

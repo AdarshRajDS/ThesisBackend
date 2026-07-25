@@ -19,6 +19,7 @@ sys.path.insert(0, str(REPO / "scripts"))
 MD = REPO / "evaluationThesis.md"
 CLOUD_JSON = REPO / "german_eval_results.json"
 LOCAL_JSON = REPO / "german_eval_lmstudio_results.json"
+RETRIEVAL_METRICS_JSON = REPO / "eval" / "retrieval_metrics.json"
 
 SECTION_90_START = "## 9.0 Experiment runs and models"
 SECTION_START = "## 9.1 Professor evaluation metrics workbook"
@@ -42,14 +43,30 @@ def _system_answer(item: dict) -> str:
     return _cell(resp.get("answer"), 100)
 
 
-def _metrics_row(qid: str, question: str, gold: str, item: dict, model: str) -> str:
+def _load_professor_retrieval() -> dict[str, dict]:
+    if not RETRIEVAL_METRICS_JSON.exists():
+        return {}
+    data = json.loads(RETRIEVAL_METRICS_JSON.read_text(encoding="utf-8"))
+    return {r["id"]: r for r in data.get("professor_de", {}).get("rows", [])}
+
+
+def _fmt_ret(v: float | None) -> str:
+    if v is None:
+        return ""
+    return f"{v:.2f}"
+
+
+def _metrics_row(qid: str, question: str, gold: str, item: dict, model: str, retr: dict | None) -> str:
     q = _cell(question, 90)
     g = _cell(gold, 80)
     ans = _system_answer(item)
-    return f"| {qid} | {q} | {g} | {ans} | {model} | | | | | | | | | |"
+    p3 = _fmt_ret((retr or {}).get("precision_at_k"))
+    r3 = _fmt_ret((retr or {}).get("recall_at_k"))
+    ndcg = _fmt_ret((retr or {}).get("ndcg_at_k"))
+    return f"| {qid} | {q} | {g} | {ans} | {model} | {p3} | {r3} | {ndcg} | | | | | | | |"
 
 
-def build_metrics_table(rows: list[dict], id_prefix: str, model: str) -> str:
+def build_metrics_table(rows: list[dict], id_prefix: str, model: str, retrieval: dict[str, dict]) -> str:
     if len(rows) != len(PROFESSOR_META):
         raise ValueError(f"Expected {len(PROFESSOR_META)} rows, got {len(rows)}")
     header = (
@@ -61,11 +78,11 @@ def build_metrics_table(rows: list[dict], id_prefix: str, model: str) -> str:
     body = []
     for i, (item, (_, gold)) in enumerate(zip(rows, PROFESSOR_META), 1):
         qid = f"{id_prefix}{i:02d}"
-        body.append(_metrics_row(qid, item["question"], gold, item, model))
+        body.append(_metrics_row(qid, item["question"], gold, item, model, retrieval.get(qid)))
     return header + "\n" + "\n".join(body)
 
 
-def build_section(cloud: list[dict], local: list[dict]) -> str:
+def build_section(cloud: list[dict], local: list[dict], retrieval: dict[str, dict], retr_summary: dict) -> str:
     cloud_cfg = resolve_model_block("cloud_professor_de")
     local_cfg = resolve_model_block("local_professor_de")
     cloud_model = format_model_short(cloud_cfg)
@@ -79,12 +96,24 @@ def build_section(cloud: list[dict], local: list[dict]) -> str:
         out = _outcome((item.get("response") or {}).get("answer"), item.get("error"))
         cloud_summary.append(f"EXP-R{i:02d}: {out}")
 
+    prof_summary = retr_summary.get("professor_de", {}).get("summary", {})
+    retr_note = ""
+    if prof_summary.get("n"):
+        retr_note = (
+            f"\n**Retrieval macro (professor, n={prof_summary['n']}):** "
+            f"P@3={_fmt_ret(prof_summary.get('precision_at_k'))} · "
+            f"R@3={_fmt_ret(prof_summary.get('recall_at_k'))} · "
+            f"nDCG@3={_fmt_ret(prof_summary.get('ndcg_at_k'))} · "
+            f"MRR={_fmt_ret(prof_summary.get('mrr'))} · "
+            f"overlap={_fmt_ret(prof_summary.get('source_overlap'))}\n"
+        )
+
     return f"""{SECTION_START}
 
 **Status:** System answers populated from `{LOCAL_JSON.name}` (§11) and `{CLOUD_JSON.name}` (§10).  
-**Retrieval metrics** (P@3, R@3, nDCG@3) require gold relevant passages — fill after manual relevance judging.  
+**Retrieval metrics** (P@3, R@3, nDCG@3): automatic embedding proxy — see `eval/retrieval_metrics.json` and §12.0.2.  
 **Human rubric** (Acc–Abst): score 1–5 per §6 (**Acc**uracy · **Comp**leteness · **Rel**evance · **Grnd**ing · **Cit**ation · **Abst**ention/boundary).
-
+{retr_note}
 **Local outcomes:** {' · '.join(local_summary)}  
 **Cloud outcomes:** {' · '.join(cloud_summary)}
 
@@ -92,13 +121,13 @@ def build_section(cloud: list[dict], local: list[dict]) -> str:
 
 {format_model_header(local_cfg)}
 
-{build_metrics_table(local, "LM-R", local_model)}
+{build_metrics_table(local, "LM-R", local_model, retrieval)}
 
 ### 9.1.2 Cloud exploratory run (historical comparison)
 
 {format_model_header(cloud_cfg)}
 
-{build_metrics_table(cloud, "EXP-R", cloud_model)}
+{build_metrics_table(cloud, "EXP-R", cloud_model, {})}
 
 ---
 
@@ -110,8 +139,12 @@ def main() -> None:
 
     cloud = json.loads(CLOUD_JSON.read_text(encoding="utf-8"))
     local = json.loads(LOCAL_JSON.read_text(encoding="utf-8"))
+    retr_data = {}
+    if RETRIEVAL_METRICS_JSON.exists():
+        retr_data = json.loads(RETRIEVAL_METRICS_JSON.read_text(encoding="utf-8"))
+    retrieval = _load_professor_retrieval()
     registry = build_experiment_registry_table()
-    section = registry + build_section(cloud, local)
+    section = registry + build_section(cloud, local, retrieval, retr_data)
 
     md = MD.read_text(encoding="utf-8")
     start = md.find(SECTION_90_START)

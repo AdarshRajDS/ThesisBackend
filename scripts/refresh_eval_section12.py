@@ -11,6 +11,8 @@ REPO = Path(__file__).resolve().parents[1]
 
 
 def main() -> None:
+    compute = REPO / "scripts" / "compute_retrieval_metrics.py"
+    subprocess.check_call([sys.executable, str(compute)], cwd=REPO)
     script = REPO / "scripts" / "build_eval_section12.py"
     subprocess.check_call([sys.executable, str(script)])
     subprocess.check_call(

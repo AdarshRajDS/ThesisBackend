@@ -71,5 +71,8 @@ anatomy_mcp/exports/**
 !anatomy_mcp/exports/packages/.gitkeep
 !anatomy_mcp/exports/cache/.gitkeep
 !anatomy_mcp/exports/scene_scan/.gitkeep
+!anatomy_mcp/exports/html/.gitkeep
+!anatomy_mcp/exports/shareable/
+!anatomy_mcp/exports/shareable/**
 anatomy_mcp/logs/**
 !anatomy_mcp/logs/.gitkeep

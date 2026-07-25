@@ -1,0 +1,1192 @@
+{
+  "part_label": "Facial nerve (VII)",
+  "selected_objects": [
+    "Facial nerve (VII).r",
+    "Facial nerve (VII).l",
+    "Posterior belly of digastric muscle.r",
+    "Posterior belly of digastric muscle.l",
+    "Stylohyoid muscle.r",
+    "Stylohyoid muscle.l",
+    "Frontalis muscle.r",
+    "Occipitalis muscle.r",
+    "Epicranial aponeurosis.r",
+    "Frontalis muscle.l",
+    "Occipitalis muscle.l",
+    "Epicranial aponeurosis.l",
+    "Temporoparietalis muscle.r",
+    "Temporoparietalis muscle.l",
+    "Nasalis muscle.r",
+    "Nasalis muscle.l",
+    "Orbital part of orbicularis oculi.r",
+    "Palpebral part of orbicularis oculi.r",
+    "Orbital part of orbicularis oculi.l",
+    "Palpebral part of orbicularis oculi.l",
+    "Orbicularis oris muscle.r",
+    "Orbicularis oris muscle.l",
+    "Zygomaticus major muscle.r",
+    "Corrugator supercilii.r",
+    "Depressor anguli oris.r",
+    "Depressor labii inferioris.r",
+    "Levator anguli oris.r",
+    "Procerus muscle.r",
+    "Risorius muscle.r",
+    "Zygomaticus minor muscle.r",
+    "Levator labii superioris.r",
+    "Depressor septi nasi.r",
+    "Mentalis muscle.r",
+    "Levator nasolabialis.r",
+    "Bucinator.r",
+    "Zygomaticus major muscle.l",
+    "Corrugator supercilii.l",
+    "Depressor anguli oris.l",
+    "Depressor labii inferioris.l",
+    "Levator anguli oris.l",
+    "Procerus muscle.l",
+    "Risorius muscle.l",
+    "Zygomaticus minor muscle.l",
+    "Levator labii superioris.l",
+    "Depressor septi nasi.l",
+    "Mentalis muscle.l",
+    "Levator nasolabialis.l",
+    "Bucinator.l",
+    "Chorda tympani.r",
+    "Chorda tympani.l"
+  ],
+  "annotation_strategy": "scene_graph",
+  "annotations": [
+    {
+      "label": "Facial muscles",
+      "source_object": "Facial muscles.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.072625,
+        -0.059095,
+        1.557163
+      ],
+      "anchor_relative": [
+        0.072625,
+        -0.061645,
+        -0.045622
+      ],
+      "linked_targets": [
+        "Zygomaticus major muscle.l"
+      ],
+      "classification": "marker",
+      "id": "facial_nerve_(vii)-001",
+      "index": 1
+    },
+    {
+      "label": "Body of hyoid bone",
+      "source_object": "Body of hyoid bone.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.006269,
+        -0.0344,
+        1.489122
+      ],
+      "anchor_relative": [
+        -0.006269,
+        -0.03695,
+        -0.113663
+      ],
+      "linked_targets": [
+        "Depressor anguli oris.r"
+      ],
+      "classification": "marker",
+      "id": "facial_nerve_(vii)-002",
+      "index": 2
+    },
+    {
+      "label": "Lesser horn of hyoid bone",
+      "source_object": "Lesser horn of hyoid bone.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.015212,
+        -0.032067,
+        1.5062
+      ],
+      "anchor_relative": [
+        0.015212,
+        -0.034617,
+        -0.096586
+      ],
+      "linked_targets": [
+        "Stylohyoid muscle.l"
+      ],
+      "classification": "marker",
+      "id": "facial_nerve_(vii)-003",
+      "index": 3
+    },
+    {
+      "label": "Greater horn of hyoid bone",
+      "source_object": "Greater horn of hyoid bone.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.028478,
+        -0.013737,
+        1.504188
+      ],
+      "anchor_relative": [
+        0.028478,
+        -0.016287,
+        -0.098598
+      ],
+      "linked_targets": [
+        "Stylohyoid muscle.l"
+      ],
+      "classification": "marker",
+      "id": "facial_nerve_(vii)-004",
+      "index": 4
+    },
+    {
+      "label": "Laryngeal prominence",
+      "source_object": "Laryngeal prominence.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.0,
+        -0.03939,
+        1.475784
+      ],
+      "anchor_relative": [
+        0.0,
+        -0.041941,
+        -0.127002
+      ],
+      "linked_targets": [
+        "Mentalis muscle.l"
+      ],
+      "classification": "marker",
+      "id": "facial_nerve_(vii)-005",
+      "index": 5
+    },
+    {
+      "label": "Superior thyroid notch",
+      "source_object": "Superior thyroid notch.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.0,
+        -0.036288,
+        1.479359
+      ],
+      "anchor_relative": [
+        0.0,
+        -0.038838,
+        -0.123427
+      ],
+      "linked_targets": [
+        "Mentalis muscle.l"
+      ],
+      "classification": "marker",
+      "id": "facial_nerve_(vii)-006",
+      "index": 6
+    },
+    {
+      "label": "Inferior thyroid notch",
+      "source_object": "Inferior thyroid notch.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.0,
+        -0.031601,
+        1.463329
+      ],
+      "anchor_relative": [
+        0.0,
+        -0.034151,
+        -0.139457
+      ],
+      "linked_targets": [
+        "Mentalis muscle.l"
+      ],
+      "classification": "marker",
+      "id": "facial_nerve_(vii)-007",
+      "index": 7
+    },
+    {
+      "label": "Lamina of thyroid cartilage",
+      "source_object": "Lamina of thyroid cartilage.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.018241,
+        -0.021315,
+        1.477256
+      ],
+      "anchor_relative": [
+        -0.018241,
+        -0.023865,
+        -0.12553
+      ],
+      "linked_targets": [
+        "Stylohyoid muscle.r"
+      ],
+      "classification": "marker",
+      "id": "facial_nerve_(vii)-008",
+      "index": 8
+    },
+    {
+      "label": "Superior thyroid tubercle",
+      "source_object": "Superior thyroid tubercle.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.026822,
+        -0.008026,
+        1.483444
+      ],
+      "anchor_relative": [
+        -0.026822,
+        -0.010577,
+        -0.119341
+      ],
+      "linked_targets": [
+        "Stylohyoid muscle.r"
+      ],
+      "classification": "marker",
+      "id": "facial_nerve_(vii)-009",
+      "index": 9
+    },
+    {
+      "label": "Inferior thyroid tubercle",
+      "source_object": "Inferior thyroid tubercle.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.020835,
+        -0.011899,
+        1.465796
+      ],
+      "anchor_relative": [
+        -0.020835,
+        -0.01445,
+        -0.13699
+      ],
+      "linked_targets": [
+        "Stylohyoid muscle.r"
+      ],
+      "classification": "marker",
+      "id": "facial_nerve_(vii)-010",
+      "index": 10
+    },
+    {
+      "label": "Oblique line of thyroid cartilage",
+      "source_object": "Oblique line of thyroid cartilage.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.025283,
+        -0.009842,
+        1.475125
+      ],
+      "anchor_relative": [
+        -0.025283,
+        -0.012392,
+        -0.12766
+      ],
+      "linked_targets": [
+        "Stylohyoid muscle.r"
+      ],
+      "classification": "marker",
+      "id": "facial_nerve_(vii)-011",
+      "index": 11
+    },
+    {
+      "label": "Superior horn of thyroid cartilage",
+      "source_object": "Superior horn of thyroid cartilage.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.03045,
+        -0.00232,
+        1.49503
+      ],
+      "anchor_relative": [
+        -0.03045,
+        -0.00487,
+        -0.107756
+      ],
+      "linked_targets": [
+        "Stylohyoid muscle.r"
+      ],
+      "classification": "marker",
+      "id": "facial_nerve_(vii)-012",
+      "index": 12
+    },
+    {
+      "label": "Inferior horn of thyroid cartilage",
+      "source_object": "Inferior horn of thyroid cartilage.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.026206,
+        -0.004551,
+        1.462215
+      ],
+      "anchor_relative": [
+        -0.026206,
+        -0.007101,
+        -0.14057
+      ],
+      "linked_targets": [
+        "Stylohyoid muscle.r"
+      ],
+      "classification": "marker",
+      "id": "facial_nerve_(vii)-013",
+      "index": 13
+    },
+    {
+      "label": "Cervical fasciae",
+      "source_object": "Cervical fasciae.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.105476,
+        0.015334,
+        1.462236
+      ],
+      "anchor_relative": [
+        -0.105476,
+        0.012783,
+        -0.140549
+      ],
+      "linked_targets": [
+        "Posterior belly of digastric muscle.r"
+      ],
+      "classification": "marker",
+      "id": "facial_nerve_(vii)-014",
+      "index": 14
+    },
+    {
+      "label": "Cervical bursae",
+      "source_object": "Cervical bursae.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.0881,
+        -0.036336,
+        1.496446
+      ],
+      "anchor_relative": [
+        -0.0881,
+        -0.038887,
+        -0.106339
+      ],
+      "linked_targets": [
+        "Risorius muscle.r"
+      ],
+      "classification": "marker",
+      "id": "facial_nerve_(vii)-015",
+      "index": 15
+    },
+    {
+      "label": "Cervical part of muscular system",
+      "source_object": "Cervical part of muscular system.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.141484,
+        0.000607,
+        1.517038
+      ],
+      "anchor_relative": [
+        -0.141484,
+        -0.001944,
+        -0.085748
+      ],
+      "linked_targets": [
+        "Posterior belly of digastric muscle.r"
+      ],
+      "classification": "marker",
+      "id": "facial_nerve_(vii)-016",
+      "index": 16
+    },
+    {
+      "label": "Digastric muscle",
+      "source_object": "Digastric muscle.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.047044,
+        -0.03702,
+        1.503663
+      ],
+      "anchor_relative": [
+        0.047044,
+        -0.039571,
+        -0.099122
+      ],
+      "linked_targets": [
+        "Risorius muscle.l"
+      ],
+      "classification": "marker",
+      "id": "facial_nerve_(vii)-017",
+      "index": 17
+    },
+    {
+      "label": "Suprahyoid muscles",
+      "source_object": "Suprahyoid muscles.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.05877,
+        -0.018479,
+        1.515728
+      ],
+      "anchor_relative": [
+        0.05877,
+        -0.021029,
+        -0.087057
+      ],
+      "linked_targets": [
+        "Posterior belly of digastric muscle.l"
+      ],
+      "classification": "marker",
+      "id": "facial_nerve_(vii)-018",
+      "index": 18
+    },
+    {
+      "label": "Infrahyoid muscles",
+      "source_object": "Infrahyoid muscles.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.055812,
+        -0.016173,
+        1.486486
+      ],
+      "anchor_relative": [
+        0.055812,
+        -0.018723,
+        -0.116299
+      ],
+      "linked_targets": [
+        "Stylohyoid muscle.l"
+      ],
+      "classification": "marker",
+      "id": "facial_nerve_(vii)-019",
+      "index": 19
+    },
+    {
+      "label": "Laryngeal muscles",
+      "source_object": "Laryngeal muscles.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.05111,
+        -0.011878,
+        1.475696
+      ],
+      "anchor_relative": [
+        0.05111,
+        -0.014428,
+        -0.12709
+      ],
+      "linked_targets": [
+        "Stylohyoid muscle.l"
+      ],
+      "classification": "marker",
+      "id": "facial_nerve_(vii)-020",
+      "index": 20
+    },
+    {
+      "label": "Muscles of neck",
+      "source_object": "Muscles of neck.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.107764,
+        0.012504,
+        1.478732
+      ],
+      "anchor_relative": [
+        -0.107764,
+        0.009954,
+        -0.124054
+      ],
+      "linked_targets": [
+        "Posterior belly of digastric muscle.r"
+      ],
+      "classification": "marker",
+      "id": "facial_nerve_(vii)-021",
+      "index": 21
+    },
+    {
+      "label": "Suboccipital muscles",
+      "source_object": "Suboccipital muscles.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.013267,
+        0.083772,
+        1.535256
+      ],
+      "anchor_relative": [
+        -0.013267,
+        0.081222,
+        -0.067529
+      ],
+      "linked_targets": [
+        "Occipitalis muscle.r"
+      ],
+      "classification": "marker",
+      "id": "facial_nerve_(vii)-022",
+      "index": 22
+    },
+    {
+      "label": "Groove for vertebral artery",
+      "source_object": "Groove for vertebral artery.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.022666,
+        0.031003,
+        1.54959
+      ],
+      "anchor_relative": [
+        -0.022666,
+        0.028453,
+        -0.053195
+      ],
+      "linked_targets": [
+        "Posterior belly of digastric muscle.r"
+      ],
+      "classification": "marker",
+      "id": "facial_nerve_(vii)-023",
+      "index": 23
+    },
+    {
+      "label": "Extra-ocular muscles",
+      "source_object": "Extra-ocular muscles.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.031625,
+        -0.098552,
+        1.590585
+      ],
+      "anchor_relative": [
+        0.031625,
+        -0.101103,
+        -0.0122
+      ],
+      "linked_targets": [
+        "Nasalis muscle.l"
+      ],
+      "classification": "marker",
+      "id": "facial_nerve_(vii)-024",
+      "index": 24
+    },
+    {
+      "label": "Epicranius muscle",
+      "source_object": "Epicranius muscle.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.097578,
+        0.01179,
+        1.636266
+      ],
+      "anchor_relative": [
+        0.097578,
+        0.009239,
+        0.033481
+      ],
+      "linked_targets": [
+        "Temporoparietalis muscle.l"
+      ],
+      "classification": "marker",
+      "id": "facial_nerve_(vii)-025",
+      "index": 25
+    },
+    {
+      "label": "Extrinsic auricular muscles",
+      "source_object": "Extrinsic auricular muscles.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.100623,
+        0.007204,
+        1.600812
+      ],
+      "anchor_relative": [
+        0.100623,
+        0.004653,
+        -0.001973
+      ],
+      "linked_targets": [
+        "Temporoparietalis muscle.l"
+      ],
+      "classification": "marker",
+      "id": "facial_nerve_(vii)-026",
+      "index": 26
+    },
+    {
+      "label": "Superficial muscles of head",
+      "source_object": "Superficial muscles of head.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.108269,
+        0.003249,
+        1.657576
+      ],
+      "anchor_relative": [
+        0.108269,
+        0.000699,
+        0.054791
+      ],
+      "linked_targets": [
+        "Temporoparietalis muscle.l"
+      ],
+      "classification": "marker",
+      "id": "facial_nerve_(vii)-027",
+      "index": 27
+    },
+    {
+      "label": "Masticatory muscles",
+      "source_object": "Masticatory muscles.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.087349,
+        -0.026731,
+        1.567831
+      ],
+      "anchor_relative": [
+        0.087349,
+        -0.029281,
+        -0.034954
+      ],
+      "linked_targets": [
+        "Facial nerve (VII).l"
+      ],
+      "classification": "marker",
+      "id": "facial_nerve_(vii)-028",
+      "index": 28
+    },
+    {
+      "label": "Muscles of tongue",
+      "source_object": "Muscles of tongue.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.003106,
+        -0.100779,
+        1.530321
+      ],
+      "anchor_relative": [
+        0.003106,
+        -0.103329,
+        -0.072465
+      ],
+      "linked_targets": [
+        "Orbicularis oris muscle.l"
+      ],
+      "classification": "marker",
+      "id": "facial_nerve_(vii)-029",
+      "index": 29
+    },
+    {
+      "label": "Muscles of head",
+      "source_object": "Muscles of head.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.121436,
+        0.005738,
+        1.590644
+      ],
+      "anchor_relative": [
+        -0.121436,
+        0.003188,
+        -0.012141
+      ],
+      "linked_targets": [
+        "Temporoparietalis muscle.r"
+      ],
+      "classification": "marker",
+      "id": "facial_nerve_(vii)-030",
+      "index": 30
+    },
+    {
+      "label": "Fasciae of head",
+      "source_object": "Fasciae of head.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.113022,
+        -0.028907,
+        1.5768
+      ],
+      "anchor_relative": [
+        -0.113022,
+        -0.031457,
+        -0.025985
+      ],
+      "linked_targets": [
+        "Facial nerve (VII).r"
+      ],
+      "classification": "marker",
+      "id": "facial_nerve_(vii)-031",
+      "index": 31
+    },
+    {
+      "label": "Bursae of head",
+      "source_object": "Bursae of head.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.089655,
+        -0.021628,
+        1.565692
+      ],
+      "anchor_relative": [
+        -0.089655,
+        -0.024178,
+        -0.037093
+      ],
+      "linked_targets": [
+        "Facial nerve (VII).r"
+      ],
+      "classification": "marker",
+      "id": "facial_nerve_(vii)-032",
+      "index": 32
+    }
+  ],
+  "mesh_metadata": {
+    "Posterior belly of digastric muscle.r": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Posterior belly of digastric muscle.l": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Stylohyoid muscle.r": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Stylohyoid muscle.l": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Frontalis muscle.r": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Occipitalis muscle.r": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Epicranial aponeurosis.r": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Frontalis muscle.l": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Occipitalis muscle.l": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Epicranial aponeurosis.l": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Temporoparietalis muscle.r": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Temporoparietalis muscle.l": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Nasalis muscle.r": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Nasalis muscle.l": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Orbital part of orbicularis oculi.r": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Palpebral part of orbicularis oculi.r": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Orbital part of orbicularis oculi.l": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Palpebral part of orbicularis oculi.l": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Orbicularis oris muscle.r": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Orbicularis oris muscle.l": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Zygomaticus major muscle.r": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Corrugator supercilii.r": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Depressor anguli oris.r": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Depressor labii inferioris.r": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Levator anguli oris.r": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Procerus muscle.r": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Risorius muscle.r": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Zygomaticus minor muscle.r": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Levator labii superioris.r": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Depressor septi nasi.r": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Mentalis muscle.r": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Levator nasolabialis.r": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Bucinator.r": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Zygomaticus major muscle.l": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Corrugator supercilii.l": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Depressor anguli oris.l": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Depressor labii inferioris.l": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Levator anguli oris.l": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Procerus muscle.l": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Risorius muscle.l": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Zygomaticus minor muscle.l": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Levator labii superioris.l": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Depressor septi nasi.l": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Mentalis muscle.l": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Levator nasolabialis.l": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    },
+    "Bucinator.l": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    }
+  }
+}

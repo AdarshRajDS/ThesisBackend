@@ -1,0 +1,2793 @@
+{
+  "method": "Automatic proxy: cosine similarity (all-MiniLM-L6-v2) between question+gold and each ranked passage; binary relevance ≥ 0.38. Boundary questions excluded from macro averages.",
+  "k": 3,
+  "english_rag_55": {
+    "rows": [
+      {
+        "id": "R-F01",
+        "category": "factual",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 8,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 213,
+            "similarity": 0.598,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 226,
+            "similarity": 0.446,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 24,
+            "similarity": 0.512,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 216,
+            "similarity": 0.412,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 142,
+            "similarity": 0.514,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 2,
+            "similarity": 0.299,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 141,
+            "similarity": 0.466,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 22,
+            "similarity": 0.362,
+            "relevant": false
+          }
+        ],
+        "precision_at_k": 1.0,
+        "recall_at_k": 0.5,
+        "ndcg_at_k": 0.951,
+        "mrr": 1.0,
+        "source_overlap": 0.5,
+        "relevant_in_top_k": 3,
+        "total_relevant": 6
+      },
+      {
+        "id": "R-F02",
+        "category": "factual",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 8,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 24,
+            "similarity": 0.647,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 22,
+            "similarity": 0.535,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 2,
+            "similarity": 0.447,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 15,
+            "similarity": 0.45,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 23,
+            "similarity": 0.45,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 25,
+            "similarity": 0.445,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 14,
+            "similarity": 0.486,
+            "relevant": true
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 608,
+            "similarity": 0.426,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 1.0,
+        "recall_at_k": 0.375,
+        "ndcg_at_k": 1.0,
+        "mrr": 1.0,
+        "source_overlap": 0.375,
+        "relevant_in_top_k": 3,
+        "total_relevant": 8
+      },
+      {
+        "id": "R-F03",
+        "category": "factual",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 8,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 19,
+            "similarity": 0.705,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 24,
+            "similarity": 0.771,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 17,
+            "similarity": 0.653,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 18,
+            "similarity": 0.71,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 30,
+            "similarity": 0.708,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 16,
+            "similarity": 0.665,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 194,
+            "similarity": 0.461,
+            "relevant": true
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 694,
+            "similarity": 0.27,
+            "relevant": false
+          }
+        ],
+        "precision_at_k": 1.0,
+        "recall_at_k": 0.429,
+        "ndcg_at_k": 1.0,
+        "mrr": 1.0,
+        "source_overlap": 0.429,
+        "relevant_in_top_k": 3,
+        "total_relevant": 7
+      },
+      {
+        "id": "R-F04",
+        "category": "factual",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 4,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 188,
+            "similarity": 0.593,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 165,
+            "similarity": 0.54,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 3,
+            "similarity": 0.553,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 144,
+            "similarity": 0.621,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 1.0,
+        "recall_at_k": 0.75,
+        "ndcg_at_k": 1.0,
+        "mrr": 1.0,
+        "source_overlap": 0.75,
+        "relevant_in_top_k": 3,
+        "total_relevant": 4
+      },
+      {
+        "id": "R-F05",
+        "category": "factual",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 4,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 226,
+            "similarity": 0.645,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 218,
+            "similarity": 0.604,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 102,
+            "similarity": 0.478,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 224,
+            "similarity": 0.581,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 1.0,
+        "recall_at_k": 0.75,
+        "ndcg_at_k": 1.0,
+        "mrr": 1.0,
+        "source_overlap": 0.75,
+        "relevant_in_top_k": 3,
+        "total_relevant": 4
+      },
+      {
+        "id": "R-F06",
+        "category": "factual",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 4,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 73,
+            "similarity": 0.579,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 61,
+            "similarity": 0.72,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 104,
+            "similarity": 0.702,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 66,
+            "similarity": 0.589,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 1.0,
+        "recall_at_k": 0.75,
+        "ndcg_at_k": 1.0,
+        "mrr": 1.0,
+        "source_overlap": 0.75,
+        "relevant_in_top_k": 3,
+        "total_relevant": 4
+      },
+      {
+        "id": "R-F07",
+        "category": "factual",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 4,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 15,
+            "similarity": 0.674,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 14,
+            "similarity": 0.613,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 25,
+            "similarity": 0.749,
+            "relevant": true
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 608,
+            "similarity": 0.494,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 1.0,
+        "recall_at_k": 0.75,
+        "ndcg_at_k": 1.0,
+        "mrr": 1.0,
+        "source_overlap": 0.75,
+        "relevant_in_top_k": 3,
+        "total_relevant": 4
+      },
+      {
+        "id": "R-F08",
+        "category": "factual",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 4,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 335,
+            "similarity": 0.484,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 379,
+            "similarity": 0.69,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 336,
+            "similarity": 0.617,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 339,
+            "similarity": 0.444,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 1.0,
+        "recall_at_k": 0.75,
+        "ndcg_at_k": 0.815,
+        "mrr": 1.0,
+        "source_overlap": 0.75,
+        "relevant_in_top_k": 3,
+        "total_relevant": 4
+      },
+      {
+        "id": "R-F09",
+        "category": "factual",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 8,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 21,
+            "similarity": 0.666,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 85,
+            "similarity": 0.603,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 16,
+            "similarity": 0.794,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 24,
+            "similarity": 0.641,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 18,
+            "similarity": 0.718,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 53,
+            "similarity": 0.479,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 102,
+            "similarity": 0.357,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 17,
+            "similarity": 0.709,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 1.0,
+        "recall_at_k": 0.429,
+        "ndcg_at_k": 1.0,
+        "mrr": 1.0,
+        "source_overlap": 0.429,
+        "relevant_in_top_k": 3,
+        "total_relevant": 7
+      },
+      {
+        "id": "R-F10",
+        "category": "factual",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 4,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 78,
+            "similarity": 0.56,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 24,
+            "similarity": 0.535,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 26,
+            "similarity": 0.389,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 102,
+            "similarity": 0.573,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 1.0,
+        "recall_at_k": 0.75,
+        "ndcg_at_k": 1.0,
+        "mrr": 1.0,
+        "source_overlap": 0.75,
+        "relevant_in_top_k": 3,
+        "total_relevant": 4
+      },
+      {
+        "id": "R-F11",
+        "category": "factual",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 4,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 24,
+            "similarity": 0.598,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 213,
+            "similarity": 0.624,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 3,
+            "similarity": 0.394,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 2,
+            "similarity": 0.392,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 1.0,
+        "recall_at_k": 0.75,
+        "ndcg_at_k": 1.0,
+        "mrr": 1.0,
+        "source_overlap": 0.75,
+        "relevant_in_top_k": 3,
+        "total_relevant": 4
+      },
+      {
+        "id": "R-F12",
+        "category": "factual",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 4,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 27,
+            "similarity": 0.342,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 197,
+            "similarity": 0.324,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 200,
+            "similarity": 0.353,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 229,
+            "similarity": 0.486,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 0.0,
+        "recall_at_k": 0.0,
+        "ndcg_at_k": 0.0,
+        "mrr": 0.25,
+        "source_overlap": 0.0,
+        "relevant_in_top_k": 0,
+        "total_relevant": 1
+      },
+      {
+        "id": "R-F13",
+        "category": "factual",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 4,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 69,
+            "similarity": 0.662,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 204,
+            "similarity": 0.528,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 200,
+            "similarity": 0.571,
+            "relevant": true
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 755,
+            "similarity": 0.528,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 1.0,
+        "recall_at_k": 0.75,
+        "ndcg_at_k": 1.0,
+        "mrr": 1.0,
+        "source_overlap": 0.75,
+        "relevant_in_top_k": 3,
+        "total_relevant": 4
+      },
+      {
+        "id": "R-F14",
+        "category": "factual",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 4,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 4,
+            "similarity": 0.452,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 533,
+            "similarity": 0.329,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 269,
+            "similarity": 0.38,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 528,
+            "similarity": 0.424,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 0.667,
+        "recall_at_k": 0.667,
+        "ndcg_at_k": 0.92,
+        "mrr": 1.0,
+        "source_overlap": 0.667,
+        "relevant_in_top_k": 2,
+        "total_relevant": 3
+      },
+      {
+        "id": "R-F15",
+        "category": "factual",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 4,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 421,
+            "similarity": 0.773,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 451,
+            "similarity": 0.358,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 384,
+            "similarity": 0.462,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 432,
+            "similarity": 0.572,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 0.667,
+        "recall_at_k": 0.667,
+        "ndcg_at_k": 0.964,
+        "mrr": 1.0,
+        "source_overlap": 0.667,
+        "relevant_in_top_k": 2,
+        "total_relevant": 3
+      },
+      {
+        "id": "R-C01",
+        "category": "complex",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 8,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 139,
+            "similarity": 0.638,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 24,
+            "similarity": 0.698,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 226,
+            "similarity": 0.603,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 153,
+            "similarity": 0.629,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 3,
+            "similarity": 0.471,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 141,
+            "similarity": 0.593,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 142,
+            "similarity": 0.64,
+            "relevant": true
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 636,
+            "similarity": 0.471,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 1.0,
+        "recall_at_k": 0.375,
+        "ndcg_at_k": 1.0,
+        "mrr": 1.0,
+        "source_overlap": 0.375,
+        "relevant_in_top_k": 3,
+        "total_relevant": 8
+      },
+      {
+        "id": "R-C02",
+        "category": "complex",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 8,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 24,
+            "similarity": 0.533,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 2,
+            "similarity": 0.454,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 147,
+            "similarity": 0.56,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 73,
+            "similarity": 0.542,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 139,
+            "similarity": 0.592,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 153,
+            "similarity": 0.56,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 3,
+            "similarity": 0.476,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 137,
+            "similarity": 0.522,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 1.0,
+        "recall_at_k": 0.375,
+        "ndcg_at_k": 0.951,
+        "mrr": 1.0,
+        "source_overlap": 0.375,
+        "relevant_in_top_k": 3,
+        "total_relevant": 8
+      },
+      {
+        "id": "R-C03",
+        "category": "complex",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 8,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 24,
+            "similarity": 0.579,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 141,
+            "similarity": 0.544,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 216,
+            "similarity": 0.462,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 23,
+            "similarity": 0.497,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 153,
+            "similarity": 0.544,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 3,
+            "similarity": 0.491,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 142,
+            "similarity": 0.5,
+            "relevant": true
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 952,
+            "similarity": 0.293,
+            "relevant": false
+          }
+        ],
+        "precision_at_k": 1.0,
+        "recall_at_k": 0.429,
+        "ndcg_at_k": 1.0,
+        "mrr": 1.0,
+        "source_overlap": 0.429,
+        "relevant_in_top_k": 3,
+        "total_relevant": 7
+      },
+      {
+        "id": "R-C04",
+        "category": "complex",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 8,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 152,
+            "similarity": 0.727,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 131,
+            "similarity": 0.697,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 226,
+            "similarity": 0.716,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 213,
+            "similarity": 0.391,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 210,
+            "similarity": 0.735,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 209,
+            "similarity": 0.495,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 130,
+            "similarity": 0.669,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 119,
+            "similarity": 0.537,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 1.0,
+        "recall_at_k": 0.375,
+        "ndcg_at_k": 1.0,
+        "mrr": 1.0,
+        "source_overlap": 0.375,
+        "relevant_in_top_k": 3,
+        "total_relevant": 8
+      },
+      {
+        "id": "R-C05",
+        "category": "complex",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 8,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 212,
+            "similarity": 0.406,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 108,
+            "similarity": 0.31,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 220,
+            "similarity": 0.506,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 145,
+            "similarity": 0.282,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 432,
+            "similarity": 0.43,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 217,
+            "similarity": 0.364,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 430,
+            "similarity": 0.375,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 216,
+            "similarity": 0.249,
+            "relevant": false
+          }
+        ],
+        "precision_at_k": 0.667,
+        "recall_at_k": 0.667,
+        "ndcg_at_k": 0.689,
+        "mrr": 1.0,
+        "source_overlap": 0.667,
+        "relevant_in_top_k": 2,
+        "total_relevant": 3
+      },
+      {
+        "id": "R-C06",
+        "category": "complex",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 8,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 211,
+            "similarity": 0.49,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 220,
+            "similarity": 0.465,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 519,
+            "similarity": 0.433,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 108,
+            "similarity": 0.361,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 212,
+            "similarity": 0.552,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 430,
+            "similarity": 0.412,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 442,
+            "similarity": 0.415,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 217,
+            "similarity": 0.32,
+            "relevant": false
+          }
+        ],
+        "precision_at_k": 1.0,
+        "recall_at_k": 0.5,
+        "ndcg_at_k": 1.0,
+        "mrr": 1.0,
+        "source_overlap": 0.5,
+        "relevant_in_top_k": 3,
+        "total_relevant": 6
+      },
+      {
+        "id": "R-C07",
+        "category": "complex",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 4,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 43,
+            "similarity": 0.642,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 14,
+            "similarity": 0.688,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 15,
+            "similarity": 0.575,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 144,
+            "similarity": 0.492,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 1.0,
+        "recall_at_k": 0.75,
+        "ndcg_at_k": 1.0,
+        "mrr": 1.0,
+        "source_overlap": 0.75,
+        "relevant_in_top_k": 3,
+        "total_relevant": 4
+      },
+      {
+        "id": "R-C08",
+        "category": "complex",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 8,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 218,
+            "similarity": 0.425,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 221,
+            "similarity": 0.458,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 143,
+            "similarity": 0.531,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 75,
+            "similarity": 0.608,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 226,
+            "similarity": 0.623,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 220,
+            "similarity": 0.582,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 224,
+            "similarity": 0.497,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 229,
+            "similarity": 0.567,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 1.0,
+        "recall_at_k": 0.375,
+        "ndcg_at_k": 0.758,
+        "mrr": 1.0,
+        "source_overlap": 0.375,
+        "relevant_in_top_k": 3,
+        "total_relevant": 8
+      },
+      {
+        "id": "R-C09",
+        "category": "complex",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 5,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 417,
+            "similarity": 0.595,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 327,
+            "similarity": 0.611,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 324,
+            "similarity": 0.509,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 385,
+            "similarity": 0.644,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 379,
+            "similarity": 0.567,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 1.0,
+        "recall_at_k": 0.6,
+        "ndcg_at_k": 1.0,
+        "mrr": 1.0,
+        "source_overlap": 0.6,
+        "relevant_in_top_k": 3,
+        "total_relevant": 5
+      },
+      {
+        "id": "R-C10",
+        "category": "complex",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 8,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 529,
+            "similarity": 0.505,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 468,
+            "similarity": 0.44,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 218,
+            "similarity": 0.426,
+            "relevant": true
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 88,
+            "similarity": 0.488,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 336,
+            "similarity": 0.395,
+            "relevant": true
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 99,
+            "similarity": 0.439,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 530,
+            "similarity": 0.427,
+            "relevant": true
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 266,
+            "similarity": 0.455,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 1.0,
+        "recall_at_k": 0.375,
+        "ndcg_at_k": 1.0,
+        "mrr": 1.0,
+        "source_overlap": 0.375,
+        "relevant_in_top_k": 3,
+        "total_relevant": 8
+      },
+      {
+        "id": "R-FIG01",
+        "category": "figure",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 8,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 139,
+            "similarity": 0.548,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 24,
+            "similarity": 0.502,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 216,
+            "similarity": 0.4,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 150,
+            "similarity": 0.389,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 140,
+            "similarity": 0.47,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 3,
+            "similarity": 0.263,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 153,
+            "similarity": 0.45,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 141,
+            "similarity": 0.391,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 1.0,
+        "recall_at_k": 0.429,
+        "ndcg_at_k": 1.0,
+        "mrr": 1.0,
+        "source_overlap": 0.429,
+        "relevant_in_top_k": 3,
+        "total_relevant": 7
+      },
+      {
+        "id": "R-FIG02",
+        "category": "figure",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 5,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 17,
+            "similarity": 0.698,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 30,
+            "similarity": 0.762,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 24,
+            "similarity": 0.747,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 19,
+            "similarity": 0.737,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 16,
+            "similarity": 0.683,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 1.0,
+        "recall_at_k": 0.6,
+        "ndcg_at_k": 1.0,
+        "mrr": 1.0,
+        "source_overlap": 0.6,
+        "relevant_in_top_k": 3,
+        "total_relevant": 5
+      },
+      {
+        "id": "R-FIG03",
+        "category": "figure",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 4,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 165,
+            "similarity": 0.536,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 144,
+            "similarity": 0.553,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 3,
+            "similarity": 0.496,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 153,
+            "similarity": 0.53,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 1.0,
+        "recall_at_k": 0.75,
+        "ndcg_at_k": 1.0,
+        "mrr": 1.0,
+        "source_overlap": 0.75,
+        "relevant_in_top_k": 3,
+        "total_relevant": 4
+      },
+      {
+        "id": "R-FIG04",
+        "category": "figure",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 8,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 119,
+            "similarity": 0.302,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 118,
+            "similarity": 0.558,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 114,
+            "similarity": 0.699,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 207,
+            "similarity": 0.642,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 130,
+            "similarity": 0.462,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 82,
+            "similarity": 0.474,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 69,
+            "similarity": 0.415,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 423,
+            "similarity": 0.475,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 0.667,
+        "recall_at_k": 0.286,
+        "ndcg_at_k": 0.693,
+        "mrr": 0.5,
+        "source_overlap": 0.286,
+        "relevant_in_top_k": 2,
+        "total_relevant": 7
+      },
+      {
+        "id": "R-FIG05",
+        "category": "figure",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 4,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 212,
+            "similarity": 0.438,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 120,
+            "similarity": 0.427,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 69,
+            "similarity": 0.354,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 228,
+            "similarity": 0.405,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 0.667,
+        "recall_at_k": 0.667,
+        "ndcg_at_k": 1.0,
+        "mrr": 1.0,
+        "source_overlap": 0.667,
+        "relevant_in_top_k": 2,
+        "total_relevant": 3
+      },
+      {
+        "id": "R-FIG06",
+        "category": "figure",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 4,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 67,
+            "similarity": 0.513,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 102,
+            "similarity": 0.512,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 101,
+            "similarity": 0.37,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 66,
+            "similarity": 0.458,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 0.667,
+        "recall_at_k": 0.667,
+        "ndcg_at_k": 1.0,
+        "mrr": 1.0,
+        "source_overlap": 0.667,
+        "relevant_in_top_k": 2,
+        "total_relevant": 3
+      },
+      {
+        "id": "R-FIG07",
+        "category": "figure",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 4,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 332,
+            "similarity": 0.564,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 375,
+            "similarity": 0.559,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 329,
+            "similarity": 0.446,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 379,
+            "similarity": 0.588,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 1.0,
+        "recall_at_k": 0.75,
+        "ndcg_at_k": 1.0,
+        "mrr": 1.0,
+        "source_overlap": 0.75,
+        "relevant_in_top_k": 3,
+        "total_relevant": 4
+      },
+      {
+        "id": "R-FIG08",
+        "category": "figure",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 4,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 388,
+            "similarity": 0.46,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 141,
+            "similarity": 0.394,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 142,
+            "similarity": 0.443,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 216,
+            "similarity": 0.386,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 1.0,
+        "recall_at_k": 0.75,
+        "ndcg_at_k": 1.0,
+        "mrr": 1.0,
+        "source_overlap": 0.75,
+        "relevant_in_top_k": 3,
+        "total_relevant": 4
+      },
+      {
+        "id": "R-FIG09",
+        "category": "figure",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 4,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 335,
+            "similarity": 0.562,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 374,
+            "similarity": 0.458,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 380,
+            "similarity": 0.501,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 337,
+            "similarity": 0.599,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 1.0,
+        "recall_at_k": 0.75,
+        "ndcg_at_k": 0.951,
+        "mrr": 1.0,
+        "source_overlap": 0.75,
+        "relevant_in_top_k": 3,
+        "total_relevant": 4
+      },
+      {
+        "id": "R-FIG10",
+        "category": "figure",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 4,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 151,
+            "similarity": 0.588,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 148,
+            "similarity": 0.445,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 524,
+            "similarity": 0.542,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 91,
+            "similarity": 0.492,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 1.0,
+        "recall_at_k": 0.75,
+        "ndcg_at_k": 0.951,
+        "mrr": 1.0,
+        "source_overlap": 0.75,
+        "relevant_in_top_k": 3,
+        "total_relevant": 4
+      },
+      {
+        "id": "R-Q01",
+        "category": "quotation",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 6,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 24,
+            "similarity": 0.525,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 3,
+            "similarity": 0.32,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 22,
+            "similarity": 0.393,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 216,
+            "similarity": 0.352,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 213,
+            "similarity": 0.448,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 229,
+            "similarity": 0.454,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 0.667,
+        "recall_at_k": 0.5,
+        "ndcg_at_k": 0.964,
+        "mrr": 1.0,
+        "source_overlap": 0.5,
+        "relevant_in_top_k": 2,
+        "total_relevant": 4
+      },
+      {
+        "id": "R-Q02",
+        "category": "quotation",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 4,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 152,
+            "similarity": 0.754,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 226,
+            "similarity": 0.696,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 131,
+            "similarity": 0.6,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 209,
+            "similarity": 0.466,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 1.0,
+        "recall_at_k": 0.75,
+        "ndcg_at_k": 1.0,
+        "mrr": 1.0,
+        "source_overlap": 0.75,
+        "relevant_in_top_k": 3,
+        "total_relevant": 4
+      },
+      {
+        "id": "R-Q03",
+        "category": "quotation",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 6,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 17,
+            "similarity": 0.325,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 16,
+            "similarity": 0.291,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 18,
+            "similarity": 0.358,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 30,
+            "similarity": 0.342,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 19,
+            "similarity": 0.363,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 125,
+            "similarity": 0.383,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 0.0,
+        "recall_at_k": 0.0,
+        "ndcg_at_k": 0.0,
+        "mrr": 0.167,
+        "source_overlap": 0.0,
+        "relevant_in_top_k": 0,
+        "total_relevant": 1
+      },
+      {
+        "id": "R-B03",
+        "category": "boundary",
+        "boundary": true,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 0,
+        "passages": [],
+        "precision_at_k": null,
+        "recall_at_k": null,
+        "ndcg_at_k": null,
+        "mrr": null,
+        "source_overlap": null,
+        "relevant_in_top_k": 0,
+        "total_relevant": 0
+      },
+      {
+        "id": "R-B04",
+        "category": "boundary",
+        "boundary": true,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 0,
+        "passages": [],
+        "precision_at_k": null,
+        "recall_at_k": null,
+        "ndcg_at_k": null,
+        "mrr": null,
+        "source_overlap": null,
+        "relevant_in_top_k": 0,
+        "total_relevant": 0
+      },
+      {
+        "id": "R-B05",
+        "category": "boundary",
+        "boundary": true,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 6,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 194,
+            "similarity": 0.583,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 72,
+            "similarity": 0.492,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 61,
+            "similarity": 0.494,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 134,
+            "similarity": 0.466,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 16,
+            "similarity": 0.472,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 66,
+            "similarity": 0.54,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 1.0,
+        "recall_at_k": 0.5,
+        "ndcg_at_k": 1.0,
+        "mrr": 1.0,
+        "source_overlap": 0.5,
+        "relevant_in_top_k": 3,
+        "total_relevant": 6
+      },
+      {
+        "id": "R-B06",
+        "category": "boundary",
+        "boundary": true,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 4,
+        "passages": [
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 994,
+            "similarity": 0.38,
+            "relevant": false
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 702,
+            "similarity": 0.339,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 114,
+            "similarity": 0.21,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 207,
+            "similarity": 0.247,
+            "relevant": false
+          }
+        ],
+        "precision_at_k": 0.0,
+        "recall_at_k": 0.0,
+        "ndcg_at_k": 0.0,
+        "mrr": 0.0,
+        "source_overlap": 0.0,
+        "relevant_in_top_k": 0,
+        "total_relevant": 0
+      },
+      {
+        "id": "R-B07",
+        "category": "boundary",
+        "boundary": true,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 4,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 300,
+            "similarity": 0.432,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 473,
+            "similarity": 0.353,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 475,
+            "similarity": 0.636,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 390,
+            "similarity": 0.355,
+            "relevant": false
+          }
+        ],
+        "precision_at_k": 0.667,
+        "recall_at_k": 1.0,
+        "ndcg_at_k": 0.689,
+        "mrr": 1.0,
+        "source_overlap": 1.0,
+        "relevant_in_top_k": 2,
+        "total_relevant": 2
+      },
+      {
+        "id": "R-B08",
+        "category": "boundary",
+        "boundary": true,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 4,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 326,
+            "similarity": 0.41,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 357,
+            "similarity": 0.363,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 428,
+            "similarity": 0.252,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 325,
+            "similarity": 0.252,
+            "relevant": false
+          }
+        ],
+        "precision_at_k": 0.333,
+        "recall_at_k": 1.0,
+        "ndcg_at_k": 1.0,
+        "mrr": 1.0,
+        "source_overlap": 1.0,
+        "relevant_in_top_k": 1,
+        "total_relevant": 1
+      },
+      {
+        "id": "R-B09",
+        "category": "boundary",
+        "boundary": true,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 4,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 280,
+            "similarity": 0.114,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 3,
+            "similarity": 0.009,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 157,
+            "similarity": -0.059,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 158,
+            "similarity": 0.172,
+            "relevant": false
+          }
+        ],
+        "precision_at_k": 0.0,
+        "recall_at_k": 0.0,
+        "ndcg_at_k": 0.0,
+        "mrr": 0.0,
+        "source_overlap": 0.0,
+        "relevant_in_top_k": 0,
+        "total_relevant": 0
+      },
+      {
+        "id": "R-B10",
+        "category": "boundary",
+        "boundary": true,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 2,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 504,
+            "similarity": 0.363,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 214,
+            "similarity": 0.294,
+            "relevant": false
+          }
+        ],
+        "precision_at_k": 0.0,
+        "recall_at_k": 0.0,
+        "ndcg_at_k": 0.0,
+        "mrr": 0.0,
+        "source_overlap": 0.0,
+        "relevant_in_top_k": 0,
+        "total_relevant": 0
+      },
+      {
+        "id": "R-R01",
+        "category": "robustness",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 5,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a-30-60.pdf",
+            "page": 4,
+            "similarity": 0.086,
+            "relevant": false
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 288,
+            "similarity": 0.22,
+            "relevant": false
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 260,
+            "similarity": 0.161,
+            "relevant": false
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 290,
+            "similarity": 0.189,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 68,
+            "similarity": 0.151,
+            "relevant": false
+          }
+        ],
+        "precision_at_k": 0.0,
+        "recall_at_k": 0.0,
+        "ndcg_at_k": 0.0,
+        "mrr": 0.0,
+        "source_overlap": 0.0,
+        "relevant_in_top_k": 0,
+        "total_relevant": 0
+      },
+      {
+        "id": "R-R02",
+        "category": "robustness",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 4,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 225,
+            "similarity": 0.485,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 228,
+            "similarity": 0.44,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 204,
+            "similarity": 0.479,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 16,
+            "similarity": 0.455,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 1.0,
+        "recall_at_k": 0.75,
+        "ndcg_at_k": 1.0,
+        "mrr": 1.0,
+        "source_overlap": 0.75,
+        "relevant_in_top_k": 3,
+        "total_relevant": 4
+      },
+      {
+        "id": "R-R03",
+        "category": "robustness",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 8,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 529,
+            "similarity": 0.411,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 468,
+            "similarity": 0.332,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 218,
+            "similarity": 0.345,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 203,
+            "similarity": 0.327,
+            "relevant": false
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 88,
+            "similarity": 0.373,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 530,
+            "similarity": 0.299,
+            "relevant": false
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 266,
+            "similarity": 0.355,
+            "relevant": false
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 99,
+            "similarity": 0.3,
+            "relevant": false
+          }
+        ],
+        "precision_at_k": 0.333,
+        "recall_at_k": 1.0,
+        "ndcg_at_k": 1.0,
+        "mrr": 1.0,
+        "source_overlap": 1.0,
+        "relevant_in_top_k": 1,
+        "total_relevant": 1
+      },
+      {
+        "id": "R-R04",
+        "category": "robustness",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 4,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 336,
+            "similarity": 0.681,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 376,
+            "similarity": 0.461,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 379,
+            "similarity": 0.742,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 338,
+            "similarity": 0.628,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 1.0,
+        "recall_at_k": 0.75,
+        "ndcg_at_k": 0.951,
+        "mrr": 1.0,
+        "source_overlap": 0.75,
+        "relevant_in_top_k": 3,
+        "total_relevant": 4
+      },
+      {
+        "id": "R-R05",
+        "category": "robustness",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 4,
+        "passages": [
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 74,
+            "similarity": 0.662,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 228,
+            "similarity": 0.619,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 219,
+            "similarity": 0.637,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 75,
+            "similarity": 0.605,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 1.0,
+        "recall_at_k": 0.75,
+        "ndcg_at_k": 1.0,
+        "mrr": 1.0,
+        "source_overlap": 0.75,
+        "relevant_in_top_k": 3,
+        "total_relevant": 4
+      }
+    ],
+    "summary_all_scored": {
+      "n": 51,
+      "k": 3,
+      "precision_at_k": 0.796,
+      "recall_at_k": 0.557,
+      "ndcg_at_k": 0.842,
+      "mrr": 0.876,
+      "source_overlap": 0.557
+    },
+    "summary_non_boundary": {
+      "n": 43,
+      "k": 3,
+      "precision_at_k": 0.861,
+      "recall_at_k": 0.576,
+      "ndcg_at_k": 0.897,
+      "mrr": 0.928,
+      "source_overlap": 0.576
+    }
+  },
+  "professor_de": {
+    "rows": [
+      {
+        "id": "LM-R01",
+        "category": "complex",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 5,
+        "passages": [
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 105,
+            "similarity": 0.468,
+            "relevant": true
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 497,
+            "similarity": 0.404,
+            "relevant": true
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 905,
+            "similarity": 0.434,
+            "relevant": true
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 35,
+            "similarity": 0.394,
+            "relevant": true
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 165,
+            "similarity": 0.441,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 1.0,
+        "recall_at_k": 0.6,
+        "ndcg_at_k": 1.0,
+        "mrr": 1.0,
+        "source_overlap": 0.6,
+        "relevant_in_top_k": 3,
+        "total_relevant": 5
+      },
+      {
+        "id": "LM-R03",
+        "category": "direct factual",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 5,
+        "passages": [
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 201,
+            "similarity": 0.588,
+            "relevant": true
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 121,
+            "similarity": 0.374,
+            "relevant": false
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 348,
+            "similarity": 0.236,
+            "relevant": false
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 763,
+            "similarity": 0.241,
+            "relevant": false
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 579,
+            "similarity": 0.108,
+            "relevant": false
+          }
+        ],
+        "precision_at_k": 0.333,
+        "recall_at_k": 1.0,
+        "ndcg_at_k": 1.0,
+        "mrr": 1.0,
+        "source_overlap": 1.0,
+        "relevant_in_top_k": 1,
+        "total_relevant": 1
+      },
+      {
+        "id": "LM-R04",
+        "category": "direct factual",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 5,
+        "passages": [
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 19,
+            "similarity": 0.269,
+            "relevant": false
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 746,
+            "similarity": 0.252,
+            "relevant": false
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 104,
+            "similarity": 0.217,
+            "relevant": false
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 18,
+            "similarity": 0.422,
+            "relevant": true
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 93,
+            "similarity": 0.165,
+            "relevant": false
+          }
+        ],
+        "precision_at_k": 0.0,
+        "recall_at_k": 0.0,
+        "ndcg_at_k": 0.0,
+        "mrr": 0.25,
+        "source_overlap": 0.0,
+        "relevant_in_top_k": 0,
+        "total_relevant": 1
+      },
+      {
+        "id": "LM-R05",
+        "category": "direct factual + implicit figure",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 5,
+        "passages": [
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 673,
+            "similarity": 0.281,
+            "relevant": false
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 226,
+            "similarity": 0.711,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 152,
+            "similarity": 0.706,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 131,
+            "similarity": 0.738,
+            "relevant": true
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 764,
+            "similarity": 0.401,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 0.667,
+        "recall_at_k": 0.5,
+        "ndcg_at_k": 0.693,
+        "mrr": 0.5,
+        "source_overlap": 0.5,
+        "relevant_in_top_k": 2,
+        "total_relevant": 4
+      },
+      {
+        "id": "LM-R06",
+        "category": "complex",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 4,
+        "passages": [
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 708,
+            "similarity": 0.732,
+            "relevant": true
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 340,
+            "similarity": 0.442,
+            "relevant": true
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 705,
+            "similarity": 0.503,
+            "relevant": true
+          },
+          {
+            "source": "anatomy+phys+vol2a.pdf",
+            "page": 226,
+            "similarity": 0.58,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 1.0,
+        "recall_at_k": 0.75,
+        "ndcg_at_k": 0.951,
+        "mrr": 1.0,
+        "source_overlap": 0.75,
+        "relevant_in_top_k": 3,
+        "total_relevant": 4
+      },
+      {
+        "id": "LM-R07",
+        "category": "direct factual",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 4,
+        "passages": [
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 686,
+            "similarity": 0.519,
+            "relevant": true
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 403,
+            "similarity": 0.186,
+            "relevant": false
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 506,
+            "similarity": 0.376,
+            "relevant": false
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 696,
+            "similarity": 0.285,
+            "relevant": false
+          }
+        ],
+        "precision_at_k": 0.333,
+        "recall_at_k": 1.0,
+        "ndcg_at_k": 1.0,
+        "mrr": 1.0,
+        "source_overlap": 1.0,
+        "relevant_in_top_k": 1,
+        "total_relevant": 1
+      },
+      {
+        "id": "LM-R08",
+        "category": "direct factual",
+        "boundary": false,
+        "k": 3,
+        "threshold": 0.38,
+        "num_sources": 4,
+        "passages": [
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 343,
+            "similarity": 0.292,
+            "relevant": false
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 347,
+            "similarity": 0.479,
+            "relevant": true
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 333,
+            "similarity": 0.469,
+            "relevant": true
+          },
+          {
+            "source": "978-3-540-69483-0.pdf",
+            "page": 340,
+            "similarity": 0.426,
+            "relevant": true
+          }
+        ],
+        "precision_at_k": 0.667,
+        "recall_at_k": 0.667,
+        "ndcg_at_k": 0.693,
+        "mrr": 0.5,
+        "source_overlap": 0.667,
+        "relevant_in_top_k": 2,
+        "total_relevant": 3
+      }
+    ],
+    "summary": {
+      "n": 7,
+      "k": 3,
+      "precision_at_k": 0.571,
+      "recall_at_k": 0.645,
+      "ndcg_at_k": 0.762,
+      "mrr": 0.75,
+      "source_overlap": 0.645
+    }
+  }
+}

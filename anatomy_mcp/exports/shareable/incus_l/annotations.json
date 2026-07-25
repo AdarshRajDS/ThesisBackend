@@ -1,0 +1,504 @@
+{
+  "part_label": "Incus.l",
+  "selected_objects": [
+    "Incus.l"
+  ],
+  "annotation_strategy": "scene_graph+annotation_scan",
+  "annotations": [
+    {
+      "label": "Articular facet for malleus",
+      "source_object": "Articular facet for malleus.i",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.0,
+        -0.000155,
+        -0.025766
+      ],
+      "anchor_relative": [
+        -0.047085,
+        -0.00736,
+        -1.608451
+      ],
+      "linked_targets": [
+        "Incus.l"
+      ],
+      "classification": "marker",
+      "id": "incus.l-001",
+      "index": 1
+    },
+    {
+      "label": "Body of incus",
+      "source_object": "Body of incus.i",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.0,
+        -0.000472,
+        -0.025879
+      ],
+      "anchor_relative": [
+        -0.047085,
+        -0.007677,
+        -1.608564
+      ],
+      "linked_targets": [
+        "Incus.l"
+      ],
+      "classification": "marker",
+      "id": "incus.l-002",
+      "index": 2
+    },
+    {
+      "label": "Long limb of incus",
+      "source_object": "Long limb of incus.i",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.0,
+        -7e-05,
+        -0.025754
+      ],
+      "anchor_relative": [
+        -0.047085,
+        -0.007275,
+        -1.608439
+      ],
+      "linked_targets": [
+        "Incus.l"
+      ],
+      "classification": "marker",
+      "id": "incus.l-003",
+      "index": 3
+    },
+    {
+      "label": "Articular facet for stapes",
+      "source_object": "Articular facet for stapes.i",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.0,
+        -0.000622,
+        -0.023329
+      ],
+      "anchor_relative": [
+        -0.047085,
+        -0.007827,
+        -1.606014
+      ],
+      "linked_targets": [
+        "Incus.l"
+      ],
+      "classification": "marker",
+      "id": "incus.l-004",
+      "index": 4
+    },
+    {
+      "label": "Lenticular process of incus",
+      "source_object": "Lenticular process of incus.i",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.0,
+        -4.5e-05,
+        -0.025752
+      ],
+      "anchor_relative": [
+        -0.047085,
+        -0.00725,
+        -1.608437
+      ],
+      "linked_targets": [
+        "Incus.l"
+      ],
+      "classification": "marker",
+      "id": "incus.l-005",
+      "index": 5
+    },
+    {
+      "label": "Basilar part of occipital bone",
+      "source_object": "Basilar part of occipital bone.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.0,
+        0.004957,
+        1.579578
+      ],
+      "anchor_relative": [
+        -0.047085,
+        -0.002248,
+        -0.003107
+      ],
+      "linked_targets": [
+        "Incus.l"
+      ],
+      "classification": "marker",
+      "id": "incus.l-006",
+      "index": 6
+    },
+    {
+      "label": "Jugular notch of occipital bone",
+      "source_object": "Jugular notch of occipital bone.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.029353,
+        0.008374,
+        1.562596
+      ],
+      "anchor_relative": [
+        -0.017732,
+        0.001169,
+        -0.020089
+      ],
+      "linked_targets": [
+        "Incus.l"
+      ],
+      "classification": "marker",
+      "id": "incus.l-007",
+      "index": 7
+    },
+    {
+      "label": "Jugular process",
+      "source_object": "Jugular process.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.037583,
+        0.007909,
+        1.570216
+      ],
+      "anchor_relative": [
+        -0.009501,
+        0.000704,
+        -0.012469
+      ],
+      "linked_targets": [
+        "Incus.l"
+      ],
+      "classification": "marker",
+      "id": "incus.l-008",
+      "index": 8
+    },
+    {
+      "label": "Lateral part of occipital bone",
+      "source_object": "Lateral part of occipital bone.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.02945,
+        0.039195,
+        1.569243
+      ],
+      "anchor_relative": [
+        -0.017634,
+        0.03199,
+        -0.013442
+      ],
+      "linked_targets": [
+        "Incus.l"
+      ],
+      "classification": "marker",
+      "id": "incus.l-009",
+      "index": 9
+    },
+    {
+      "label": "Condylar fossa",
+      "source_object": "Condylar fossa.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.032464,
+        0.039944,
+        1.556732
+      ],
+      "anchor_relative": [
+        -0.014621,
+        0.032739,
+        -0.025953
+      ],
+      "linked_targets": [
+        "Incus.l"
+      ],
+      "classification": "marker",
+      "id": "incus.l-010",
+      "index": 10
+    },
+    {
+      "label": "Mastoid border of occipital bone",
+      "source_object": "Mastoid border of occipital bone.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.049874,
+        0.031714,
+        1.560278
+      ],
+      "anchor_relative": [
+        0.002789,
+        0.024509,
+        -0.022407
+      ],
+      "linked_targets": [
+        "Incus.l"
+      ],
+      "classification": "marker",
+      "id": "incus.l-011",
+      "index": 11
+    },
+    {
+      "label": "Scaphoid fossa",
+      "source_object": "Scaphoid fossa.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.019504,
+        -0.015142,
+        1.570637
+      ],
+      "anchor_relative": [
+        -0.027581,
+        -0.022347,
+        -0.012048
+      ],
+      "linked_targets": [
+        "Incus.l"
+      ],
+      "classification": "marker",
+      "id": "incus.l-012",
+      "index": 12
+    },
+    {
+      "label": "Pterygoid canal",
+      "source_object": "Pterygoid canal.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.014433,
+        -0.005442,
+        1.57829
+      ],
+      "anchor_relative": [
+        -0.032652,
+        -0.012647,
+        -0.004395
+      ],
+      "linked_targets": [
+        "Incus.l"
+      ],
+      "classification": "marker",
+      "id": "incus.l-013",
+      "index": 13
+    },
+    {
+      "label": "Pterygospinous process",
+      "source_object": "Pterygospinous process.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.033339,
+        -0.014869,
+        1.561678
+      ],
+      "anchor_relative": [
+        -0.013745,
+        -0.022074,
+        -0.021008
+      ],
+      "linked_targets": [
+        "Incus.l"
+      ],
+      "classification": "marker",
+      "id": "incus.l-014",
+      "index": 14
+    },
+    {
+      "label": "Carotid sulcus",
+      "source_object": "Carotid sulcus.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.001415,
+        -0.008921,
+        1.589482
+      ],
+      "anchor_relative": [
+        -0.04567,
+        -0.016126,
+        0.006797
+      ],
+      "linked_targets": [
+        "Incus.l"
+      ],
+      "classification": "marker",
+      "id": "incus.l-015",
+      "index": 15
+    },
+    {
+      "label": "Posterior clinoid process",
+      "source_object": "Posterior clinoid process.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.007865,
+        -0.000555,
+        1.606884
+      ],
+      "anchor_relative": [
+        -0.03922,
+        -0.00776,
+        0.024199
+      ],
+      "linked_targets": [
+        "Incus.l"
+      ],
+      "classification": "marker",
+      "id": "incus.l-016",
+      "index": 16
+    },
+    {
+      "label": "Anterior clinoid process",
+      "source_object": "Anterior clinoid process.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.01389,
+        -0.015917,
+        1.610666
+      ],
+      "anchor_relative": [
+        -0.033195,
+        -0.023121,
+        0.027981
+      ],
+      "linked_targets": [
+        "Incus.l"
+      ],
+      "classification": "marker",
+      "id": "incus.l-017",
+      "index": 17
+    },
+    {
+      "label": "Foramen ovale",
+      "source_object": "Foramen ovale.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.024024,
+        -0.012247,
+        1.584419
+      ],
+      "anchor_relative": [
+        -0.023061,
+        -0.019452,
+        0.001734
+      ],
+      "linked_targets": [
+        "Incus.l"
+      ],
+      "classification": "marker",
+      "id": "incus.l-018",
+      "index": 18
+    },
+    {
+      "label": "Foramen spinosum",
+      "source_object": "Foramen spinosum.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.030195,
+        -0.006838,
+        1.58163
+      ],
+      "anchor_relative": [
+        -0.01689,
+        -0.014043,
+        -0.001055
+      ],
+      "linked_targets": [
+        "Incus.l"
+      ],
+      "classification": "marker",
+      "id": "incus.l-019",
+      "index": 19
+    },
+    {
+      "label": "Spine of sphenoid bone",
+      "source_object": "Spine of sphenoid bone.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.031428,
+        -0.001626,
+        1.563606
+      ],
+      "anchor_relative": [
+        -0.015657,
+        -0.008831,
+        -0.019079
+      ],
+      "linked_targets": [
+        "Incus.l"
+      ],
+      "classification": "marker",
+      "id": "incus.l-020",
+      "index": 20
+    },
+    {
+      "label": "Squamosal margin of greater wing",
+      "source_object": "Squamosal margin of greater wing.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.058416,
+        -0.030589,
+        1.58764
+      ],
+      "anchor_relative": [
+        0.011331,
+        -0.037794,
+        0.004954
+      ],
+      "linked_targets": [
+        "Incus.l"
+      ],
+      "classification": "marker",
+      "id": "incus.l-021",
+      "index": 21
+    },
+    {
+      "label": "Sulcus of auditory tube",
+      "source_object": "Sulcus of auditory tube.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.023443,
+        0.004878,
+        1.574201
+      ],
+      "anchor_relative": [
+        -0.023642,
+        -0.002327,
+        -0.008484
+      ],
+      "linked_targets": [
+        "Incus.l"
+      ],
+      "classification": "marker",
+      "id": "incus.l-022",
+      "index": 22
+    },
+    {
+      "label": "Auditory ossicles",
+      "source_object": "Auditory ossicles.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.092593,
+        0.004755,
+        1.582167
+      ],
+      "anchor_relative": [
+        0.045508,
+        -0.00245,
+        -0.000518
+      ],
+      "linked_targets": [
+        "Incus.l"
+      ],
+      "classification": "marker",
+      "id": "incus.l-023",
+      "index": 23
+    }
+  ],
+  "mesh_metadata": {
+    "Incus.l": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    }
+  }
+}

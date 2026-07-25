@@ -1,0 +1,143 @@
+\chapter{Evaluation Methodology}
+\label{chap:evaluation}
+
+The project did not produce one neat, final experiment. Its evidence accumulated while the system was still changing: a formative workbook captured early weaknesses, a larger English run recorded the broadest set of outcomes, a small German set exposed several concrete failures, and an earlier model comparison used conditions that were not fully aligned. Rather than combine these records into a single headline score, I separate them according to the question each one can reasonably answer. The same rule is applied to work that was planned but not completed. A dense-versus-hybrid ablation, an expert figure-relevance study, and the MCP runtime comparison are described as missing experiments, not reconstructed after the fact.
+
+\section{Evaluation Design and Units of Analysis}
+\label{sec:evaluation-design}
+
+RAG and MCP were treated as different technical objects because their failure chains are different. A document request may fail before generation, retrieve the wrong passage, use evidence poorly, or attach an unsuitable source or image. A 3D request must first resolve a structure, then call a tool, create files, publish URLs, and load the model. A single combined score would conceal which of these stages failed.
+
+For the RAG path, I kept three denominators visible. Request reliability covers every submitted question, including timeouts and HTTP errors. Retrieval analysis is possible only when the response contains a usable passage list. Answer and boundary behaviour is then examined from the retained classifications and selected manual cases. This choice matters for the four failed English requests: they count against operational reliability, but they cannot contribute to a ranking metric because no complete result was returned.
+
+\section{Evaluation Runs and Evidence Hierarchy}
+\label{sec:evaluation-runs}
+
+Five records were available. Their roles are shown in \cref{tab:evaluation-run-register}; only P1 was used as the main quantitative run.
+
+\begin{table}[htbp]
+  \centering
+  \caption{Evaluation runs used in this thesis.}
+  \label{tab:evaluation-run-register}
+  \small
+  \begin{tabularx}{\textwidth}{L{0.13\textwidth}L{0.18\textwidth}L{0.19\textwidth}Y}
+    \toprule
+    Run & Dataset & Role in thesis & Evidential status \\
+    \midrule
+    F1 & 15 English questions & Formative manual rubric & Used to identify quotation, typo, citation, and boundary weaknesses; not a frozen final-system result. \\
+    P1 & 55 English questions, 12 July 2026 & Primary RAG run & Main quantitative evidence; 51 usable responses and four infrastructure failures. Configuration was only partially archived. \\
+    D1 & Nine German questions & Diagnostic anatomy and language check & Seven substantive responses, one HTTP 500, and one timeout; used for failure analysis rather than aggregate performance. \\
+    M1 & Earlier Qwen, Gemma, and document-grounded comparison & Exploratory model comparison & Conditions were not sufficiently controlled for causal model claims. \\
+    MCP-P & Planned MCP worksheet & Design protocol only & No completed result rows; used to define future verification requirements, not as empirical evidence. \\
+    \bottomrule
+  \end{tabularx}
+\end{table}
+
+P1 was chosen because it is the largest record and preserves raw responses, outcome labels, and automatic retrieval summaries. Even so, it is not a fully frozen experiment. The evaluated commit, corpus manifest, prompt revision, complete dependency state, model quantisation, hardware, and route trace were not archived together. The analysis can reconstruct the scoring procedure, but an exact rerun would require information that was not preserved.
+
+The remaining records are used more narrowly. F1 explains why quotation handling, typo recovery, citation filtering, and boundary control became design concerns. D1 provides concrete language, infrastructure, and anatomy failure cases. M1 suggests that the model and the surrounding pipeline both influenced the answers, but the conditions are too different for a causal model ranking. I did not pool any of these datasets with P1.
+
+\section{Primary English RAG Dataset}
+\label{sec:rag-dataset}
+
+P1 contains 55 questions: 15 direct factual items, 10 complex or multi-part items, 10 figure-related items, five quotation requests, 10 boundary or off-topic questions, and five robustness variants. The purpose was coverage of known risks, not estimation of performance across anatomy in general.
+
+Each category stresses a different part of the application. Direct and complex questions ask whether the corpus contains usable textual support. Figure questions exercise the image-return path. Quotation requests require exact wording rather than a plausible paraphrase. Boundary cases include unsupported topics, false premises, and off-topic requests. The robustness set changes wording or introduces typographical variation.
+
+Boundary cases could not be scored through a single refusal rule. A false premise may call for correction, whereas an unsupported document question may require an explicit limitation. I retained the workbook label for traceability, but I also inspected the raw response when the expected behaviour was ambiguous. That decision is important because one of the preliminary labels did not fit the recorded answer cleanly.
+
+\section{Execution Procedure and Recorded Configuration}
+\label{sec:rag-procedure}
+
+Each P1 question was submitted to \codepath{POST /rag/ask}. The run register identifies \codepath{qwen3.5-9b-deepseek-v4-flash} in LM Studio through its local OpenAI-compatible endpoint. It also records \codepath{allow_world_knowledge=false}. Later repository inspection showed that the production \codepath{AskRequest} schema accepted only \codepath{question}; the additional field therefore could not influence the active backend route. I kept that mismatch in the analysis because it explains part of the observed world-knowledge leakage.
+
+\subsection{Primary P1 configuration}
+\label{subsec:p1-configuration}
+
+P1 is defined as a hybrid-preferred production run of \codepath{/rag/ask} evaluated after commit \texttt{5089fcc} (12~July~2026), when \codepath{HybridRetriever} was connected to \codepath{MultimodalRAG}. Dense similarity search remained available only as a fallback if hybrid construction or search failed. No selectable dense/BM25/hybrid evaluation mode existed, the exact per-request retrieval mode was not recorded in \codepath{eval/rag_eval_55_results.json}, and no matched dense-only versus hybrid ablation was completed. Hybrid superiority is therefore outside the scope of P1.
+
+An earlier dense-only snapshot (\texttt{cb041d5}, 27~June~2026) used up to 24 candidates and a hard three-passage cap. That design is retained as historical context in \cref{chap:evolution}. The July responses instead show a mean of 5.16 sources and a distribution consistent with question-type-dependent caps of approximately four to eight. I use the saved metadata as the empirical record rather than trimming responses to match the earlier design.
+
+\section{Request Reliability and Outcome Classification}
+\label{sec:reliability-method}
+
+Request completion was calculated as
+\[
+\operatorname{CompletionRate}=\frac{\text{requests with a usable response}}{\text{administered requests}}.
+\]
+Timeouts and HTTP failures remain in the denominator because they affect whether the prototype can be used at all. For completed requests, the workbook classified the main basis of the answer as corpus-derived, world knowledge, or abstention. These labels are judgements about the retained outputs. They are not claim-level demonstrations of faithfulness. Source-object presence was recorded separately for the same reason: an attached passage can be topically related without supporting the answer.
+
+\section{Automatic Retrieval-Proxy Analysis}
+\label{sec:retrieval-proxy-method}
+
+No expert-labelled passage set was available. The retained analysis therefore used an automatic proxy. For each non-boundary question, the question and expected key points were combined into a reference representation, encoded with \codepath{all-MiniLM-L6-v2}, and compared with the returned passages. A cosine similarity of at least 0.38 marked a passage as proxy-relevant. The threshold comes from \codepath{scripts/retrieval_metrics.py}; I found no calibration set or sensitivity analysis that would justify it as a domain-specific cut-off.
+
+For question $q$, let $D_q^{(k)}$ denote the first $k$ returned passages and let $R_q$ denote the passages marked relevant by the proxy. The reported automatic measures are:
+\begin{align*}
+\operatorname{Precision@}k&=\frac{|D_q^{(k)}\cap R_q|}{k},
+\qquad
+\operatorname{Recall@}k=\frac{|D_q^{(k)}\cap R_q|}{|R_q|},
+\end{align*}
+together with Precision@1, Precision@3, Recall@1, Recall@3, MRR (reciprocal rank of the first proxy-relevant passage; zero if none), nDCG@3 \parencite{jarvelin2002}, and source overlap between proxy-relevant keys in the top-3 and all returned proxy-relevant passages. The principal macro-average covers 43 non-boundary questions. A second summary includes all 51 completed responses to show how boundary cases change the aggregate. Request-completion rate uses all 55 administered questions in the denominator; infrastructure failures remain excluded from retrieval macros but retained in reliability reporting.
+
+These measures describe rank order under one consistent automatic embedding-similarity rule. Their limitations are substantial. A MiniLM-family representation influenced both the retrieval environment and the evaluation, so the two stages may favour similar semantic patterns. The binary threshold also turns a continuous similarity score into a relevance judgement without expert calibration. I therefore report the proxy values as early ranking evidence, not as anatomy-expert relevance, faithfulness, or answer-correctness scores.
+
+\section{Answer, Grounding, Citation, and Anatomy Review}
+\label{sec:answer-review-method}
+
+P1 did not preserve a complete claim-level annotation. As a result, it cannot support aggregate percentages for correctness, completeness, faithfulness, hallucination, citation correctness, citation completeness, or exact-quotation accuracy. I used the evidence that was actually available:
+
+\begin{enumerate}
+  \item the corpus/world-knowledge/abstention classification;
+  \item the presence of retrieved passages and source objects;
+  \item manual inspection of selected boundary and quotation cases; and
+  \item anatomy-focused inspection of the German diagnostic responses.
+\end{enumerate}
+
+This material is sufficient to identify specific errors and inconsistencies, but not to estimate overall anatomical accuracy. I also kept source presence separate from citation quality. A stronger citation study would segment each answer into substantive claims, check whether the attached passage supports each claim, verify that evidence-requiring claims are cited, and compare any quoted wording with the source \parencite{gao2023alce}.
+
+\section{Multimodal Figure Assessment}
+\label{sec:image-evaluation-method}
+
+Only one figure measure was complete: whether a figure-related request returned at least one image object. Ten questions were available. The saved records do not include expert Top-1 relevance, Precision@$k$, image--answer consistency, duplicate rate, broken-link rate, or source-page verification. Observations of irrelevant images from development are therefore reported qualitatively rather than converted into a percentage.
+
+This measure tests whether the image path was integrated into the response. It says little about whether the image was useful. CLIP offers a practical route from text to image retrieval, but a general-domain representation can miss fine anatomical distinctions and small labels \parencite{radford2021,wang2022medclip}. Availability and relevance are consequently reported as separate outcomes.
+
+\section{German Diagnostic Set and Formative Comparisons}
+\label{sec:diagnostic-method}
+
+The German diagnostic set contains nine requests. Seven produced substantive responses, one returned HTTP 500, and one timed out. I reviewed the retained outputs for boundary behaviour, terminology, and clear anatomy errors. One extraocular-muscle response assigned the oblique muscles to the wrong cranial nerves; this was checked against an external anatomy source \parencite{purves2001extraocular}. With only nine questions and limited annotation, the set is used to document failure modes rather than to estimate accuracy.
+
+F1 and M1 serve a similar historical purpose. F1 recorded 10 passes, two passes with caveats, one item requiring review, and two failures. M1 is an earlier formative model comparison (run identifier M1 in \cref{tab:evaluation-run-register}) that reported mean human-rubric scores of 2.56 for Qwen, 5.56 for Gemma, and 8.89 for a ChatGPT/document-grounded baseline. Those means come from the workbook summarised in \codepath{project_resources/EVALUATION_DATA_SUMMARY.md}. The project's standing human dimensions are scored on a 1--5 scale per criterion (accuracy, completeness, relevance, and related grounding or citation checks). The archived M1 summary retains the three means but not a frozen per-criterion weight table or an explicit theoretical maximum alongside them, so the numbers are treated only as exploratory relative ranks under unmatched corpus, prompt, and pipeline conditions---not as percentages and not as final model rankings. Because those conditions were not held constant, M1 is not pooled with P1.
+
+\section{MCP Verification Method and Empirical Boundary}
+\label{sec:mcp-evaluation-method}
+
+The MCP design uses an observable definition of export success. A request should resolve to a catalogue entry, invoke an MCP tool, return structured status, produce a non-empty GLB and valid annotation data, expose an accessible model URL, and load in the viewer. A natural-language statement of success is not sufficient.
+
+The planned test set covered exact labels, aliases, laterality, ambiguous and nonexistent structures, missing Blender or catalogue files, timeouts, invalid artefacts, repeated cache requests, and concurrent calls. Proposed measures included catalogue accuracy, tool-execution rate, export validity, viewer-load rate, unverifiable-success rate, safe-failure rate, and cold-versus-cached latency. The worksheet contains no completed result rows. Chapter~7 therefore treats the verification contract as an implementation contribution and reports no runtime effectiveness or comparison with prompt-only and direct-function alternatives.
+
+\section{Analysis and Reporting Rules}
+\label{sec:analysis-rules}
+
+Proportions are reported with their numerators and denominators. Infrastructure failures are not removed from the reliability results. Retrieval proxies are rounded to two decimal places. I did not calculate significance tests or confidence intervals because the question sets were purposefully constructed, small, and not sampled from a defined population. Qualitative cases explain mechanisms; they are not used to estimate prevalence.
+
+Three boundaries are maintained in the interpretation. Embedding similarity is a ranking proxy, not a measure of medical confidence. Agreement with an uploaded document is different from independent anatomical validation. Producing or loading an artefact is also different from improving a learner's outcome. These distinctions keep the conclusions within the evidence that was actually collected.
+
+\section{Threats to Validity}
+\label{sec:evaluation-threats}
+
+\paragraph{Internal validity.}
+The primary run was not tied to one complete frozen environment, and the exact per-request retrieval mode was not logged even though the hybrid-preferred path was the production default after \texttt{5089fcc}. The existing records cannot isolate the causal effect of retrieval mode, prompting, model state, or other runtime changes.
+
+\paragraph{Construct validity.}
+Embedding similarity supplied the passage labels. Source presence, image availability, and structured status then acted as proxies for richer constructs such as citation support, visual relevance, and artefact correctness. These operationalisations are useful for diagnosis but narrower than the concepts they represent.
+
+\paragraph{Annotation validity.}
+Boundary items required different expected behaviours, and at least one workbook label needed reinspection. No second independent rater or inter-rater agreement measure was available. The manual findings should therefore be read as case evidence rather than calibrated annotations.
+
+\paragraph{External validity.}
+The evidence comes from one limited corpus, 55 English questions, nine German questions, one recorded local model configuration, and no completed MCP result set. Other anatomy domains, scanned documents, languages, models, and hardware may behave differently.
+
+\paragraph{Reproducibility.}
+Corpus hashes, prompt revision, model quantisation, hardware details, route traces, and the evaluated commit were not archived together. \Cref{app:reproducibility} separates the configuration that can be reconstructed from information that remains unavailable.
