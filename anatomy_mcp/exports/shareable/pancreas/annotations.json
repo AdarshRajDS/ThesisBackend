@@ -1,0 +1,315 @@
+{
+  "part_label": "Pancreas",
+  "selected_objects": [
+    "Pancreas"
+  ],
+  "annotation_strategy": "scene_graph+annotation_scan",
+  "annotations": [
+    {
+      "label": "Omental eminence",
+      "source_object": "Omental eminence.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.007511,
+        -0.05089,
+        1.134678
+      ],
+      "anchor_relative": [
+        -0.006093,
+        -0.029338,
+        0.018675
+      ],
+      "linked_targets": [
+        "Pancreas"
+      ],
+      "classification": "marker",
+      "id": "pancreas-001",
+      "index": 1
+    },
+    {
+      "label": "Body of pancreas",
+      "source_object": "Body of pancreas.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.002679,
+        -0.054532,
+        1.126697
+      ],
+      "anchor_relative": [
+        -0.010925,
+        -0.032979,
+        0.010694
+      ],
+      "linked_targets": [
+        "Pancreas"
+      ],
+      "classification": "marker",
+      "id": "pancreas-002",
+      "index": 2
+    },
+    {
+      "label": "Pancreas",
+      "source_object": "Pancreas.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.005154,
+        -0.031344,
+        1.149256
+      ],
+      "anchor_relative": [
+        -0.018758,
+        -0.009792,
+        0.033253
+      ],
+      "linked_targets": [
+        "Pancreas"
+      ],
+      "classification": "marker",
+      "id": "pancreas-003",
+      "index": 3
+    },
+    {
+      "label": "Antero-inferior surface of pancreas",
+      "source_object": "Antero-inferior surface of pancreas.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.017709,
+        -0.055973,
+        1.114349
+      ],
+      "anchor_relative": [
+        0.004106,
+        -0.03442,
+        -0.001654
+      ],
+      "linked_targets": [
+        "Pancreas"
+      ],
+      "classification": "marker",
+      "id": "pancreas-004",
+      "index": 4
+    },
+    {
+      "label": "Head of pancreas",
+      "source_object": "Head of pancreas.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.031588,
+        -0.050493,
+        1.103195
+      ],
+      "anchor_relative": [
+        -0.045191,
+        -0.028941,
+        -0.012808
+      ],
+      "linked_targets": [
+        "Pancreas"
+      ],
+      "classification": "marker",
+      "id": "pancreas-005",
+      "index": 5
+    },
+    {
+      "label": "Anterior border of pancreas",
+      "source_object": "Anterior border of pancreas.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.016919,
+        -0.052207,
+        1.129758
+      ],
+      "anchor_relative": [
+        0.003315,
+        -0.030654,
+        0.013755
+      ],
+      "linked_targets": [
+        "Pancreas"
+      ],
+      "classification": "marker",
+      "id": "pancreas-006",
+      "index": 6
+    },
+    {
+      "label": "Anterosuperior surface of pancreas",
+      "source_object": "Anterosuperior surface of pancreas.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.015535,
+        -0.045724,
+        1.14551
+      ],
+      "anchor_relative": [
+        0.001931,
+        -0.024172,
+        0.029507
+      ],
+      "linked_targets": [
+        "Pancreas"
+      ],
+      "classification": "marker",
+      "id": "pancreas-007",
+      "index": 7
+    },
+    {
+      "label": "Neck of pancreas",
+      "source_object": "Neck of pancreas.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.010028,
+        -0.037287,
+        1.141774
+      ],
+      "anchor_relative": [
+        -0.023632,
+        -0.015734,
+        0.025771
+      ],
+      "linked_targets": [
+        "Pancreas"
+      ],
+      "classification": "marker",
+      "id": "pancreas-008",
+      "index": 8
+    },
+    {
+      "label": "Superior border of pancreas",
+      "source_object": "Superior border of pancreas.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.026023,
+        -0.021359,
+        1.146971
+      ],
+      "anchor_relative": [
+        0.012419,
+        0.000194,
+        0.030968
+      ],
+      "linked_targets": [
+        "Pancreas"
+      ],
+      "classification": "marker",
+      "id": "pancreas-009",
+      "index": 9
+    },
+    {
+      "label": "Inferior border of pancreas",
+      "source_object": "Inferior border of pancreas.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.037059,
+        -0.020165,
+        1.119607
+      ],
+      "anchor_relative": [
+        0.023456,
+        0.001388,
+        0.003604
+      ],
+      "linked_targets": [
+        "Pancreas"
+      ],
+      "classification": "marker",
+      "id": "pancreas-010",
+      "index": 10
+    },
+    {
+      "label": "Uncinate process of pancreas",
+      "source_object": "Uncinate process of pancreas.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.005193,
+        -0.017878,
+        1.093545
+      ],
+      "anchor_relative": [
+        -0.018797,
+        0.003675,
+        -0.022458
+      ],
+      "linked_targets": [
+        "Pancreas"
+      ],
+      "classification": "marker",
+      "id": "pancreas-011",
+      "index": 11
+    },
+    {
+      "label": "Pancreatic notch",
+      "source_object": "Pancreatic notch.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.005043,
+        -0.037216,
+        1.102618
+      ],
+      "anchor_relative": [
+        -0.018646,
+        -0.015663,
+        -0.013385
+      ],
+      "linked_targets": [
+        "Pancreas"
+      ],
+      "classification": "marker",
+      "id": "pancreas-012",
+      "index": 12
+    },
+    {
+      "label": "Posterior surface of pancreas",
+      "source_object": "Posterior surface of pancreas.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.012741,
+        -0.004216,
+        1.128048
+      ],
+      "anchor_relative": [
+        -0.000863,
+        0.017336,
+        0.012045
+      ],
+      "linked_targets": [
+        "Pancreas"
+      ],
+      "classification": "marker",
+      "id": "pancreas-013",
+      "index": 13
+    },
+    {
+      "label": "Tail of pancreas",
+      "source_object": "Tail of pancreas.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.076353,
+        -0.003796,
+        1.147059
+      ],
+      "anchor_relative": [
+        0.062749,
+        0.017756,
+        0.031056
+      ],
+      "linked_targets": [
+        "Pancreas"
+      ],
+      "classification": "marker",
+      "id": "pancreas-014",
+      "index": 14
+    }
+  ],
+  "mesh_metadata": {
+    "Pancreas": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    }
+  }
+}

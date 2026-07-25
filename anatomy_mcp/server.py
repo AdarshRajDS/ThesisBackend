@@ -23,6 +23,7 @@ from query_validation import (
     catalog_query_from_user_message,
     is_vague_part_query,
 )
+from export_html_page import attach_html_page_to_response
 
 # Only one Blender job at a time — parallel exports corrupt each other on Windows.
 _BLENDER_EXPORT_LOCK = threading.RLock()
@@ -62,21 +63,39 @@ SYNONYMS = {
     "brainstem": ["brainstem", "brain_stem", "truncus_encephali"],
     "brain stem": ["brainstem", "brain_stem", "truncus_encephali"],
     "liver": ["liver", "hepar"],
+    "leber": ["liver", "hepar"],
     "heart": ["heart", "cor"],
+    "herz": ["heart", "cor"],
     "kidney": ["kidney", "renal", "ren"],
-    "left kidney": ["left_kidney", "kidney_left", "left_renal"],
-    "right kidney": ["right_kidney", "kidney_right", "right_renal"],
+    "niere": ["kidney", "renal", "ren"],
+    "left kidney": ["left_kidney", "kidney_left", "left_renal", "kidney_l"],
+    "right kidney": ["right_kidney", "kidney_right", "right_renal", "kidney_r"],
+    "linke niere": ["kidney_l", "left_kidney"],
+    "rechte niere": ["kidney_r", "right_kidney"],
     "stomach": ["stomach", "gaster"],
+    "magen": ["stomach", "gaster"],
     "pancreas": ["pancreas"],
+    "pankreas": ["pancreas"],
     "spinal cord": ["spinal_cord", "medulla_spinalis"],
+    "rueckenmark": ["spinal_cord", "medulla_spinalis"],
     "skull": ["skull", "cranium"],
+    "schaedel": ["skull", "cranium"],
     "femur": ["femur", "thigh_bone"],
+    "oberschenkel": ["femur", "thigh_bone"],
     "hip": ["hip", "hip_bone", "coxal"],
+    "huefte": ["hip", "hip_bone", "coxal"],
     "left hip": ["hip_bone_l", "hip_region_l", "hip_bone.l", "hip_region.l"],
     "right hip": ["hip_bone_r", "hip_region_r", "hip_bone.r", "hip_region.r"],
+    "nebenniere": ["suprarenal_gland_l", "suprarenal_gland"],
+    "kniegelenk": ["knee_joint"],
+    "sprunggelenk": ["ankle_joint"],
+    "nervus facialis": ["facial_nerve_vii"],
+    "incus": ["incus_l", "incus"],
+    "amboss": ["incus_l", "incus"],
 }
 
-QUERY_PATTERN = re.compile(r"^[A-Za-z0-9 ._-]+$")
+# Allow German letters/umlauts; catalog matching folds them to ASCII.
+QUERY_PATTERN = re.compile(r"^[A-Za-zÀ-ÿ0-9 ._()/-]+$")
 NORMALIZE_PATTERN = re.compile(r"[^a-z0-9_]+")
 SEPARATOR_PATTERN = re.compile(r"_+")
 
@@ -1012,6 +1031,11 @@ def export_anatomy_part(
                 "timings": load_timing_sidecar(cached_timings),
                 "cache_hit": True,
             }
+            attach_html_page_to_response(
+                response,
+                model_path=cached_glb,
+                annotations_path=cached_annotations,
+            )
             append_log(
                 {
                     "timestamp": timestamp,
@@ -1233,6 +1257,11 @@ def export_anatomy_part(
         annotations_path,
         preview_path if include_preview else None,
         timings_path,
+    )
+    attach_html_page_to_response(
+        response,
+        model_path=cached_glb or glb_path,
+        annotations_path=cached_annotations or annotations_path,
     )
 
     append_log(

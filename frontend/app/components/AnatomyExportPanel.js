@@ -76,6 +76,33 @@ export default function AnatomyExportPanel({
         ) : (
           <span className="anatomy-export__missing">{t(language, "noViewer")}</span>
         )}
+        {exportData.html_url ? (
+          <a
+            className="anatomy-export__btn anatomy-export__btn--primary"
+            href={exportData.html_url}
+            download={`${(exportData.part_label || "anatomy").replace(/[^\w.-]+/g, "_")}.html`}
+            title={t(language, "openHtmlPage")}
+          >
+            <Download size={14} />
+            {t(language, "htmlPage")}
+          </a>
+        ) : null}
+        {exportData.html_zip_url ? (
+          <a
+            className="anatomy-export__btn anatomy-export__btn--primary"
+            href={exportData.html_zip_url}
+            download={`${(exportData.part_label || "anatomy").replace(/[^\w.-]+/g, "_")}_viewer.zip`}
+            title={t(language, "openHtmlZip")}
+          >
+            <Download size={14} />
+            {t(language, "htmlZip")}
+          </a>
+        ) : null}
+        {exportData.html_package_dir || exportData.html_path ? (
+          <p className="anatomy-export__hint" title={exportData.html_package_dir || exportData.html_path}>
+            {t(language, "htmlSavedAt")}: {exportData.html_package_dir || exportData.html_path}
+          </p>
+        ) : null}
         {exportData.model_url ? (
           <a
             className="anatomy-export__btn"

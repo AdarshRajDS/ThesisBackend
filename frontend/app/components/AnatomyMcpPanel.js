@@ -12,6 +12,11 @@ function isVerboseLlmDump(text) {
   return text.length > 120 && /anatomy-exports/i.test(text);
 }
 
+/**
+ * 3D Anatomy MCP panel — all Blender/catalog work goes through POST /anatomy/ask.
+ * Exact catalog hits short-circuit without an LLM round; otherwise LM Studio
+ * drives MCP tools (search / suggest / export).
+ */
 export default function AnatomyMcpPanel({ apiBase, language = "en" }) {
   const [message, setMessage] = useState("");
   const [status, setStatus] = useState("");
@@ -25,38 +30,100 @@ export default function AnatomyMcpPanel({ apiBase, language = "en" }) {
 
   const base = (apiBase || "").replace(/\/+$/, "");
 
-  const exportLabel = useCallback(
-    async (label) => {
-      const part = (label || "").trim();
-      if (!part) return;
+  const askMcp = useCallback(
+    async (rawText, { keepMessage = true } = {}) => {
+      const text = (rawText || "").trim();
+      if (!text) {
+        setStatus(t(language, "mcpEnterStructure"));
+        return;
+      }
 
       setBusy(true);
-      setStatus(t(language, "mcpExportingLabel", { label: part }));
+      setStatus(t(language, "mcpRunning"));
       setErrorMessage("");
+      setExportData(null);
+      setMcpToolsUsed([]);
+      setCatalogInfo(null);
+      setCatalogSuggestions([]);
+      setSuggestionLabels([]);
+      if (keepMessage) setMessage(text);
 
       try {
-        const res = await fetch(`${base}/anatomy/export/direct`, {
+        const res = await fetch(`${base}/anatomy/ask`, {
           method: "POST",
           headers: { "Content-Type": "application/json" },
-          body: JSON.stringify({ part_query: part, include_preview: true }),
+          body: JSON.stringify({ message: text, language }),
         });
-        const data = await res.json();
-        setExportData(normalizeAnatomyUrls(data, base));
-        setMcpToolsUsed(["export/direct"]);
+        let data = {};
+        const raw = await res.text();
+        try {
+          data = raw ? JSON.parse(raw) : {};
+        } catch {
+          data = { answer: raw };
+        }
+        if (!res.ok) {
+          const detail =
+            typeof data.detail === "string"
+              ? data.detail
+              : Array.isArray(data.detail)
+                ? data.detail.map((d) => d.msg || JSON.stringify(d)).join("; ")
+                : `HTTP ${res.status}`;
+          throw new Error(
+            res.status === 404
+              ? `${detail} ${t(language, "mcpRestartHint")}`
+              : detail
+          );
+        }
 
-        if (data.status === "ok") {
+        const exportPayload = resolveExportPayload(
+          data.anatomy_export,
+          data.answer,
+          text,
+          base
+        );
+        const exportOk = exportPayload?.status === "ok";
+
+        setExportData(exportPayload ? normalizeAnatomyUrls(exportPayload, base) : null);
+        setMcpToolsUsed(data.mcp_tools_used || []);
+        setCatalogInfo(data.catalog_info || null);
+        setCatalogSuggestions(
+          data.catalog_suggestions || exportPayload?.suggestions || []
+        );
+        setSuggestionLabels(
+          data.suggestion_labels ||
+            exportPayload?.suggestion_labels ||
+            exportPayload?.matches ||
+            []
+        );
+        setStatus("");
+
+        if (exportOk) {
           setErrorMessage("");
-          setStatus("");
-          setMessage(part);
+        } else if (exportPayload?.status === "error") {
+          setErrorMessage(
+            exportPayload.error || data.error || t(language, "mcpNoExport")
+          );
+          if (exportPayload.suggestions?.length) {
+            setCatalogSuggestions(exportPayload.suggestions);
+          }
+          if (exportPayload.suggestion_labels?.length) {
+            setSuggestionLabels(exportPayload.suggestion_labels);
+          }
+        } else if (data.error) {
+          setErrorMessage(data.error);
+        } else if (/exported/i.test(data.answer || "") && !exportOk) {
+          setErrorMessage(t(language, "mcpExportUrlsError"));
+        } else if (isVerboseLlmDump(data.answer)) {
+          setErrorMessage(t(language, "mcpExportUrlsError"));
+        } else if (data.answer) {
+          // LLM/MCP clarification or suggestion text (no successful export yet).
+          setErrorMessage(data.answer);
         } else {
-          setErrorMessage(data.error || t(language, "mcpNoExport"));
-          setCatalogSuggestions(data.suggestions || []);
-          setSuggestionLabels(data.suggestion_labels || data.matches || []);
-          setStatus("");
+          setErrorMessage(t(language, "mcpNoExport"));
         }
       } catch (err) {
-        setErrorMessage(String(err));
         setStatus("");
+        setErrorMessage(String(err));
       } finally {
         setBusy(false);
       }
@@ -64,104 +131,19 @@ export default function AnatomyMcpPanel({ apiBase, language = "en" }) {
     [base, language]
   );
 
-  async function sendToMcp() {
-    const text = message.trim();
-    if (!text) {
-      setStatus(t(language, "mcpEnterStructure"));
-      return;
-    }
+  const onSelectSuggestion = useCallback(
+    (label) => {
+      const part = (label || "").trim();
+      if (!part) return;
+      // Confirmed catalog label still goes through /anatomy/ask (exact-label
+      // short-circuit inside MCP host — no separate /export/direct path).
+      return askMcp(part);
+    },
+    [askMcp]
+  );
 
-    setBusy(true);
-    setStatus(t(language, "mcpRunning"));
-    setErrorMessage("");
-    setExportData(null);
-    setMcpToolsUsed([]);
-    setCatalogInfo(null);
-    setCatalogSuggestions([]);
-    setSuggestionLabels([]);
-
-    try {
-      const res = await fetch(`${base}/anatomy/ask`, {
-        method: "POST",
-        headers: { "Content-Type": "application/json" },
-        body: JSON.stringify({ message: text, language }),
-      });
-      let data = {};
-      const raw = await res.text();
-      try {
-        data = raw ? JSON.parse(raw) : {};
-      } catch {
-        data = { answer: raw };
-      }
-      if (!res.ok) {
-        const detail =
-          typeof data.detail === "string"
-            ? data.detail
-            : Array.isArray(data.detail)
-              ? data.detail.map((d) => d.msg || JSON.stringify(d)).join("; ")
-              : `HTTP ${res.status}`;
-        throw new Error(
-          res.status === 404
-            ? `${detail} ${t(language, "mcpRestartHint")}`
-            : detail
-        );
-      }
-
-      let exportPayload = resolveExportPayload(data.anatomy_export, data.answer, text, base);
-
-      const exportOk = exportPayload?.status === "ok";
-      setExportData(exportPayload);
-      setMcpToolsUsed(data.mcp_tools_used || []);
-      setCatalogInfo(data.catalog_info || null);
-      setCatalogSuggestions(data.catalog_suggestions || exportPayload?.suggestions || []);
-      setSuggestionLabels(
-        data.suggestion_labels ||
-          exportPayload?.suggestion_labels ||
-          exportPayload?.matches ||
-          []
-      );
-      setStatus("");
-
-      if (exportOk) {
-        setErrorMessage("");
-      } else if (exportPayload?.status === "error") {
-        setErrorMessage(exportPayload.error || data.error || t(language, "mcpNoExport"));
-        if (exportPayload.suggestions?.length) {
-          setCatalogSuggestions(exportPayload.suggestions);
-        }
-        if (exportPayload.suggestion_labels?.length) {
-          setSuggestionLabels(exportPayload.suggestion_labels);
-        }
-      } else if (data.error) {
-        setErrorMessage(data.error);
-      } else if (/exported/i.test(data.answer || "") && !exportOk) {
-        setErrorMessage(t(language, "mcpExportUrlsError"));
-      } else if (isVerboseLlmDump(data.answer)) {
-        setErrorMessage(t(language, "mcpExportUrlsError"));
-      } else if (data.answer) {
-        setErrorMessage(data.answer);
-      } else {
-        setErrorMessage(t(language, "mcpNoExport"));
-      }
-
-      if (!exportOk && !(data.catalog_suggestions?.length || data.suggestion_labels?.length)) {
-        const suggestRes = await fetch(
-          `${base}/anatomy/suggest?q=${encodeURIComponent(text)}&limit=8&include_nearby=true`
-        );
-        if (suggestRes.ok) {
-          const suggestData = await suggestRes.json();
-          if (suggestData.suggestions?.length) {
-            setCatalogSuggestions(suggestData.suggestions);
-            setSuggestionLabels(suggestData.suggestion_labels || []);
-          }
-        }
-      }
-    } catch (err) {
-      setStatus("");
-      setErrorMessage(String(err));
-    } finally {
-      setBusy(false);
-    }
+  function sendToMcp() {
+    return askMcp(message);
   }
 
   function clearPanel() {
@@ -239,7 +221,7 @@ export default function AnatomyMcpPanel({ apiBase, language = "en" }) {
 
         {status && <p className="mcp-panel__status">{status}</p>}
 
-        {exportData?.status === "ok" && mcpToolsUsed.length > 0 && (
+        {mcpToolsUsed.length > 0 && (
           <p className="mcp-panel__tools-inline">
             {t(language, "mcpTools")}: {mcpToolsUsed.join(" → ")}
           </p>
@@ -254,7 +236,7 @@ export default function AnatomyMcpPanel({ apiBase, language = "en" }) {
             language={language}
             suggestions={catalogSuggestions}
             suggestionLabels={suggestionLabels}
-            onSelect={exportLabel}
+            onSelect={onSelectSuggestion}
             busy={busy}
           />
         )}
@@ -262,7 +244,7 @@ export default function AnatomyMcpPanel({ apiBase, language = "en" }) {
         <AnatomyExportPanel
           exportData={exportData}
           language={language}
-          onSelectSuggestion={exportLabel}
+          onSelectSuggestion={onSelectSuggestion}
           busy={busy}
         />
 

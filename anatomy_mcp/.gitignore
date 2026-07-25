@@ -23,6 +23,10 @@ exports/**
 !exports/cache/.gitkeep
 !exports/scene_scan/
 !exports/scene_scan/.gitkeep
+!exports/html/
+!exports/html/.gitkeep
+!exports/shareable/
+!exports/shareable/**
 
 # Generated logs
 logs/**

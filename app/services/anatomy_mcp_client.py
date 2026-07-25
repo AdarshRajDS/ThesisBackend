@@ -168,10 +168,48 @@ def finalize_anatomy_export(
             str(model_url),
             str(annotations_url),
         )
+        # Ensure a shareable HTML snapshot exists for this export (same viewer UI).
+        if not finalized.get("html_url"):
+            try:
+                from anatomy_mcp.export_html_page import write_export_html_page
+
+                def _local_from_export_url(url: str):
+                    marker = "/anatomy-exports/"
+                    text = str(url)
+                    if marker not in text:
+                        return None
+                    rel = text.split(marker, 1)[1].split("?", 1)[0]
+                    path = _ANATOMY_MCP_ROOT / "exports" / Path(rel)
+                    return path if path.exists() else None
+
+                model_path = _local_from_export_url(str(model_url))
+                anno_path = _local_from_export_url(str(annotations_url))
+                if model_path and anno_path:
+                    meta = write_export_html_page(
+                        part_label=str(finalized.get("part_label") or "Anatomy"),
+                        model_path=model_path,
+                        annotations_path=anno_path,
+                    )
+                    # html_url is only a convenience download link while the app
+                    # is running; the file itself has no localhost dependencies.
+                    finalized["html_url"] = f"{origin}{meta['html_url']}"
+                    finalized["html_path"] = meta["html_path"]
+                    finalized["html_zip_path"] = meta.get("html_zip_path")
+                    finalized["html_package_dir"] = meta.get("html_package_dir")
+                    if meta.get("html_zip_url"):
+                        finalized["html_zip_url"] = f"{origin}{meta['html_zip_url']}"
+                    finalized["html_portable"] = True
+            except Exception:
+                pass
     elif model_url or annotations_url or finalized.get("preview_url"):
-        for key in ("model_url", "annotations_url", "viewer_url", "preview_url"):
+        for key in ("model_url", "annotations_url", "viewer_url", "html_url", "preview_url"):
             if finalized.get(key):
                 finalized[key] = rewrite_local_urls(finalized[key], origin)
+
+    if finalized.get("html_url") and str(finalized["html_url"]).startswith("/"):
+        finalized["html_url"] = f"{origin}{finalized['html_url']}"
+    elif finalized.get("html_url"):
+        finalized["html_url"] = rewrite_local_urls(finalized["html_url"], origin)
 
     return finalized
 
@@ -605,6 +643,11 @@ def structured_to_anatomy_export(
         "model_url": structured.get("model_url"),
         "annotations_url": structured.get("annotations_url"),
         "viewer_url": structured.get("viewer_url"),
+        "html_url": structured.get("html_url"),
+        "html_path": structured.get("html_path"),
+        "html_zip_url": structured.get("html_zip_url"),
+        "html_zip_path": structured.get("html_zip_path"),
+        "html_package_dir": structured.get("html_package_dir"),
         "preview_url": structured.get("preview_url"),
         "source_blend": structured.get("source_blend"),
         "selected_objects": structured.get("selected_objects"),

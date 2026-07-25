@@ -40,7 +40,10 @@ def _request_origin(request: Request) -> str:
 
 
 def _normalize_query(raw: str) -> str:
-    return extract_part_query(raw) or raw.strip()
+    """Strip command wrappers and translate German anatomy terms to English catalog phrases."""
+    from anatomy_mcp.query_validation import catalog_query_from_user_message
+
+    return catalog_query_from_user_message(raw) or extract_part_query(raw) or raw.strip()
 
 
 def _suggestion_items(rows: list | None) -> list[AnatomySuggestionItem]:

@@ -1,0 +1,46 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>Facial nerve (VII) — Anatomy Viewer</title>
+    <link rel="stylesheet" href="./styles.css">
+    <script type="importmap">
+      {
+        "imports": {
+          "three": "https://cdn.jsdelivr.net/npm/three@0.170.0/build/three.module.js",
+          "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.170.0/examples/jsm/"
+        }
+      }
+    </script>
+    <script>
+      window.ANATOMY_MODEL = "./model.glb";
+      window.ANATOMY_ANNOTATIONS = "./annotations.json";
+      window.ANATOMY_TITLE = "Facial nerve (VII)";
+    </script>
+  </head>
+  <body>
+    <div class="app-shell">
+      <aside class="sidebar">
+        <div class="sidebar__header">
+          <p class="eyebrow">Anatomy Viewer</p>
+          <h1 id="part-title">Facial nerve (VII)</h1>
+          <p class="sidebar__copy">Clean GLB geometry with annotation labels driven by structured JSON.</p>
+        </div>
+        <div class="sidebar__controls">
+          <label class="toggle">
+            <input id="labels-toggle" type="checkbox" checked>
+            <span>Show labels</span>
+          </label>
+        </div>
+        <ol id="annotation-list" class="annotation-list"></ol>
+      </aside>
+      <main class="viewer-stage">
+        <div id="viewer-canvas"></div>
+        <div id="labels-layer" class="labels-layer"></div>
+      </main>
+    </div>
+
+    <script type="module" src="./viewer.cdn.js"></script>
+  </body>
+</html>

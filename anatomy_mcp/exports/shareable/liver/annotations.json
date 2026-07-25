@@ -1,0 +1,966 @@
+{
+  "part_label": "Liver",
+  "selected_objects": [
+    "Liver"
+  ],
+  "annotation_strategy": "scene_graph+annotation_scan",
+  "annotations": [
+    {
+      "label": "Suprarenal impression of liver",
+      "source_object": "Suprarenal impression of liver.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.020056,
+        0.025796,
+        1.182882
+      ],
+      "anchor_relative": [
+        -0.009141,
+        0.048448,
+        0.008784
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-001",
+      "index": 1
+    },
+    {
+      "label": "Right lobe of liver",
+      "source_object": "Right lobe of liver.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.081561,
+        -0.091835,
+        1.219237
+      ],
+      "anchor_relative": [
+        -0.070646,
+        -0.069182,
+        0.045138
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-002",
+      "index": 2
+    },
+    {
+      "label": "Right portal fissure",
+      "source_object": "Right portal fissure.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.04544,
+        -0.086459,
+        1.120196
+      ],
+      "anchor_relative": [
+        -0.034525,
+        -0.063807,
+        -0.053903
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-003",
+      "index": 3
+    },
+    {
+      "label": "Left medial division of liver",
+      "source_object": "Left medial division of liver.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.021146,
+        -0.098526,
+        1.242946
+      ],
+      "anchor_relative": [
+        -0.010231,
+        -0.075874,
+        0.068847
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-004",
+      "index": 4
+    },
+    {
+      "label": "Notch for ligamentum teres",
+      "source_object": "Notch for ligamentum teres.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.001718,
+        -0.086037,
+        1.141355
+      ],
+      "anchor_relative": [
+        0.009197,
+        -0.063385,
+        -0.032744
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-005",
+      "index": 5
+    },
+    {
+      "label": "Anterior surface of liver",
+      "source_object": "Anterior surface of liver.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.046952,
+        -0.111915,
+        1.200881
+      ],
+      "anchor_relative": [
+        -0.036037,
+        -0.089263,
+        0.026782
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-006",
+      "index": 6
+    },
+    {
+      "label": "Omental tuberosity of liver",
+      "source_object": "Omental tuberosity of liver.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.016544,
+        -0.015744,
+        1.191574
+      ],
+      "anchor_relative": [
+        0.027459,
+        0.006908,
+        0.017475
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-007",
+      "index": 7
+    },
+    {
+      "label": "Renal impression of liver",
+      "source_object": "Renal impression of liver.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.051482,
+        0.021281,
+        1.143096
+      ],
+      "anchor_relative": [
+        -0.040567,
+        0.043934,
+        -0.031003
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-008",
+      "index": 8
+    },
+    {
+      "label": "Right part of liver",
+      "source_object": "Right part of liver.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.085923,
+        -0.0889,
+        1.187657
+      ],
+      "anchor_relative": [
+        -0.075009,
+        -0.066248,
+        0.013559
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-009",
+      "index": 9
+    },
+    {
+      "label": "Porta hepatis",
+      "source_object": "Porta hepatis.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.021637,
+        -0.032003,
+        1.151834
+      ],
+      "anchor_relative": [
+        -0.010723,
+        -0.009351,
+        -0.022265
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-010",
+      "index": 10
+    },
+    {
+      "label": "Fissure for ligamentum teres",
+      "source_object": "Fissure for ligamentum teres.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.002073,
+        -0.06796,
+        1.16408
+      ],
+      "anchor_relative": [
+        0.012988,
+        -0.045307,
+        -0.010019
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-011",
+      "index": 11
+    },
+    {
+      "label": "Posterior surface of liver",
+      "source_object": "Posterior surface of liver.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.059053,
+        0.072412,
+        1.191176
+      ],
+      "anchor_relative": [
+        -0.048138,
+        0.095065,
+        0.017077
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-012",
+      "index": 12
+    },
+    {
+      "label": "Posterior medial segment of liver (VIII",
+      "source_object": "Posterior medial segment of liver (VIII).j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.063341,
+        -0.049605,
+        1.261476
+      ],
+      "anchor_relative": [
+        -0.052426,
+        -0.026953,
+        0.087377
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-013",
+      "index": 13
+    },
+    {
+      "label": "Right medial division of liver",
+      "source_object": "Right medial division of liver.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.073528,
+        -0.11029,
+        1.163906
+      ],
+      "anchor_relative": [
+        -0.062614,
+        -0.087638,
+        -0.010193
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-014",
+      "index": 14
+    },
+    {
+      "label": "Left medial segment of liver (IV",
+      "source_object": "Left medial segment of liver (IV).j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.018906,
+        -0.109847,
+        1.173643
+      ],
+      "anchor_relative": [
+        -0.007991,
+        -0.087195,
+        -0.000456
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-015",
+      "index": 15
+    },
+    {
+      "label": "Left posterior lateral segment of liver (II",
+      "source_object": "Left posterior lateral segment of liver (II).j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.106956,
+        0.037333,
+        1.213741
+      ],
+      "anchor_relative": [
+        -0.096042,
+        0.059985,
+        0.039643
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-016",
+      "index": 16
+    },
+    {
+      "label": "Diaphragmatic surface of liver",
+      "source_object": "Diaphragmatic surface of liver.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.048351,
+        -0.040803,
+        1.275017
+      ],
+      "anchor_relative": [
+        -0.037436,
+        -0.018151,
+        0.100919
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-017",
+      "index": 17
+    },
+    {
+      "label": "Cardiac impression of liver",
+      "source_object": "Cardiac impression of liver.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.009481,
+        -0.03931,
+        1.254175
+      ],
+      "anchor_relative": [
+        0.020396,
+        -0.016658,
+        0.080077
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-018",
+      "index": 18
+    },
+    {
+      "label": "Main portal fissure",
+      "source_object": "Main portal fissure.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.010579,
+        0.00512,
+        1.207126
+      ],
+      "anchor_relative": [
+        0.000336,
+        0.027772,
+        0.033027
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-019",
+      "index": 19
+    },
+    {
+      "label": "Quadrate lobe",
+      "source_object": "Quadrate lobe.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.029486,
+        -0.060889,
+        1.150963
+      ],
+      "anchor_relative": [
+        -0.018571,
+        -0.038237,
+        -0.023136
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-020",
+      "index": 20
+    },
+    {
+      "label": "Fibrous appendix of liver",
+      "source_object": "Fibrous appendix of liver.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.106071,
+        -0.043343,
+        1.214663
+      ],
+      "anchor_relative": [
+        0.116986,
+        -0.020691,
+        0.040565
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-021",
+      "index": 21
+    },
+    {
+      "label": "Bare area of liver",
+      "source_object": "Bare area of liver.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.048656,
+        0.013656,
+        1.263735
+      ],
+      "anchor_relative": [
+        -0.037741,
+        0.036308,
+        0.089636
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-022",
+      "index": 22
+    },
+    {
+      "label": "Fossa for gallbladder",
+      "source_object": "Fossa for gallbladder.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.040762,
+        -0.036903,
+        1.146534
+      ],
+      "anchor_relative": [
+        -0.029847,
+        -0.014251,
+        -0.027565
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-023",
+      "index": 23
+    },
+    {
+      "label": "Posterior part of liver",
+      "source_object": "Posterior part of liver.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.000242,
+        -0.00247,
+        1.219213
+      ],
+      "anchor_relative": [
+        0.010673,
+        0.020182,
+        0.045115
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-024",
+      "index": 24
+    },
+    {
+      "label": "Right surface of liver",
+      "source_object": "Right surface of liver.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.129509,
+        -0.014658,
+        1.175137
+      ],
+      "anchor_relative": [
+        -0.118594,
+        0.007994,
+        0.001038
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-025",
+      "index": 25
+    },
+    {
+      "label": "Anterior lateral segment of liver (VI",
+      "source_object": "Anterior lateral segment of liver (VI).j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.129447,
+        -0.003853,
+        1.118161
+      ],
+      "anchor_relative": [
+        -0.118532,
+        0.018799,
+        -0.055937
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-026",
+      "index": 26
+    },
+    {
+      "label": "Inferior border of liver",
+      "source_object": "Inferior border of liver.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.029606,
+        -0.08641,
+        1.113052
+      ],
+      "anchor_relative": [
+        -0.018691,
+        -0.063758,
+        -0.061047
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-027",
+      "index": 27
+    },
+    {
+      "label": "Umbilical fissure",
+      "source_object": "Umbilical fissure.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.011154,
+        -0.004255,
+        1.225916
+      ],
+      "anchor_relative": [
+        0.022069,
+        0.018397,
+        0.051818
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-028",
+      "index": 28
+    },
+    {
+      "label": "Duodenal impression of liver",
+      "source_object": "Duodenal impression of liver.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.061746,
+        -0.054958,
+        1.128685
+      ],
+      "anchor_relative": [
+        -0.050831,
+        -0.032306,
+        -0.045414
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-029",
+      "index": 29
+    },
+    {
+      "label": "Left lateral division of liver",
+      "source_object": "Left lateral division of liver.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.041729,
+        -0.096292,
+        1.23386
+      ],
+      "anchor_relative": [
+        0.052644,
+        -0.07364,
+        0.059762
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-030",
+      "index": 30
+    },
+    {
+      "label": "Left lobe of liver",
+      "source_object": "Left lobe of liver.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.061808,
+        -0.091256,
+        1.228278
+      ],
+      "anchor_relative": [
+        0.072723,
+        -0.068604,
+        0.054179
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-031",
+      "index": 31
+    },
+    {
+      "label": "Visceral surface of liver",
+      "source_object": "Visceral surface of liver.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.051591,
+        -0.021921,
+        1.123685
+      ],
+      "anchor_relative": [
+        -0.040676,
+        0.000731,
+        -0.050414
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-032",
+      "index": 32
+    },
+    {
+      "label": "Oesophageal impression of liver",
+      "source_object": "Oesophageal impression of liver.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.01841,
+        0.00238,
+        1.209216
+      ],
+      "anchor_relative": [
+        0.029325,
+        0.025032,
+        0.035117
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-033",
+      "index": 33
+    },
+    {
+      "label": "Fissure for ligamentum venosum",
+      "source_object": "Fissure for ligamentum venosum.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.007461,
+        -0.010971,
+        1.197776
+      ],
+      "anchor_relative": [
+        0.018376,
+        0.011681,
+        0.023678
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-034",
+      "index": 34
+    },
+    {
+      "label": "Colic impression of liver",
+      "source_object": "Colic impression of liver.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.08401,
+        -0.022301,
+        1.113646
+      ],
+      "anchor_relative": [
+        -0.073095,
+        0.000351,
+        -0.060452
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-035",
+      "index": 35
+    },
+    {
+      "label": "Superior surface of liver",
+      "source_object": "Superior surface of liver.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.071116,
+        -0.027137,
+        1.269152
+      ],
+      "anchor_relative": [
+        -0.060201,
+        -0.004485,
+        0.095054
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-036",
+      "index": 36
+    },
+    {
+      "label": "Right lateral division of liver",
+      "source_object": "Right lateral division of liver.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.113063,
+        -0.007894,
+        1.233016
+      ],
+      "anchor_relative": [
+        -0.102148,
+        0.014759,
+        0.058917
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-037",
+      "index": 37
+    },
+    {
+      "label": "Papillary process",
+      "source_object": "Papillary process.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.00073,
+        -0.014527,
+        1.169622
+      ],
+      "anchor_relative": [
+        0.011645,
+        0.008125,
+        -0.004477
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-038",
+      "index": 38
+    },
+    {
+      "label": "Caudate lobe",
+      "source_object": "Caudate lobe.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.016711,
+        -0.015812,
+        1.165577
+      ],
+      "anchor_relative": [
+        -0.005796,
+        0.00684,
+        -0.008522
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-039",
+      "index": 39
+    },
+    {
+      "label": "Anterior medial segment of liver (V",
+      "source_object": "Anterior medial segment of liver (V).j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.075016,
+        -0.100856,
+        1.153513
+      ],
+      "anchor_relative": [
+        -0.064101,
+        -0.078203,
+        -0.020586
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-040",
+      "index": 40
+    },
+    {
+      "label": "Left part of liver",
+      "source_object": "Left part of liver.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.001718,
+        -0.111303,
+        1.214958
+      ],
+      "anchor_relative": [
+        0.012633,
+        -0.088651,
+        0.040859
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-041",
+      "index": 41
+    },
+    {
+      "label": "Gastric impression of liver",
+      "source_object": "Gastric impression of liver.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.043181,
+        -0.025127,
+        1.219324
+      ],
+      "anchor_relative": [
+        0.054096,
+        -0.002475,
+        0.045225
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-042",
+      "index": 42
+    },
+    {
+      "label": "Posterior segment of liver (I",
+      "source_object": "Posterior segment of liver (I).j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.002519,
+        -0.00518,
+        1.185168
+      ],
+      "anchor_relative": [
+        0.008396,
+        0.017472,
+        0.01107
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-043",
+      "index": 43
+    },
+    {
+      "label": "Left anterior lateral segment of liver (III",
+      "source_object": "Left anterior lateral segment of liver (III).j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.036447,
+        -0.111928,
+        1.177051
+      ],
+      "anchor_relative": [
+        0.047362,
+        -0.089276,
+        0.002952
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-044",
+      "index": 44
+    },
+    {
+      "label": "Extrahepatic bile ducts",
+      "source_object": "Extrahepatic bile ducts.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        -0.014557,
+        0.076057,
+        1.146723
+      ],
+      "anchor_relative": [
+        -0.003642,
+        0.098709,
+        -0.027376
+      ],
+      "linked_targets": [
+        "Liver"
+      ],
+      "classification": "marker",
+      "id": "liver-045",
+      "index": 45
+    }
+  ],
+  "mesh_metadata": {
+    "Liver": {
+      "cross_section": {
+        "Cross-section-X": 1,
+        "Cross-section-Y": 1,
+        "Cross-section-Z": 1,
+        "Cross-section-X-inverse": 0,
+        "Cross-section-Y-inverse": 0,
+        "Cross-section-Z-inverse": 0
+      }
+    }
+  }
+}
