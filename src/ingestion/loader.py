@@ -10,9 +10,18 @@ logger = get_logger(__name__)
 
 class DocumentLoader:
 
-    def load_pdfs(self):
+    def load_pdfs(self, pdf_names: list[str] | None = None):
         data_path = Path(settings.raw_data_dir)
-        pdf_files = list(data_path.glob("*.pdf"))
+        if pdf_names:
+            pdf_files = []
+            for name in pdf_names:
+                candidate = data_path / Path(name).name
+                if candidate.exists():
+                    pdf_files.append(candidate)
+                else:
+                    logger.warning("Requested PDF not found: %s", candidate)
+        else:
+            pdf_files = list(data_path.glob("*.pdf"))
 
         if not pdf_files:
             logger.warning("No PDFs found in data/raw")

@@ -52,7 +52,10 @@ def upload_pdf(file):
         }
     )
 
-    text_result = run_ingestion()
+    # Only process the uploaded file so existing corpus chunks are not duplicated.
+    pdf_names = [file.filename]
+
+    text_result = run_ingestion(pdf_names=pdf_names)
     pipeline.append(
         {
             "step": 3,
@@ -64,7 +67,7 @@ def upload_pdf(file):
         }
     )
 
-    image_result = run_image_extraction()
+    image_result = run_image_extraction(pdf_names=pdf_names)
     stats = (image_result or {}).get("extractor_stats") or {}
 
     uploads_ok = stats.get("uploads_ok", 0)

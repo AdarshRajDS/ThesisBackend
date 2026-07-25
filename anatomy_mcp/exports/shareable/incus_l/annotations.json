@@ -6,18 +6,18 @@
   "annotation_strategy": "scene_graph+annotation_scan",
   "annotations": [
     {
-      "label": "Articular facet for stapes",
-      "source_object": "Articular facet for stapes.i",
+      "label": "Articular facet for malleus",
+      "source_object": "Articular facet for malleus.i",
       "object_type": "MESH",
       "anchor_world": [
-        0.0,
-        -0.000622,
-        -0.023329
+        -0.0,
+        -0.000155,
+        -0.025766
       ],
       "anchor_relative": [
         -0.047085,
-        -0.007827,
-        -1.606014
+        -0.00736,
+        -1.608451
       ],
       "linked_targets": [
         "Incus.l"
@@ -48,48 +48,6 @@
       "index": 2
     },
     {
-      "label": "Lenticular process of incus",
-      "source_object": "Lenticular process of incus.i",
-      "object_type": "MESH",
-      "anchor_world": [
-        0.0,
-        -4.5e-05,
-        -0.025752
-      ],
-      "anchor_relative": [
-        -0.047085,
-        -0.00725,
-        -1.608437
-      ],
-      "linked_targets": [
-        "Incus.l"
-      ],
-      "classification": "marker",
-      "id": "incus.l-003",
-      "index": 3
-    },
-    {
-      "label": "Articular facet for malleus",
-      "source_object": "Articular facet for malleus.i",
-      "object_type": "MESH",
-      "anchor_world": [
-        -0.0,
-        -0.000155,
-        -0.025766
-      ],
-      "anchor_relative": [
-        -0.047085,
-        -0.00736,
-        -1.608451
-      ],
-      "linked_targets": [
-        "Incus.l"
-      ],
-      "classification": "marker",
-      "id": "incus.l-004",
-      "index": 4
-    },
-    {
       "label": "Long limb of incus",
       "source_object": "Long limb of incus.i",
       "object_type": "MESH",
@@ -107,29 +65,50 @@
         "Incus.l"
       ],
       "classification": "marker",
-      "id": "incus.l-005",
-      "index": 5
+      "id": "incus.l-003",
+      "index": 3
     },
     {
-      "label": "Auditory ossicles",
-      "source_object": "Auditory ossicles.j",
+      "label": "Articular facet for stapes",
+      "source_object": "Articular facet for stapes.i",
       "object_type": "MESH",
       "anchor_world": [
-        0.092593,
-        0.004755,
-        1.582167
+        0.0,
+        -0.000622,
+        -0.023329
       ],
       "anchor_relative": [
-        0.045508,
-        -0.00245,
-        -0.000518
+        -0.047085,
+        -0.007827,
+        -1.606014
       ],
       "linked_targets": [
         "Incus.l"
       ],
       "classification": "marker",
-      "id": "incus.l-006",
-      "index": 6
+      "id": "incus.l-004",
+      "index": 4
+    },
+    {
+      "label": "Lenticular process of incus",
+      "source_object": "Lenticular process of incus.i",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.0,
+        -4.5e-05,
+        -0.025752
+      ],
+      "anchor_relative": [
+        -0.047085,
+        -0.00725,
+        -1.608437
+      ],
+      "linked_targets": [
+        "Incus.l"
+      ],
+      "classification": "marker",
+      "id": "incus.l-005",
+      "index": 5
     },
     {
       "label": "Basilar part of occipital bone",
@@ -149,8 +128,8 @@
         "Incus.l"
       ],
       "classification": "marker",
-      "id": "incus.l-007",
-      "index": 7
+      "id": "incus.l-006",
+      "index": 6
     },
     {
       "label": "Jugular notch of occipital bone",
@@ -170,8 +149,8 @@
         "Incus.l"
       ],
       "classification": "marker",
-      "id": "incus.l-008",
-      "index": 8
+      "id": "incus.l-007",
+      "index": 7
     },
     {
       "label": "Jugular process",
@@ -191,8 +170,8 @@
         "Incus.l"
       ],
       "classification": "marker",
-      "id": "incus.l-009",
-      "index": 9
+      "id": "incus.l-008",
+      "index": 8
     },
     {
       "label": "Lateral part of occipital bone",
@@ -212,8 +191,8 @@
         "Incus.l"
       ],
       "classification": "marker",
-      "id": "incus.l-010",
-      "index": 10
+      "id": "incus.l-009",
+      "index": 9
     },
     {
       "label": "Condylar fossa",
@@ -233,8 +212,8 @@
         "Incus.l"
       ],
       "classification": "marker",
-      "id": "incus.l-011",
-      "index": 11
+      "id": "incus.l-010",
+      "index": 10
     },
     {
       "label": "Mastoid border of occipital bone",
@@ -254,8 +233,8 @@
         "Incus.l"
       ],
       "classification": "marker",
-      "id": "incus.l-012",
-      "index": 12
+      "id": "incus.l-011",
+      "index": 11
     },
     {
       "label": "Scaphoid fossa",
@@ -275,8 +254,8 @@
         "Incus.l"
       ],
       "classification": "marker",
-      "id": "incus.l-013",
-      "index": 13
+      "id": "incus.l-012",
+      "index": 12
     },
     {
       "label": "Pterygoid canal",
@@ -296,8 +275,8 @@
         "Incus.l"
       ],
       "classification": "marker",
-      "id": "incus.l-014",
-      "index": 14
+      "id": "incus.l-013",
+      "index": 13
     },
     {
       "label": "Pterygospinous process",
@@ -317,8 +296,8 @@
         "Incus.l"
       ],
       "classification": "marker",
-      "id": "incus.l-015",
-      "index": 15
+      "id": "incus.l-014",
+      "index": 14
     },
     {
       "label": "Carotid sulcus",
@@ -338,8 +317,8 @@
         "Incus.l"
       ],
       "classification": "marker",
-      "id": "incus.l-016",
-      "index": 16
+      "id": "incus.l-015",
+      "index": 15
     },
     {
       "label": "Posterior clinoid process",
@@ -359,8 +338,8 @@
         "Incus.l"
       ],
       "classification": "marker",
-      "id": "incus.l-017",
-      "index": 17
+      "id": "incus.l-016",
+      "index": 16
     },
     {
       "label": "Anterior clinoid process",
@@ -380,8 +359,8 @@
         "Incus.l"
       ],
       "classification": "marker",
-      "id": "incus.l-018",
-      "index": 18
+      "id": "incus.l-017",
+      "index": 17
     },
     {
       "label": "Foramen ovale",
@@ -401,8 +380,8 @@
         "Incus.l"
       ],
       "classification": "marker",
-      "id": "incus.l-019",
-      "index": 19
+      "id": "incus.l-018",
+      "index": 18
     },
     {
       "label": "Foramen spinosum",
@@ -422,8 +401,8 @@
         "Incus.l"
       ],
       "classification": "marker",
-      "id": "incus.l-020",
-      "index": 20
+      "id": "incus.l-019",
+      "index": 19
     },
     {
       "label": "Spine of sphenoid bone",
@@ -443,8 +422,8 @@
         "Incus.l"
       ],
       "classification": "marker",
-      "id": "incus.l-021",
-      "index": 21
+      "id": "incus.l-020",
+      "index": 20
     },
     {
       "label": "Squamosal margin of greater wing",
@@ -464,8 +443,8 @@
         "Incus.l"
       ],
       "classification": "marker",
-      "id": "incus.l-022",
-      "index": 22
+      "id": "incus.l-021",
+      "index": 21
     },
     {
       "label": "Sulcus of auditory tube",
@@ -480,6 +459,27 @@
         -0.023642,
         -0.002327,
         -0.008484
+      ],
+      "linked_targets": [
+        "Incus.l"
+      ],
+      "classification": "marker",
+      "id": "incus.l-022",
+      "index": 22
+    },
+    {
+      "label": "Auditory ossicles",
+      "source_object": "Auditory ossicles.j",
+      "object_type": "MESH",
+      "anchor_world": [
+        0.092593,
+        0.004755,
+        1.582167
+      ],
+      "anchor_relative": [
+        0.045508,
+        -0.00245,
+        -0.000518
       ],
       "linked_targets": [
         "Incus.l"

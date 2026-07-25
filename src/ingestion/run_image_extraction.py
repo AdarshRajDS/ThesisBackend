@@ -6,10 +6,19 @@ from src.utils.logger import get_logger
 logger = get_logger(__name__)
 
 
-def run_image_extraction():
+def run_image_extraction(pdf_names: list[str] | None = None):
 
     raw_path = Path(settings.raw_data_dir)
-    pdf_files = list(raw_path.glob("*.pdf"))
+    if pdf_names:
+        pdf_files = []
+        for name in pdf_names:
+            candidate = raw_path / Path(name).name
+            if candidate.exists():
+                pdf_files.append(candidate)
+            else:
+                logger.warning("Requested PDF not found for image extraction: %s", candidate)
+    else:
+        pdf_files = list(raw_path.glob("*.pdf"))
 
     if not pdf_files:
         logger.warning("No PDFs found.")
